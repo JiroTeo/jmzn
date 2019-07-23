@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+{include file="public/header"}
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form" method="POST" enctype="multipart/form-data">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>品牌名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="name" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                     <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>品牌LOGO</label>
+                        <button type="button" class="layui-btn" id="test1">上传LOGO</button>
+                        <div class="layui-upload-list" style="text-align: center;">
+                            <img class="layui-upload-img" id="demo1" style="width: 200px;">
+                            <p id="demoText"></p>
+                            <input type="hidden" name="img" value="" style="width: 500px" id="image">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>链接选择
+                        </label>
+                        <div class="layui-input-inline" style="width: 400px">
+                            <input type="radio" value="1" title="外链" name="type" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                            <input type="radio" value="2" title="项目" name="type" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                            <input type="radio" value="3" title="文章" name="type" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                     <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>链接内容
+                        </label>
+                        <div class="layui-input-inline" style="width: 400px">
+                            <input type="text" name="link" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+        <div class="layui-form-item layui-form-text">
+            <label for="desc" class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea placeholder="备注：前端页面不展示" style="width:400px" id="desc" name="remarks" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button class="layui-btn" lay-filter="add" lay-submit="">增加</button>
+        </div>
+        </form>
+        </div>
+        </div>
+<script src="__PUBLIC__/dist/layedit.js" charset="utf-8"></script>
+        <script>
+layui.use('upload', function(){
+  var $ = layui.jquery
+  ,upload = layui.upload;
+
+  //普通图片上传
+  var uploadInst = upload.render({
+    elem: '#test1'
+    ,url: "{:url('admin/index/uploadImage')}"
+    ,before: function(obj){
+      //预读本地文件示例，不支持ie8
+      obj.preview(function(index, file, result){
+        $('#demo1').attr('src', result); //图片链接（base64）
+      });
+    }
+    ,done: function(res){
+      //如果上传失败
+      if(res.code > 0){
+        return layer.msg('上传失败');
+      }
+      //上传成功
+      $('#image').attr('value',res.data.src); //图片链接（base64）
+    }
+    ,error: function(){
+      //演示失败状态，并实现重传
+      var demoText = $('#demoText');
+      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+      demoText.find('.demo-reload').on('click', function(){
+        uploadInst.upload();
+      });
+    }
+  });
+});
+        </script>
+        <script>var _hmt = _hmt || []; (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    </body>
+
+</html>

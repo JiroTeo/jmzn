@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://www.jiamengzhinan.com/#/consultDetail?id=2 -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1"><title>资讯详情</title>
+	<link href="__STATIC__/admin/css/app.articledetail.css" rel="stylesheet">
+</head>
+<body>
+
+
+    <div data-v-b5d42fdc="" class="wrapper clearfix">
+        <div data-v-b5d42fdc="" class="crumbs">资讯详情</div>
+        <div data-v-b5d42fdc="" class="article fl">
+        	<div data-v-b5d42fdc="" class="title">{$data.title}
+        	</div>
+	        <div data-v-b5d42fdc="" class="subhead between">
+	        	<div data-v-b5d42fdc="">作者：{$data.username} &nbsp;&nbsp;
+                    发布时间：{$data.addtime} &nbsp;&nbsp;
+                    类型：{$data.type} &nbsp;&nbsp;
+                    阅读量：{$data.read_num}
+	        	</div>
+	        </div>
+            <div data-v-b5d42fdc="" class="content">
+	        	<p>资讯简介：</p>
+                {$data.sign}
+			</div>
+	        <div data-v-b5d42fdc="" class="content">
+                <p>资讯详情：</p>
+	        	{$data.detail}
+			</div>
+		</div>
+
+	</div>
+<div data-v-b5d42fdc="" class="wrapper">
+	<div data-v-b5d42fdc="" class="articleConsult ">
+	<div data-v-b5d42fdc="" class="title">
+        文章评论
+
+      </div>
+      <div data-v-b5d42fdc="" class="consult">
+      	<div data-v-b5d42fdc="" class="count">
+          共{$commentNum}条评论
+        </div>
+
+{if $comment != []}
+{foreach $comment as $key => $value}
+          <div data-v-b5d42fdc="" class="consultItem clearfix">
+              <img data-v-b5d42fdc="" src="__PUBLIC__{$value.avatar}" alt="" class="avatar fl">
+              	<div data-v-b5d42fdc="" class="info fl">
+              	<div data-v-b5d42fdc="" class="name">
+              {$value.username}{$value.uid}
+              <div data-v-b5d42fdc="" data-id="item.id" class="fr noPraise"><span data-v-b5d42fdc="" class="iconfont icon-praise"></span> 0
+
+              </div>
+              </div>
+                  <div data-v-b5d42fdc="">{$value.content}
+                  </div>
+{if $value.child != []}
+{foreach $value.child as $k => $v}
+                <div data-v-b5d42fdc="" class="reply">
+                    <div data-v-b5d42fdc="">{$v.username}：{$v.content}</div>
+                </div>
+{/foreach}
+{/if}
+                  <div data-v-b5d42fdc="" class="time clearfix"><span data-v-b5d42fdc="" class="fl">{$value.addtime}</span>
+                  </div>
+              </div>
+          </div>
+{/foreach}
+{/if}
+
+      </div>
+          </div>
+          </div>
+          </div>
+</body>
+</html>

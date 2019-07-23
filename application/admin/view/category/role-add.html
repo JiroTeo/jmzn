@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>添加分类页面</title>
+</head>
+<body>
+	<form action="category_add" method="post">
+		分类名<input type="" name="name"><br>
+		{foreach name = 'data' id = 'v'}
+		{$v['name']}<input name='pid' type="checkbox" value={$v.id}> 
+		{$v['name']}<input name='path' type="hidden" value={$v.path}> 
+		{/foreach}
+		<br>
+		<input type="submit" name="">
+        
+	</form>
+</body>
+</html>

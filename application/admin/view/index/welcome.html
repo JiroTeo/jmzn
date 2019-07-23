@@ -1,0 +1,228 @@
+{include file="public/header"}
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body ">
+                            <blockquote class="layui-elem-quote">欢迎管理员：
+                                <span class="x-red">{$_SESSION['admin']['username']}</span>！当前时间:{$data.time}
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">数据统计</div>
+                        <div class="layui-card-body ">
+                            <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
+                                <li class="layui-col-md2 layui-col-xs6" style="width: 160px">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>项目数</h3>
+                                        <p>
+                                            <cite>{$data['item_num']}</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6" style="width: 160px">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>文章数</h3>
+                                        <p>
+                                            <cite>{$data['article_num']}</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6" style="width: 160px">
+                                <a href="javascript:;" class="x-admin-backlog-body">
+                                    <h3>企业用户数量</h3>
+                                    <p>
+                                        <cite>{$data['ent_user_num']}</cite></p>
+                                </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6" style="width: 160px">
+                                <a href="javascript:;" class="x-admin-backlog-body">
+                                    <h3>普通用户数量</h3>
+                                    <p>
+                                        <cite>{$data['user_num']}</cite></p>
+                                </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6" style="width: 160px">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>评论数</h3>
+                                        <p>
+                                            <cite>{$data['commnet_num']}</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6" style="width: 160px">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>回复数</h3>
+                                        <p>
+                                            <cite>{$data['to_commnet_num']}</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6" style="width: 160px">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>咨询数</h3>
+                                        <p>
+                                            <cite>{$data['consult_num']}</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6" style="width: 160px">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>留言数</h3>
+                                        <p>
+                                            <cite>{$data['mess_num']}</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6" style="width: 160px">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>跟进数</h3>
+                                        <p>
+                                            <cite>{$data['mess_num']}</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6" style="width: 160px">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>评估数量</h3>
+                                        <p>
+                                            <cite>{$data['ass_num']}</cite></p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm6 layui-col-md3" style="width: 200px">
+                    <div class="layui-card">
+                        <div class="layui-card-header">昨日新增用户量
+                            <span class="layui-badge layui-bg-cyan layuiadmin-badge">日</span>
+                        </div>
+                        <div class="layui-card-body  ">
+                            <p class="layuiadmin-big-font">{$yesterdayData['user_num']}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm6 layui-col-md3" style="width: 200px">
+                    <div class="layui-card">
+                        <div class="layui-card-header">昨日新增文章数
+                            <span class="layui-badge layui-bg-cyan layuiadmin-badge">日</span>
+                        </div>
+                        <div class="layui-card-body  ">
+                            <p class="layuiadmin-big-font">{$yesterdayData['article_num']}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm6 layui-col-md3" style="width: 200px">
+                    <div class="layui-card">
+                        <div class="layui-card-header">昨日新增项目数
+                            <span class="layui-badge layui-bg-cyan layuiadmin-badge">日</span>
+                        </div>
+                        <div class="layui-card-body  ">
+                            <p class="layuiadmin-big-font">{$yesterdayData['item_num']}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm6 layui-col-md3" style="width: 200px">
+                    <div class="layui-card">
+                        <div class="layui-card-header">昨日新增评论数
+                            <span class="layui-badge layui-bg-cyan layuiadmin-badge">日</span>
+                        </div>
+                        <div class="layui-card-body  ">
+                            <p class="layuiadmin-big-font">{$yesterdayData['commnet_num']}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm6 layui-col-md3" style="width: 200px">
+                    <div class="layui-card">
+                        <div class="layui-card-header">昨日新增咨询数
+                            <span class="layui-badge layui-bg-cyan layuiadmin-badge">日</span>
+                        </div>
+                        <div class="layui-card-body  ">
+                            <p class="layuiadmin-big-font">{$yesterdayData['consult_num']}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm6 layui-col-md3" style="width: 200px">
+                    <div class="layui-card">
+                        <div class="layui-card-header">昨日新增留言数
+                            <span class="layui-badge layui-bg-cyan layuiadmin-badge">日</span>
+                        </div>
+                        <div class="layui-card-body  ">
+                            <p class="layuiadmin-big-font">{$yesterdayData['mess_num']}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm6 layui-col-md3" style="width: 200px">
+                    <div class="layui-card">
+                        <div class="layui-card-header">昨日新增评估数
+                            <span class="layui-badge layui-bg-cyan layuiadmin-badge">日</span>
+                        </div>
+                        <div class="layui-card-body  ">
+                            <p class="layuiadmin-big-font">{$yesterdayData['ass_num']}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">系统信息</div>
+                        <div class="layui-card-body ">
+                            <table class="layui-table">
+                                <tbody>
+                                    <tr>
+                                        <th>xxx版本</th>
+                                        <td>1.0.180420</td></tr>
+                                    <tr>
+                                        <th>服务器地址</th>
+                                        <td>{$config.url}</td></tr>
+                                    <tr>
+                                        <th>操作系统</th>
+                                        <td>{$config.server_os}</td></tr>
+                                    <tr>
+                                        <th>运行环境</th>
+                                        <td>{$config.server_soft}</td></tr>
+                                    <tr>
+                                        <th>PHP版本</th>
+                                        <td>{$config.php_version}</td></tr>
+                                    <tr>
+                                        <th>PHP运行方式</th>
+                                        <td><?php echo php_sapi_name();?></td></tr>
+                                    <tr>
+                                        <th>MYSQL版本</th>
+                                        <td>{$config.mysql_version}</td></tr>
+                                    <tr>
+                                        <th>ThinkPHP</th>
+                                        <td>{$Think.VERSION}</td></tr>
+                                    <tr>
+                                        <th>上传附件限制</th>
+                                        <td>{$config.max_upload_size}</td></tr>
+                                    <tr>
+                                        <th>剩余空间</th>
+                                        <td>{$config.disk_free_space}M</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">开发团队</div>
+                        <div class="layui-card-body ">
+                            <table class="layui-table">
+                                <tbody>
+                                    <tr>
+                                        <th>版权所有</th>
+                                        <td>JiroTeo
+                                            <a href="http://www.jiamengzhinan.com/" target="_blank">访问官网</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>开发者</th>
+                                        <td>张进(807314816@qq.com)</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <style id="welcome_style"></style>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

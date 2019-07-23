@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+{include file="public/header"}
+
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form" method="POST" action="" enctype="multipart/form-data">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>项目名字</label>
+                        <div class="layui-input-inline">
+                            <input value="{$data.item_name}" type="text"  name="item_name" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                            <input value="{$data.id}" type="hidden"  name="id" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>封面图</label>
+                        <button type="button" class="layui-btn" id="test1">上传封面图</button>
+                        <div class="layui-upload-list">
+                            <img class="layui-upload-img" id="demo1" style="width: 100px;" src="__PUBLIC__{$data.img}">
+                            <p id="demoText"></p>
+                            <input type="hidden" name="img" value="{$data.img}" style="width: 500px" id="image">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>轮播图</label>
+                        <div class="layui-input-inline">
+                                <button type="button" class="layui-btn" id="test2">上传轮播图</button>
+                                  <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                                    预览图：
+                                    <div class="layui-upload-list" id="demo2">
+{foreach $data.image as $key =>$value }
+                                        <img src="__PUBLIC__/{$value}" style="with:100px;height: 100px" class="layui-upload-img">
+{/foreach}
+                                    </div>
+                                 </blockquote>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>品牌名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  name="brand" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>品牌logo</label>
+                        <div class="layui-input-inline">
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="test3">LOGO</button>
+                                <div class="layui-upload-list">
+                                    <img class="layui-upload-img" style="width: 100px;" id="demo3">
+                                    <p id="demoText1"></p>
+                                    <input type="hidden" name="logo" value="" style="width: 500px" id="logo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>所属公司</label>
+                        <div class="layui-input-inline">
+                            <input value="{$data.company}" type="text"  name="company" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label">
+                            <span class="x-red"></span>官网链接</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  value="{$data.href}" name="href" required="" lay-verify="" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>品牌注册时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  value="{$data.brand_make_time}" name="brand_make_time" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>加盟店数量</label>
+                        <div class="layui-input-inline">
+                            <input type="number" value="{$data.fran_store_num}"  name="fran_store_num" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    </div>
+                     <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>店铺数量</label>
+                        <div class="layui-input-inline">
+                            <input type="number" value="{$data.shop_count}"  name="shop_count" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>行业选择</label>
+                        <div class="layui-input-inline">
+                            <select id="shipping" name="cate_id" class="valid">
+{foreach $cate as $key =>$value }
+                                <option value="{$value.id}" <?php if($data['cate_id'] == $value['id']){  echo "selected";} ?>>{$value.name}</option>
+{foreach $value.child as $k =>$v }
+                                <option value="{$v.id}" <?php if($data['cate_id'] == $v['id']){  echo "selected";} ?> >|-{$v.name}</option>
+{/foreach}
+{/foreach}
+                                </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>加盟区域</label>
+                        <div class="layui-input-inline">
+                            <select name="item_area">
+{foreach $city as $key =>$value }
+                                <option value="{$value.id}" <?php if($data['item_area'] == $value['id']){  echo "selected";} ?> >{$value.cityname}</option>
+{foreach $value.child as $k =>$v }
+                                <option value="{$v.id}" <?php if($data['item_area'] == $v['id']){  echo "selected";} ?> >|-{$v.cityname}</option>
+{/foreach}
+{/foreach}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>最小投资金额</label>
+                        <div class="layui-input-inline">
+                            <input type="address" value="{$data.min_money}"  name="min_money" required="" lay-verify="" autocomplete="off" class="layui-input"></div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red"></span></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>最大投资金额</label>
+                        <div class="layui-input-inline">
+                            <input type="address"  value="{$data.max_money}" name="max_money" required="" lay-verify="" autocomplete="off" class="layui-input"></div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red"></span></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>注册地址</label>
+                        <div class="layui-input-inline">
+                            <input type="address"  name="address" value="{$data.address}" required="" lay-verify="" autocomplete="off" class="layui-input"></div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red"></span></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>经营范围</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  name="scope" value="{$data.scope}" required="" lay-verify="" autocomplete="off" class="layui-input"></div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red"></span></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>注册资金</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  value="{$data.money}" name="money" required="" lay-verify="" autocomplete="off" class="layui-input"></div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red"></span></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>公司性质</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  name="character" value="{$data.character}" required="" lay-verify="" autocomplete="off" class="layui-input"></div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red"></span></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>适合人群</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  name="crowd" value="{$data.crowd}" required="" lay-verify="" autocomplete="off" class="layui-input"></div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red"></span></div>
+                    </div>
+        <div class="layui-form-item layui-form-text">
+            <label for="desc" class="layui-form-label">项目介绍</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" id="desc" name="recommend" class="layui-textarea">{$data.recommend}</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label"></label>
+            <button class="layui-btn" lay-filter="add" lay-submit="">增加</button></div>
+        </form>
+        </div>
+        </div>
+<script src="__PUBLIC__/dist/layedit.js" charset="utf-8"></script>
+        <script>
+layui.use('upload', function(){
+  var $ = layui.jquery
+  ,upload = layui.upload;
+
+  //普通图片上传
+  var uploadInst = upload.render({
+    elem: '#test1'
+    ,url: "{:url('admin/index/uploadImage')}"
+    ,before: function(obj){
+      //预读本地文件示例，不支持ie8
+      obj.preview(function(index, file, result){
+        $('#demo1').attr('src', result); //图片链接（base64）
+      });
+    }
+    ,done: function(res){
+      //如果上传失败
+      if(res.code > 0){
+        return layer.msg('上传失败');
+      }
+      //上传成功
+      $('#image').attr('value',res.data.src); //图片链接（base64）
+    }
+    ,error: function(){
+      //演示失败状态，并实现重传
+      var demoText = $('#demoText');
+      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+      demoText.find('.demo-reload').on('click', function(){
+        uploadInst.upload();
+      });
+    }
+  });
+  //
+  var uploadInst = upload.render({
+    elem: '#test3'
+    ,url: "{:url('admin/index/uploadImage')}"
+    ,before: function(obj){
+      //预读本地文件示例，不支持ie8
+      obj.preview(function(index, file, result){
+        $('#demo3').attr('src', result); //图片链接（base64）
+      });
+    }
+    ,done: function(res){
+      //如果上传失败
+      if(res.code > 0){
+        return layer.msg('上传失败');
+      }
+      //上传成功
+      $('#logo').attr('value',res.data.src); //图片链接（base64）
+    }
+    ,error: function(){
+      //演示失败状态，并实现重传
+      var demoText = $('#demoText2');
+      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+      demoText.find('.demo-reload').on('click', function(){
+        uploadInst.upload();
+      });
+    }
+  });
+
+  //多图片上传
+  upload.render({
+    elem: '#test2'
+    ,url: "{:url('admin/index/uploadImage')}"
+    ,multiple: true
+    ,before: function(obj){
+      //预读本地文件示例，不支持ie8
+      $('#demo2').empty();
+      obj.preview(function(index, file, result){
+        $('#demo2').append('<img src="'+ result +'" style="width: 100px;height: 100px" alt="'+ file.name +'" class="layui-upload-img">')
+      });
+    }
+    ,done: function(res){
+      //上传完毕
+           $('#demo2').append('<input type="hidden" name="image[]" value="'+res.data.src+'">');
+    }
+  });
+});
+        </script>
+        <script>var _hmt = _hmt || []; (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    </body>
+
+</html>

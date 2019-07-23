@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>发布文章</title>
+</head>
+<body>
+
+<link rel="stylesheet" href="__PUBLIC__/kindeditor-master/themes/default/default.css"> <!-- 编辑器css -->
+ 
+<div>
+	<form action="article_add" method="post" enctype="multipart/form-data">
+<br>
+文章标题<input type="text" name="title" value="">
+<input type="hidden" name="item_id" value="{$item_id}">
+					<div class="layui-form-item">
+                        <label for="" class="layui-form-label">
+                            <span class="x-red"></span>封面图</label>
+                        <div class="layui-input-inline">
+                            <input type="file" name="image[]" >
+                            <input type="file" name="image[]" >
+                            <input type="file" name="image[]" >
+                        </div>
+                    </div>
+
+		     <div class="controls"> 
+           <p><textarea id="ke_c" name="detail" cols="26" rows="26"> </textarea></p>
+     </div>
+行业报告<input type="radio" name="type" value="0">
+资讯<input type="radio" name="type" value="1">
+加盟攻略<input type="radio" name="type" value="2">
+<input type="submit" name="">
+</form>
+</div>
+ 
+<script src="__PUBLIC__/kindeditor-master/kindeditor-all-min.js"></script>  <!-- 编辑器js -->
+<script src="__PUBLIC__/kindeditor-master/lang/zh-CN.js"></script>
+<script>
+            var editor;
+            KindEditor.ready(function(K) {
+                K.create('#ke_c', {
+                    allowFileManager : true
+                });
+            });
+
+</script>	
+</body>
+</html>

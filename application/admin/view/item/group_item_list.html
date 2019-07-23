@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+    <head>
+{include file="public/header"}
+    </head>
+
+    <body>
+        <div class="x-nav">
+            <span class="layui-breadcrumb">
+                <a href="">首页</a>
+                <a href="">演示</a>
+                <a>
+                    <cite>导航元素</cite></a>
+            </span>
+            <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+                <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+            </a>
+        </div>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body ">
+                            <table class="layui-table layui-form">
+                                <thead>
+                                    <tr>
+                                        <th>项目id</th>
+                                        <th>封面图</th>
+                                        <th>品牌名</th>
+                                        <th>投资金额</th>
+                                        <th>所属公司</th>
+                                        <th>注册地址</th>
+                                        <th>所属行业</th>
+                                        <th>加盟区域</th>
+                                        <th>公司性质</th>
+                                        <th>是否推荐</th>
+                                        <th>操作</th></tr>
+                                </thead>
+                                <tbody>
+{foreach $data as $key =>$value }
+                                    <tr>
+                                        <td>{$value.id}</td>
+                                        <td>
+                                            <img src="__PUBLIC__{$value.img}" class="img" width="300">
+                                        </td>
+                                        <td>{$value.brand}</td>
+                                        <td>{$value.money}</td>
+                                        <td>{$value.company}</td>
+                                        <td>{$value.address}</td>
+                                        <td>{$value.cate_name}</td>
+                                        <td>{$value.item_area}</td>
+                                        <td>{$value.character}</td>
+
+                                        <td>
+{if $value.reco_brand == 0}
+                                            <a href="{:url('admin/group/changeGroupSub')}?gid={$gid}&tid={$value.id}&reco_brand=1">
+                                                <button class="layui-btn"><i class="layui-icon"></i>精选展示[品牌]</button>
+                                            </a>
+{/if}
+{if $value.reco_brand == 1}
+                                            <a href="{:url('admin/group/changeGroupSub')}?gid={$gid}&tid={$value.id}&reco_brand=0">
+                                                <button class="layui-btn"style="background: #880000"><i class="layui-icon">&#xe640;</i>取消展示[品牌]</button>
+                                            </a>
+{/if}
+{if $value.reco_img == 0}
+                                            <a href="{:url('admin/group/changeGroupSub')}?gid={$gid}&tid={$value.id}&reco_img=1">
+                                                <button class="layui-btn"><i class="layui-icon"></i>精选展示[封面]</button>
+                                            </a>
+{/if}
+{if $value.reco_img == 1}
+                                            <a href="{:url('admin/group/changeGroupSub')}?gid={$gid}&tid={$value.id}&reco_img=0">
+                                                <button class="layui-btn"style="background: #880000"><i class="layui-icon">&#xe640;</i>取消展示[封面]</button>
+                                            </a>
+{/if}
+
+                                        </td>
+                                        <td class="td-manage">
+                                            <a href="{:url('admin/group/changeGroupSub')}?gid={$gid}&tid={$value.id}&status=0&type='del'">
+                                                <i class="layui-icon">&#xe640;</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+{/foreach}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="layui-card-body ">
+                            <div class="page">
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>layui.use(['laydate', 'form'],
+        function() {
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start' //指定元素
+            });
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#end' //指定元素
+            });
+        });
+
+        /*用户-删除*/
+        function member_del(obj, id) {
+            layer.confirm('确认要删除吗？',
+            function(index) {
+               //发送ajax删除数据
+                $.ajax({
+                type: "POST",
+                url: 'del_item',
+                data:{
+                    id:id,
+                },
+                });
+                //发异步删除数据
+                $(obj).parents("tr").remove();
+                layer.msg('已删除!', {
+                    icon: 1,
+                    time: 1000
+                });
+            });
+        }
+        //项目排序
+        $("input").blur(function(){
+            var order = $(this).val();
+            var id = $(this).attr('id');
+            $.ajax({
+                type: "POST",
+                url: "{:url('admin/item/item_order')}",
+                data:{
+                    order:order,
+                    id:id,
+                },
+                success: function(data){
+                if(data == 1){
+                    layer.alert('成功');return;
+                }else{
+                    layer.alert('失败');return;
+                }
+
+             }
+            });
+        });
+
+    </script>
+
+</html>
