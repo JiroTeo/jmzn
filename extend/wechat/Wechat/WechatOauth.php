@@ -37,7 +37,8 @@ class WechatOauth extends Common
      * @param string $scope 授权类类型(可选值snsapi_base|snsapi_userinfo)
      * @return string
      */
-    public function getOauthRedirect($callback, $state = '', $scope = 'snsapi_base'){
+    public function getOauthRedirect($callback, $state = '', $scope = 'snsapi_base')
+    {
         $redirect_uri = urlencode($callback);
         return self::OAUTH_PREFIX . self::OAUTH_AUTHORIZE_URL . "appid={$this->appid}&redirect_uri={$redirect_uri}&response_type=code&scope={$scope}&state={$state}#wechat_redirect";
     }

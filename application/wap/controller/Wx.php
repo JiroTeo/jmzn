@@ -17,9 +17,10 @@ class wx extends Base {
         $wechat = [];
         // SDK实例对象
         $oauth = &load_wechat('Oauth');
-        $callback = "https://wap.jiamengzhinan.com/wx/index";
-        $state = input('state');
-        $scope = "snsapi_userinfo";
+        $callback = "wap.jiamengzhinan.com/wx/index";
+        $state = 5;
+
+        $scope = "snsapi_base";
         // 执行接口操作
         $result = $oauth->getOauthRedirect($callback, $state, $scope);
         // 处理返回结果

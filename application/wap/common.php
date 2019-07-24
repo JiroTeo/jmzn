@@ -1,10 +1,9 @@
 <?php
 
 use think\Config;
-use wechat\Loader;
+use Wechat\Loader;
 
-function & load_wechat($type = '')
-{
+function & load_wechat($type = ''){
 
     static $wechat = array();
     $index = md5(strtolower($type));
