@@ -16,7 +16,7 @@ class wx extends Base {
     public function getOpenId(){
         // SDK实例对象
         $oauth = &load_wechat('Oauth');
-        $callback = self::$url . "/wx/Wxlogin/WxCallBack";
+        $callback = self::$url . "/wx/index";
         $state = input('state');
         $scope = "snsapi_userinfo";
         // 执行接口操作
