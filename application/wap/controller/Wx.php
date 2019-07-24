@@ -1,7 +1,7 @@
 <?php
 namespace app\wap\controller;
 use think\Cache;
-use wechat\WechatOauth;
+use wechat\Wechat;
 class wx extends Base {
 
     // 构造方法
@@ -14,9 +14,10 @@ class wx extends Base {
 
     /*  获取用户微信   */
     public function getOpenId(){
+        $wechat = [];
         // SDK实例对象
         $oauth = &load_wechat('Oauth');
-        $callback = self::$url . "/wx/index";
+        $callback = "https://wap.jiamengzhinan.com/wx/index";
         $state = input('state');
         $scope = "snsapi_userinfo";
         // 执行接口操作

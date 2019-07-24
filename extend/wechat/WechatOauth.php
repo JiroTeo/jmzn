@@ -1,176 +1,138 @@
 <?php
-	
-/**
- * Created by PhpStorm.
- * UserModel: Administrator
- * Date: 2019/7/22
- * Time: 18:01
- */
-namespace wechat;
 
-use think\Cache;
+// +----------------------------------------------------------------------
+// | wechat-php-sdk
+// +----------------------------------------------------------------------
+// | 版权所有 2014~2017 广州楚才信息科技有限公司 [ http://www.cuci.cc ]
+// +----------------------------------------------------------------------
+// | 官方文档: https://www.kancloud.cn/zoujingli/wechat-php-sdk
+// +----------------------------------------------------------------------
+// | 开源协议 ( https://mit-license.org )
+// +----------------------------------------------------------------------
+// | github开源项目：https://github.com/zoujingli/wechat-php-sdk
+// +----------------------------------------------------------------------
+
+namespace Wechat;
+
+use Wechat\Lib\Common;
+use Wechat\Lib\Tools;
 
 /**
- * @package 微信授权控制器
+ * 微信网页授权
  */
-class WechatOauth {
-	//微信授权配置信息
-	private $appId;
-	private $appSecret;
-	
-     public function _initialize($appid = false , $appSecret = false ){
-         if(empty($appid) || empty($appSecret)){
-             return false;
-         }
-         $this->appId = $appid;
-         $this->appSecret = $appSecret;
-     }
-	/**
-	 * 获取openid
-	 * @return string|mixed
-	 */
-	public function getUserAccessUserInfo($code = ""){
-		if(empty($code)){
-			$baseUrl = request()->url(true);
-			$url = $this->getSingleAuthorizeUrl($baseUrl, "123");
-			Header("Location: $url");
-			exit();
-		}else{
-			$access_token = $this->getAccessToken();
-			return $this->getUserInfo($access_token);
-		}
-	}
-	/**
-	 * 微信授权链接
-	 * @param  string $redirect_uri 要跳转的地址
-	 * @return [type]               授权链接
-	 */
-	public function getSingleAuthorizeUrl($redirect_url = "",$state = '1') {
-		$redirect_url = urlencode($redirect_url);
-		return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" . $this->appId . "&redirect_uri=".$redirect_url."&response_type=code&scope=snsapi_userinfo&state={$state}#wechat_redirect";
-	}
-	/**
-	 * 获取token
-	 * @return [type] 返回token
-	 */
-	public function getAccessToken() {
-		$keyname = "-access-token";
-		if (Cache::has($keyname)){
-			$data = json_decode(Cache::get($keyname));
-			$access_token = $data->access_token;
-		}else {
-			$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appId&secret=$this->appSecret";
-			$res = json_decode($this->httpGet($url));
-			$access_token = $res->access_token;
-			if ($access_token) {
-				$res->expire_time = time() + 7198;
-				$res->access_token = $access_token;
-				$expire = 60 * 119;
-				Cache::set($keyname,json_encode($res),$expire);
-			}
-		}
-		return $access_token;
-	}
-	
-	/**
-	 * 发送curl请求
-	 * @param $url string
-	 * @param return array|mixed
-	 */
-	public function https_request($url)
-	{
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		$AjaxReturn = curl_exec($curl);
-		//获取access_token和openid,转换为数组
-		$data = json_decode($AjaxReturn,true);
-		curl_close($curl);
-		return $data;
-	}
-	/**
-	 * @explain
-	 * 通过code获取用户openid以及用户的微信号信息
-	 * @return array|mixed
-	 * @remark
-	 * 获取到用户的openid之后可以判断用户是否有数据，可以直接跳过获取access_token,也可以继续获取access_token
-	 * access_token每日获取次数是有限制的，access_token有时间限制，可以存储到数据库7200s. 7200s后access_token失效
-	 **/
-	public function getUserInfo($access_token = [])
-	{
-		if(!$access_token){
-			return [
-				'code' => 0,
-				'msg' => '微信授权失败',
-			];
-		}
-		$userinfo_url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token['access_token'].'&openid='.$access_token['openid'].'&lang=zh_CN';
-		$userinfo_json = $this->https_request($userinfo_url);
-		
-		//获取用户的基本信息，并将用户的唯一标识保存在session中
-		if(!$userinfo_json){
-			return [
-				'code' => 0,
-				'msg' => '获取用户信息失败！',
-			];
-		}
-		return $userinfo_json;
-	}
-	
-	private function getParams($params){
-		ksort($params);
-		$sign = '';
-		foreach ($params as $key => $val) {
-			if ($key != 'sign' && isset($val)) {
-				$sign .= $key . "=" . $val . "&";
-			}
-		}
-		return rtrim($sign, '&');
-	}
-	private function createNonceStr($length = 16) {
-		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		$str = "";
-		for ($i = 0; $i < $length; $i++) {
-			$str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
-		}
-		return $str;
-	}
-	
-    /***
-	 * 获取小程序的Opendid
-	 * @param $code
-	 * @return mixed
-	 */
-	public function getUserOpendIdinfo($code){
-		$url = "https://api.weixin.qq.com/sns/jscode2session";
-        $url .= "?appid=".$this->appId;
-        $url .= "&secret=".$this->appSecret;
-        $url .= "&js_code=".$code."&grant_type=authorization_code";
-		$hget = $this -> httpGet($url);
-		$rinfo = json_decode($hget,true);
-		return $rinfo;
-	}
-	
-	/***
-	 * @param $url
-	 * @return bool|string
-	 */
-	private function httpGet($url) {
-		$curl = curl_init();
-		$cainfo = ROOT_PATH.'/public/cert/cacert.pem';
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_TIMEOUT, 500);
-		// 为保证第三方服务器与微信服务器之间数据传输的安全性，所有微信接口采用https方式调用，必须使用下面2行代码打开ssl安全校验。
-		// 如果在部署过程中代码在此处验证失败，请到 http://curl.haxx.se/ca/cacert.pem 下载新的证书判别文件。
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
-		curl_setopt($curl, CURLOPT_CAINFO, $cainfo);
-		curl_setopt($curl, CURLOPT_URL, $url);
-		
-		$res = curl_exec($curl);
-		curl_close($curl);
-		
-		return $res;
-	}
+class WechatOauth extends Common
+{
+
+    const OAUTH_PREFIX = 'https://open.weixin.qq.com/connect/oauth2';
+    const OAUTH_AUTHORIZE_URL = '/authorize?';
+    const OAUTH_TOKEN_URL = '/sns/oauth2/access_token?';
+    const OAUTH_REFRESH_URL = '/sns/oauth2/refresh_token?';
+    const OAUTH_USERINFO_URL = '/sns/userinfo?';
+    const OAUTH_AUTH_URL = '/sns/auth?';
+
+    /**
+     * Oauth 授权跳转接口
+     * @param string $callback 授权回跳地址
+     * @param string $state 为重定向后会带上state参数（填写a-zA-Z0-9的参数值，最多128字节）
+     * @param string $scope 授权类类型(可选值snsapi_base|snsapi_userinfo)
+     * @return string
+     */
+    public function getOauthRedirect($callback, $state = '', $scope = 'snsapi_base')
+    {
+        $redirect_uri = urlencode($callback);
+        return self::OAUTH_PREFIX . self::OAUTH_AUTHORIZE_URL . "appid={$this->appid}&redirect_uri={$redirect_uri}&response_type=code&scope={$scope}&state={$state}#wechat_redirect";
+    }
+
+    /**
+     * 通过 code 获取 AccessToken 和 openid
+     * @return bool|array
+     */
+    public function getOauthAccessToken()
+    {
+        $code = isset($_GET['code']) ? $_GET['code'] : '';
+        if (empty($code)) {
+            Tools::log("getOauthAccessToken Fail, Because there is no access to the code value in get.", "MSG - {$this->appid}");
+            return false;
+        }
+        $result = Tools::httpGet(self::API_BASE_URL_PREFIX . self::OAUTH_TOKEN_URL . "appid={$this->appid}&secret={$this->appsecret}&code={$code}&grant_type=authorization_code");
+        if ($result) {
+            $json = json_decode($result, true);
+            if (empty($json) || !empty($json['errcode'])) {
+                $this->errCode = isset($json['errcode']) ? $json['errcode'] : '505';
+                $this->errMsg = isset($json['errmsg']) ? $json['errmsg'] : '无法解析接口返回内容！';
+                Tools::log("WechatOauth::getOauthAccessToken Fail.{$this->errMsg} [{$this->errCode}]", "ERR - {$this->appid}");
+                return false;
+            }
+            return $json;
+        }
+        return false;
+    }
+
+    /**
+     * 刷新access token并续期
+     * @param string $refresh_token
+     * @return bool|array
+     */
+    public function getOauthRefreshToken($refresh_token)
+    {
+        $result = Tools::httpGet(self::API_BASE_URL_PREFIX . self::OAUTH_REFRESH_URL . "appid={$this->appid}&grant_type=refresh_token&refresh_token={$refresh_token}");
+        if ($result) {
+            $json = json_decode($result, true);
+            if (empty($json) || !empty($json['errcode'])) {
+                $this->errCode = isset($json['errcode']) ? $json['errcode'] : '505';
+                $this->errMsg = isset($json['errmsg']) ? $json['errmsg'] : '无法解析接口返回内容！';
+                Tools::log("WechatOauth::getOauthRefreshToken Fail.{$this->errMsg} [{$this->errCode}]", "ERR - {$this->appid}");
+                return false;
+            }
+            return $json;
+        }
+        return false;
+    }
+
+    /**
+     * 获取授权后的用户资料
+     * @param string $access_token
+     * @param string $openid
+     * @return bool|array {openid,nickname,sex,province,city,country,headimgurl,privilege,[unionid]}
+     * 注意：unionid字段 只有在用户将公众号绑定到微信开放平台账号后，才会出现。建议调用前用isset()检测一下
+     */
+    public function getOauthUserInfo($access_token, $openid)
+    {
+        $result = Tools::httpGet(self::API_BASE_URL_PREFIX . self::OAUTH_USERINFO_URL . "access_token={$access_token}&openid={$openid}");
+        if ($result) {
+            $json = json_decode($result, true);
+            if (empty($json) || !empty($json['errcode'])) {
+                $this->errCode = isset($json['errcode']) ? $json['errcode'] : '505';
+                $this->errMsg = isset($json['errmsg']) ? $json['errmsg'] : '无法解析接口返回内容！';
+                Tools::log("WechatOauth::getOauthUserInfo Fail.{$this->errMsg} [{$this->errCode}]", "ERR - {$this->appid}");
+                return false;
+            }
+            return $json;
+        }
+        return false;
+    }
+
+    /**
+     * 检验授权凭证是否有效
+     * @param string $access_token
+     * @param string $openid
+     * @return bool 是否有效
+     */
+    public function getOauthAuth($access_token, $openid)
+    {
+        $result = Tools::httpGet(self::API_BASE_URL_PREFIX . self::OAUTH_AUTH_URL . "access_token={$access_token}&openid={$openid}");
+        if ($result) {
+            $json = json_decode($result, true);
+            if (empty($json) || !empty($json['errcode'])) {
+                $this->errCode = isset($json['errcode']) ? $json['errcode'] : '505';
+                $this->errMsg = isset($json['errmsg']) ? $json['errmsg'] : '无法解析接口返回内容！';
+                Tools::log("WechatOauth::getOauthAuth Fail.{$this->errMsg} [{$this->errCode}]", "ERR - {$this->appid}");
+                return false;
+            } elseif (intval($json['errcode']) === 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
