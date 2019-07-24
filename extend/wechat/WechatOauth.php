@@ -15,11 +15,15 @@ use think\Cache;
  */
 class WechatOauth {
 	//微信授权配置信息
-	private $appId = 'wx7e7ede5ffa32bca1';
-	private $appSecret = '69908f6daef82a371d265db70edaf840';
+	private $appId;
+	private $appSecret;
 	
-     public function _initialize(){
-
+     public function _initialize($appid = false , $appSecret = false ){
+         if(empty($appid) || empty($appSecret)){
+             return false;
+         }
+         $this->appId = $appid;
+         $this->appSecret = $appSecret;
      }
 	/**
 	 * 获取openid
@@ -133,15 +137,19 @@ class WechatOauth {
 		return $str;
 	}
 	
-	/***
+    /***
 	 * 获取小程序的Opendid
 	 * @param $code
 	 * @return mixed
 	 */
 	public function getUserOpendIdinfo($code){
-		$url = "https://api.weixin.qq.com/sns/jscode2session?appid=".$this->appId."&secret=".$this->appSecret."&js_code=".$code."&grant_type=authorization_code";
-
-		return json_decode($this->httpGet($url),true);
+		$url = "https://api.weixin.qq.com/sns/jscode2session";
+        $url .= "?appid=".$this->appId;
+        $url .= "&secret=".$this->appSecret;
+        $url .= "&js_code=".$code."&grant_type=authorization_code";
+		$hget = $this -> httpGet($url);
+		$rinfo = json_decode($hget,true);
+		return $rinfo;
 	}
 	
 	/***

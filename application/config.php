@@ -279,26 +279,40 @@ return [
         'PERFIX'=>"https://".$_SERVER['SERVER_NAME'],
     ],
     'ADPOS'=>[//广告位展示区域
-        'WEB'=>[//web端
+        'WEB'=>[
+            //web端
             'PERFIX'=>'WEB_',
+            //所展示页面
             'PAGE'=>[1=>'首页', 2=>'行业资讯', 3=>'找项目', 4=>'资讯详情', 5=>'排行榜'],
+            //所展示区域
             'POSITION'=>[1=>'A区域', 2=>'B区域', 3=>'C区域', 4=>'D区域',5=>'E区域',999=>'默认广告位'],
+            //所跳转类型以及链接
             'LINK'=>['ARTICLE'=>'/consultDetail?id=','ITEM'=>'/detail?id='],
         ],
         'WAP'=>[//wap端
             'PERFIX'=>'WAP_',
+            //所展示页面
             'PAGE'=>[1=>'首页', 2=>'行业分类', 3=>'搜索', 4=>'项目组', 5=>'文章列表'],
+            //所展示区域
             'POSITION'=>[1=>'A区域','defult'=>'默认广告位'],
+            //所连接内容以及区域
             'LINK'=>['ARTICLE'=>'/consultDetail?id=','ITEM'=>'/detail?id='],
         ],
+        //广告链接类型
         'TYPE'=>[1=>'外链', 2=>'关联项目', 3=>'关联文章'],
     ],
 
     'CHOICE'=>1,//web端品牌精选 所展示分组的id
-
+    //品牌链接类型
     'LINK'=>[
         'WEB'=>['ARTICLE'=>'/consultDetail?id=','ITEM'=>'/pages/linlin/find/detail?id='],
         'WAP'=>['ARTICLE'=>'/consultDetail?id=','ITEM'=>'/pages/productList/productDetail/productDetail?id='],
+    ],
+
+    //微信小程序appid
+    'WXCONFIG'=>[
+        'APPID'=>'wxb65e0e5cabbd04f0',
+        'APPSECRET'=>'b65a583cb54a3a360ebd8401cabda9a8',
     ],
 
 \think\Route::domain('wap.jiamengzhinan.com','wap'),

@@ -132,40 +132,4 @@ class login extends Base {
         wapReturn($returnCode['ERROR'][0]);
     }
 
-    /*  微信订阅号验证配置服务器  */
-    public function checkSignature(){
-        //1
-        $timestamp = $_GET['timestamp'];
-        $once = $_GET['nonce'];
-        $token = 'jmzn';
-        $signature = $_GET['signature'];
-        $array = [$timestamp,$once,$token];
-        sort($array);
-        //2
-        $tmpstr = implode('', $array);
-        $tmpstr = sha1($tmpstr);
-        //3
-        if($tmpstr == $signature){
-            echo $_GET['echostr'];
-            exit();
-        }
-    }
-
-    /*  获取微信的openid */
-    public function getBeforeActionList(){
-        //接收&&验证参数
-        $code = empty($_REQUEST['code']) ? wapReturn($this -> returnCode['ERROR'][1]) : $_REQUEST['code'];
-        //执行操作 获取oppenid
-        $wchat = new WechatOauth();
-        $res = $wchat->getUserOpendIdinfo($code);
-        if(empty($res)){
-            $rinfo = $this -> returnCode['ERROR']['501'];
-            $rinfo['data'] = '';
-        }else{
-            $rinfo = $this -> returnCode['ERROR']['501'];
-            $rinfo['data'] = $res;
-        }
-        wapReturn($rinfo);
-    }
-
 }
