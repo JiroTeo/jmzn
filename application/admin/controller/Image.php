@@ -22,6 +22,7 @@ class image extends Base{
         $data = input('get.');
         if(!empty($data)){
             $where = $data;
+            unset($where['page']);
         }
         $where['status'] = 1;
         $objData = $this -> imageModel -> where($where) -> order('addtime desc') -> paginate(30);
