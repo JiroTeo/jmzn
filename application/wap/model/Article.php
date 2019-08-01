@@ -123,4 +123,14 @@ class article extends Model{
         return $formatData;
     }
 
+    /*  执行+1 操作*/
+    public function numAddOnce($where,$value){
+        $result = $this -> articleModel -> where($where) -> setInc($value);
+        if(empty($result)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 }

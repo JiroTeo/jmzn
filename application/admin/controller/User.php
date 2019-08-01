@@ -79,6 +79,25 @@ class user extends Base{
         $this -> assign('data',$adminData);
         $this -> assign('page',$page);
         return view();
-
     }
+
+    /*  测试节点树木  */
+    public function bit_tree(){
+        return view();
+    }
+
+    /*查询用户*/
+    public function get_user_list(){
+        $keyword = $this -> request -> param('keyword');
+        $baseKeyword = empty($keyword) ? '' : base64_encode($keyword);
+        $whereOr['uname'] = ['like',"%".$baseKeyword."%"];
+        $whereOr['name'] = ['like',"%".$keyword."%"];
+        $whereOr['cname'] = ['like',"%".$keyword."%"];
+        $whereOr['bname'] = ['like',"%".$keyword."%"];
+        $whereOr['phone'] = ['like',"%".$keyword."%"];
+        $data = $this -> userModel -> getUserDataList($whereOr);
+        wapReturn($data);
+    }
+
+
 }

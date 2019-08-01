@@ -25,9 +25,9 @@ class index extends Base {
         $openid = Cache::get($key);
         $rinfo = $this -> returnCode['SUCCESS'][0];
         $rinfo['data']['openid'] = $openid;
+        $rinfo['data']['key'] = $openid;
         wapReturn($rinfo);
     }
-
     /*  首页列表数据
      *  @param  分类列表
      *  @param  热门专题

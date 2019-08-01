@@ -21,6 +21,21 @@ class index extends Base{
         return view();
     }
 
+    /*  响应式访问项目 */
+    public function vierif_agent(){
+        $index = 'https://www.jiamengzhinan.com';
+        $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+        //验证是否为手机端访问
+        if (strpos($agent, 'ipod') || strpos($agent, 'ipad') || strpos($agent, 'iphone') || strpos($agent, 'android')) {//ipod
+            $index = 'https://wap.jiamengzhinan.com';
+            //验证是否为通过微信公众账号访问
+            if(strpos($agent,'MicroMessenger')){//微信访问
+                $index = 'http://wap.jiamengzhinan.com/wx/getOpenId';
+            }
+        }
+        $this->redirect($index);
+    }
+
     /*  首页接口   分类/行业资讯/项目推荐/品牌精选/品牌聚焦*/
     public function index_home(){
         //首页-行业资讯 start
@@ -35,7 +50,7 @@ class index extends Base{
                 //获取最新的文章 定义读取条数
                 $num = $key * 7;
                 $limit = $num . ',7';
-                $arData[$key]['aticle'] = $artModel->getArticleData('', 'addtime desc', $limit, 2);
+                $arData[$key]['aticle'] = $artModel->getArticleData(['status'=>1,'reco'=>0], 'addtime desc', $limit, 2);
             }
         }else{
             $arData = [];

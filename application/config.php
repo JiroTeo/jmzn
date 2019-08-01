@@ -305,14 +305,8 @@ return [
     'CHOICE'=>1,//web端品牌精选 所展示分组的id
     //品牌链接类型
     'LINK'=>[
-        'WEB'=>['ARTICLE'=>'/consultDetail?id=','ITEM'=>'/pages/linlin/find/detail?id='],
-        'WAP'=>['ARTICLE'=>'/consultDetail?id=','ITEM'=>'/pages/productList/productDetail/productDetail?id='],
-    ],
-
-    //微信小程序appid
-    'WXCONFIG'=>[
-        'APPID'=>'wxb65e0e5cabbd04f0',
-        'APPSECRET'=>'b65a583cb54a3a360ebd8401cabda9a8',
+        'WEB'=>['ARTICLE'=>'/consultDetail?id=','ITEM'=>'/detail?id='],
+        'WAP'=>['ARTICLE'=>'/pages/linlin/find/detail?id=','ITEM'=>'/pages/productList/productDetail/productDetail?id='],
     ],
 
 \think\Route::domain('wap.jiamengzhinan.com','wap'),

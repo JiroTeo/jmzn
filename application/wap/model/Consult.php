@@ -56,7 +56,6 @@ class consult extends Model{
         foreach ($data as $key => $value) {
             $dataList[$key]['id'] = $value['id'];
             $dataList[$key]['name'] = $value['name'];
-            $dataList[$key]['img_url'] = "https://www.baidu.com/link?url=L_cAOdQcH2nczPx1h0obJ6j5VdMAauo4hCPWUKBUNEfx3Hot-XvU7oL9fabIMZXqvyXyxG9Iag4iejO5FpWYvURK6afW0G-uqq5TP8McMoX324jqE86ioR9GVPjz7H8BDTOxK7Oh2mIgRA5T2m4MM2ASO07wFt-KYGAqP9X60MgfSOOdOPaEY8WCIfswNGJIi6h4kny6hUxFPBEAfWWQyG8oxevWNolmkATZFbYW_qhHPRA7IH9gnLC-6ADzVMYWAeuPcAqXNc5Bw_NuiLxfhGubKDailwAw4QodrsH41hrjS_anaox5b33aAPTm1TMSPWTNKX-pejfH3_z5yHEmPOl3QeGtDYIIgstkJc_6ZkW-Tn6oMi5p_xOlqfZ-_7oU3B_U58LTaK_m3gJcVLWoX4bUpO4PtWtyM5KbGpfLB7K-ZAKqkwp7qWqFAJDIGK3URF-kQRndT-447ILLATS2TI-Vfs3mEKIU_avwTSG3HaEjs5rQ4-sXYPd1N0U6LfCyI16vpKqcnhmQm4izPZ2QyPH_p1NkX09zLjxPK06eeH1h2bmS67ea-QiM-7LRZfSUD0ItM6v3dfbaKZOPOPZmsAvJFiX5ndeHukRqKlzCH2B-nEG4cBoxVZYtya6eA7DS&timg=https%3A%2F%2Fss0.bdstatic.com%2F94oJfD_bAAcT8t7mm9GUKT-xh_%2Ftimg%3Fimage%26quality%3D100%26size%3Db4000_4000%26sec%3D1561387834%26di%3D27f97eadfc6e419324ec7e7cff43ea70%26src%3Dhttp%3A%2F%2Fs9.rr.itc.cn%2Fr%2FwapChange%2F20171_17_12%2Fa3pbzh907349845634.jpg&click_t=1561387847770&s_info=1903_947&wd=&eqid=bd91c71c000075bd000000035d10e339";
             $dataList[$key]['content'] = $value['content'];
             $dataList[$key]['item_id'] = $value['item_id'];
             $dataList[$key]['phone'] = $value['phone'];
@@ -199,4 +198,34 @@ class consult extends Model{
         }
         return $dataList;
     }
+
+    /*  获取留言&&咨询&&站内推送内容接口  */
+    public function getConsultDataList( $where = false , $order = false , $limit = false , $type = false ,$debug = false ){
+        $data = $this -> consultModel -> where($where) -> order($order) -> limit($limit) -> select();
+        if(empty($data)){   return []; }
+        //格式化数据
+        switch ($type) {
+            case 1:
+                $dataList = $this -> formatPushNotify($data,$debug);
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        return $dataList;
+    }
+
+    /*  格式化推送消息数据   */
+    public function formatPushNotify($data = false , $debug = false ){
+        foreach ($data as $key => $value) {
+            $dataList[$key]['id'] = $value['id'];
+            $dataList[$key]['name'] = $value['name'];
+            $dataList[$key]['phone'] = getMid($value['phone']);//手机号加密
+            $dataList[$key]['content'] = $value['content'];
+            $dataList[$key]['to_uid'] = $value['to_uid'];
+        }
+        return $dataList;
+    }
+
 }

@@ -1,6 +1,6 @@
 <?php
 
- /*图片上传*/
+    /*图片上传*/
      function uploade(){
      	$key = key($_FILES);    //获取数组下标
      	$file = request()->file( $key ); //获取文件内容

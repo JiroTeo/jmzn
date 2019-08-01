@@ -48,6 +48,9 @@ class article extends Base{
         //接收参数
         $where['id'] = empty($_REQUEST['id']) ? 0 : $_REQUEST['id'];
         $where['status'] = 1;
+        //浏览量+1
+        $this -> artModel -> numAddOnce($where,'read_num');
+        //浏览量+1end
         //获取文章数据
         $article = $this->artModel -> getArtDeta($where,$uid);
 

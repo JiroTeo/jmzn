@@ -60,6 +60,9 @@ class article extends Base{
         //接收参数 && 定义条件 && 查询数据
         $where['id'] = empty($_REQUEST['id']) ? 0 : $_REQUEST['id'];
         $where['status'] = 1;
+        //浏览量+1
+        $this -> artModel -> numAddOnce($where,'read_num');
+        //浏览量+1end
         $data = $this -> artModel -> getArticleDataOnce($where,$this -> user,$debug);//$where,$order=false,$limit=false,$type=0,$user=[],$debug
         if(empty($data)){
             $rinfo = $this -> returnCode['ERROR'][4];

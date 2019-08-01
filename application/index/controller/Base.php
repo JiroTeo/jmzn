@@ -2,6 +2,7 @@
 namespace app\index\controller;
 use think\Cache;
 use think\Controller;
+use think\Model;
 class base extends Controller {
 
     //保护方法

@@ -121,6 +121,7 @@ class article extends Base{
             $data['sign'] = $_POST['sign'];
             $data['type'] = $_POST['type'];
             $data['detail'] = $_POST['detail'];
+            $data['keywords'] = $_POST['keywords'];
             $where['id'] = $_POST['id'];
             $result = db('article') -> where($where) -> update($data);
             if($result){
@@ -132,7 +133,6 @@ class article extends Base{
             $where['id'] = $_GET['id'];
             $articleData = db('article') -> where($where) -> find();
             $articleData['img'] = explode(',',$articleData['img']);
-
             $this -> assign('data',$articleData);
             return view();
         }

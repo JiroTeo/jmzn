@@ -107,10 +107,7 @@ class item extends Model{
         $formatData['apply'] = $data['apply'];  //申请加盟
         $formatData['fran_store_num'] = $data['fran_store_num'];//加盟店数量
         $formatData['shop_count'] = $data['shop_count'];//直营店数量
-        $formatData['cate_name'] = '餐饮';//所属行业    TODO
-        $formatData['cate_id'] = $data['cate_id'];//所属行业    TODO
         $formatData['shop_num'] = $data['shop_count'] + $data['fran_store_num'];
-        $formatData['area_name'] = '石家庄';//地区   TODO
         $formatData['crowd'] = $data['crowd'];//适合人群
         $formatData['company'] = $data['company'];//所属公司
         $formatData['character'] = $data['character'];//公司性质
@@ -127,6 +124,15 @@ class item extends Model{
         $formatData['max_money'] = $data['max_money'];//最大投资金额
         $formatData['adv'] = $data['adv'];//加盟优势
         $formatData['path'] = $data['path'];//加盟流程
+        //所属行业-加盟区域-用户名
+        $formatData['cate_id'] = $data['cate_id'];//所属行业
+        $area = db('city') -> where(['id'=>$data['item_area']]) -> value('cityname');
+        $formatData['area_name'] = empty($area) ? '全国' : $area ;
+        $cate = db('category') -> where(['id'=>$data['cate_id']]) -> value('name');
+        $formatData['cate_name'] = empty($cate) ? '' : $cate ;
+        $uname = db('user') -> where(['uid'=>$data['wid']]) -> value(['uname']);
+        $formatData['username'] = empty($uname) ? "" : base64_decode($uname);
+
         if(empty($user)){
             $formatData['is_foll'] = 0;//关注状态 1关注0未关注
             $formatData['is_like'] = 0;//收藏状态 1收藏0未收藏

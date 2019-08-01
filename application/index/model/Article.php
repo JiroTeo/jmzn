@@ -24,6 +24,9 @@ class article extends Model{
     public function getArticleData($where,$order=false,$limit=false,$type=0,$user=[],$debug=false){
 
         $articleData = $this -> articleModel -> where($where) -> order($order) -> limit($limit) -> select();
+        if($debug == 1){
+            echo $this -> articleModel -> getLastSql();
+        }
         if(empty($articleData)){return array();}//数据不存在返回array();
         //格式化数据
         	switch ($type) {
@@ -113,8 +116,10 @@ class article extends Model{
         }
         //上一个||下一个
         //上一条||下一条
-        $formatData['prev'] = $this -> articleModel -> where(['id'=>['LT',$data['id']]]) -> order('id desc') -> field('id,title') -> find();
-        $formatData['next'] = $this -> articleModel -> where(['id'=>['GT',$data['id']]]) -> order('id asc') -> field('id , title') -> find();
+        $prev = $this -> articleModel -> where(['id'=>['LT',$data['id']]]) -> order('id desc') -> field('id,title') -> find();
+        $formatData['prev'] = empty($prev) ? [] : $prev;
+        $next = $this -> articleModel -> where(['id'=>['GT',$data['id']]]) -> order('id asc') -> field('id , title') -> find();
+        $formatData['next'] = empty($next) ? [] : $next;
         return $formatData;
     }
 
@@ -123,4 +128,15 @@ class article extends Model{
         $count = $this -> articleModel -> where($where) -> count();
         return $count;
     }
+
+    /*  执行+1 操作*/
+    public function numAddOnce($where,$value){
+        $result = $this -> articleModel -> where($where) -> setInc($value);
+        if(empty($result)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 }

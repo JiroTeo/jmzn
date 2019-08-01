@@ -251,7 +251,7 @@ class redis extends Model{
      * 通过key获取数据
      * @param string $key KEY名称
      */
-    public function get($key) {
+    public function _get($key) {
         $result = $this->redis->get($key);
         return $result;
     }

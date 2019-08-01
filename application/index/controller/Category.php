@@ -1,8 +1,5 @@
 <?php
 namespace app\index\controller;
-use think\Db;
-use think\Controller;
-use think\Request;
 
 class category extends Base {
 
@@ -25,6 +22,7 @@ class category extends Base {
         $pid = empty($_REQUEST['d']) ? 0 : $_REQUEST['d'];
         $where['pid'] = $pid;
         $where['status'] = 1;
+
         $data = $this -> cateModel -> getCate($where);
         if(empty($data)){
             $dataList = $this -> returnCode['ERROR'][4];

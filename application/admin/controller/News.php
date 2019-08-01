@@ -73,4 +73,53 @@ class news extends Base{
             $noticeModel -> insertGetId($add);
         }
     }
+
+    /*  推送的通知列表 */
+    public function user_con_list(){
+        $newModel = db('news');
+        $userModel = db('user');
+        $newsDataWhere['status'] = $_GET['status'];
+        $newData = $newModel -> order('status desc,id desc') -> where($newsDataWhere) -> paginate(10);
+        $page = $newData -> render();
+        $data = iterator_to_array($newData);
+        $where = array();
+        foreach ($data as $key => $value) {
+            $where['uid'] = $value['uid'];
+            $user = $userModel -> where($where) -> find();
+            $data[$key]['username'] = empty($user['uname']) ? '' : base64_decode($user['uname']);
+            $data[$key]['addtime'] = date('Y-m-d H:i:s',$value['addtime']);
+        }
+        $this -> assign('data',$data);
+        $this -> assign('page',$page);
+        $this -> assign('status',$_GET['status']);
+        return view();
+    }
+
+    /*  推送消息    */
+    public function push_consult(){
+        $data = $this -> request -> param();
+        if(empty($data)){
+            return view();
+        }else{
+            dump($data);die;
+            //验证手机号
+//            name    content item_id sex addtime intention type  uid=1 read = 0 status=1;
+            $addData['item_id'] = 0;
+            $addData['addtime'] = time();
+            $addData['type'] = 2;//站内通知
+            $addData['read'] = 0;
+            $addData['status'] = 1;
+            $addData['name'] = $data['name'];
+            $addData['content'] = $data['content'];
+            $addData['sex'] = $data['sex'];
+            $addData['phone'] = $data['phone'];
+            $addData['to_uid'] = $data['to_uid'];
+            $result = db('consult') -> insertGetId($addData);
+            if(empty($result)){
+                $this -> error('添加推送失败');
+            }else{
+                $this -> error('添加推送成功');
+            }
+        }
+    }
 }
