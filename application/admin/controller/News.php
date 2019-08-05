@@ -1,7 +1,9 @@
 <?php
 namespace app\admin\controller;
+use app\admin\model\UserCate;
 use think\Db;
 use think\Controller;
+use app\admin\model\UserPush as userPush;
 class news extends Base{
 
     /*站内信列表*/
@@ -101,9 +103,11 @@ class news extends Base{
         if(empty($data)){
             return view();
         }else{
-            dump($data);die;
+            if(empty($data['to_uid']) && empty($data['cate_id'])){
+                $this -> error('请填写正确的用户或者分组');
+            }
+            $strUid = '';
             //验证手机号
-//            name    content item_id sex addtime intention type  uid=1 read = 0 status=1;
             $addData['item_id'] = 0;
             $addData['addtime'] = time();
             $addData['type'] = 2;//站内通知
@@ -113,13 +117,74 @@ class news extends Base{
             $addData['content'] = $data['content'];
             $addData['sex'] = $data['sex'];
             $addData['phone'] = $data['phone'];
-            $addData['to_uid'] = $data['to_uid'];
-            $result = db('consult') -> insertGetId($addData);
-            if(empty($result)){
-                $this -> error('添加推送失败');
-            }else{
-                $this -> error('添加推送成功');
+            //
+            if(!empty($data['cate_id'])){
+                $userCateModel = new UserCate();
+                //数组拼接成字符串
+                $cate_id = implode(',',$data['cate_id']);
+                $where['cate_id'] = ['in',$cate_id];
+                $uidStr  = $userCateModel -> getUserId($where,1);
+                if(!empty($uidStr)){
+                    $strUid .= $uidStr;
+                }
             }
+            if(!empty($data['to_uid'])){
+                $strUid .= ',';
+                foreach ($data['to_uid'] as $key => $value) {
+                    $strUid .= $value.',';
+                }
+            }
+            $to_uid = explode(',',trim($strUid,','));
+            $to_uid_arr = array_unique($to_uid);
+            //验证to_uid  排重
+            $consultDb = db('consult');
+            $logDb = db('notice_log');
+            foreach ($to_uid_arr as $key => $value) {
+                $addData['to_uid'] = $value;
+                $consultId = $consultDb -> insertGetId($addData);
+                //添加log
+                $logAdd['type'] = 1;
+                $logAdd['uid'] = $value;
+                $logAdd['tid'] = $consultId;
+                $logAdd['addtime'] = time();
+                $logDb -> insertGetId($logAdd);
+            }
+            $this -> success('SUCCESS');
+
+        }
+    }
+
+    /*  推送用户管理  */
+    public function user_list(){
+
+        $userPush = new userPush();
+        $dataList = $userPush -> getUserPushDatList(false,'lastLog desc',10);
+        $page = $dataList['page'];
+        $data = $dataList['data'];
+        $this -> assign('data',$data);
+        $this -> assign('page',$page);
+        return view();
+    }
+
+    /*  修改用户数据  */
+    public function edit(){
+        $userPush = new userPush();
+        $data = input('post.');
+        if($data){
+            $where['id'] =  $data['id'];
+            unset($data['id']);
+            $res = $userPush -> updateUserPushData($where,$data);
+            if($res){
+                $this -> success('SUCCESS');
+            }else{
+                $this -> error('ERROR');
+            }
+        }else{
+            $id = $this -> request -> param('id');
+            $where['id'] = $id;
+            $data = $userPush -> getUserPushData($where,1);
+            $this -> assign('data',$data);
+            return view();
         }
     }
 }

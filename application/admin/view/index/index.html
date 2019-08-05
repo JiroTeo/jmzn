@@ -250,20 +250,43 @@
                         </ul>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('推送通知','{:url('admin/news/user_con_list')}?status=1')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>推送通知</cite>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="sub-menu">
-                            <li>
 <!--                                <a onclick="xadmin.add_tab('站内信','../news/index?status=0')">-->
                                 <a onclick="xadmin.add_tab('站内信','{:url('admin/news/index')}?status=0')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>已删除</cite></a>
                             </li>
                         </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="消息推送">&#xe718;</i>
+                            <cite>消息推送</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('会员管理','{:url('admin/news/user_list')}')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>会员管理</cite>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('推送记录','{:url('admin/news/user_con_list')}?status=1')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>推送记录</cite>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.open('发布站内通知','{:url('admin/news/push_consult')}',800,600)">
+                                    <i class="iconfont">&#xe6b9;</i>
+                                    <cite>发起推送</cite>
+                                </a>
+                            </li>
+                        </ul>
+
                     </li>
                     <li>
                         <a href="javascript:;">

@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 use think\Db;
 use think\Controller;
+use app\admin\model\category as cateModel;
 class category extends Base{
 
     // 构造方法
@@ -167,6 +168,20 @@ class category extends Base{
             $dataList[$key]['id'] = $value['id'];
         }
         return $dataList;
+    }
+
+    /*  后台获取分类组接口  */
+    public function getCateDataList(){
+        $cateModel = new cateModel();
+        $keyword = $this -> request -> param('keyword');
+        if(empty($keyword)){
+            echo 400;exit();
+        }
+        $where['name'] = ['like','%'.$keyword.'%'];
+        $where['status'] = 1;
+        $data = $cateModel -> getCateDataList($where,'id asc',false ,1);
+        wapReturn($data);
+
     }
 
 

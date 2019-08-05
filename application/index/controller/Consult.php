@@ -1,5 +1,7 @@
 <?php
 namespace app\index\controller;
+use app\common\model\NoticeLog as logModel;
+use app\common\model\User as userModel;
 
 class consult extends Base{
 
@@ -359,10 +361,28 @@ class consult extends Base{
         if(empty($id)){
             wapReturn($this -> returnCode['ERROR'][1]);
         }
+        //验证是否还有剩余查看条数
+        $userModel = new userModel();
+        $res = $userModel -> parseModel(['uid'=>$this -> user['uid']]);
+        if(empty($res)){
+            //条数不足
+            $rinfo = $this -> returnCode['ERROR'][6];
+            wapReturn($rinfo);
+        }
+        //验证end
+
         //修改数据状态
         $where['id'] = $id;
         $save['type'] = 0;
         $result = $this->consultModel -> edit_consult_data($where,$save);
+        //update notice_log.readtime
+        $logModel = new logModel();
+        $logWhere['tid'] = $id;
+        $logWhere['uid'] = $this -> user['uid'];
+        $logWhere['type'] = 1;
+        $logSave['readtime'] = time();
+        $result = $logModel -> editNoticeLogField($logWhere,$logSave);
+        //update end
         if(empty($result)){
             $rinfo = $this -> returnCode['ERROR'][0];
         }else{

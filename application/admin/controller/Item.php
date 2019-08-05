@@ -89,8 +89,24 @@ class item extends Base{
             $data['addtime'] = time();
             //是否上传了图片
             $data['brand_make_time'] = strtotime($_POST['brand_make_time']);
-            $data['image'] = implode(',',$data['image']);
+            if(!empty($data['image'])){
+                $data['image'] = implode(',',$data['image']);
+            }
             $res = db('item') -> insertGetId($data);
+            //发布成功  将用户和分类关联起来
+            if(!empty($data['wid']) && !empty($cate_id)){
+                //查询用户与分类是否存在
+                $userCateDB = db('user_cate');
+                $userCateRes = $userCateDB -> where(['uid'=>$data['wid'],'cate_id'=>$cate_id]) -> count();
+                if(empty($userCateRes)) {//不存在执行添加
+                    $addUserCateData['uid'] = $data['wid'];
+                    $addUserCateData['cate_id'] = $cate_id;
+                    $addUserCateData['type'] = 1;
+                    $addUserCateData['status'] = 1;
+                    $result = $userCateDB -> insertGetId($addUserCateData);
+                }
+            }
+            //关联END
             if($res){
                 $this -> success('添加成功');
             }else{

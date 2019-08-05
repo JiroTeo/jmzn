@@ -269,6 +269,7 @@ return [
             3=>array('code'=>501,'msg'=>'未知错误'),
             4=>array('code'=>300,'msg'=>'数据不存在'),
             5=>array('code'=>301,'msg'=>'未登录'),
+            6=>array('code'=>403,'msg'=>'权限不足'),
             ),
         'SUCCESS'   =>  array(
             0=>array('code'=>200,'msg'=>'成功'),

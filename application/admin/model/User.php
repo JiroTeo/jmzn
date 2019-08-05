@@ -30,8 +30,9 @@ class User extends Model{
         // 格式化用户数据
         foreach ($data as $key => $value) {
             $data[$key]['uname'] = base64_decode($value['uname']);              //用户名
-            $data[$key]['cname'] = base64_decode($value['cname']);              //企业名
-            $data[$key]['bname'] = base64_decode($value['bname']);              //品牌名
+            $data[$key]['cname'] = $value['cname'];              //企业名
+            $data[$key]['name'] = $value['name'];              //真实姓名
+            $data[$key]['bname'] = $value['bname'];              //品牌名
             $data[$key]['sex'] = $value['sex'] == 0 ? '女' : '男';              //性别
             $data[$key]['rtime'] = date('Y-m-d h:i:s',$value['rtime']);         //注册时间
             $data[$key]['crtime'] = date('Y-m-d h:i:s',$value['crtime']);       //企业注册时间

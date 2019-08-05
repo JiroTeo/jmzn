@@ -1,6 +1,7 @@
 <?php
 namespace app\wap\controller;
 use think\Cache;
+use app\common\model\User as userModel;
 class index extends Base {
 
     public function _initialize(){
@@ -23,9 +24,16 @@ class index extends Base {
         $agent = strtolower($_SERVER['HTTP_USER_AGENT']);//客户端
         $key = md5('jmzn'.$agent.$user_IP);
         $openid = Cache::get($key);
+        //验证openid
+        if(empty($openid)){
+            $username = '游客';
+        }else{
+            $userModel = new userModel();
+            $username = $userModel -> getUserField(['wx_openid'=>$openid],'uname');
+        }
         $rinfo = $this -> returnCode['SUCCESS'][0];
         $rinfo['data']['openid'] = $openid;
-        $rinfo['data']['key'] = $openid;
+        $rinfo['data']['username'] = $username;
         wapReturn($rinfo);
     }
     /*  首页列表数据

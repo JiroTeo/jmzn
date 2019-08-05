@@ -6,7 +6,7 @@ use think\Model;
 class Category extends Model
 {
 
-    private static $cateModel; // 日志模型(旧)
+    private $cateModel; // 日志模型(旧)
 
     // 
     public function __construct(){
@@ -88,6 +88,32 @@ class Category extends Model
             $dataList[$value['id']] = $value['name'];
         }
         $dataList[999] = '默认广告';
+        return $dataList;
+    }
+
+    /*  根据条件获取分类数据  */
+    public function getCateDataList( $where = false , $order = false , $limit = false , $type = false , $whereOr = false , $debug = false ){
+        $data = $this -> cateModel -> where($where) -> whereOr($whereOr) -> order($order) -> limit($limit) -> select();
+        if(empty($data)){   return [];  }
+        //格式化数据
+        switch ($type) {
+            case 1:
+                $dataList = $this -> formatCateDataListForJs($data,$debug);
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        return $dataList;
+    }
+
+    /*  格式化分类数据(js接口格式) */
+    public function formatCateDataListForJs($data,$debug){
+        foreach ($data as $key => $value) {
+            $dataList[$key]['id'] = $value['id'];
+            $dataList[$key]['name'] = $value['name'];
+        }
         return $dataList;
     }
 
