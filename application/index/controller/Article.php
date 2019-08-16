@@ -1,9 +1,10 @@
 <?php
 namespace app\index\controller;
-use think\Cache;
-use think\console\command\make\Model;
-use think\Db;
-use think\Controller;
+use app\admin\controller\image;
+use app\index\model\Article as artModel;
+use app\index\model\Image as imageModel;
+use app\index\model\Item as itemModel;
+use app\index\model\Comment as comModel;
 class article extends Base{
 
     private $artModel;
@@ -13,14 +14,93 @@ class article extends Base{
          $this->artModel = \model('article');
     }
 
-    /*  todo    文章列表    加盟资讯-加盟攻略-行业报告 我的收藏 article_list
-     *  todo    文章详情        art_detail
-     *  todo    首页-行业资讯    get_index_reco_article
-     *  todo    热门资讯        get_hot_article
-     *  todo    行业资讯-加盟资讯   information
-     *  todo    行业资讯-加盟攻略   strategy
-     *  todo    行业资讯-行业报告   presentation
-     *  **/
+    /*  行业资讯页面  */
+    public function index(){
+        $imageModel = new imageModel();
+        $artModel = new artModel();
+        $itemModel = new itemModel();
+        //广告
+        $imageData = $imageModel -> getImageDatList(['status'=>1,'web_page'=>2]);
+        //热门资讯
+        $hotArt = $artModel -> getArticleData(['status'=>1],'read_num desc',10,2);
+        //加盟资讯
+        $jmzx['img'] = $artModel -> getArticleData(['type'=>1,'status'=>1],'addtime desc',2,3);//加盟资讯两条
+        $jmzx['list'] = $artModel -> getArticleData(['type'=>1,'status'=>1],'addtime desc','2,11',2);//加盟资讯11条
+        //加盟攻略
+        $jmglImg = $artModel -> getArticleData(['type'=>2,'status'=>1],'read_num desc',1,1);
+        $jmgl['img'] = $jmglImg[0];
+        $jmgl['list'] = $artModel -> getArticleData(['type'=>2,'status'=>1],'read_num desc','1,5',2);
+        //行业报告
+        $hybgImg = $artModel -> getArticleData(['status'=>1,'type'=>0],'id desc',1,1);
+        $hybg['img'] = $hybgImg[0];
+        $hybg['list'] = $artModel -> getArticleData(['status'=>1,'type'=>0],'id desc','1,8',2);
+        //加盟项目排行榜
+        $phb = $itemModel -> getItemDataList(['status'=>1],'read_num desc','13',1);
+        //分配变量
+        $this -> assign('imageData',$imageData);//广告
+        $this -> assign('hotArt',$hotArt);//热门资讯
+        $this -> assign('jmzx',$jmzx);//加盟资讯
+        $this -> assign('jmgl',$jmgl);//加盟攻略
+        $this -> assign('hybg',$hybg);//行业报告
+        $this -> assign('phb',$phb);//排行榜
+        //echo dump
+//        echo "【广告】";dump($imageData);die;
+//        echo "【热门资讯】";dump($hotArt);
+//        echo "【加盟资讯】";dump($jmzx);die;
+//        echo "【加盟攻略】";dump($jmgl);die;
+//        echo "【行业报告】";dump($hybg);die;
+//        echo "【加盟资讯】";dump($jmzx);
+//        echo "【排行榜】";dump($phb);
+        return view();
+    }
+
+    /*  文章详情  */
+    public function detail(){
+        //定义 && 接收 参数
+        $artModel = new artModel();
+        $comModel = new comModel();
+        $id = $this -> request -> param('id');
+        //浏览次数+1
+        $artModel -> where('id',$id) -> setInc('read_num',1);
+        //获取项目详情
+        $data = $artModel -> getArticleDataOnce(['status'=>1,'id'=>$id]);//$where,$order=false,$limit=false,$type=0,$user=[],$debug
+        //评论
+        $comment['data'] = $comModel -> getComment(['topic_id'=>$id,'status'=>1],'addtime desc',false,1,$this -> user);
+        $comment['count'] = $comModel -> countNum(['topic_id'=>$id,'status'=>1]);
+        //热门资讯
+        $hotArt = $this -> artModel -> getArticleData(['status'=>1],'read_num desc',10,2);
+
+        //分配变量
+        $this -> assign('data',$data);
+        $this -> assign('comment',$comment);
+        $this -> assign('hotArt',$hotArt);
+        return view();
+
+    }
+
+    /*  热门资讯【右侧边栏】  */
+    public function hotArticle($fail = true){
+        $artModel = new artModel();
+        //获取数据
+        $data = $this -> artModel -> getArticleData(['status'=>1],'read_num desc',10,2);
+        //分配变量
+        $this -> assign('data',$data);
+        dump($data);
+    }
+
+    /*  行业资讯【右侧边栏】  */
+    public static function industryArticle(){
+        $artModel = new artModel();
+        //获取两条推荐的文章
+        $artImg = $artModel -> getArticleDataForReco(['status'=>1,'reco'=>1],'addtime desc',1,1);
+        $where['status'] = 1;
+        $where['id'] = ['neq',$artImg['id']];
+        $artList = $artModel -> getArticleData($where,'addtime desc',7,2);
+        //分配变量
+        dump($artImg);
+        dump($artList);
+    }
+
 
     /*  文章列表    加盟资讯-加盟攻略-行业报告 我的收藏 */
     public function article_list(){
@@ -60,9 +140,6 @@ class article extends Base{
         //接收参数 && 定义条件 && 查询数据
         $where['id'] = empty($_REQUEST['id']) ? 0 : $_REQUEST['id'];
         $where['status'] = 1;
-        //浏览量+1
-        $this -> artModel -> numAddOnce($where,'read_num');
-        //浏览量+1end
         $data = $this -> artModel -> getArticleDataOnce($where,$this -> user,$debug);//$where,$order=false,$limit=false,$type=0,$user=[],$debug
         if(empty($data)){
             $rinfo = $this -> returnCode['ERROR'][4];

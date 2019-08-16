@@ -1,0 +1,475 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}文章详情{/block}
+<!--keywords-->
+{block name="keywords"}{123}{/block}
+<!--index-->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<style>
+  .consultDetail {
+    background-color: #F4F5FA;
+    padding-bottom: 125px;
+  }
+
+  /* tabbar */
+  .commonNav {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: #2F333B;
+    font-size: 16px;
+    color: #fff;
+  }
+  .commonNav .all {
+    float: left;
+    width: 240px;
+    height: 40px;
+    text-align: center;
+    background: #51575D;
+  }
+  .commonNav .all img, .commonNav .all label {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .commonNav .all img {
+    margin: -2px 14px 0 0;
+  }
+  .commonNav .part a {
+    float: left;
+    width: 160px;
+    height: 40px;
+    position: relative;
+    color: #fff;
+    text-align: center;
+  }
+  .commonNav .part a.active {
+    background: #1A1D21;
+  }
+  .commonNav .part a.active i {
+    width: 34px;
+    height: 2px;
+    background: -webkit-gradient(linear, 100% 0, 0 0, from(#579EFA), to(#4F74F4));
+    background: -webkit-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -moz-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -o-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: linear-gradient(to bottom, #579EFA, #4F74F4);
+    position: absolute;
+    left: 50%;
+    margin-left: -17px;
+    bottom: 2px;
+    z-index: 1;
+  }
+  .commonNav .issueBtn {
+    float: right;
+    color: #FEAB17;
+  }
+
+  /* tabbar */
+  /* 面包屑 */
+  .crumbs {
+    color: #999;
+    font-size: 14px;
+    line-height: 60px;
+  }
+
+  /* 面包屑 */
+  /* 文章 */
+  .article {
+    width: 895px;
+    background-color: #fff;
+    padding-top: 41px;
+  }
+  .article .title {
+    font-weight: bold;
+    font-size: 22px;
+    padding: 0 41px;
+  }
+  .article .subhead {
+    font-size: 12px;
+    color: #999;
+    padding: 25px 41px;
+  }
+  .article .collectBtn {
+    width: 78px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border: 1px solid #E3E4E5;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .article .collectBtn i, .article .collectBtn b {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: normal;
+  }
+  .article .collectBtn i {
+    margin: -2px 5px 0 0;
+    font-size: 18px;
+    color: #C8C9CC;
+  }
+  .article .collectActive {
+    color: #5389F7;
+  }
+  .article .collectActive i {
+    color: #5389F7;
+  }
+  .article .content {
+    min-height: 160px;
+    padding: 0 41px 30px 41px;
+    border-bottom: 1px solid #E3E4E5;
+    line-height: 26px;
+  }
+  .article .footer {
+    height: 90px;
+    line-height: 90px;
+    font-size: 14px;
+    color: #4D4D4D;
+    padding: 0 41px;
+  }
+  .article .footer span {
+    font-weight: bold;
+  }
+
+  /* 文章 */
+  /* 文章评论 */
+  .articleConsult {
+    width: 895px;
+    background-color: #fff;
+    margin-top: 20px;
+  }
+  .articleConsult .title {
+    height: 22px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px 40px;
+    background-color: #F0F7FF;
+  }
+  .articleConsult .content {
+    padding: 32px 40px;
+  }
+  .articleConsult .content textarea {
+    width: 771px;
+    height: 90px;
+    padding: 20px;
+    border: 1px solid #E3E4E5;
+    resize: none;
+    margin-bottom: 23px;
+  }
+  .articleConsult .consult {
+    padding: 0 41px;
+  }
+  .articleConsult .consult .count {
+    font-size: 14px;
+    line-height: 30px;
+    color: #999;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .articleConsult .consult .consultItem {
+    padding: 30px 0;
+  }
+  .articleConsult .consult .consultItem .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+  }
+  .articleConsult .consult .consultItem .info {
+    width: 730px;
+    font-size: 14px;
+    line-height: 30px;
+    color: #999;
+    margin-left: 27px;
+  }
+  .articleConsult .consult .consultItem .info .name {
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .articleConsult .consult .consultItem .info .name .noPraise {
+    font-weight: normal;
+    font-size: 14px;
+    color: #C8C9CC;
+    cursor: pointer;
+  }
+  .articleConsult .consult .consultItem .info .name .noPraise span {
+    font-size: 20px;
+    position: relative;
+    top: 1px;
+  }
+  .articleConsult .consult .consultItem .info .reply {
+    color: #808080;
+    padding: 9px 23px;
+    background-color: #F4F5FA;
+    margin-top: 9px;
+  }
+  .articleConsult .consult .consultItem .info .time {
+    margin-top: 9px;
+  }
+  .articleConsult .consult .consultItem .info .time .replyBtn {
+    color: #5389F7;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .hotConsult {
+    width: 295px;
+    min-height: 420px;
+    background-color: #fff;
+  }
+  .hotConsult .title {
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 19px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .hotConsult .title .more {
+    color: #999;
+    font-size: 12px;
+    font-weight: normal;
+  }
+
+  .list {
+    padding: 13px 20px 23px 20px;
+  }
+  .list .item {
+    padding-top: 10px;
+    display: block;
+  }
+  .list .item .order {
+    width: 18px;
+    height: 21px;
+    text-align: center;
+    line-height: 21px;
+    font-size: 12px;
+    color: #999;
+  }
+  .list .item .name {
+    width: 89%;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 10px;
+  }
+  .list .item .count {
+    color: #999;
+    font-size: 12px;
+  }
+  .list .item:nth-child(-n+3) .order {
+    color: #fff;
+    background: url("/statics/index/image/icon_hotConsult.jpg") 100% 100% no-repeat;
+  }
+  /* 文章评论 */
+</style>
+{/block}
+<!--description-->
+{block name='description'}{456}{/block}
+{block name="content"}
+      <div class="wrapper clearfix">
+        <div class="crumbs">您的位置：<a to=“{:url('index/article/index')}”>行业咨询</a> > {$data.mode}</div>
+        <div class="article fl">
+          <div class="title">{$data.title}</div>
+          <div class="subhead between">
+            <div>作者：{$data.username} &nbsp;&nbsp; 发布时间：{$data.addtime} &nbsp;&nbsp; 阅读量：{$data.read_num}</div>
+            <span class="collectBtn" :class="{'collectActive':data.is_fow==1}" @click="addFollow">
+              <i class="iconfont icon-collect"></i>
+              <b v-if="data.is_fow==1">已收藏</b>
+              <b v-else>收藏</b>
+            </span>
+          </div>
+          <div class="content" v-html="data.detail">
+              {$data.detail}
+          </div>
+          <div class="footer ">
+              <div class="fl">
+                <span>上一篇：</span>
+                <a href="{:url('index/article/detail')}?id={$data.prev.id}">{$data.prev.title}</a>
+              </div>
+              <div class="fr">
+                <span>下一篇：</span>
+                <a href="{:url('index/article/detail')}?id={$data.next.id}">{$data.next.title}</a>
+              </div>
+          </div>
+        </div>
+        <div class="fr">
+          <div class="hotConsult">
+            <div class="title clearfix" >
+              <span class="fl" >热门资讯</span>
+              <a class="fr more" to="/newsList?type=1"> 更多 <span class="el-icon-arrow-right"></span></a>
+            </div>
+            <div class="list">
+              {foreach $hotArt as $key => $value}
+              <a  href="{:url('index/item/detail')}?id={$value.id}" class="item clearfix" v-for="(item,index) in data" :key="'hot'+item.id" >
+                <div class="order fl">{$key+1}</div>
+                <div class="name fl">{$value.title}</div>
+                <!--            <div class="count fr">{{item.read_num}}</div>-->
+              </a>
+              {/foreach}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper">
+        <div class="articleConsult ">
+          <div class="title">
+            文章评论
+          </div>
+          <div class="content">
+            <textarea cols="30" rows="10" placeholder="请输入评论内容" v-model="content"></textarea>
+            <div class=" clearfix">
+              <el-button type="primary" class="fr" @click="addComment">提交评论</el-button>
+            </div>
+          </div>
+          <div class="consult" v-if="commentList.length>0">
+            <div class="count">
+              共{$comment.count}条评论
+            </div>
+            {if $comment.data !== []}
+            {foreach $comment.data as $key => $value}
+            <div class="consultItem clearfix" v-for="(item,index) in commentList">
+              <img class="avatar fl" src="{$value.userAvatar}" alt="">
+              <div class="info fl">
+                <div class="name">
+                  {$value.username}
+                  <div class="fr noPraise" data-id="item.id" @click="addLike($event,item.id)">
+                    <span class="iconfont icon-praise"></span> {$value.likes}
+                  </div>
+                </div>
+                <div >{$value.content}</div>
+                {if $value.comment !== []}
+                {foreach $value.comment as $k => $v}
+                <div class="reply" v-if="item.comment.length>0">
+                  <div >{$v.username}：{$v.content}</div>
+                </div>
+                {/foreach}
+                {/if}
+                <div class="time clearfix">
+                  <span class="fl"></span>
+                  <span class="fr replyBtn">回复</span>
+                </div>
+              </div>
+            </div>
+            {/foreach}
+            {/if}
+          </div>
+        </div>
+      </div>
+    </div>
+{/block}
+<script>
+  import Search from '@/components/Search'
+  import HotOrder from '@/components/HotOrder'
+  import HotConsult from "@/components/HotConsult"
+  import IndustryList from '@/components/IndustryList'
+  import api from "@/api/consultDetail-api"
+  import utils from '../../../utils/util'
+  export default {
+    name: "consultDetail",
+    data() {
+      return {
+        data:{},
+        commentList:[],
+        id:'',
+        content:''
+      }
+    },
+    mounted(){
+      console.log("created");
+      const {id} = this.$route.query;
+      console.log("id",id);
+      this.id = id;
+      this.getData();
+      api.getCommentList({id}).then(data => {
+        this.commentList = data.data;
+        console.log(data.data)
+      });
+    },
+    beforeRouteUpdate(to,from,next){
+
+      const {id} = to.query;
+        this.id = id;
+        this.getData();
+        api.getCommentList({id}).then(data => {
+          this.commentList = data.data;
+          console.log(data.data)
+        });
+      next();
+    },
+    methods:{
+      getData(){
+        const {id} = this;
+        api.getData({id}).then(data => {
+          if(data){
+            console.log(data.detail);
+            data.data = utils.htmlEscapt(data.detail)
+          }
+          this.data = data;
+          console.log(data)
+        });
+
+      },
+      addFollow:function(){
+        const {is_fow,id} = this.data;
+        console.log('is_fow:'+is_fow)
+        if(is_fow==0){
+          api.addFollow({id,type:3}).then(data => {
+            this.$message.success('收藏成功');
+            this.getData();
+          });
+        }else{
+          api.removeFollow({id,type:3}).then(data => {
+            this.$message.success('已取消收藏');
+            this.getData();
+          });
+        }
+      },
+      addComment:function(){
+        const {data,content} = this;
+        if(content==''){
+          this.$message.error('请输入您要评论的内容');
+          return
+        }
+        api.addComment({topic_id:data.id,to_uid:data.uid,content,pid:0}).then(data => {
+          this.getData();
+          this.content=''
+        });
+      },
+      addLike:function(e,id){
+        api.addLike({id:id}).then(data => {
+          this.getData();
+        });
+      }
+    },
+    components:{
+      Search,
+      HotOrder,
+      IndustryList,
+      HotConsult
+    }
+  }
+  import commonApi from "@/api/common-api"
+  export default {
+    name: "hotConsult",
+    data(){
+      return {
+        data: ''
+      }
+    },
+    mounted () {
+      this.getData();
+    },
+    methods:{
+      getData(){
+        commonApi.getHotConsult().then( data => {
+          this.data = data;
+        });
+      }
+    }
+  }
+</script>
+

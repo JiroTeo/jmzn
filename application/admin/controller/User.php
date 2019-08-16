@@ -2,13 +2,14 @@
 namespace app\admin\controller;
 use think\Db;
 use think\Controller;
+use app\admin\model\User as userModel;
 class user extends Base{
 
     // 构造方法
      public function __construct(){
         parent::__construct();
         // 实例化分类模型
-        $this -> userModel = model('user');
+        $this -> userModel = new userModel();
     }
 
 
@@ -90,13 +91,17 @@ class user extends Base{
     public function get_user_list(){
         $keyword = $this -> request -> param('keyword');
         $baseKeyword = empty($keyword) ? '' : base64_encode($keyword);
-        $whereOr['uname'] = ['like',"%".$baseKeyword."%"];
-        $whereOr['name'] = ['like',"%".$keyword."%"];
-        $whereOr['cname'] = ['like',"%".$keyword."%"];
-        $whereOr['bname'] = ['like',"%".$keyword."%"];
-        $whereOr['phone'] = ['like',"%".$keyword."%"];
-        $data = $this -> userModel -> getUserDataList($whereOr);
-        wapReturn($data);
+        $perfix = config('database.prefix');
+        $where = "(`type` = 1) 
+            AND (`uname` LIKE '%".$baseKeyword."==%' 
+            OR `name` LIKE '%".$keyword."%' 
+            OR `cname` LIKE '%".$keyword."%' 
+            OR `bname` LIKE '%".$keyword."%' 
+            OR `phone` LIKE '%".$keyword."%')";
+        $sql = "SELECT * FROM `".$perfix."user` WHERE ".$where." ORDER BY `uid` DESC";
+        $data =Db::query($sql);
+        $dataList = $this -> userModel -> formatUserDataSearchDataList($data);
+        wapReturn($dataList);
     }
 
 

@@ -5,7 +5,7 @@ use think\Model;
 
 class User extends Model{
 
-    private static $userModel; //
+    private $userModel; //
 
     // 
     public function __construct(){
@@ -74,17 +74,9 @@ class User extends Model{
         return $userInfo;
     }
 
-    /*  获取用户数据  */
-    public function getUserDataList($whereOr = false ){
-        $data = $this -> userModel -> whereOr($whereOr) -> select();
-        if(empty($data)){return [] ; }
-        //格式化数据
-        $dataList = $this -> formatUserDataSearchDataList($data);
-        return $dataList;
-    }
-
-    /*  格式化用户数据 */
+    /*  格式化用户数据 (js接口格式 推送用户数据) */
     public function formatUserDataSearchDataList($data = false ){
+        if(empty($data)){   return [];  }
         foreach ($data as $key => $value) {
             $dataList[$key]['username'] = empty($value['uname']) ? '' : base64_decode($value['uname']);
             $dataList[$key]['uid'] = $value['uid'];

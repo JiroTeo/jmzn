@@ -43,7 +43,6 @@ class comment extends Base{
         wapReturn($rinfo);
     }
 
-
     /*发表评论*/
     public function add_comment(){
         //验证登录

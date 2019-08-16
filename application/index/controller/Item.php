@@ -1,7 +1,9 @@
 <?php
 namespace app\index\controller;
 use think\Cache;
-
+use app\index\model\Item as itemModel;
+use app\index\model\Category as cateModel;
+use app\index\model\Article as artModel;
 class item extends Base{
 
     private $itemModel;
@@ -9,20 +11,97 @@ class item extends Base{
     public function _initialize(){
         parent::_initialize();
         // 实例化y用户模型
-        $this->itemModel = model('item');
+        $this->itemModel = new itemModel();
     }
 
-    /*
-     *  todo  清空足迹  del_item_log
-     *  todo  我的留言  get_consult_item
-     *  todo  热门排行  hot_item_list
-     *  todo  品牌精选  get_brand_item_list
-     *  todo  项目推荐  get_reco_item_list
-     *  todo  项目详情  item_detail
-     *  todo  项目列表  item_list
-     *  todo  排行榜-推荐品牌-综合品牌-排行榜   reco_brand_list
-     *  todo  排行榜-精选推荐  selected_reco
+    /*  找项目【项目列表】   todo
+     *  【行业分类】
+     *  【投资金额】
      * **/
+    public function index(){
+        $cateModel = new cateModel();
+        $itemModel = new itemModel();
+        $artModel = new artModel();
+        //接收参数
+        $n = empty($_REQUEST['n']) ? 10 : $_REQUEST['n'];
+        $p = empty($_REQUEST['p']) ? 0 : $_REQUEST['p'];
+        $limit = ($n * $p) .','.$n;
+
+        $sort = $this -> request -> param('sort');
+        //获取行业分类
+        $cateData = $cateModel -> getCateDataList(['status'=>1,'pid'=>0],'id asc',false ,2);
+        //项目列表
+        $where['status'] = 1;
+        $order = empty($sort) ? 'id desc' : 'read_num desc' ;
+//        $itemData =$itemModel -> getItemDataList($where,$order,$limit,4);
+        $page = '';
+        $itemData =$itemModel -> getItemDataListPage($where,$order,10,4,$page);
+        //项目排行榜
+        $ranking = $itemModel -> getItemDataList(['status'=>1],'read_num desc',13,1);
+        //行业资讯
+        $artData['rArticle'] = $artModel -> getArticleDataForReco(['status'=>1,'reco'=>1]);
+        $artwhere['status'] = 1;
+        $artwhere['id'] = ['neq',$artData['rArticle']['id']];
+        $artData['aticle'] = $artModel -> getArticleData($artwhere,'addtime desc',7,2);
+        //分配变量
+        $this -> assign('cateData',$cateData);//顶级行业分类
+        $this -> assign('itemData',$itemData);//项目列表
+        $this -> assign('ranking',$ranking);//项目排行
+        $this -> assign('artData',$artData);//行业资讯
+        $this -> assign('page',$page);//分页
+//        echo '【行业分类】';
+//        dump($cateData);
+//        echo '【项目列表】';
+//        dump($itemData);
+//        echo "【项目排行】";
+//        dump($ranking);
+//        echo "【行业资讯】";
+//        dump($artData);
+        return view();
+    }
+
+    /*  项目详情  todo  */
+    public function detail(){
+        $itemModel = new itemModel();
+        $artModel = new artModel();
+        $id = $this -> request -> param('id');
+        //足迹
+        $uid = empty($_SESSION['jmzn_web']['uid']) ? 0 : $_SESSION['jmzn_web']['uid'];
+        if(!empty($uid)){
+            $trackWhere['tid'] = $id;
+            $trackWhere['uid'] = $uid;
+            $trackWhere['type'] = 1;
+            $trackModel = model('track');
+            $trackModel -> addTrack($trackWhere);
+        }
+        //浏览次数
+        $itemModel -> where('id',$id) -> setInc('read_num',1);
+        //内容
+        $data = $itemModel -> getItemData(['status'=>1,'id'=>$id],1);//项目详情
+        //加盟项目排行榜
+        $ranking = $itemModel -> getItemDataList(['status'=>1],'read_num desc',13,1);
+        //行业资讯
+        $artData['rArticle'] = $artModel -> getArticleDataForReco(['status'=>1,'reco'=>1]);
+        $artwhere['status'] = 1;
+        $artwhere['id'] = ['neq',$artData['rArticle']['id']];
+        $artData['list'] = $artModel -> getArticleData($artwhere,'addtime desc',7,2);
+
+        //分配变量
+        $this -> assign('data',$data['item']);//项目信息
+        $this -> assign('user',$data['user']);//用户信息
+        $this -> assign('ranking',$ranking);//加盟项目排行榜
+        $this -> assign('artData',$artData);//行业资讯
+        return view();
+    }
+
+    /*  加盟项目排行榜     todo */
+    public function itemRankList(){
+        $where['status'] = 1;
+        $data = $this -> itemModel -> getItemDataList($where,'read_num desc','13',1);
+        $this -> assign('data',$data);
+        dump($data);
+    }
+
 
     /*  清空足迹   */
     public function del_item_log(){
@@ -269,7 +348,7 @@ class item extends Base{
         $data['reco_brand'] = $this -> itemModel -> getItemDataList($where,'order desc,addtime desc',10,1);//where order limit type user debug
         //获取推荐品牌排行榜数据END
         //获取综合品牌排行榜START
-        $data['brand'] = $this -> itemModel -> getItemDataList('','read_num desc',10,1);//where order limit type user debug
+        $data['brand'] = $this -> itemModel -> getItemDataList(['status'=>1],'read_num desc',10,1);//where order limit type user debug
         //获取综合品牌排行榜END
         $rinfo = $this -> returnCode['SUCCESS'][0];
         $rinfo['data'] = $data;

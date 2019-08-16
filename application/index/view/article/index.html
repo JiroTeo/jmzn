@@ -1,0 +1,222 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}行业资讯{/block}
+<!--keywords-->
+{block name="keywords"}123456{/block}
+<!--description-->
+{block name='description'}654231{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+{/block}
+{block name="content"}
+<div id="app">
+  <div data-v-e7ea78d4="">
+    <div data-v-e7ea78d4="" class="greyBg">
+      <div data-v-e7ea78d4="" class="wrapper clearfix">
+        <div data-v-e7ea78d4="" class="onePart clearfix">
+          <div data-v-e7ea78d4="" class=" clearfix" style="display: block;height: 70px;cursor: pointer;float: left;width: 895px">
+            <div data-v-e7ea78d4="" class="carousel fl">
+              <div data-v-e7ea78d4="" class="el-carousel el-carousel--horizontal">
+                <div class="el-carousel__container" style="height: 422px;">
+                  <button type="button" class="el-carousel__arrow el-carousel__arrow--left" style="display: none;">
+                    <i class="el-icon-arrow-left"></i>
+                  </button>
+                  <button type="button" class="el-carousel__arrow el-carousel__arrow--right" style="display: none;">
+                    <i class="el-icon-arrow-right"></i>
+                  </button>
+                  {foreach $imageData[0] as $key => $value}
+                  <div data-v-e7ea78d4="" class="el-carousel__item is-active is-animating" style="transform: translateX(0px) scale(1);"><!---->
+                    <a data-v-e7ea78d4="" href="{$value.link}" class="small router-link-exact-active router-link-active">
+                      <img data-v-e7ea78d4="" src="{$value.img}">
+                      <span data-v-e7ea78d4="" class="desc over">{$value.title}</span>
+                    </a>
+                  </div>
+                  {/foreach}
+                </div>
+                <ul class="el-carousel__indicators el-carousel__indicators--horizontal">
+                  <li class="el-carousel__indicator el-carousel__indicator--horizontal">
+                    <button class="el-carousel__button"><!---->
+                    </button>
+                  </li>
+                  <li class="el-carousel__indicator el-carousel__indicator--horizontal is-active">
+                    <button class="el-carousel__button"><!---->
+                    </button>
+                  </li>
+                  <li class="el-carousel__indicator el-carousel__indicator--horizontal">
+                    <button class="el-carousel__button"><!---->
+                    </button>
+                  </li>
+                  <li class="el-carousel__indicator el-carousel__indicator--horizontal">
+                    <button class="el-carousel__button"><!---->
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <ul data-v-e7ea78d4="" class="fr newsBig">
+              {foreach $imageData[1] as $key => $value}
+              <li data-v-e7ea78d4="">
+                <a data-v-e7ea78d4="" href="{$value.link}" class="small router-link-exact-active router-link-active">
+                  <img data-v-e7ea78d4="" src="{$value.img}">
+                  <span data-v-e7ea78d4="">{$value.title}</span>
+                </a>
+              </li>
+              {/foreach}
+            </ul>
+          </div>
+          <div data-v-e7ea78d4="" class="fixedWidth" style="height: 422px;">
+            <div data-v-e7ea78d4="" style="height: 382px; overflow: hidden;">
+              <div data-v-7334df6a="" data-v-e7ea78d4="" class="hotConsult" currentmenu="8">
+                <div data-v-7334df6a="" class="title clearfix">
+                  <span data-v-7334df6a="" class="fl">热门资讯</span>
+                  <a data-v-7334df6a="" href="{:url('index/article/index')}}" class="fr more"> 更多
+                    <span data-v-7334df6a="" class="el-icon-arrow-right"></span>
+                  </a>
+                </div>
+                <div data-v-7334df6a="" class="list">
+                  {foreach $hotArt as $key => $value}
+                  <a data-v-7334df6a="" href="{:url('index/article/detail')}?id={$value.id}" class="item clearfix">
+                    <div data-v-7334df6a="" class="order fl">{$key+1}</div>
+                    <div data-v-7334df6a="" class="name fl">{$value.title}</div>
+                  </a>
+                  {/foreach}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-v-e7ea78d4="" class="twoPart clearfix">
+          <div data-v-e7ea78d4="" class="joinNews">
+            <div data-v-e7ea78d4="" class="title between"><h2 data-v-e7ea78d4="">加盟资讯</h2>
+              <a data-v-e7ea78d4="" href="{:url('index/article/index')}?type=2" class="">
+                <span data-v-e7ea78d4="">更多 &gt;</span>
+              </a>
+            </div>
+            <div data-v-e7ea78d4="" class="between">
+              <div data-v-e7ea78d4="">
+                {foreach $jmzx['img'] as $key => $value}
+                <a data-v-e7ea78d4="" href="{:url('index/article/detail')}?id={$value.id}" class="">
+                  <dl data-v-e7ea78d4="" class="joinNewsDL">
+                    <dt data-v-e7ea78d4="" class="over">{$value.title}</dt>
+                    <dd data-v-e7ea78d4="" class="clearfix">
+                      <img data-v-e7ea78d4="" src="{$value.img}">
+                      <p data-v-e7ea78d4="" class="desc">
+                      <span data-v-e7ea78d4=""></span>
+                        <i data-v-e7ea78d4="">{$value.addtime}</i></p></dd>
+                  </dl>
+                </a>
+                {/foreach}
+              </div>
+              <ul data-v-e7ea78d4="" class="joinNewsList">
+                {foreach $jmzx['list'] as $key => $value}
+                <a data-v-e7ea78d4="" href="{:url('index/article/index')}?id={$value.id}" class="">
+                  <li data-v-e7ea78d4="" class="clearfix">
+                  <span data-v-e7ea78d4="" class="over"><b data-v-e7ea78d4="">・</b>{$value.title}</span>
+                    <i data-v-e7ea78d4="">{$value.addtime}</i></li>
+                </a>
+                {/foreach}
+              </ul>
+            </div>
+          </div>
+          <div data-v-e7ea78d4="" class="fixedWidth" style="height: 480px;">
+            <div data-v-e7ea78d4="">
+              <div data-v-1921a26e="" data-v-e7ea78d4="" class="industryList">
+                <div data-v-1921a26e="" class="title clearfix">
+                  <span data-v-1921a26e="" class="fl">加盟攻略
+                  </span>
+                  <a data-v-1921a26e="" href="/newsList?type=2" class="fr more"> 更多
+                    <span data-v-1921a26e="" class="el-icon-arrow-right"></span>
+                  </a>
+                </div>
+                <div data-v-1921a26e="" class="special">
+                  <a data-v-1921a26e="" href="{:url('index/article/index')}?id={$jmgl.img.id}" class="">
+                    <img data-v-1921a26e="" src="{$jmgl.img.img}" alt="">
+                    <div data-v-1921a26e="">{$jmgl.img.title}</div>
+                  </a>
+                </div>
+                <ul data-v-1921a26e="">
+                  {foreach $jmgl['list'] as $key => $value}
+                  <li data-v-1921a26e="">
+                    <a data-v-1921a26e="" href="{:url('index/article/index')}?id={$value.id}" class="">{$value.title}</a>
+                  </li>
+                  {/foreach}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-v-e7ea78d4="" class="otherAd wrapper">
+        </div>
+        <div data-v-e7ea78d4="" class="threePart clearfix">
+          <div data-v-e7ea78d4="" class="reportNews">
+            <div data-v-e7ea78d4="" class="title between"><h2 data-v-e7ea78d4="">行业报告</h2>
+              <a data-v-e7ea78d4="" href="{:url('index/article/index')}" class="">
+                <span data-v-e7ea78d4="">更多 &gt;</span>
+              </a>
+            </div>
+            <dl data-v-e7ea78d4="" class="reportNewsDL clearfix">
+              <dt data-v-e7ea78d4="">
+                <a data-v-e7ea78d4="" href="{:url('index/article/index')}?id=1{$value.id}" class="">
+                  <img data-v-e7ea78d4="" src="{$hybg.img.img}">
+                  <span data-v-e7ea78d4="" class="over">{$hybg.img.title}</span>
+                </a>
+              </dt>
+              <dd data-v-e7ea78d4="">
+                <ul data-v-e7ea78d4="" class="joinNewsList">
+                  {foreach $hybg.list as $key => $value}
+                  <a data-v-e7ea78d4="" href="{:url('index/article/index')}?id={$value.id}" class="">
+                    <li data-v-e7ea78d4="" class="clearfix">
+                    <span data-v-e7ea78d4="" class="over"><b data-v-e7ea78d4="">・</b>{$value.title}</span>
+                      <i data-v-e7ea78d4="">{$value.addtime}</i>
+                    </li>
+                  </a>
+                  {/foreach}
+                  </ul>
+              </dd>
+            </dl>
+          </div>
+          <div data-v-e7ea78d4="" class="fixedWidth" style="height: 400px;">
+            <div data-v-e7ea78d4="" style="height: 380px; overflow: hidden;">
+              <div data-v-673d4749="" data-v-e7ea78d4="" class="hotOrder">
+                <div data-v-673d4749="" class="title clearfix">
+                  <span data-v-673d4749="" class="fl">加盟项目排行榜
+                  </span>
+                  <a data-v-673d4749="" href="{:url('index/index/rankinglist')}?order=1" class="fr more"> 更多
+                    <span data-v-673d4749="" class="el-icon-arrow-right"></span>
+                  </a>
+                </div>
+                <div data-v-673d4749="" class="list">
+                  {foreach $phb as $key => $value}
+                  <a data-v-673d4749="" href="{:url('index/item/detail')}?id={$value.id}" class="item clearfix">
+                    <div data-v-673d4749="" class="order fl">{$key+1}
+                    </div>
+                    <div data-v-673d4749="" class="name fl">{$value.brand}
+                    </div>
+                    <div data-v-673d4749="" class="count fr">{$value.read_num}
+                    </div>
+                  </a>
+                  {/foreach}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-v-e7ea78d4="" class="otherAd wrapper">
+          {foreach $imageData[2] as $key => $value}
+          <span data-v-e7ea78d4="">
+            <a data-v-e7ea78d4=""
+               href="{$value.link}" class="">
+              <img data-v-e7ea78d4="" src="{$value.img}">
+            </a>
+          </span>
+          {/foreach}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}

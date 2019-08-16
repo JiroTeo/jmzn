@@ -1,0 +1,187 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}项目详情{/block}
+<!--keywords-->
+{block name="keywords"}"加盟指南,加盟指南栏目,加盟指南网,项目加盟指南,创业好项目加盟指南，招商外包服务，专业招商外包服务公司，只做招商外包服务"{/block}
+<!--description-->
+{block name='description'}"加盟指南网是为招商加盟企业提供招商外包服务的专业招商外包服务平台，平台设有加盟指南栏目,为加盟者提供各招商行业的加盟指南资讯,最新的加盟指南数据分析，创新的推送加盟线索招商外包服务模式对招商企业提供专业的招商外包服务,使其招商成功，招商外包服务热线:400-619-8882。"{/block}
+{block name="content"}
+<div id="app">
+  <div data-v-4b135571="" class="list">
+    <div data-v-4b135571="" class="greyBg">
+      <div data-v-4b135571="" class="wrapper clearfix">
+        <p data-v-4b135571="" class="adress">您的位置：
+          <a data-v-4b135571="" href="{:url('index/index/rankinglist')}?cateid=undefined" class="">{$data.father_cate_name}</a> &gt;
+          <a data-v-4b135571="" href="{:url('index/index/rankinglist')}?cateid=undefined&amp;childid=undefined" class="">{$data.cate_name}</a> &gt;
+        </p>
+        <div data-v-4b135571="" class="detailLeft">
+          <div data-v-4b135571="" class="itemBox clearfix">
+            <div data-v-4b135571="" class="itemPic">
+              <img data-v-4b135571="" src="{$data.image.0}" class="bigPic">
+<!--              <div data-v-4b135571="" class="between"></div>-->
+              <div data-v-4b135571="" class="between">
+                {foreach $data.image as $key => $value}
+                <label data-v-4b135571="" class="border">
+                  <img data-v-4b135571="" src="{$value}">
+                  <span data-v-4b135571="" class="border"></span>
+                </label>
+                {/foreach}
+              </div>
+            </div>
+            <div data-v-4b135571="" class="itemDesc"><h2 data-v-4b135571=""></h2>
+              <p data-v-4b135571="" class="price">{$data.min_money}~{$data.max_money}万元</p>
+              <p data-v-4b135571="" class="suit"><span data-v-4b135571="">所属行业：{$data.cate_name}</span>
+                <span data-v-4b135571="">适合人群：{$data.crowd}</span>
+              </p>
+              <div data-v-4b135571="" class="numBox around">
+                <label data-v-4b135571="" class="block">
+                  <b data-v-4b135571="">{$data.shop_count}家</b> <i data-v-4b135571="">直营店</i>
+                </label>
+                <span data-v-4b135571="" class="line"></span>
+                <label data-v-4b135571="" class="block">
+                  <b data-v-4b135571="">{$data.fran_store_num}家</b> <i data-v-4b135571="">加盟店</i>
+                </label>
+                <span data-v-4b135571="" class="line"></span>
+                <label data-v-4b135571="" class="block">
+                  <b data-v-4b135571="">{$data.item_area}</b> <i data-v-4b135571="">加盟区域</i>
+                </label>
+                <span data-v-4b135571="" class="line"></span>
+                <label data-v-4b135571="" class="block"><b data-v-4b135571="">{$data.apply}人</b> <i data-v-4b135571="">申请加盟</i></label>
+              </div>
+              <div data-v-4b135571="" class="btnsBox between">
+                <span data-v-4b135571="" class="consultBtn">立即咨询</span>
+                <span data-v-4b135571="" class="planBtn">获取开店方案</span>
+                <span data-v-4b135571="" class="collectBtn"><i data-v-4b135571="" class="iconfont icon-collect"></i></span>
+                <span data-v-4b135571="" class="focusBtn"><i data-v-4b135571="" class="iconfont icon-focus"></i></span>
+              </div>
+                <p data-v-4b135571="" class="yellowWord">
+                  <span data-v-4b135571="">项目关注 <b data-v-4b135571="">{$data.followcount}</b></span>
+                  <span data-v-4b135571="">项目收藏 <b data-v-4b135571="">{$data.collectcount}</b></span>
+                  <span data-v-4b135571="">项目咨询 <b data-v-4b135571=""></b>{$data.count}</span>
+                </p>
+            </div>
+          </div>
+          <div data-v-4b135571="" class="introBox">
+            <h3 data-v-4b135571="">项目详情</h3>
+            <div data-v-4b135571="" class="content">
+              {$data.detail}
+            </div>
+          </div>
+          <div data-v-4b135571="" class="consultBox">
+            <div data-v-4b135571="" class="title between"><h3 data-v-4b135571="">用户咨询</h3>
+              <span data-v-4b135571="">{$data.apply}人申请加盟</span>
+            </div>  <!---->
+          </div>
+          <div data-v-4b135571="" class="onceBox">
+            <div data-v-4b135571="" class="title"><h3 data-v-4b135571="">立即咨询</h3></div>
+            <div data-v-4b135571="" class="conContent clearfix between">
+              <div data-v-4b135571="" class="row clearfix clearfix">
+                <div data-v-4b135571="" class="column between"><label data-v-4b135571="">姓名</label> <input
+                  data-v-4b135571="" type="text" placeholder="请输入您的姓名" class="nameInp">
+                  <div data-v-4b135571="" class="fr"><label data-v-4b135571="" role="radio" tabindex="0"
+                                                            class="el-radio sexLabel"><span
+                    class="el-radio__input"><span class="el-radio__inner"></span><input type="radio" aria-hidden="true"
+                                                                                        tabindex="-1"
+                                                                                        class="el-radio__original"
+                                                                                        value="1"></span><span
+                    class="el-radio__label">男<!----></span></label> <label data-v-4b135571="" role="radio" tabindex="0"
+                                                                           class="el-radio sexLabel"><span
+                    class="el-radio__input"><span class="el-radio__inner"></span><input type="radio" aria-hidden="true"
+                                                                                        tabindex="-1"
+                                                                                        class="el-radio__original"
+                                                                                        value="0"></span><span
+                    class="el-radio__label">女<!----></span></label></div>
+                </div>
+                <div data-v-4b135571="" class="column between"><label data-v-4b135571="" class="leave">留言</label>
+                  <textarea data-v-4b135571="" placeholder="请输入留言内容"></textarea></div>
+              </div>
+              <div data-v-4b135571="" class="row clearfix clearfix">
+                <div data-v-4b135571="" class="column between"><label data-v-4b135571="">手机号</label>
+                  <input data-v-4b135571="" type="text" placeholder="请输入您的手机号" class="textInp"></div>
+                <div data-v-4b135571="" class="column between"><label data-v-4b135571="">图片验证</label>
+                  <input data-v-4b135571="" type="text" placeholder="请输入图片验证验证码" class="checkInp">
+                  <img src="{:captcha_src()}" class="captcha" width="95" height="45" onclick="this.src='{:captcha_src()}'">
+                </div>
+                <div data-v-4b135571="" class="column between">
+                  <label data-v-4b135571="">验证码</label>
+                  <div data-v-4b135571="" class="between" style="width: 322px;">
+                    <input data-v-4b135571="" type="text" placeholder="请输入手机验证码" class="checkInp">
+                    <span data-v-4b135571="" class="checkBtn">获取验证码</span></div>
+                </div>
+              </div>
+            </div>
+            <div data-v-4b135571="" class="commitBtn">提交</div>
+          </div>
+        </div>
+        <div data-v-4b135571="" class="detailRight">
+          <div data-v-4b135571="" class="companyInf">
+            <div data-v-4b135571="" class="title between"><h3 data-v-4b135571="">公司信息</h3></div>
+            <dl data-v-4b135571="">
+              <dt data-v-4b135571="">
+                <img data-v-4b135571="" src="{$user.logo}">
+                <p data-v-4b135571=""></p></dt>
+              <dd data-v-4b135571=""><p data-v-4b135571="">公司性质：{$user.character}</p>
+                <p data-v-4b135571="">注册资金：{$user.money}万元</p>
+                <p data-v-4b135571="">经营范围：{$user.scope}</p>
+                <p data-v-4b135571="">品牌注册时间：{$user.brand_make_time}</p>
+                <p data-v-4b135571="">注册地址：{$user.address}</p></dd>
+            </dl>
+          </div>
+          <div data-v-673d4749="" data-v-4b135571="" class="hotOrder hotOrder">
+            <div data-v-673d4749="" class="title clearfix"><span data-v-673d4749="" class="fl">加盟项目排行榜</span>
+              <a data-v-673d4749="" href="{:url('index/item/index')}" class="fr more"> 更多
+                <span data-v-673d4749="" class="el-icon-arrow-right"></span>
+              </a>
+            </div>
+            <div data-v-673d4749="" class="list">
+              {foreach $ranking as $key => $value}
+              <a data-v-673d4749="" href="{:url('index/item/detail')}?id={$value.id}" class="item clearfix">
+                <div data-v-673d4749="" class="order fl">{$key+1}</div>
+                <div data-v-673d4749="" class="name fl">{$value.brand}</div>
+                <div data-v-673d4749="" class="count fr">{$value.read_num}</div>
+              </a>
+              {/foreach}
+            </div>
+          </div>
+          <div data-v-2e73e232="" data-v-4b135571="" class="industryList IndustryList">
+            <div data-v-2e73e232="" class="title clearfix">
+              <span data-v-2e73e232="" class="fl">行业资讯</span>
+              <a data-v-2e73e232="" href="{:url('index/article/index')}?type=1" class="fr more"> 更多
+                <span data-v-2e73e232="" class="el-icon-arrow-right"></span></a>
+            </div>
+            <div data-v-2e73e232="" class="special">
+              <a data-v-2e73e232="" href="{:url('index/article/detail')}?id={$artData['rArticle']['id']}" class="">
+                <img data-v-2e73e232="" src="{$artData['rArticle']['img']}" alt="">
+                <div data-v-2e73e232="">{{$artData['rArticle']['title']}}</div>
+              </a>
+            </div>
+            <ul data-v-2e73e232="">
+              {foreach $artData['list'] as $key => $value}
+              <li data-v-2e73e232="">
+                <a data-v-2e73e232="" href="{:url('index/article/detail')}?id=100" class="">{$value.title}</a>
+              </li>
+              {/foreach}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-v-4b135571="" class="el-dialog__wrapper" style="display: none;">
+      <div role="dialog" aria-modal="true" aria-label="立即咨询" class="el-dialog el-dialog--center"
+           style="margin-top: 15vh; width: 30%;">
+        <div class="el-dialog__header">
+          <span class="el-dialog__title">立即咨询</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn"><i class="el-dialog__close el-icon el-icon-close"></i></button>
+        </div><!---->
+        <div class="el-dialog__footer">
+          <div data-v-4b135571="" class="dialog-footer">
+            <button data-v-4b135571="" type="button" class="el-button el-button--primary"><!----><!----><span>提 交</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+

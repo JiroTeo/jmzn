@@ -40,7 +40,8 @@ class comment extends Model{
             $formatData[$key]['time'] = date('Y-m-d H:i:s',$value['addtime']);
             $backWhere['pid'] = $value['id'];
             $backWhere['status'] = 1;
-            $formatData[$key]['comment'] = $this -> getComment($backWhere);
+            $child = $this -> getComment($backWhere);
+            $formatData[$key]['comment'] = empty($child) ? [] : $child;
         }
         return $formatData;
     }

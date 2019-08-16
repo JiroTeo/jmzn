@@ -73,7 +73,7 @@ class user extends Model{
         $user['uid'] = $userData['uid'];
         $user['username'] = empty($userData['uname']) ? $userData['phone'] : base64_decode($userData['uname']) ;
         $user['name'] = empty($userData['name']) ? '' : $userData['name'];
-        $user['avatar'] = empty($userData['avatar']) ? $perfix['AVATAR'] : $perfix['PERFIX'].$userData['avatar'];
+        $user['avatar'] = empty($userData['avatar']) ? $perfix['AVATAR'] : trim($userData['avatar']);
         return $user;
 
     }

@@ -13,7 +13,7 @@ class article extends Model{
      *  todo    格式化-行业资讯-加盟咨询
      * **/
 
-    private static $articleModel; //
+    private $articleModel; //
     //构造方法 实例化数据库
     public function __construct(){
         parent::__construct();
@@ -24,9 +24,6 @@ class article extends Model{
     public function getArticleData($where,$order=false,$limit=false,$type=0,$user=[],$debug=false){
 
         $articleData = $this -> articleModel -> where($where) -> order($order) -> limit($limit) -> select();
-        if($debug == 1){
-            echo $this -> articleModel -> getLastSql();
-        }
         if(empty($articleData)){return array();}//数据不存在返回array();
         //格式化数据
         	switch ($type) {
@@ -58,7 +55,7 @@ class article extends Model{
             $dataList[$key]['title'] = $value['title'];
             $image = [];
             $image = explode(',',$value['img']);
-            $dataList[$key]['img'] = empty($image[0]) ? '' : $imgConf['PERFIX'].$image[0];
+            $dataList[$key]['img'] = empty($image[0]) ? '' : trim($image[0],'.');
         }
         return $dataList;
     }
@@ -88,7 +85,7 @@ class article extends Model{
         return $dataList;
     }
     /*获取单条文章数据*/
-    public function getArticleDataOnce($where,$user = false,$debug){
+    public function getArticleDataOnce($where,$user = false,$debug = false ){
         $data = $this -> articleModel -> where($where) -> find();
         if(empty($data)){   return [];  }
         //格式化数据
@@ -101,6 +98,17 @@ class article extends Model{
         $formatData['title'] = $data['title'];//文章标题
         $formatData['detail'] = $data['detail'];//详情
         $formatData['type'] = $data['type'];//
+        switch ($data['type']) {
+            case 1:
+                $formatData['mode'] = '行业资讯';//
+                break;
+            case 2:
+                $formatData['mode'] = '加盟攻略';//
+                break;
+            default:
+                $formatData['mode'] = '行业报告';//
+                break;
+        }
         $formatData['addtime'] = date("Y-m-d",$data['addtime']);//详情
         $formatData['read_num'] = $data['read_num'];//详情
         $formatData['uid'] = $data['uid'];//详情
@@ -116,10 +124,8 @@ class article extends Model{
         }
         //上一个||下一个
         //上一条||下一条
-        $prev = $this -> articleModel -> where(['id'=>['LT',$data['id']]]) -> order('id desc') -> field('id,title') -> find();
-        $formatData['prev'] = empty($prev) ? [] : $prev;
-        $next = $this -> articleModel -> where(['id'=>['GT',$data['id']]]) -> order('id asc') -> field('id , title') -> find();
-        $formatData['next'] = empty($next) ? [] : $next;
+        $formatData['prev'] = $this -> articleModel -> where(['status'=>1,'id'=>['LT',$data['id']]]) -> order('id desc') -> field('id,title') -> find();
+        $formatData['next'] = $this -> articleModel -> where(['status'=>1,'id'=>['GT',$data['id']]]) -> order('id asc') -> field('id , title') -> find();
         return $formatData;
     }
 
@@ -129,14 +135,27 @@ class article extends Model{
         return $count;
     }
 
-    /*  执行+1 操作*/
-    public function numAddOnce($where,$value){
-        $result = $this -> articleModel -> where($where) -> setInc($value);
-        if(empty($result)){
-            return false;
-        }else{
-            return true;
-        }
+    /*侧边栏项目推荐*/
+    public function getArticleDataForReco($where = false ){
+        $data = $this -> articleModel -> where($where) -> find();
+        if(empty($data)){   return [];  }
+        //格式化数据
+        $dataList = $this -> formatArticeDataFroReco($data);
+        return $dataList;
+
+
     }
+
+    /*  格式化-侧边栏-行业资讯内容*/
+    public function formatArticeDataFroReco($data){
+        $imgConf = config('IMAGE');
+        $dataList['id'] = $data['id'];
+        $dataList['title'] = $data['title'];
+        $image = [];
+        $image = explode(',',$data['img']);
+        $dataList['img'] = empty($image[0]) ? '' : trim($image[0],'.');
+        return $dataList;
+    }
+
 
 }

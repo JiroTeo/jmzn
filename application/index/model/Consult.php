@@ -35,6 +35,9 @@ class consult extends Model{
     /*获取咨询列表*/
     public function getConsultList($where = false , $order = false , $limit = false , $type = 0 , $user = [] , $debug = false ){
         $consultList = $this -> consultModel -> where($where) -> order($order) -> limit($limit) -> select();
+//        dump($consultList);
+//        echo $this -> consultModel -> getLastSql();die;
+
         if(empty($consultList)){    return [];  }
         //格式化数据
         	switch ($type) {
@@ -44,9 +47,6 @@ class consult extends Model{
                 case 2://投资者管理
                     $dataList = $this -> formatConsultDataList($consultList,$user,$debug);
                     break;
-                case 3://推送留言
-                    $dataList = $this -> formatPushNotify($consultList,$user,$debug);
-                    break;
                 default:
                     return [];
                     break;
@@ -55,19 +55,6 @@ class consult extends Model{
 
         return $dataList;
     }
-
-    /*  格式化推送消息数据   */
-    public function formatPushNotify($data = false , $user = false , $debug = false ){
-        foreach ($data as $key => $value) {
-            $dataList[$key]['id'] = $value['id'];
-            $dataList[$key]['name'] = $value['name'];
-            $dataList[$key]['phone'] = getMid($value['phone']);//手机号加密
-            $dataList[$key]['content'] = $value['content'];
-            $dataList[$key]['to_uid'] = $value['to_uid'];
-        }
-        return $dataList;
-    }
-
     /*  格式化-项目详情-留言列表数据   */
     public function formarItemDetailConsultList($data,$user,$debug){
         $userModel = \model('user');

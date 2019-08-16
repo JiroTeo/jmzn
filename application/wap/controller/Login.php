@@ -2,14 +2,85 @@
 namespace app\wap\controller;
 use think\Cache;
 use think\Controller;
-use wechat\WechatOauth;
-class login extends Base {
+use app\common\model\User as userModel;
+class Login extends Base {
 
     // 构造方法
+    private $userModel; //
+
      public function _initialize(){
          parent::_initialize();
          // 实例化y用户模型
          $this->userModel = model('user');
+     }
+
+     /* 登录逻辑    */
+     public function login_bf(){
+        //接收参数
+         $phone = $this -> request -> param('phone');
+         $code = $this -> request -> param('code');
+         $wx_openid = $this -> request -> param('wx_openid');
+         $wx_openid = empty($wx_openid) ? '': $wx_openid;
+         //验证手机号
+         $resPhone = verifMobile($phone);
+         if(empty($resPhone)){
+             $rinfo['code'] = 401;
+             $rinfo['msg'] = '手机号格式错误';
+             wapReturn($rinfo);
+         }
+         //验证验证码
+         $codeKey = 'CODE'.$phone;
+         $resCode = verifCode($code,$codeKey);
+         if(empty($resCode)){
+             $rinfo['code'] = 401;
+             $rinfo['msg'] = '验证码错误';
+             wapReturn($rinfo);
+         }
+         $userModel = new userModel();
+             //通过手机号验证用户是否存在
+             $where['phone'] = $phone;
+             $where['status'] = 1;
+             $userData = $userModel -> getUserData($where,1);
+             if(empty($userData)){//用户不存在
+                 //新建用户
+                 $userId = $userModel -> insertUserGetId($phone , $wx_openid);
+                 if($userId){
+                     $rinfo = $this -> returnCode['SUCCESS'][0];
+                     //用户存储到redis
+                     $cacheUser['uid'] = $userId;
+                     $cacheUser['username'] = 'jmzn_'.$phone;
+                     $cacheUser['openid'] = $wx_openid;
+                     $key = "__JM".$userId."__".md5(date('Y-m-d H:i:s').$userId."_".$cacheUser['username']);
+                     \cache($key,$cacheUser);
+                     //修改用户表的token
+                     $userwhere['uid'] = $userId;
+                     $save['token'] = $key;
+                     $editUserRes = $userModel -> editUserData($userwhere,$save);
+                 }else{
+                     $rinfo = $this -> returnCode['ERROR'][0];
+                     $key = '';
+                 }
+             }else{//用户存在
+                 //验证openid&&处理
+                 if(empty($userData['wx_opneid']) && $userData['wx_opneid'] !== $wx_openid ){
+                     $userwhere['uid'] = $userData['uid'];
+                     $save['wx_openid'] = $wx_openid;
+                     $userModel -> editUserData($userwhere,$save);
+                 }
+                 $rinfo = $this -> returnCode['SUCCESS'][0];
+                 //验证token是否有效
+                 $key = $userData['token'];
+                 $cacheData = Cache::get($key);
+                 if(empty($cacheData)){//无效
+                     $cacheUser['uid'] = $userData['uid'];
+                     $cacheUser['username'] = 'jmzn_'.$phone;
+                     $cacheUser['openid'] = '';
+                     $key = "__JM".$userData['uid']."__".md5(date('Y-m-d H:i:s').$userData['uid']."_".$cacheUser['username']);
+                     \cache($key,$cacheUser);
+                 }else{
+                    $key = $cacheData['token'];
+                 }
+             }
      }
 
     /*wap端登录*/
@@ -18,8 +89,13 @@ class login extends Base {
         //接收参数
         $phone = empty($_REQUEST['phone']) ? '' : $_REQUEST['phone'];
         $code = empty($_REQUEST['code']) ? '' : $_REQUEST['code'];
+        $wx_openid = empty($_REQUEST['openid']) ? '' : $_REQUEST['openid'];//微信openid 微信用户唯一标识
         //验证验证码
         $redisCode = Cache::get('CODE'.$_REQUEST['phone']);
+        //特殊处理 【王建超手机号。固定验证码。IOS测试包处理】
+        if($phone == '13102815205' && $code == '1234'){
+            $redisCode = '1234';
+        }
         if($redisCode == $code){//验证码 一致
             //查询用户是否存在
             $where['phone'] = $phone;
@@ -30,6 +106,7 @@ class login extends Base {
                 $debug['is_user'] = 0;
                 //格式化数
                 $addData['phone'] = $phone;
+                $addData['wx_openid'] = $wx_openid;
                 $addData['status'] = 1;
                 $addData['uname'] = base64_encode('jmzn_'.$phone);
                 $addData['rtime'] = time();

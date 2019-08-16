@@ -1,0 +1,88 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}登录{/block}
+<!--keywords-->
+{block name="keywords"}{123}{/block}
+<!--description-->
+{block name='description'}{456}{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/admin/js/jquery.min.js"></script>
+{/block}
+{block name="header"}
+<div id="app">
+  <div data-v-5eef6683="" class="common-header">
+    <div data-v-5eef6683="" class="body wrapper">
+      <div data-v-5eef6683="" class="left">
+        欢迎来到加盟指南网！ 全国服务热线：400-619-8882
+      </div>
+      <div data-v-5eef6683="" class="right">
+        <div data-v-5eef6683="" class="phoneVersion"><span data-v-5eef6683="" class="iconfont icon-phone"></span> <span
+          data-v-5eef6683="">手机版</span>
+          <img data-v-5eef6683="" src="__STATIC__/index/img/wap_qrcode.475f601.jpg" alt="手机二维码" class="QRcode"></div>
+        <div data-v-5eef6683="" class="weChatVersion">
+          <span data-v-5eef6683="" class="iconfont icon-weChat"></span>
+          <span data-v-5eef6683="">微信版</span>
+          <img data-v-5eef6683="" src="__STATIC__/index/img/wx_qrcode.d7de962.jpg" alt="微信二维码" class="QRcode">
+        </div>
+        <div data-v-5eef6683="">
+          <a data-v-5eef6683="" href="{:url('index/login/login')}" class="router-link-exact-active router-link-active">登陆</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-v-f46e99e4="" class="personal">
+    <div data-v-13f8abc6="" data-v-f46e99e4="" class="personalHeader">
+      <div data-v-13f8abc6="" class="wrapper content"><a data-v-13f8abc6="" href="/" class="router-link-active"><img
+        data-v-13f8abc6="" src="__STATIC__/index/img/logo.45da167.png" alt="" class="logo"></a>
+        <div data-v-13f8abc6="" class="tabs"><a data-v-13f8abc6="" href="/" class="router-link-active">首页</a> <a
+          data-v-13f8abc6="" href="{:url('index/index/rankinglist')}" class="">找项目</a> <a data-v-13f8abc6="" href="/rankingList" class="">排行榜</a> <a
+          data-v-13f8abc6="" href=“{:url('index/article/index')}” class="">行业资讯</a></div>
+      </div>
+    </div>
+    {/block}
+    {block name="content"}
+    <div data-v-f46e99e4="" class="loginBg">
+      <div data-v-f46e99e4="" class="loginBox"><h2 data-v-f46e99e4="">用户登录</h2>
+        <div data-v-f46e99e4="" class="row"><i data-v-f46e99e4="" class="iconfont icon-phone"></i>
+          <input data-v-f46e99e4="" name="phone" id="phone" type="text" placeholder="手机号码">
+        </div>
+        <div data-v-f46e99e4="" class="row"><i data-v-f46e99e4="" class="iconfont icon-yanzheng"></i>
+          <input data-v-f46e99e4="" type="text" id="icode" name="icode" placeholder="请输入图片验证码">
+          　<img src="{:captcha_src()}" width="95" height="45" onclick="this.src='{:captcha_src()}'">
+        </div>
+        <div data-v-f46e99e4="" class="row"><i data-v-f46e99e4="" class="iconfont icon-message"></i>
+          <input data-v-f46e99e4="" name="pcode" type="text" placeholder="请输入短信验证码">
+          <span data-v-f46e99e4="" onclick="getPcode()" class="messageYz">获取验证码</span>
+        </div>
+          <div data-v-f46e99e4="" class="loginBtn">登 录</div>
+        <div data-v-f46e99e4="" class="remarks">
+          <label data-v-f46e99e4="" role="checkbox" aria-checked="true" class="el-checkbox is-checked">
+            <span aria-checked="mixed" class="el-checkbox__input is-checked">
+              <span class="el-checkbox__inner"></span>
+              <input type="checkbox" aria-hidden="true" class="el-checkbox__original" value="">
+            </span><!---->
+          </label>
+          <span data-v-f46e99e4="">同意加盟指南<b data-v-f46e99e4="">《服务协议》</b></span>
+        </div>
+    </div>
+    <div data-v-f46e99e4="" class="el-dialog__wrapper" style="display: none;">
+      <div role="dialog" aria-modal="true" aria-label="服务协议" class="el-dialog el-dialog--center"
+           style="margin-top: 15vh; width: 60%;">
+        <div class="el-dialog__header"><span class="el-dialog__title">服务协议</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn"><i
+            class="el-dialog__close el-icon el-icon-close"></i></button>
+        </div><!----><!---->
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{/block}
+{block name="js"}
+
+{/block}

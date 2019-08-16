@@ -163,9 +163,10 @@ return [
 
     // 异常页面的模板文件
     'exception_tmpl'         => THINK_PATH . 'tpl' . DS . 'think_exception.tpl',
+//    'exception_tmpl'         => APP_PATH . 'common' . DS . 'view' . DS . 'tpl' . DS . 'think_exception.tpl',
 
     // 错误显示信息,非调试模式有效
-    'error_message'          => '页面错误！请稍后再试～',
+    'error_message'          => '您所浏览的网页暂时无法访问',
     // 显示错误信息
     'show_error_msg'         => true,
     // 异常处理handle类 留空使用 \think\exception\Handle
@@ -310,6 +311,6 @@ return [
         'WAP'=>['ARTICLE'=>'/pages/linlin/find/detail?id=','ITEM'=>'/pages/productList/productDetail/productDetail?id='],
     ],
 
-\think\Route::domain('wap.jiamengzhinan.com','wap'),
+\think\Route::domain('wap.zhangjin.com','wap'),
 
 ];

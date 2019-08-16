@@ -137,4 +137,17 @@ class Index extends Base{
         dump($res);
     }
 
+    /*    爬虫    */
+        public function curl_html_file(){
+
+            $u = $this -> request -> param('u');
+            $url = empty($u) ? 'https://www.jiamengzhinan.com' : $u ;
+
+            $html= file_get_contents($url);
+
+            dump($html);
+            echo "<h1>以下内容为echo'页面形态'</h1>";
+            echo "<HR align=center width=100%;color=#f SIZE=1>";
+            echo $html;
+    }
 }

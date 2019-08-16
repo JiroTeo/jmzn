@@ -5,7 +5,7 @@ use think\Model;
 
 class category extends Model{
 
-    private static $cateModel; //
+    private $cateModel; //
 
     //构造方法 实例化数据库
     public function __construct()
@@ -14,13 +14,57 @@ class category extends Model{
         $this->cateModel = db('category');
     }
 
-    /* @param   获取分类名字
-     * @param   获取分类数据
-     * @param   格式化分类数据
-     * @param   通过条件获取分类的子级id
-     * @param   获取分类的全部数据
-     * @param   回调
-     * **/
+    /*  获取行业分类  */
+    public function getCateDataList( $where = false , $order = false , $limit = false , $type = false , $debug = false ){
+        $data = $this -> cateModel -> where($where) -> order($order) -> limit($limit) -> select();
+        if(empty($data)){   return []; }
+        //格式化数据
+        switch ($type) {
+            case 1://格式化数据[id.name.img_url.child]
+                $dataList = $this -> formatCateDataList($data);
+                break;
+            case 2://格式化数据
+                $dataList = $this -> formatCateList($data);
+                break;
+            default:
+                # code...
+                break;
+        }
+        return $dataList;
+    }
+
+    /*  格式化分类列表数据&&获取子分类    */
+    public function formatCateDataList($data){
+        foreach ($data as $key => $value) {
+            $child =  $this -> getCateChildList(['pid'=>$value['id'],'status'=>1]);
+            $dataList[$key]['id'] = $value['id'];
+            $dataList[$key]['name'] = $value['name'];
+            $dataList[$key]['img'] = trim($value['img'],'.');
+            if(!empty($child)){
+                $dataList[$key]['child'] = $child;
+            }
+        }
+        return $dataList;
+    }
+
+    /*  获取子分类   */
+    public function getCateChildList($where){
+        $data = $this -> cateModel -> where($where) -> select();
+        if(empty($data)){   return [];  }
+        //格式化子分类
+        $dataList = $this -> formatCateDataList($data);
+        return $dataList;
+    }
+
+    /*  格式化分类数据 [id，name]*/
+    public function formatCateList($data){
+        foreach ($data as $key => $value) {
+            $dataList[$key]['id'] = $value['id'];
+            $dataList[$key]['name'] = $value['name'];
+        }
+        return $dataList;
+    }
+
 
     /*  获取分类数据 单条*/
     public function getCateData($where){

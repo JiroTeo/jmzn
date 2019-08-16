@@ -3,7 +3,7 @@ namespace app\index\model;
 
 use think\Model;
 
-class item extends Model{
+class Item extends Model{
 
     private static $itemModel; //
     // 构造方法 实例化数据库
@@ -106,7 +106,7 @@ class item extends Model{
         //轮播图
         $image = explode(',',trim($data['image'],','));
         foreach ($image as $key => $value) {
-            $itemData['image'][$key] = $perfix['PERFIX'].$value;
+            $itemData['image'][$key] = trim($value,'.');
         }
         //关注状态 && 收藏状态
         if(empty($user)){
@@ -172,6 +172,34 @@ class item extends Model{
         $res = $this -> itemModel -> where($where) -> setInc('apply');
         return $res;
     }
+
+    /*  分页模式获取项目列表  */
+    public function getItemDataListPage($where = false , $order = false , $num = 10 , $type = 4 , &$page = '' , $debug = false ){
+        $itemData = $this -> itemModel -> where($where) -> order($order) -> paginate($num);
+        $page = $itemData ->render();
+        $data = iterator_to_array($itemData);
+        if(empty($data)){return [];}//数据不存在返回array();
+        switch ($type) {
+            case 1://热门排行/品牌精选品牌名展示
+                $dataList = $this -> formatHotItemDataList($data,$debug);
+                break;
+            case 2://品牌精选-图片展示
+                $dataList = $this -> formatChoiceDataList($data,$debug);
+                break;
+            case 3://品牌精选-图片展示
+                $dataList = $this -> formatRecoItemDataList($data,$debug);
+                break;
+            case 4://项目列表-格式化
+                $dataList = $this -> formatItemDataList($data,$debug);
+                break;
+            default:
+                # code...
+                break;
+        }
+        return $dataList;
+
+    }
+
     /*获取项目列表*/
     public function getItemDataList($where=false  , $order=false , $limit=false ,$type=0 , $user=[] , $debug = false ){
          $data = $this -> itemModel -> where($where) -> order($order) -> limit($limit) -> select();
@@ -210,7 +238,7 @@ class item extends Model{
         $pic = config('IMAGE');
         foreach ($data as $key => $value) {
             $dataList[$key]['id'] = $value['id'];
-            $dataList[$key]['img'] = empty($value['id']) ? '' : $pic['PERFIX'].$value['img'];
+            $dataList[$key]['img'] = empty($value['id']) ? '' : trim($value['img'],'.');
         }
         return $dataList;
     }
@@ -223,7 +251,7 @@ class item extends Model{
             $dataList[$key]['item_name'] = $value['item_name'];//标题
             $dataList[$key]['money'] = $value['min_money'].'~'.$value['max_money'];//投资金额
             $dataList[$key]['shop_count'] = $value['shop_count'];//店铺数量
-            $dataList[$key]['img'] = empty($value['img']) ? '' : $image['PERFIX'].$value['img'];//封面图
+            $dataList[$key]['img'] = empty($value['img']) ? '' : trim($value['img'],'.');//封面图
         }
         return $dataList;
     }
@@ -236,7 +264,7 @@ class item extends Model{
         if(count($data) == count($data,1)){//一维数组
                 $dataList['id'] = $data['id'];//id
                 $dataList['item_name'] = $data['item_name'];//标题
-                $dataList['img'] = empty($data['img']) ? '' : $perfix['PERFIX'].$data['img'];//封面图
+                $dataList['img'] = empty($data['img']) ? '' : trim($data['img'],'.');//封面图
                 $dataList['fran_store_num'] = $data['fran_store_num'];//加盟店数量
                 $dataList['money'] = $data['min_money'] . '~' . $data['max_money'] ;//投资金额
                 $dataList['apply'] = $data['apply'];//申请加盟数量
@@ -251,7 +279,7 @@ class item extends Model{
             foreach ($data as $key => $value) {
                 $dataList[$key]['id'] = $value['id'];//id
                 $dataList[$key]['item_name'] = $value['item_name'];//标题
-                $dataList[$key]['img'] = empty($value['img']) ? '' : $perfix['PERFIX'].$value['img'];//封面图
+                $dataList[$key]['img'] = empty($value['img']) ? '' : $value['img'];//封面图
                 $dataList[$key]['fran_store_num'] = $value['fran_store_num'];//加盟店数量
                 $dataList[$key]['money'] = $value['min_money'] . '~' . $value['max_money'] ;//投资金额
                 $dataList[$key]['apply'] = $value['apply'];//申请加盟数量

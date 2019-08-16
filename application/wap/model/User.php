@@ -5,7 +5,7 @@ use think\Model;
 
 class user extends Model{
 
-    private static $userModel; //
+    private $userModel; //
     //构造方法 实例化数据库
     public function __construct(){
         parent::__construct();
@@ -13,7 +13,7 @@ class user extends Model{
     }
 
     /*验证用户是否存在*/
-    public function is_user($where){
+        public function is_user($where){
         $result = $this -> userModel -> where($where) -> find();
         return $result;
     }

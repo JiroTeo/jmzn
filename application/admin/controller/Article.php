@@ -2,12 +2,13 @@
 namespace app\admin\controller;
 use think\Db;
 use think\Controller;
+use app\admin\model\Article as articleModel;
 class article extends Base{
    // 构造方法
      public function __construct(){
         parent::__construct();
         // 实例化分类模型
-        $this -> articleModel = model('article');
+        $this -> articleModel = new articleModel();
         
     }
     /* @param  文章列表

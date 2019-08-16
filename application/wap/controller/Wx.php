@@ -70,18 +70,11 @@ class wx extends Base {
             }
         }
     }
-//        ["access_token"] => string(89) "23_RFcFyHytJDsRc61otW3lUiCADnCD_RJPyClOymg9NUQgMI8qlxU2MthIf6_de6oyl2djmnhBUhy3TvsKlLQxRw"
-//        ["expires_in"] => int(7200)
-//        ["refresh_token"] => string(89) "23_-BcJimeJLVID0s9rAXNmpUG-A6cg-KgBV8Bjk35j3cPCcKawOtzjU1sRraOF5aSJDioHyTQcBH3wlHIKCLTMwg"
-//        ["openid"] => string(28) "oJ2kZ5zRnaIPmWeoS4ESyUO3t-tg"
-//        ["scope"] => string(15) "snsapi_userinfo"
-//        ["unionid"] => string(28) "or95C1fIfTFFVHSE9u_i2sFPkPwQ"
-//            ["access_token"] => string(89) "23_nzG0b2NRFSedAlUiA2DFBtwlb1Z6-arf_LRzSaWNGUOwdxtG3yLBVRF0poOjevmW_0qZBnJrry682hAMNWrUKw"
-//            ["expires_in"] => int(7200)
-//            ["refresh_token"] => string(89) "23_kbmlEY-OcgxwNrATuk8sh2UEXhhDozoeW7F-FEsltLzdRI_IfsM6p_6NalIjpwa7Xif7hbasPUL9IpdFV4c8Og"
-//            ["openid"] => string(28) "oJ2kZ5zRnaIPmWeoS4ESyUO3t-tg"
-//            ["scope"] => string(11) "snsapi_base"
-//    }
+
+    /*  微信支付    */
+    public function wechat_pay(){
+//        $ch = '';
+    }
 
     static public function httpGet($url){
         $curl = curl_init();
@@ -94,6 +87,5 @@ class wx extends Base {
         list($content, $status) = array(curl_exec($curl), curl_getinfo($curl), curl_close($curl));
         return (intval($status["http_code"]) === 200) ? $content : false;
     }
-
 
 }

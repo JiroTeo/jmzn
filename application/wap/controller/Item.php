@@ -87,7 +87,7 @@ class item extends Base{
         $data['data']['article'] = $article;
 
         //获取用户的openid
-        $data['data']['openid'] = "oJ2kZ5zRnaIPmWeoS4ESyUO3t-tg";
+        $data['data']['openid'] = "oFjutuKS5Q90ZrxKjdLHBDB_X6Ow";
         return json_encode($data);
     }
 

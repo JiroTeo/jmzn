@@ -39,4 +39,10 @@ class aboutus extends Base{
         }
         wapReturn($dataList);
     }
+
+    /*静态页面*/
+
+    public function aboutus(){
+        return view();
+    }
 }

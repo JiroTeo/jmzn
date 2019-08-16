@@ -47,12 +47,14 @@ class User extends Model{
         $dataList['cname'] =  $data['cname'];
         $dataList['email'] =  $data['email'];
         $dataList['phone'] =  $data['phone'];
+        $dataList['wx_openid'] =  $data['wx_openid'];
+        $dataList['token'] =  $data['token'];
         $dataList['uname'] =  empty($data['uname']) ? '': base64_decode($data['uname']);
         return $dataList;
     }
 
     /*  查询用户时候还有可阅读消息的剩余数量 && 处理 */
-    protected function parseModel($where = false , $debug = false  ){
+    public function parseModel($where = false , $debug = false  ){
         $data = $this -> userModel -> where($where) -> field('id,notice_count,read_notice_num') -> find();
         //用户不存在
         if(empty($data)){
@@ -68,5 +70,31 @@ class User extends Model{
         //返回剩余条数
         return $num;
     }
+
+    /** 新建用户(wap && web 端)
+     *  用户名为（jmzn_phone）
+    */
+    public function insertUserGetId( $phone = false , $openid = '' ){
+        $add['phone'] = $phone;
+        $add['wx_openid'] = $openid;
+        $add['status'] = 1;
+        $add['uname'] = base64_encode('jmzn_'.$phone);
+        $add['rtime'] = time();
+        $addUserRes = $this -> userModel -> insertGetId($add);
+        return $addUserRes;
+    }
+
+    /*  统计用户数量    */
+    public function userCount($where){
+        $count = $this -> userModel -> where($where) -> count();
+        return $count;
+    }
+
+    /*  修改用户信息  */
+    public function editUserData( $where = false , $save = false ){
+        $result = $this -> userModel -> where($where) -> update($save);
+        return $result;
+    }
+
 
 }

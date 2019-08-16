@@ -1,0 +1,130 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}找项目{/block}
+<!--keywords-->
+{block name="keywords"}{123}{/block}
+<!--description-->
+{block name='description'}{456}{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/16.ab5fbc89a23c0defbe01.js"></script>
+{/block}
+
+{block name="content"}
+
+<div data-v-645de51c="" class="wrapper clearfix">
+    <div data-v-645de51c="" class="classifyList">
+        <div data-v-645de51c="" class="classify">
+            <div data-v-645de51c="" class="left">
+                <span data-v-645de51c="" class="title">行业分类</span><span data-v-645de51c="" data-id="" class="currentClassify">不限</span>
+            </div>
+            <div data-v-645de51c="" class="right">
+                {foreach $cateData as $key => $value}
+                <span data-v-645de51c="" data-id="{$value.id}" class="">{$value.name}</span>
+                {/foreach}
+            </div>
+        </div> <!---->
+        <div data-v-645de51c="" class="classify">
+            <div data-v-645de51c="" class="left">
+                <span data-v-645de51c="" class="title">投资金额</span><span data-v-645de51c="" data-money="0" class="currentClassify">不限</span>
+            </div>
+            <div data-v-645de51c="" class="right"><span data-v-645de51c="" data-money="1" class="">1万以下</span>
+                <span data-v-645de51c="" data-money="2" class="">1-10万</span>
+                <span data-v-645de51c="" data-money="3" class="">10-20万</span>
+                <span data-v-645de51c="" data-money="4" class="">20-50万</span>
+                <span data-v-645de51c="" data-money="5" class="">50-100万</span>
+                <span data-v-645de51c="" data-money="6" class="">100万以上</span>
+            </div>
+        </div>
+    </div>
+    <div data-v-645de51c="" class="content fl clearfix">
+        <div data-v-645de51c="" class="title clearfix">
+            <div data-v-645de51c="" class="fl">加盟项目</div>
+            <div data-v-645de51c="" class="el-select select fr"><!---->
+                <div class="el-input el-input--suffix"><!---->
+                    <input type="text" readonly="readonly" autocomplete="off" placeholder="请选择" class="el-input__inner"><!---->
+                    <span class="el-input__suffix">
+                        <span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-arrow-up"></i><!----><!----><!----><!----><!----></span>
+                    <!---->
+                    </span><!----><!---->
+                </div>
+                <div class="el-select-dropdown el-popper" style="display: none; min-width: 100px;">
+                    <div class="el-scrollbar" style="">
+                        <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default">
+                            <ul class="el-scrollbar__view el-select-dropdown__list"><!---->
+                                <li data-v-645de51c="" class="el-select-dropdown__item selected"><span>最新</span></li>
+                                <li data-v-645de51c="" class="el-select-dropdown__item"><span>热度</span></li>
+                            </ul>
+                        </div>
+                        <div class="el-scrollbar__bar is-horizontal">
+                            <div class="el-scrollbar__thumb" style="transform: translateX(0%);"></div>
+                        </div>
+                        <div class="el-scrollbar__bar is-vertical">
+                            <div class="el-scrollbar__thumb" style="transform: translateY(0%);"></div>
+                        </div>
+                    </div><!----></div>
+            </div>
+        </div>
+        {foreach $itemData as $key => $value}
+        <a data-v-645de51c="" href="{:url('index/item/detail')}?id={$value.id}" class="item">
+            <img data-v-645de51c="" src="{$value.img}" alt="">
+            <div data-v-645de51c="" class="right">
+                <div data-v-645de51c="" class="name clearfix"><span data-v-645de51c="" class="fl">{$value.item_name} {$value.money}万</span> <span
+                        data-v-645de51c="" class="money fr">￥{$value.money}万</span></div>
+                <div data-v-645de51c="" class="detail">
+                    <div data-v-645de51c="" class="info">
+                        所属行业：<span data-v-645de51c="">{$value.cate_name}</span></div>
+                    <div data-v-645de51c="" class="info">
+                        直营店：<span data-v-645de51c="">{$value.shop_count}家</span></div>
+                    <div data-v-645de51c="" class="info">
+                        申请人数：<span data-v-645de51c="">{$value.apply}</span></div>
+                    <div data-v-645de51c="" class="info">
+                        加盟店：<span data-v-645de51c="">{$value.fran_store_num}家</span></div>
+                </div>
+            </div>
+        </a>
+        {/foreach}
+        <div class="layui-card-body ">
+            <div class="page">
+                <div>
+                    {$page}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-v-673d4749="" data-v-645de51c="" class="hotOrder hotOrder fr">
+        <div data-v-673d4749="" class="title clearfix"><span data-v-673d4749="" class="fl">加盟项目排行榜</span> <!----></div>
+        <div data-v-673d4749="" class="list">
+            {foreach $ranking as $key => $value}
+            <a data-v-673d4749="" href="{:url('index/item/detail')}?id={$value.id}" class="item clearfix">
+                <div data-v-673d4749="" class="order fl">{$key+1}</div>
+                <div data-v-673d4749="" class="name fl">{$value.brand}</div>
+                <div data-v-673d4749="" class="count fr">{$value.read_num}</div>
+            </a>
+            {/foreach}
+        </div>
+    </div>
+    <div data-v-2e73e232="" data-v-645de51c="" class="industryList IndustryList fr">
+        <div data-v-2e73e232="" class="title clearfix"><span data-v-2e73e232="" class="fl">行业资讯</span>
+            <a data-v-2e73e232="" href="{:url('index/article/index')}" class="fr more"> 更多 <span data-v-2e73e232="" class="el-icon-arrow-right"></span></a>
+        </div>
+        <div data-v-2e73e232="" class="special">
+            <a data-v-2e73e232="" href="{:url('index/article/detail')}?id={$artData['rArticle']['id']}" class="">
+                <img data-v-2e73e232="" src="{$artData['rArticle']['img']}" alt="">
+            <div data-v-2e73e232="">{$artData['rArticle']['title']}</div>
+            </a>
+        </div>
+        <ul data-v-2e73e232="">
+            {foreach $artData['aticle'] as $key => $value}
+            <li data-v-2e73e232="">
+                <a data-v-2e73e232="" href="{:url('index/article/detail')}?id={$value.id}" class="">{$value.title}</a>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+</div>
+{/block}

@@ -2,7 +2,7 @@
 namespace app\index\controller;
 use think\Cache;
 use think\Request;
-use wechat\WechatOauth;
+use think\captcha\Captcha;
 class login extends Base {
 
     // 构造方法
@@ -12,8 +12,33 @@ class login extends Base {
          $this->userModel = model('user');
      }
 
-    /*登录*/
+    /*  重构登录注册  */
     public function login(){
+        $info = $this -> request -> param();
+        if(!empty($info)){
+            //验证手机号
+            $resPhone = verifMobile($info['phone']);
+            if(empty($resPhone)){
+
+            }
+        }else{
+            return view();
+        }
+    }
+
+    /*  企业入驻    */
+    public function login_qy(){
+        $info = $this -> request -> param();
+        if($info){
+            echo "企业入驻";
+        }else{
+            echo "企业入驻";
+        }
+    }
+
+
+    /*登录*/
+    public function login_bf(){
         //接收参数
         $phone = empty($_REQUEST['phone']) ? false : trim($_REQUEST['phone']);
         $code = empty($_REQUEST['code']) ? false : trim($_REQUEST['code']);

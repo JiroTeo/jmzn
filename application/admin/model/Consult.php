@@ -5,7 +5,7 @@ use think\Model;
 
 class consult extends model{
 
-    private static $consultModel; //
+    private $consultModel; //
     //
     public function __construct(){
         parent::__construct();
@@ -41,4 +41,30 @@ class consult extends model{
         }
         return $cdata;
     }
+
+    /*  获取一条项目咨询信息  */
+    public function getConsultData($where = false , $type = false ){
+        $consult = $this -> consultModel -> where($where) -> find();
+        if(empty($consult)){    return [];  }
+        switch ($type) {
+            case 1:
+                $dataList = $this -> formatConsultData($consult);
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        return $dataList;
+    }
+
+    /*  格式化消息列表 */
+    public function formatConsultData($data){
+        $info['id'] = $data['id'];
+        $info['name'] = $data['name'];
+        $info['phone'] = $data['phone'];
+        $info['content'] = $data['content'];
+        return $info;
+    }
+
 }

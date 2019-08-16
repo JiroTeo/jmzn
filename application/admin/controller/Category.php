@@ -2,14 +2,14 @@
 namespace app\admin\controller;
 use think\Db;
 use think\Controller;
-use app\admin\model\category as cateModel;
+use app\admin\model\Category as cateModel;
 class category extends Base{
 
     // 构造方法
      public function __construct(){
         parent::__construct();
         // 实例化分类模型
-        $this -> cateModel = model('category');
+        $this -> cateModel = new cateModel();
     }
 
 //    类别列表

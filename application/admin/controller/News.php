@@ -4,7 +4,8 @@ use app\admin\model\UserCate;
 use think\Db;
 use think\Controller;
 use app\admin\model\UserPush as userPush;
-class news extends Base{
+use app\admin\model\NoticeLog as noticeLog;
+class   news extends Base{
 
     /*站内信列表*/
     public function index(){
@@ -78,22 +79,15 @@ class news extends Base{
 
     /*  推送的通知列表 */
     public function user_con_list(){
-        $newModel = db('news');
-        $userModel = db('user');
-        $newsDataWhere['status'] = $_GET['status'];
-        $newData = $newModel -> order('status desc,id desc') -> where($newsDataWhere) -> paginate(10);
-        $page = $newData -> render();
-        $data = iterator_to_array($newData);
-        $where = array();
-        foreach ($data as $key => $value) {
-            $where['uid'] = $value['uid'];
-            $user = $userModel -> where($where) -> find();
-            $data[$key]['username'] = empty($user['uname']) ? '' : base64_decode($user['uname']);
-            $data[$key]['addtime'] = date('Y-m-d H:i:s',$value['addtime']);
-        }
+       //推送记录notice_log
+        $noticeLog = new noticeLog();
+        //获取推送记录
+        $info = $noticeLog -> getNoticeLogList(false,'id desc',30,1);
+        $data = $info['data'];//数据
+        $page = $info['page'];//分页
+
         $this -> assign('data',$data);
         $this -> assign('page',$page);
-        $this -> assign('status',$_GET['status']);
         return view();
     }
 
