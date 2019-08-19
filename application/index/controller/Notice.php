@@ -106,4 +106,5 @@ class notice extends Base{
         $dataList['data'] = $data;
         wapReturn($dataList);
     }
+
 }

@@ -2,7 +2,7 @@
 namespace app\index\model;
 
 use think\Model;
-
+use app\index\model\Item as itemModel;
 class consult extends Model{
 
     /*  todo    获取留言列表            getConsultList
@@ -31,6 +31,28 @@ class consult extends Model{
         $this->conLog = db('con_log');
 
     }
+    /*  分页获取咨询列表    */
+    public function getConsultListByPage($where = false , $order = false , $num = false , $type = 0 , &$page = '' , $debug = false ){
+        $consultList = $this -> consultModel -> where($where) -> order($order) -> paginate($num,false,['var_page'=>'p']);
+        $page = $consultList->render();
+        $data = iterator_to_array($consultList);
+        if(empty($data)){    return [];  }
+        switch ($type) {
+            case 1://留言列表数据
+                $dataList = $this -> formarItemDetailConsultList($data);
+                break;
+            case 2://投资者管理
+                $dataList = $this -> formatConsultDataList($data);
+                break;
+            case 3://推送留言
+                $dataList = $this -> formatPushNotify($data);
+                break;
+            default:
+                return [];
+                break;
+        }
+        return $dataList;
+    }
 
     /*获取咨询列表*/
     public function getConsultList($where = false , $order = false , $limit = false , $type = 0 , $user = [] , $debug = false ){
@@ -47,6 +69,9 @@ class consult extends Model{
                 case 2://投资者管理
                     $dataList = $this -> formatConsultDataList($consultList,$user,$debug);
                     break;
+                case 3://推送留言
+                    $dataList = $this -> formatPushNotify($consultList,$user,$debug);
+                    break;
                 default:
                     return [];
                     break;
@@ -55,6 +80,18 @@ class consult extends Model{
 
         return $dataList;
     }
+    /*  格式化推送消息数据   */
+    public function formatPushNotify($data = false ){
+        foreach ($data as $key => $value) {
+            $dataList[$key]['id'] = $value['id'];
+            $dataList[$key]['name'] = $value['name'];
+            $dataList[$key]['phone'] = getMid($value['phone']);//手机号加密
+            $dataList[$key]['content'] = $value['content'];
+            $dataList[$key]['to_uid'] = $value['to_uid'];
+        }
+        return $dataList;
+    }
+
     /*  格式化-项目详情-留言列表数据   */
     public function formarItemDetailConsultList($data,$user,$debug){
         $userModel = \model('user');
@@ -105,7 +142,7 @@ class consult extends Model{
     }
 
     /*  格式化-投资者管理-数据*/
-    public function formatConsultDataList($data,$debug){
+    public function formatConsultDataList($data,$debug=false){
         foreach ($data as $key => $value) {
             $dataList[$key]['id'] = $value['id'];
             $dataList[$key]['content'] = $value['content'];
@@ -115,6 +152,7 @@ class consult extends Model{
             $dataList[$key]['name'] = $value['name'];
             $dataList[$key]['sex'] = $value['sex'];
             $dataList[$key]['phone'] = $value['phone'];
+            $dataList[$key]['addtime'] = date("Y-m-d H:i:s",$value['addtime']);
         }
         return $dataList;
     }
@@ -134,6 +172,28 @@ class consult extends Model{
         }
         $result = empty($res) ? false : $res ;
         return $result;
+    }
+
+    /*  我的留言    分页获取    */
+    public function getMyConsultByPage($where = false ,$order = false , $num = false , &$page ){
+        $consult = $this -> consultModel -> where($where) -> order($order) -> paginate($num);
+        $page = $consult ->render();
+        $data = iterator_to_array($consult);
+        if(empty($data)){   return [];   }
+        //格式化数据
+        $itemModel = new itemModel();
+        foreach ($data as $key => $value) {
+            //项目信息
+            $item = $itemModel -> getItemData(['id'=>$value['item_id']],2);
+            //留言信息
+            $data[$key]['id'] = $value['id'];
+            $data[$key]['content'] = $value['content'];
+            $data[$key]['status'] = $value['status'];
+            $data[$key]['read'] = $value['read'];
+            $data[$key]['addtime'] = date("Y-m-d",$value['addtime']);
+            $data[$key]['item'] = $item;
+        }
+        return $data;
     }
 
     /*我的留言   数据为项目  格式化数据*/

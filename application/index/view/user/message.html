@@ -1,0 +1,442 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}我的消息{/block}
+<!--keywords-->
+{block name="keywords"}{/block}
+<!--description-->
+{block name='description'}{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<style>
+  /*  menu start*/
+  .personalMenu {
+    width: 230px;
+    background-color: #fff;
+  }
+  .personalMenu .header {
+    display: block;
+    font-size: 16px;
+    line-height: 60px;
+    padding: 31px 21px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .personalMenu .header .avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+  .personalMenu .items {
+    padding: 22px 0;
+  }
+  .personalMenu .items .item {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 28px;
+  }
+  .personalMenu .items .item:hover {
+    color: #579EFA;
+  }
+  .personalMenu .items .currentItem {
+    color: #579EFA;
+    background-color: #EBEDF5;
+    border-left: 2px solid #579EFA;
+  }
+  /* menu end*/
+  /* message start */
+  @charset "UTF-8";
+  .message {
+    background-color: #F4F5FA;
+    padding-bottom: 120px;
+    /* 消息通知 */
+  }
+  .message .content {
+    padding-top: 20px;
+  }
+  .message .content .right {
+    width: 950px;
+    background-color: #fff;
+  }
+  .message .content .right .header {
+    height: 60px;
+    line-height: 60px;
+    color: #999;
+    font-size: 16px;
+    padding: 0 30px;
+  }
+  .message .content .right .header .tab {
+    margin-right: 45px;
+    cursor: pointer;
+  }
+  .message .content .right .header .currentTab {
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid #579EFA;
+  }
+  .message .content .right .consult {
+    padding: 0 41px;
+  }
+  .message .content .right .consult .consultItem {
+    padding: 30px 0;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .message .content .right .consult .consultItem .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    margin-right: 27px;
+  }
+  .message .content .right .consult .consultItem .info {
+    width: 730px;
+    font-size: 14px;
+    line-height: 30px;
+    color: #999;
+  }
+  .message .content .right .consult .consultItem .info .des {
+    padding: 10px;
+    background-color: #e3e4e5;
+    border-radius: 5px;
+  }
+  .message .content .right .consult .consultItem .info .lockBtn {
+    float: right;
+    color: #5389F7;
+    text-decoration: underline;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .message .content .right .consult .consultItem .info .name {
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .message .content .right .consult .consultItem .info .name .praise {
+    font-size: 14px;
+    color: #5389F7;
+  }
+  .message .content .right .consult .consultItem .info .name .noPraise {
+    font-size: 14px;
+    color: #C8C9CC;
+  }
+  .message .content .right .consult .consultItem .info .reply {
+    color: #808080;
+    padding: 9px 23px;
+    background-color: #F4F5FA;
+    margin-top: 9px;
+  }
+  .message .content .right .consult .consultItem .info .time {
+    color: #999;
+    font-weight: normal;
+  }
+  .message .content .right .consult .consultItem .info .time .replyBtn {
+    color: #5389F7;
+    text-decoration: underline;
+    margin-left: 10px;
+  }
+  .message .content .right .consult .box2 .info {
+    width: 100%;
+  }
+  .message .content .right .consult .consultItem:last-child {
+    border: 0;
+  }
+  .message .dialog {
+    font-size: 14px;
+    line-height: 36px;
+    overflow-y: auto;
+    height: 300px;
+  }
+  .message .dialog .head {
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .message .dialog .time {
+    color: #999;
+  }
+  .message .dialog .content {
+    color: #333333;
+    padding: 0;
+  }
+  .message .pages {
+    text-align: center;
+    margin: 34px 0;
+  }
+  /* message end */
+  /* header start */
+  .personalHeader {
+    width: 100%;
+    background: #fff;
+    padding: 15px 0;
+  }
+  .personalHeader .content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .personalHeader .logo {
+    width: 194px;
+    height: 70px;
+  }
+  .personalHeader .tabs {
+    height: 70px;
+    line-height: 70px;
+  }
+  .personalHeader .tabs a {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    cursor: pointer;
+  }
+  .personalHeader .tabs a:hover {
+    color: #579EFA;
+  }
+  /* header end */
+
+</style>
+{/block}
+{block name="header"}{/block}
+{block name="content"}
+<div>
+  <div class="message">
+    <div>
+      <div class="personalHeader">
+        <div class="wrapper content">
+          <a href="/">
+            <img class="logo" src="../../static/image/logo.png" alt="">
+          </a>
+          <div class="tabs">
+            <a href="/">首页</a>
+            <a href="{:url('index/item/index')}">找项目</a>
+            <a href="{:url('index/index/rankinglist')}">排行榜</a>
+            <a href="{:url('index/article/index')}">行业资讯</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper clearfix content">
+      <div class="fl" currentMenu="1">
+        <div class="personalMenu">
+          <a href="{:url('index/user/index')}" class="header clearfix">
+            <img src="{$user.avatar}" alt="" class="avatar fl">
+            <div class="fl">{$user.uname}</div>
+          </a>
+          <div class="items">
+            <a href="{:url('index/user/message')}" class="item a-exact-active a-active currentItem">
+              <span>我的消息</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/focus')}" class="item">
+              <span>我的关注</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/collect')}" class="item">
+              <span>我的收藏</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/leaveMessage')}" class="item">
+              <span>我的留言</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+              <a href="{:url('index/user/myAccount')}" class="item">
+              <span>我的账户</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/footmark')}" class="item">
+              <span>我的足迹</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/account')}" class="item">
+              <span>企业中心</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/feedback')}" class="item">
+              <span>意见反馈</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/modify')}" class="item">
+              <span>资料设置</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+          </div>
+        </div>
+      </div>
+      <div class="fr right">
+        <div class="header" @click="tabChange">
+          <div class="tab fl" data-type="2">评论和赞</div>
+          <div class="tab fl currentTab " data-type="1" >推送消息</div>
+        </div>
+        <div class="consult">
+          {foreach $notice as $key => $value}
+          <div class="consultItem clearfix" v-if="type == 2" v-for="item in data" :key="'consult'+item.id" >
+            <img class="avatar fl" src="{$value.userOper.avatar}" alt="">
+            <div class="info fl">
+              <div class="name">
+                {$value.userOper.username}
+                <div class="time fr">
+                  <span class="">{$value.addtime}</span>
+                  <!--                  todo 添加评论链接 应该有两种评论 文章和项目-->
+                  <a href="/" class="replyBtn">查看</a>
+                </div>
+              </div>
+              <div>
+                {$value.userOper.content}
+              </div>
+              <div class="reply">
+                <div v-for="item in item.uerOper" :key="'oper'+item.id">{$value.username}：{$value.content}</div>
+              </div>
+            </div>
+          </div>
+          {/foreach}
+          <div class="layui-card-body ">
+            <div class="page">
+              <div>
+                {$npage}
+              </div>
+            </div>
+          </div>
+          {foreach $consult as $key => $value}
+          <div class="consultItem box2 clearfix" v-if="type == 1" v-for="(item,index) in data" :key="'message'+item.id" >
+            <div class="info fl">
+              <div class="name">
+                姓名 {$value.name}
+                <span class="lockBtn" >查看</span>
+                <div class="">手机号：{$value.phone}</div>
+              </div>
+              <div class="des">
+                {$value.content}
+              </div>
+            </div>
+          </div>
+          {/foreach}
+          <div class="layui-card-body ">
+            <div class="page">
+              <div>
+                {$page}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name="jq"}
+<script>
+  //message start
+  export default {
+    name: "message",
+    data(){
+      return {
+        centerDialogVisible: false,
+        type: '1', //1消息 2 评论
+        page: 0,
+        count: 0,
+        data:[],
+        currentContent:{}
+      }
+    },
+    created(){
+      this.getData();
+    },
+    methods:{
+      getData(){
+        const {page,type } = this;
+        if( type == '1'){
+          api.getMessageList({page}).then( data =>{
+            this.data = data.data;
+            console.log("=====",data.data);
+            this.count = data.count;
+          });
+        }else if(type == '2'){
+          api.getConsultList({page}).then( data =>{
+            this.data = data.data;
+            console.log("=====",data.data);
+            this.count = data.count;
+          });
+        }
+
+      },
+
+      tabChange: function({target: {dataset:{type}}}){
+        this.page=0;
+        this.type = type;
+        this.data = [];
+        this.getData();
+      },
+      detail: function({currentTarget: {dataset:{id}}}){
+        // this.currentContent = this.data[index];
+        // this.centerDialogVisible = true
+
+        api.getDetail({id}).then(data=>{
+          this.$router.push("/investorManage");
+        })
+
+      },
+      PhonePwd :function(pwd){
+        // # 数字0-9按从小到大顺序变成 HEBIDAGJMZN，替换完成后在第5个字符后面加JMZN 例：EZDDBKAFBBAGEM
+        console.log("pwd",pwd);
+        const reg = "HEBIDAGJMZN";
+
+        let data = pwd.replace("JMZN",'');
+        let phone = '';
+        console.log("data",data);
+        for(const item in data){
+          phone += reg.indexOf(data.charAt(item));
+        }
+        phone = phone.substr(0,3) + "*****"+ phone.substr(-3);
+        return phone
+      }
+    },
+    components: {
+      PersonalHeader,
+      PersonalMenu
+    }
+  }
+  //message end
+  //header start
+  export default {
+    name: "personalHeader",
+    created(){
+
+    }
+  }
+  //header end
+  //menu start
+  export default {
+    name: "personalMenu",
+    props:{
+      currentMenu:{
+        default: '0'
+      },
+    },
+    data(){
+      return{
+        userInfo:{
+        }
+      }
+    },
+    watch:{
+      $route(to,from){
+        if(from.path =='/data'){
+          if(to.path == '/data'){
+            console.log("chengggfgsgsaasfsdsdf")
+          }
+        }
+      }
+    },
+    created(){
+      this.userInfo = JSON.parse(localStorage.getItem('user'));
+
+    }
+  }
+  //menu end
+</script>
+{/block}

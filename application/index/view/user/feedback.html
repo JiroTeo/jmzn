@@ -1,0 +1,362 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}投资者管理{/block}
+<!--keywords-->
+{block name="keywords"}{/block}
+<!--description-->
+{block name='description'}{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<style>
+  /*  menu start*/
+  .personalMenu {
+    width: 230px;
+    background-color: #fff;
+  }
+  .personalMenu .header {
+    display: block;
+    font-size: 16px;
+    line-height: 60px;
+    padding: 31px 21px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .personalMenu .header .avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+  .personalMenu .items {
+    padding: 22px 0;
+  }
+  .personalMenu .items .item {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 28px;
+  }
+  .personalMenu .items .item:hover {
+    color: #579EFA;
+  }
+  .personalMenu .items .currentItem {
+    color: #579EFA;
+    background-color: #EBEDF5;
+    border-left: 2px solid #579EFA;
+  }
+  /* menu end*/
+  /* content start */
+  .centerBg {
+    width: 100%;
+    height: auto;
+    padding: 20px 0 100px;
+    background: #F4F5FA;
+  }
+
+  .centerLeft {
+    float: left;
+    width: 230px;
+  }
+
+  .centerRight {
+    float: right;
+    width: 950px;
+    min-height: 610px;
+    background: #fff;
+  }
+  .centerRight .centerTitle {
+    padding: 0 33px;
+    height: 60px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .centerRight .centerTitle ul li {
+    height: 58px;
+    line-height: 58px;
+    float: left;
+    color: #333;
+    font-size: 16px;
+    border-bottom: 2px solid #fff;
+  }
+  .centerRight .centerTitle ul li.active {
+    border-bottom: 2px solid #4F74F4;
+  }
+  .centerRight .content {
+    padding-top: 35px;
+    width: 780px;
+  }
+  /* content end */
+  /* header start */
+  .personalHeader {
+    width: 100%;
+    background: #fff;
+    padding: 15px 0;
+  }
+  .personalHeader .content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .personalHeader .logo {
+    width: 194px;
+    height: 70px;
+  }
+  .personalHeader .tabs {
+    height: 70px;
+    line-height: 70px;
+  }
+  .personalHeader .tabs a {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    cursor: pointer;
+  }
+  .personalHeader .tabs a:hover {
+    color: #579EFA;
+  }
+  /* header end */
+
+</style>
+{/block}
+{block name="header"}{/block}
+{block name="content"}
+<div>
+  <div>
+    <div class="personalHeader">
+      <div class="wrapper content">
+        <a href="/">
+          <img class="logo" src="../../static/image/logo.png" alt="">
+        </a>
+        <div class="tabs">
+          <a href="/">首页</a>
+          <a href="{:url('index/item/index')}">找项目</a>
+          <a href="{:url('index/index/rankinglist')}">排行榜</a>
+          <a href="{:url('index/article/index')}">行业资讯</a>
+        </div>
+      </div>
+    </div>
+    <div class="centerBg">
+      <div class="wrapper clearfix">
+        <div class="centerLeft">
+          <div class="personalMenu">
+            <a href="{:url('index/user/index')}" class="header clearfix">
+              <img src="{$user.avatar}" alt="" class="avatar fl">
+              <div class="fl">{$user.uname}</div>
+            </a>
+            <div class="items">
+              <a href="{:url('index/user/message')}" class="item">
+                <span>我的消息</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/focus')}" class="item">
+                <span>我的关注</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/collect')}" class="item">
+                <span>我的收藏</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/leaveMessage')}" class="item">
+                <span>我的留言</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/index')}" class="item">
+                <span>我的账户</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/footmark')}" class="item">
+                <span>我的足迹</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/account')}" class="item">
+                <span>企业中心</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/feedback')}" class="item a-exact-active a-active currentItem">
+                <span>意见反馈</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/modify')}" class="item">
+                <span>资料设置</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+            </div>
+          </div>
+        </div>
+        <div class="centerRight">
+          <div class="centerTitle">
+            <ul>
+              <li class="active">意见反馈</li>
+            </ul>
+          </div>
+
+          <el-form ref="form" :rules="refs" :model="form" label-width="120px" class="content">
+            <el-form-item label="意见反馈" prop="propose">
+              <input type="textarea" v-model="form.propose" placeholder="请填写您的问题或建议" >
+            </el-form-item>
+            <el-form-item label="手机号码" prop="phone">
+              <el-col :span="11">
+                <input v-model="form.phone" placeholder="请填写您的手机号码">
+              </el-col>
+            </el-form-item>
+            <el-form-item label="真实姓名" prop="name">
+              <el-col :span="11">
+                <input v-model="form.name" placeholder="请填写您的真实姓名">
+              </el-col>
+            </el-form-item>
+            <el-form-item>
+              <button type="primary" @click="submitForm('form')">提交</button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/block}
+{block name="jq"}
+<script>
+  //content start
+  export default {
+    name: "index.vue",
+    data() {
+      return {
+        dialogVisible: false,
+        consultId: '',
+        read: 0,
+        type: 0,
+        page: 0,
+        data: '',
+        count: 0,
+        currentData: {consult:{
+            name:'',
+            content:'',
+            read:'',
+            addtime:'',
+          },con_log:[]
+        },
+        detailName: ['待跟进','正在跟进','已签约','放弃跟进','无效'],
+        title:'',
+        content: [],
+        status: 1 // 0 无效，1有效
+
+      }
+    },
+    created() {
+      this.getData();
+    },
+    methods: {
+      getData: function () {
+        let {read, page,status} = this;
+        if(read == 4){
+          status = 0;
+        }
+        api.getInvertorManage({type: 0,status, read, page}).then(data => {
+          this.data = data.data;
+          this.count = data.count
+        });
+      },
+
+      tabChange: function ({target: {dataset: {read}}}) {
+        this.read = read;
+        this.page=0
+        this.getData();
+      },
+      /**
+       * 更改跟进状态
+       */
+      statusChange: function(read){
+        this.currentData.consult.read = read;
+
+      },
+      /**
+       * 修改意向状态
+       */
+      intentionChange: function(value){
+        this.currentData.consult.intention = value;
+      },
+      /**
+       * 点击分页
+       * @param e
+       */
+      pageChange: function (e) {
+        this.page = e - 1;
+        window.scrollTo(0, 0);
+        this.getData();
+      },
+
+      /**
+       * 查看详情
+       */
+      detail: function ({currentTarget: {dataset: {index}}}) {
+        api.getConsultDetail({id:this.data[index].id,type:0}).then(data =>{
+          this.currentData = data;
+          this.title = this.detailName[data.consult.read];
+          this.dialogVisible = true;
+        })
+      },
+      /**
+       * 添加跟进
+       */
+      addConsult: function(){
+        const { read,intention,id} = this.currentData.consult;
+        const {content} = this;
+        api.addConsult({id,int:intention,read,content}).then(data=>{
+          this.dialogVisible = false;
+          this.content = '';
+          this.$message.success('保存成功')
+        });
+
+      }
+    },
+    components: {
+      PersonalHeader,
+      PersonalMenu
+    }
+  }
+  //content end
+  //header start
+  export default {
+    name: "personalHeader",
+    created(){
+
+    }
+  }
+  //header end
+  //menu start
+  export default {
+    name: "personalMenu",
+    props:{
+      currentMenu:{
+        default: '0'
+      },
+    },
+    data(){
+      return{
+        userInfo:{
+        }
+      }
+    },
+    watch:{
+      $route(to,from){
+        if(from.path =='/data'){
+          if(to.path == '/data'){
+            console.log("chengggfgsgsaasfsdsdf")
+          }
+        }
+      }
+    },
+    created(){
+      this.userInfo = JSON.parse(localStorage.getItem('user'));
+
+    }
+  }
+  //menu end
+</script>
+{/block}

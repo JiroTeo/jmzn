@@ -1,0 +1,423 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}我的留言{/block}
+<!--keywords-->
+{block name="keywords"}{/block}
+<!--description-->
+{block name='description'}{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<style>
+  /*  menu start*/
+  .personalMenu {
+    width: 230px;
+    background-color: #fff;
+  }
+  .personalMenu .header {
+    display: block;
+    font-size: 16px;
+    line-height: 60px;
+    padding: 31px 21px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .personalMenu .header .avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+  .personalMenu .items {
+    padding: 22px 0;
+  }
+  .personalMenu .items .item {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 28px;
+  }
+  .personalMenu .items .item:hover {
+    color: #579EFA;
+  }
+  .personalMenu .items .currentItem {
+    color: #579EFA;
+    background-color: #EBEDF5;
+    border-left: 2px solid #579EFA;
+  }
+  /* menu end*/
+  /* message start */
+  .centerBg {
+    width: 100%;
+    height: auto;
+    padding: 20px 0 100px;
+    background: #F4F5FA;
+  }
+
+  .centerLeft {
+    float: left;
+    width: 230px;
+  }
+
+  .centerRight {
+    float: right;
+    width: 950px;
+    min-height: 610px;
+    background: #fff;
+  }
+  .centerRight .centerTitle {
+    padding: 0 33px;
+    height: 60px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .centerRight .centerTitle ul li {
+    height: 58px;
+    line-height: 58px;
+    float: left;
+    color: #333;
+    font-size: 16px;
+    border-bottom: 2px solid #fff;
+  }
+  .centerRight .centerTitle ul li.active {
+    border-bottom: 2px solid #4F74F4;
+  }
+  .centerRight .footContent {
+    padding: 0 30px;
+  }
+  .centerRight .footContent .leaveRow {
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #E3E4E5;
+  }
+  .centerRight .footContent .leaveRow dl {
+    padding: 20px 0;
+    position: relative;
+  }
+  .centerRight .footContent .leaveRow dl dt {
+    float: left;
+    width: 140px;
+    height: 140px;
+  }
+  .centerRight .footContent .leaveRow dl dt img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .centerRight .footContent .leaveRow dl dd {
+    float: right;
+    width: 730px;
+  }
+  .centerRight .footContent .leaveRow dl dd .title {
+    height: 26px;
+    line-height: 26px;
+    font-size: 18px;
+    margin: 20px 0;
+  }
+  .centerRight .footContent .leaveRow dl dd .title h4 {
+    color: #333;
+  }
+  .centerRight .footContent .leaveRow dl dd .title b {
+    color: #FF7E00;
+  }
+  .centerRight .footContent .leaveRow dl dd .desc {
+    width: 330px;
+  }
+  .centerRight .footContent .leaveRow dl dd .desc span {
+    float: left;
+    width: 160px;
+    line-height: 28px;
+    color: #999;
+  }
+  .centerRight .footContent .leaveRow dl .lookStatus {
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 2px;
+    color: #fff;
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    z-index: 10;
+  }
+  .centerRight .footContent .leaveRow dl .lookStatus1 {
+    cursor: pointer;
+    background: linear-gradient(0deg, #4f74f4 0%, #579efa 100%);
+  }
+  .centerRight .footContent .leaveRow dl .lookStatus2 {
+    background: linear-gradient(0deg, #4f74f4 0%, #579efa 100%);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .centerRight .footContent .leaveRow dl .lookStatus3 {
+    width: 78px;
+    height: 30px;
+    line-height: 30px;
+    background: #F4F5FA;
+    border: 1px solid #E6E6E6;
+    color: #999;
+    cursor: not-allowed;
+  }
+  .centerRight .footContent .leaveRow .content {
+    padding: 20px;
+    color: #808080;
+    line-height: 26px;
+    background: #F4F5FA;
+  }
+
+  .paging {
+    margin: 30px;
+    text-align: center;
+  }
+  /* message end */
+  /* header start */
+  .personalHeader {
+    width: 100%;
+    background: #fff;
+    padding: 15px 0;
+  }
+  .personalHeader .content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .personalHeader .logo {
+    width: 194px;
+    height: 70px;
+  }
+  .personalHeader .tabs {
+    height: 70px;
+    line-height: 70px;
+  }
+  .personalHeader .tabs a {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    cursor: pointer;
+  }
+  .personalHeader .tabs a:hover {
+    color: #579EFA;
+  }
+  /* header end */
+
+</style>
+{/block}
+{block name="header"}{/block}
+{block name="content"}
+<div>
+<!--  wrapper clearfix content-->
+  <div class="message">
+    <div>
+      <div class="personalHeader">
+        <div class="wrapper content">
+          <a href="/">
+            <img class="logo" src="../../static/image/logo.png" alt="">
+          </a>
+          <div class="tabs">
+            <a href="/">首页</a>
+            <a href="{:url('index/item/index')}">找项目</a>
+            <a href="{:url('index/index/rankinglist')}">排行榜</a>
+            <a href="{:url('index/article/index')}">行业资讯</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="centerBg">
+    <div class="wrapper clearfix content">
+      <div class="wrapper clearfix">
+      <div class="centerLeft">
+      <div class="fl" currentMenu="4">
+        <div class="personalMenu">
+          <a href="{:url('index/user/index')}" class="header clearfix">
+            <img src="{$user.avatar}" alt="" class="avatar fl">
+            <div class="fl">{$user.uname}</div>
+          </a>
+          <div class="items">
+            <a href="{:url('index/user/message')}" class="item">
+              <span>我的消息</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/focus')}" class="item">
+              <span>我的关注</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/collect')}" class="item">
+              <span>我的收藏</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/leaveMessage')}" class="item a-exact-active a-active currentItem">
+              <span>我的留言</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+              <a href="{:url('index/user/myAccount')}" class="item">
+              <span>我的账户</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/footmark')}" class="item">
+              <span>我的足迹</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/account')}" class="item">
+              <span>企业中心</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/feedback')}" class="item">
+              <span>意见反馈</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/modify')}" class="item">
+              <span>资料设置</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="centerRight">
+        <div class="centerTitle">
+          <ul>
+            <li class="active">我的留言</li>
+          </ul>
+        </div>
+        <div class="footContent">
+          {foreach $data as $key => $value}
+          <div  class="leaveRow" v-for="item in data" :key="'data'+item.id" >
+            <dl class="clearfix">
+              <dt><img src="{$value.item.img}"></dt>
+              <dd>
+                <a href="{:url('index/item/detail')}?id={$value.item.id}">
+                  <div class="title between">
+                    <h4>{$value.item.item_name}</h4>
+                    <b>￥{$value.item.money}万</b>
+                  </div>
+                  <p class="desc">
+                    <span>所属行业：{$value.item.cate_name}</span>
+                    <span>直营店：{$value.item.shop_count}家</span>
+                    <span>申请人数：{$value.item.read_num}</span>
+                    <span>加盟店：{$value.item.fran_store_num}家</span>
+                  </p>
+                </a>
+              </dd>
+              <span class="lookStatus lookStatus1" :data-id="item.id" v-if="item.status == 0" @click.stop="urge">催促查看</span>
+<!--              <span class="lookStatus lookStatus3" v-else-if="item.status == 2">已查看</span>-->
+              <span class="lookStatus lookStatus2" v-else-if="item.status == 3">催促查看</span>
+            </dl>
+            <p class="content">{$value.content}</p>
+          </div>
+          {/foreach}
+          <div class="layui-card-body ">
+            <div class="page">
+              <div>
+                {$page}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <el-pagination class="paging" background layout="prev, pager, next" :total="count" @current-change="pageChange"></el-pagination>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name="jq"}
+<script>
+  //message start
+  export default {
+    name: "index.vue",
+    data(){
+      return{
+        data:'',
+        count: 0,
+        page: 0
+      }
+    },
+
+    created(){
+      this.getData();
+    },
+
+    methods: {
+      /**
+       * 获取留言列表
+       */
+      getData: function(){
+        const {page} =this;
+        api.getLeaveList({page}).then(data=>{
+          this.data = data.data;
+          this.count = data.count;
+        })
+      },
+
+      /**
+       * 点击分页
+       * @param e
+       */
+      pageChange:function(e){
+        this.page = e-1;
+        window.scrollTo(0,0);
+        this.getData();
+      },
+      /**
+       * 催促查看
+       */
+      urge: function({currentTarget:{dataset:{id}}}){
+        api.urge({id}).then(data => {
+          this.$message({message:'已为您提醒商家',type:"success"});
+          this.getData();
+        });
+      }
+    },
+    components: {
+      PersonalHeader,
+      PersonalMenu
+    }
+  }
+  //message end
+  //header start
+  export default {
+    name: "personalHeader",
+    created(){
+
+    }
+  }
+  //header end
+  //menu start
+  export default {
+    name: "personalMenu",
+    props:{
+      currentMenu:{
+        default: '0'
+      },
+    },
+    data(){
+      return{
+        userInfo:{
+        }
+      }
+    },
+    watch:{
+      $route(to,from){
+        if(from.path =='/data'){
+          if(to.path == '/data'){
+            console.log("chengggfgsgsaasfsdsdf")
+          }
+        }
+      }
+    },
+    created(){
+      this.userInfo = JSON.parse(localStorage.getItem('user'));
+
+    }
+  }
+  //menu end
+</script>
+{/block}

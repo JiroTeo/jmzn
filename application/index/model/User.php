@@ -38,7 +38,7 @@ class user extends Model{
     public function formatUserData($data,$debug){
         $perfix = config('IMAGE');
         if($data['type'] != 1){//个人用户
-            $format['avatar'] = empty($data['avatar']) ? $perfix['AVATAR'] : $perfix['PERFIX'].trim($data['avatar'],'.');
+            $format['avatar'] = empty($data['avatar']) ? $perfix['AVATAR'] : trim($data['avatar'],'.');
             $format['username'] = empty($data['uname']) ? '' : base64_decode($data['uname']);
             $format['name'] = empty($data['name']) ? '' :$data['name'];
             $format['sex'] = empty($data['sex']) ? 0 :$data['sex'];
@@ -46,7 +46,7 @@ class user extends Model{
             $format['phone'] = empty($data['phone']) ? '' :$data['phone'];
             $format['addtime'] = date('Y-m-d',$data['rtime']);
         }else{//企业用户
-            $format['avatar'] = empty($data['avatar']) ? $perfix['AVATAR'] : $perfix['PERFIX'].trim($data['avatar'],'.');
+            $format['avatar'] = empty($data['avatar']) ? $perfix['AVATAR'] : trim($data['avatar'],'.');
             $format['username'] = empty($data['uname']) ? '' : base64_decode($data['uname']);
             $format['name'] = empty($data['name']) ? '' :$data['name'];
             $format['sex'] = empty($data['sex']) ? 0 :$data['sex'];
@@ -73,7 +73,7 @@ class user extends Model{
         $user['uid'] = $userData['uid'];
         $user['username'] = empty($userData['uname']) ? $userData['phone'] : base64_decode($userData['uname']) ;
         $user['name'] = empty($userData['name']) ? '' : $userData['name'];
-        $user['avatar'] = empty($userData['avatar']) ? $perfix['AVATAR'] : trim($userData['avatar']);
+        $user['avatar'] = empty($userData['avatar']) ? $perfix['AVATAR'] : trim($userData['avatar'],'.');
         return $user;
 
     }

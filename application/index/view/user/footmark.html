@@ -1,0 +1,353 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}我的足迹{/block}
+<!--keywords-->
+{block name="keywords"}{/block}
+<!--description-->
+{block name='description'}{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<style>
+  /*  menu start*/
+  .personalMenu {
+    width: 230px;
+    background-color: #fff;
+  }
+  .personalMenu .header {
+    display: block;
+    font-size: 16px;
+    line-height: 60px;
+    padding: 31px 21px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .personalMenu .header .avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+  .personalMenu .items {
+    padding: 22px 0;
+  }
+  .personalMenu .items .item {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 28px;
+  }
+  .personalMenu .items .item:hover {
+    color: #579EFA;
+  }
+  .personalMenu .items .currentItem {
+    color: #579EFA;
+    background-color: #EBEDF5;
+    border-left: 2px solid #579EFA;
+  }
+  /* menu end*/
+  /* footmark start */
+  .centerBg {
+    width: 100%;
+    height: auto;
+    padding: 20px 0 100px;
+    background: #F4F5FA;
+  }
+
+  .centerLeft {
+    float: left;
+    width: 230px;
+  }
+
+  .centerRight {
+    float: right;
+    width: 950px;
+    min-height: 610px;
+    background: #fff;
+  }
+  .centerRight .centerTitle {
+    padding: 0 33px;
+    height: 60px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .centerRight .centerTitle ul li {
+    height: 58px;
+    line-height: 58px;
+    float: left;
+    color: #333;
+    font-size: 16px;
+    border-bottom: 2px solid #fff;
+  }
+  .centerRight .centerTitle ul li.active {
+    border-bottom: 2px solid #4F74F4;
+  }
+  .centerRight .footContent {
+    padding: 0 30px;
+  }
+  .centerRight .footContent dl {
+    padding: 20px 0;
+    border-bottom: 1px dashed #E3E4E5;
+  }
+  .centerRight .footContent dl dt {
+    float: left;
+    width: 140px;
+    height: 140px;
+  }
+  .centerRight .footContent dl dt img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .centerRight .footContent dl dd {
+    float: right;
+    width: 730px;
+  }
+  .centerRight .footContent dl dd .title {
+    height: 26px;
+    line-height: 26px;
+    font-size: 18px;
+    margin: 20px 0;
+  }
+  .centerRight .footContent dl dd .title h4 {
+    color: #333;
+  }
+  .centerRight .footContent dl dd .title b {
+    color: #FF7E00;
+  }
+  .centerRight .footContent dl dd .desc {
+    width: 330px;
+  }
+  .centerRight .footContent dl dd .desc span {
+    float: left;
+    width: 160px;
+    line-height: 28px;
+    color: #999;
+  }
+
+  .paging {
+    margin: 30px;
+    text-align: center;
+  }
+  /* footmark end */
+  /* header start */
+  .personalHeader {
+    width: 100%;
+    background: #fff;
+    padding: 15px 0;
+  }
+  .personalHeader .content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .personalHeader .logo {
+    width: 194px;
+    height: 70px;
+  }
+  .personalHeader .tabs {
+    height: 70px;
+    line-height: 70px;
+  }
+  .personalHeader .tabs a {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    cursor: pointer;
+  }
+  .personalHeader .tabs a:hover {
+    color: #579EFA;
+  }
+  /* header end */
+
+</style>
+{/block}
+{block name="header"}{/block}
+{block name="content"}
+<div>
+  <div class="message">
+    <div>
+      <div class="personalHeader">
+        <div class="wrapper content">
+          <a href="/">
+            <img class="logo" src="../../static/image/logo.png" alt="">
+          </a>
+          <div class="tabs">
+            <a href="/">首页</a>
+            <a href="{:url('index/item/index')}">找项目</a>
+            <a href="{:url('index/index/rankinglist')}">排行榜</a>
+            <a href="{:url('index/article/index')}">行业资讯</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper clearfix content">
+      <div class="fl" currentMenu="1">
+        <div class="personalMenu">
+          <a href="{:url('index/user/index')}" class="header clearfix">
+            <img src="{$user.avatar}" alt="" class="avatar fl">
+            <div class="fl">{$user.uname}</div>
+          </a>
+          <div class="items">
+            <a href="{:url('index/user/message')}" class="item">
+              <span>我的消息</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/focus')}" class="item">
+              <span>我的关注</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/collect')}" class="item">
+              <span>我的收藏</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/leaveMessage')}" class="item">
+              <span>我的留言</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+              <a href="{:url('index/user/myAccount')}" class="item">
+              <span>我的账户</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/footmark')}" class="item a-exact-active a-active currentItem">
+              <span>我的足迹</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/account')}" class="item">
+              <span>企业中心</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/feedback')}" class="item">
+              <span>意见反馈</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/modify')}" class="item">
+              <span>资料设置</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+          </div>
+        </div>
+      </div>
+      <div class="centerRight">
+        <div class="centerTitle">
+          <ul>
+            <li class="active">我的足迹</li>
+          </ul>
+        </div>
+        <div class="footContent">
+          {foreach $data as $key => $value}
+          <dl class="clearfix" v-for="item in data" :key="'foot'+item.id">
+            <a href="{:url('index/item/detail')}?id={$value.id}">
+              <dt><img src="{$value.img}"></dt>
+              <dd>
+                <div class="title between">
+                  <h4>{$value.item_name}</h4>
+                  <b>￥{$value.money}万</b>
+                </div>
+                <p class="desc">
+                  <span>所属行业：{$value.cate_name}</span>
+                  <span>直营店：{$value.shop_count}家</span>
+                  <span>申请人数：{$value.read_num}</span>
+                  <span>加盟店：{$value.fran_store_num}家</span>
+                </p>
+              </dd>
+            </a>
+          </dl>
+          {/foreach}
+        </div>
+        <div class="layui-card-body ">
+          <div class="page">
+            <div>
+              {$page}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name="jq"}
+<script>
+  //content start
+  export default {
+    name: "index.vue",
+    data(){
+      return{
+        data:'',
+        page: 0,
+        count: 0
+      }
+    },
+    created(){
+      this.getData();
+    },
+    methods: {
+
+      getData(){
+        const {page} = this;
+        api.getProductList({type:3,page}).then(data=>{
+          this.data = data.data;
+          this.count = data.count;
+        });
+      },
+
+      /**
+       * 点击分页
+       * @param e
+       */
+      pageChange:function(e){
+        this.page = e-1;
+        window.scrollTo(0,0);
+        this.getData();
+      },
+    },
+    components: {
+      PersonalHeader,
+      PersonalMenu
+    }
+  }
+  //content end
+  //header start
+  export default {
+    name: "personalHeader",
+    created(){
+
+    }
+  }
+  //header end
+  //menu start
+  export default {
+    name: "personalMenu",
+    props:{
+      currentMenu:{
+        default: '0'
+      },
+    },
+    data(){
+      return{
+        userInfo:{
+        }
+      }
+    },
+    watch:{
+      $route(to,from){
+        if(from.path =='/data'){
+          if(to.path == '/data'){
+            console.log("chengggfgsgsaasfsdsdf")
+          }
+        }
+      }
+    },
+    created(){
+      this.userInfo = JSON.parse(localStorage.getItem('user'));
+
+    }
+  }
+  //menu end
+</script>
+{/block}

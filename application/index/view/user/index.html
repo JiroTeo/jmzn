@@ -1,128 +1,422 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>我的账户</title>
-  <meta name="keywords" content="加盟指南,加盟指南栏目,加盟指南网,项目加盟指南,创业好项目加盟指南，招商外包服务，专业招商外包服务公司，只做招商外包服务">
-  <meta name="description"
-        content="加盟指南网是为招商加盟企业提供招商外包服务的专业招商外包服务平台，平台设有加盟指南栏目,为加盟者提供各招商行业的加盟指南资讯,最新的加盟指南数据分析，创新的推送加盟线索招商外包服务模式对招商企业提供专业的招商外包服务,使其招商成功，招商外包服务热线:400-619-8882。">
-  <link href="__STATIC__/index/css/app.ab2c6bd5a05d0ee41a13d9b60a53687a.css" rel="stylesheet">
-  <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.1871d735b27225dbba66.js"></script>
-  <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/12.401491fe7c00e3b2d089.js"></script>
-</head>
-<body>
-<div id="app">
-  <div data-v-5eef6683="" class="common-header">
-    <div data-v-5eef6683="" class="body wrapper">
-      <div data-v-5eef6683="" class="left">
-        欢迎来到加盟指南网！ 全国服务热线：400-619-8882
-      </div>
-      <div data-v-5eef6683="" class="right">
-        <div data-v-5eef6683="" class="phoneVersion"><span data-v-5eef6683="" class="iconfont icon-phone"></span> <span
-          data-v-5eef6683="">手机版</span> <img data-v-5eef6683="" src="/index/img/wap_qrcode.475f601.jpg" alt="手机二维码"
-                                             class="QRcode"></div>
-        <div data-v-5eef6683="" class="weChatVersion"><span data-v-5eef6683="" class="iconfont icon-weChat"></span>
-          <span data-v-5eef6683="">微信版</span> <img data-v-5eef6683="" src="/index/img/wx_qrcode.d7de962.jpg" alt="微信二维码"
-                                                   class="QRcode"></div>
-        <div data-v-5eef6683=""><a data-v-5eef6683="" href="{:url('index/login/login')}" class="">登陆</a></div>
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}{/block}
+<!--keywords-->
+{block name="keywords"}{/block}
+<!--description-->
+{block name='description'}{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<style>
+  .focus {
+    background-color: #F4F5FA;
+    padding-bottom: 120px;
+  }
+  .focus .content {
+    padding-top: 20px;
+  }
+  .focus .content .right {
+    width: 950px;
+  }
+  .focus .content .right .header {
+    height: 60px;
+    line-height: 58px;
+    color: #999;
+    font-size: 16px;
+    padding: 0 30px;
+    border-bottom: 1px solid #E3E4E5;
+    background-color: #fff;
+  }
+  .focus .content .right .header .tab {
+    margin-right: 45px;
+  }
+  .focus .content .right .header .currentTab {
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid #579EFA;
+  }
+  .focus .content .right .account {
+    height: 140px;
+    padding: 0 100px 0 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+  }
+  .focus .content .right .account .number .count {
+    font-size: 32px;
+    color: #333;
+  }
+  .focus .content .right .account .number .name {
+    font-size: 14px;
+    color: #999;
+    padding-left: 5px;
+    margin-top: 5px;
+  }
+  .focus .content .right .account .etcBtn {
+    width: 140px;
+    height: 40px;
+    line-height: 40px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #fff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#579efa), to(#4f74f4));
+    background: linear-gradient(180deg, #579efa, #4f74f4);
+    text-align: center;
+    cursor: pointer;
+  }
+  .focus .content .right .recordBox {
+    width: 950px;
+    background: #fff;
+    margin-top: 20px;
+    padding-bottom: 5px;
+  }
+  .focus .content .right .recordBox .head {
+    padding: 0 33px;
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #E3E4E5;
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+  }
+  .focus .content .right .recordBox .head span {
+    margin-right: 50px;
+    color: #666;
+  }
+  .focus .content .right .recordBox .head span.active {
+    border-bottom: 2px solid #4F74F4;
+  }
+  .focus .content .right .recordBox .chart div {
+    padding: 0 0 0 30px;
+    height: 60px;
+    line-height: 60px;
+  }
+  .focus .content .right .recordBox .chart div span {
+    float: left;
+    width: 153px;
+    height: 60px;
+    line-height: 60px;
+    overflow: hidden;
+  }
+  .focus .content .right .recordBox .chart div:nth-child(2n+1) {
+    background: #F0F7FF;
+  }
+
+  .offBg {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9990;
+  }
+  .offBg .offline {
+    width: 540px;
+    height: 420px;
+    background: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -210px 0 0 -270px;
+  }
+  .offBg .offline .head {
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-size: 18px;
+    border-bottom: 1px solid #E3E4E5;
+    position: relative;
+  }
+  .offBg .offline .head i {
+    color: #999;
+    position: absolute;
+    right: 43px;
+    top: 0;
+    z-index: 10;
+    cursor: pointer;
+  }
+  /*导航栏*/
+  .dialog-footer {
+    text-align: center;
+  }
+
+  .pages {
+    text-align: center;
+    margin: 34px 0;
+  }
+
+  .personalMenu {
+    width: 230px;
+    background-color: #fff;
+  }
+  .personalMenu .header {
+    display: block;
+    font-size: 16px;
+    line-height: 60px;
+    padding: 31px 21px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .personalMenu .header .avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+  .personalMenu .items {
+    padding: 22px 0;
+  }
+  .personalMenu .items .item {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 28px;
+  }
+  .personalMenu .items .item:hover {
+    color: #579EFA;
+  }
+  .personalMenu .items .currentItem {
+    color: #579EFA;
+    background-color: #EBEDF5;
+    border-left: 2px solid #579EFA;
+  }
+  /* header start */
+  .personalHeader {
+    width: 100%;
+    background: #fff;
+    padding: 15px 0;
+  }
+  .personalHeader .content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .personalHeader .logo {
+    width: 194px;
+    height: 70px;
+  }
+  .personalHeader .tabs {
+    height: 70px;
+    line-height: 70px;
+  }
+  .personalHeader .tabs a {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    cursor: pointer;
+  }
+  .personalHeader .tabs a:hover {
+    color: #579EFA;
+  }
+  /* header end */
+
+</style>
+{/block}
+{block name="header"}
+{/block}
+{block name="content"}
+<div>
+  <div class="focus">
+    <div>
+      <div class="personalHeader">
+        <div class="wrapper content">
+          <a href="/">
+            <img class="logo" src="../../static/image/logo.png" alt="">
+          </a>
+          <div class="tabs">
+            <a href="/">首页</a>
+            <a href="/list">找项目</a>
+            <a href="/rankingList">排行榜</a>
+            <a href="/news">行业资讯</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div data-v-b8a4af10="" class="focus">
-    <div data-v-13f8abc6="" data-v-b8a4af10="" class="personalHeader">
-      <div data-v-13f8abc6="" class="wrapper content"><a data-v-13f8abc6="" href="/" class="router-link-active"><img
-        data-v-13f8abc6="" src="/index/img/logo.45da167.png" alt="" class="logo"></a>
-        <div data-v-13f8abc6="" class="tabs"><a data-v-13f8abc6="" href="/" class="router-link-active">首页</a> <a
-          data-v-13f8abc6="" href="{:url('index/index/rankinglist')}" class="">找项目</a> <a data-v-13f8abc6="" href="/rankingList" class="">排行榜</a> <a
-          data-v-13f8abc6="" href=“{:url('index/article/index')}” class="">行业资讯</a></div>
+    <div class="wrapper clearfix content">
+      <div class="fl" currentMenu="9">
+        <div class="personalMenu">
+          <a href="{:url('index/user/index')}" class="header clearfix">
+            <img src="{$user.avatar}" alt="" class="avatar fl">
+            <div class="fl">{$user.uname}</div>
+          </a>
+          <div class="items">
+            <a href="{:url('index/user/message')}" class="item">
+              <span>我的消息</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/focus')}" class="item">
+              <span>我的关注</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/collect')}" class="item">
+              <span>我的收藏</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/leaveMessage')}" class="item">
+              <span>我的留言</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/index')}" class="item a-exact-active a-active currentItem">
+              <span>我的账户</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/footmark')}" class="item">
+              <span>我的足迹</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/account')}" class="item">
+              <span>企业中心</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/feedback')}" class="item">
+              <span>意见反馈</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/modify')}" class="item">
+              <span>资料设置</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+          </div>
+        </div>
+      </div>
+      <div class="fr right">
+        <div class="header clearfix">
+          <div class="tab fl">我的账户</div>
+        </div>
+        <div class="account">
+          <div class="number">
+            <div class="count">{$user.ncount}</div>
+            <div class="name">全部推送条数</div>
+          </div>
+          <div class="number">
+            <div class="count">{$user.rncount}</div>
+            <div class="name">已查看</div>
+          </div>
+          <div class="number">
+            <div class="count">{$user.rem}</div>
+            <div class="name">剩余条数</div>
+          </div>
+          <div class="etcBtn" @click="etcClick">立即充值</div>
+        </div>
+        <div class="recordBox">
+          <div class="head">
+            <span>订单列表</span>
+          </div>
+          <div class="chart">
+            <div class="clearfix">
+              <span>订单号</span>
+              <span>充值金额</span>
+              <span>充值单价</span>
+              <span>充值条数</span>
+              <span>充值时间</span>
+              <span>充值状态</span>
+            </div>
+            <div class="clearfix">
+              <span>A100280</span>
+              <span>10.00</span>
+              <span>0.50</span>
+              <span>20</span>
+              <span>2019-08-12</span>
+              <span>成功</span>
+            </div>
+            <div class="clearfix">
+              <span>A100280</span>
+              <span>10.00</span>
+              <span>0.50</span>
+              <span>20</span>
+              <span>2019-08-12</span>
+              <span>成功</span>
+            </div>
+          </div>
+          <el-pagination
+                  background
+                  layout="prev, pager, next"
+                  :total="count"
+                  class="pages"
+                  @current-change="pageChange"
+          >
+          </el-pagination>
+        </div>
       </div>
     </div>
-    <div data-v-b8a4af10="" class="wrapper clearfix content"><!---->
-      <div data-v-b8a4af10="" class="fr right">
-        <div data-v-b8a4af10="" class="header clearfix">
-          <div data-v-b8a4af10="" class="tab fl">我的账户</div>
-        </div>
-        <div data-v-b8a4af10="" class="account">
-          <div data-v-b8a4af10="" class="number">
-            <div data-v-b8a4af10="" class="count">1000</div>
-            <div data-v-b8a4af10="" class="name">全部推送条数</div>
-          </div>
-          <div data-v-b8a4af10="" class="number">
-            <div data-v-b8a4af10="" class="count">1000</div>
-            <div data-v-b8a4af10="" class="name">已查看</div>
-          </div>
-          <div data-v-b8a4af10="" class="number">
-            <div data-v-b8a4af10="" class="count">1000</div>
-            <div data-v-b8a4af10="" class="name">剩余条数</div>
-          </div>
-          <div data-v-b8a4af10="" class="etcBtn">立即充值</div>
-        </div>
-        <div data-v-b8a4af10="" class="recordBox">
-          <div data-v-b8a4af10="" class="head"><span data-v-b8a4af10="">订单列表</span></div>
-          <div data-v-b8a4af10="" class="chart">
-            <div data-v-b8a4af10="" class="clearfix"><span data-v-b8a4af10="">订单号</span> <span
-              data-v-b8a4af10="">充值金额</span> <span data-v-b8a4af10="">充值单价</span> <span data-v-b8a4af10="">充值条数</span>
-              <span data-v-b8a4af10="">充值时间</span> <span data-v-b8a4af10="">充值状态</span></div>
-            <div data-v-b8a4af10="" class="clearfix"><span data-v-b8a4af10="">A100280</span> <span data-v-b8a4af10="">10.00</span>
-              <span data-v-b8a4af10="">0.50</span> <span data-v-b8a4af10="">20</span> <span data-v-b8a4af10="">2019-08-12</span>
-              <span data-v-b8a4af10="">成功</span></div>
-            <div data-v-b8a4af10="" class="clearfix"><span data-v-b8a4af10="">A100280</span> <span data-v-b8a4af10="">10.00</span>
-              <span data-v-b8a4af10="">0.50</span> <span data-v-b8a4af10="">20</span> <span data-v-b8a4af10="">2019-08-12</span>
-              <span data-v-b8a4af10="">成功</span></div>
-          </div>
-          <div data-v-b8a4af10="" class="pages el-pagination is-background">
-            <button type="button" disabled="disabled" class="btn-prev"><i class="el-icon el-icon-arrow-left"></i>
-            </button>
-            <ul class="el-pager"><!----><!----><!----><!----></ul>
-            <button type="button" class="btn-next"><i class="el-icon el-icon-arrow-right"></i></button>
-          </div>
-        </div>
-      </div>
-    </div> <!----></div>
-  <div data-v-4045a12e="" class="common-footer">
-    <div data-v-4045a12e="" class="links ">
-      <div data-v-4045a12e="" class="wrapper">
-        <div data-v-4045a12e="" class="left"><a data-v-4045a12e="" href="/aboutUs" class="">关于我们</a> <a
-          data-v-4045a12e="" href="/aboutUs" class="">产品服务</a> <a data-v-4045a12e="" href="/aboutUs" class="">产品优势</a>
-          <a data-v-4045a12e="" href="/aboutUs" class="">客户合作</a> <a data-v-4045a12e="" href="/aboutUs"
-                                                                     class="">联系我们</a></div>
-        <div data-v-4045a12e="" class="right">
-          客服热线：400-619-8882
-        </div>
+    <!--线下付款-->
+    <div class="offBg" v-if="offShow" style="display: none;">
+      <div class="offline">
+        <div class="head">线下付款<i class="iconfont icon-close" @click="showOff"></i></div>
       </div>
     </div>
-    <div data-v-4045a12e="" class="body wrapper">
-      <div data-v-4045a12e="" class="left">
-        <div data-v-4045a12e="">友情提示：创业有风险，投资需谨慎</div>
-        <div data-v-4045a12e="" class="clearfix"><span data-v-4045a12e="" class="fl">Copyright © 2019 jinrongbaijia.com All Rights Reserved.冀ICP备17023127号-7</span>
-          <div data-v-4045a12e="" class="fl" style="width: 300px; margin: 0px auto 0px 10px;"><a data-v-4045a12e=""
-                                                                                                 target="_blank"
-                                                                                                 href=" "
-                                                                                                 style="display: inline-block; text-decoration: none; height: 30px; line-height: 30px;"><img
-            data-v-4045a12e="" src="__STATIC__/index/img/jh.d0289dc.png" style="float: left; margin-top: 5px;">
-            <p data-v-4045a12e=""
-               style="float: left; height: 30px; line-height: 30px; margin: 0px 0px 0px 5px; color: rgb(147, 147, 147);">
-              冀公网安备 13010802001059号</p></a></div>
-        </div>
-        <div data-v-4045a12e="">法律支持：河北盈华律师事务所</div>
-        <a data-v-4045a12e="" href="http://www.bcpcn.com/product/rz/bq/BCP30497889F2859242.html" target="_blank"><img
-          data-v-4045a12e="" src="http://www.bcpcn.com/bcptags/img/csrz.gif" border="0" class="csrz"></a></div>
-      <div data-v-4045a12e="" class="right">
-        <div data-v-4045a12e="" class="item"><img data-v-4045a12e="" src="__STATIC__/index/img/wx_qrcode.d7de962.jpg" alt=""
-                                                  class="QRcode">
-          <div data-v-4045a12e="">微信公众号</div>
-        </div>
-        <div data-v-4045a12e="" class="item"><img data-v-4045a12e="" src="__STATIC__/index/img/wap_qrcode.475f601.jpg" alt=""
-                                                  class="QRcode">
-          <div data-v-4045a12e="">手机版</div>
-        </div>
-      </div>
-    </div>
+
   </div>
 </div>
-<!--<script type="text/javascript" src="__STATIC__/index/js/manifest.3762d4712e1da0387b26.js"></script>-->
-<script type="text/javascript" src="__STATIC__/index/js/vendor.56df9a2cbd8420fb4c7d.js"></script>
-<script type="text/javascript" src="__STATIC__/index/js/app.e34147882cbafe0f4382.js"></script>
-</body>
-</html>
+{/block}
+{block name="jq"}
+<script>
+  /*页面*/
+  import PersonalHeader from '@/components/PersonalHeader'
+  import PersonalMenu from '@/components/PersonalMenu'
+  import api from '@/api/personal-api'
+  import commonApi from '@/api/common-api'
+
+  export default {
+    name: "focus",
+    data() {
+      return {
+        offShow:false
+      }
+    },
+    created(){
+
+    },
+    methods: {
+      etcClick:function(){
+        this.offShow = true
+      },
+      showOff:function(){
+        this.offShow = false
+      }
+
+    },
+    components: {
+      PersonalHeader,
+      PersonalMenu
+    }
+  }
+/*导航*/
+  export default {
+    name: "personalMenu",
+    props:{
+      currentMenu:{
+        default: '0'
+      },
+    },
+    data(){
+      return{
+        userInfo:{
+        }
+      }
+    },
+    watch:{
+      $route(to,from){
+        if(from.path =='/data'){
+          if(to.path == '/data'){
+            console.log("chengggfgsgsaasfsdsdf")
+          }
+        }
+      }
+    },
+    created(){
+      this.userInfo = JSON.parse(localStorage.getItem('user'));
+
+    }
+  }
+</script>
+{/block}

@@ -20,7 +20,7 @@ class article extends Base{
         $artModel = new artModel();
         $itemModel = new itemModel();
         //广告
-        $imageData = $imageModel -> getImageDatList(['status'=>1,'web_page'=>2]);
+        $imageData = $imageModel -> getImageDatList(['status'=>1,'web_page'=>2,'client'=>1]);
         //热门资讯
         $hotArt = $artModel -> getArticleData(['status'=>1],'read_num desc',10,2);
         //加盟资讯

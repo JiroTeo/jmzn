@@ -72,6 +72,27 @@ class notice extends Model{
         return $countNum;
     }
 
+    /* 通知消息 分页格式*/
+    public function getNoticeDataByPage($where = false , $order = false , $num = 10 , $type = 0 , &$page , $debug = false){
+        $noticeData = $this -> noticeModel -> where($where) -> order($order) -> paginate($num,false,['var_page'=>'n']);
+        $page = $noticeData->render();
+        $data = iterator_to_array($noticeData);
+        if(empty($data)){   return [];  }
+        //格式化
+        switch ($type) {
+            case 1://评论和赞
+                $dataList = $this -> formatNoticeDataList($data,false );
+                break;
+            case 2://站内信
+                $dataList = $this -> formatMail($data);
+                break;
+            default:
+                # code...
+                break;
+        }
+        return $dataList;
+    }
+
     /*获取通知信息*/
     public function getNoticeData($where = false , $order = false , $limit = false , $type = 0 ,$user = false , $debug = false){
         $data = $this -> noticeModel -> where($where) -> order($order) -> limit($limit) -> select();
@@ -104,6 +125,7 @@ class notice extends Model{
             $datalist[$key]['userOper']['content'] = empty($value['content']) ? '' : $value['content'];
             $datalist[$key]['id'] = $value['id'];
             $datalist[$key]['type'] = $value['type'];
+            $datalist[$key]['addtime'] = date("Y-m-d H:i:s",$value['addtime']);
         }
         return $datalist;
     }

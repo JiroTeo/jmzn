@@ -314,6 +314,29 @@ class consult extends Base{
         wapReturn($rinfo);
     }
 
+    /*  接收推送消息  */
+    public function get_push_consult(){
+        //验证登录
+        $user = $this -> user;
+        if(empty($user)){
+            wapReturn($this -> returnCode['ERROR'][5]);
+        }
+        //分页数据
+        $page = empty($_REQUEST['page']) ? 0 : $_REQUEST['page'] - 1 ;
+        $num = empty($_REQUEST['num']) ? 10 : $_REQUEST['num'];
+        $limit = ( $page * $num ) . ' , ' . $num;
 
+        //获取推送内容
+        $where['to_uid'] = $user['uid'];
+        $where['type'] = 2;
+        $where['status'] = 1;
+        $data = $this -> consultModel ->  getConsultList($where,'addtime desc',$limit,3,$this -> debug);
+        $count = db('consult') -> where($where) -> count();
+        $dataList['data'] = $data;
+        $dataList['count'] = $count;
+        $rinfo = $this -> returnCode['SUCCESS'][0];
+        $rinfo['data'] = $dataList;
+        wapReturn($rinfo);
+    }
 
 }

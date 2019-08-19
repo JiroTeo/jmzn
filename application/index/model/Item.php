@@ -175,7 +175,7 @@ class Item extends Model{
 
     /*  分页模式获取项目列表  */
     public function getItemDataListPage($where = false , $order = false , $num = 10 , $type = 4 , &$page = '' , $debug = false ){
-        $itemData = $this -> itemModel -> where($where) -> order($order) -> paginate($num);
+        $itemData = $this -> itemModel -> where($where) -> order($order) -> paginate($num,false,['var_page'=>'p']);
         $page = $itemData ->render();
         $data = iterator_to_array($itemData);
         if(empty($data)){return [];}//数据不存在返回array();
@@ -279,7 +279,7 @@ class Item extends Model{
             foreach ($data as $key => $value) {
                 $dataList[$key]['id'] = $value['id'];//id
                 $dataList[$key]['item_name'] = $value['item_name'];//标题
-                $dataList[$key]['img'] = empty($value['img']) ? '' : $value['img'];//封面图
+                $dataList[$key]['img'] = empty($value['img']) ? '' : trim($value['img'],'.');//封面图
                 $dataList[$key]['fran_store_num'] = $value['fran_store_num'];//加盟店数量
                 $dataList[$key]['money'] = $value['min_money'] . '~' . $value['max_money'] ;//投资金额
                 $dataList[$key]['apply'] = $value['apply'];//申请加盟数量

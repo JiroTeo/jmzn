@@ -1,0 +1,435 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}我的消息{/block}
+<!--keywords-->
+{block name="keywords"}{/block}
+<!--description-->
+{block name='description'}{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<style>
+  /*  menu start*/
+  .personalMenu {
+    width: 230px;
+    background-color: #fff;
+  }
+  .personalMenu .header {
+    display: block;
+    font-size: 16px;
+    line-height: 60px;
+    padding: 31px 21px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .personalMenu .header .avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+  .personalMenu .items {
+    padding: 22px 0;
+  }
+  .personalMenu .items .item {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 28px;
+  }
+  .personalMenu .items .item:hover {
+    color: #579EFA;
+  }
+  .personalMenu .items .currentItem {
+    color: #579EFA;
+    background-color: #EBEDF5;
+    border-left: 2px solid #579EFA;
+  }
+  /* menu end*/
+  /* focus start */
+  .focus {
+    background-color: #F4F5FA;
+    padding-bottom: 120px;
+  }
+  .focus .content {
+    padding-top: 20px;
+  }
+  .focus .content .right {
+    width: 950px;
+    background-color: #fff;
+  }
+  .focus .content .right .header {
+    height: 60px;
+    line-height: 58px;
+    color: #999;
+    font-size: 16px;
+    padding: 0 30px;
+  }
+  .focus .content .right .header .tab {
+    margin-right: 45px;
+  }
+  .focus .content .right .header .currentTab {
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid #579EFA;
+  }
+
+  .per {
+    padding: 0 30px;
+  }
+  .per .item {
+    position: relative;
+    display: flex;
+    font-size: 14px;
+    color: #999;
+    padding: 20px 0;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .per .item .right {
+    margin-left: 22px;
+  }
+  .per .item .right .name {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 24px;
+  }
+  .per .item .right .name .money {
+    color: #FF7E00;
+    font-size: 16px;
+  }
+  .per .item img {
+    width: 140px;
+    height: 140px;
+  }
+  .per .item .detail {
+    width: 320px;
+    margin-top: 15px;
+  }
+  .per .item .detail .info {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .per .item .detail .info span {
+    display: inline-block;
+    width: 80px;
+  }
+  .per .btns {
+    position: absolute;
+    bottom: 30px;
+    right: 0px;
+    display: flex;
+    text-align: right;
+  }
+  .per .item:last-child {
+    border: 0;
+  }
+
+  .dialog-footer {
+    text-align: center;
+  }
+
+  .pages {
+    text-align: center;
+    margin: 34px 0;
+  }
+  /* focus end */
+  /* header start */
+  .personalHeader {
+    width: 100%;
+    background: #fff;
+    padding: 15px 0;
+  }
+  .personalHeader .content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .personalHeader .logo {
+    width: 194px;
+    height: 70px;
+  }
+  .personalHeader .tabs {
+    height: 70px;
+    line-height: 70px;
+  }
+  .personalHeader .tabs a {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    cursor: pointer;
+  }
+  .personalHeader .tabs a:hover {
+    color: #579EFA;
+  }
+  /* header end */
+
+</style>
+{/block}
+{block name="header"}{/block}
+{block name="content"}
+<div>
+  <div class="focus">
+    <div>
+      <div class="personalHeader">
+        <div class="wrapper content">
+          <a href="/">
+            <img class="logo" src="../../static/image/logo.png" alt="">
+          </a>
+          <div class="tabs">
+            <a href="/">首页</a>
+            <a href="/list">找项目</a>
+            <a href="/rankingList">排行榜</a>
+            <a href="/news">行业资讯</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper clearfix content">
+      <div class="fl" currentMenu="1">
+        <div class="personalMenu">
+          <a href="{:url('index/user/index')}" class="header clearfix">
+            <img src="{$user.avatar}" alt="" class="avatar fl">
+            <div class="fl">{$user.uname}</div>
+          </a>
+          <div class="items">
+            <a href="{:url('index/user/message')}" class="item">
+              <span>我的消息</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/focus')}" class="item  a-exact-active a-active currentItem">
+              <span>我的关注</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/collect')}" class="item">
+              <span>我的收藏</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/leaveMessage')}" class="item">
+              <span>我的留言</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/myAccount')}" class="item">
+              <span>我的账户</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/footmark')}" class="item">
+              <span>我的足迹</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/account')}" class="item">
+              <span>企业中心</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/feedback')}" class="item">
+              <span>意见反馈</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/modify')}" class="item">
+              <span>资料设置</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+          </div>
+        </div>
+      </div>
+      <div class="fr right">
+        <div class="header clearfix">
+          <div class="tab fl currentTab">我的关注</div>
+        </div>
+        <div class="per">
+          {foreach $data as $key => $value}
+          <a class="item" v-for="item in data" :key="'focus'+item.id" href="{:url('index/item/detail')}?id={$value.id}">
+            <img src="{$value.img}" alt="">
+            <div class="right">
+              <div class="name clearfix">
+                <span class="fl">{$value.item_name}</span>
+                <span class="money fr">￥{$value.money}万</span>
+              </div>
+              <div class="detail">
+                <div class="info">
+                  所属行业：<span>{$value.cate_name}</span>
+                </div>
+                <div class="info">
+                  直营店：<span>{$value.shop_count}家</span>
+                </div>
+                <div class="info">
+                  申请人数：<span>{$value.apply}</span>
+                </div>
+
+                <div class="info">
+                  加盟店：<span>{$value.fran_store_num}家</span>
+                </div>
+              </div>
+            </div>
+            <div class="btns" >
+              <button class="el-button el-button--primary" type="primary" @click.prevent="dialogFormVisible = true,productid = item.id">立即咨询</button>
+              <button class="el-button el-button--default" :data-id="item.id" @click.prevent="cancelFocus">取消关注</button>
+            </div>
+          </a >
+          {/foreach}
+          <div class="layui-card-body ">
+            <div class="page">
+              <div>
+                {$page}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name="jq"}
+<script>
+  //message start
+  export default {
+    name: "focus",
+    data() {
+      return {
+        form: {},
+        data:[],
+        radio: '',
+        dialogFormVisible: false,
+        formLabelWidth: '80px',
+        textarea:'',
+        page: 0,
+        count: 0,
+        productid: '',
+        showCode: true,
+        outTime: 60,
+        imgCode: ''
+      }
+    },
+    created(){
+      this.getData();
+      this.getImgCode();
+    },
+    methods: {
+      getData(){
+        const {page} =this;
+        api.getFocusList({page,type:2}).then(data =>{
+          console.log("data",data);
+          this.data = data.data;
+          this.count = data.count;
+        });
+      },
+      /**
+       * 点击分页
+       * @param e
+       */
+      pageChange:function(e){
+        this.page = e-1;
+        window.scrollTo(0,0);
+        this.getData();
+      },
+      /**
+       * 获取图片验证码
+       */
+      getImgCode: function(){
+        commonApi.getImgCode().then(data => {
+          this.imgCode = data;
+        })
+      },
+
+      /**
+       * 获取验证码
+       */
+      getCode: function() {
+        console.log("this.form;",this.form);
+        const {phone = '',img_code=''} = this.form;
+        const _this = this;
+        if (!this.validatePhone(phone)) {
+          return
+        }
+        this.showCode = false;
+        let intervalID = setInterval(function() {
+          if (_this.outTime == 0) {
+            _this.showCode = true;
+            _this.outTime = 60;
+            clearInterval(intervalID)
+          }
+          _this.outTime--;
+        }, 1000)
+        commonApi.getPhoneCode({phone,img_code}).then(data=>{
+          this.$message.success('验证码获取成功');
+        });
+      },
+
+      /**
+       * 验证手机格式
+       * @param {Object} phone
+       */
+      validatePhone: function(phone) {
+        if (!phone) {
+          this.$message.error('请输入手机号码');
+          return false;
+        }
+        if (phone.length != 11) {
+          this.$message.error('手机号码格式不正确');
+          return false;
+        }
+        return true;
+      },
+      /**
+       * 取消关注
+       */
+      cancelFocus: function({currentTarget: {dataset:{id}}}){
+        console.log("id",id);
+        api.cancelCollect({id,type:1}).then(data=>{
+          this.$message.success("取消关注成功")
+          this.getData();
+        });
+      }
+
+    },
+    components: {
+      PersonalHeader,
+      PersonalMenu
+    }
+  }
+  //message end
+  //header start
+  export default {
+    name: "personalHeader",
+    created(){
+
+    }
+  }
+  //header end
+  //menu start
+  export default {
+    name: "personalMenu",
+    props:{
+      currentMenu:{
+        default: '0'
+      },
+    },
+    data(){
+      return{
+        userInfo:{
+        }
+      }
+    },
+    watch:{
+      $route(to,from){
+        if(from.path =='/data'){
+          if(to.path == '/data'){
+            console.log("chengggfgsgsaasfsdsdf")
+          }
+        }
+      }
+    },
+    created(){
+      this.userInfo = JSON.parse(localStorage.getItem('user'));
+
+    }
+  }
+  //menu end
+</script>
+{/block}

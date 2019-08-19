@@ -1,0 +1,416 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}投资者管理{/block}
+<!--keywords-->
+{block name="keywords"}{/block}
+<!--description-->
+{block name='description'}{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<style>
+  /*  menu start*/
+  .personalMenu {
+    width: 230px;
+    background-color: #fff;
+  }
+  .personalMenu .header {
+    display: block;
+    font-size: 16px;
+    line-height: 60px;
+    padding: 31px 21px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .personalMenu .header .avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+  .personalMenu .items {
+    padding: 22px 0;
+  }
+  .personalMenu .items .item {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 28px;
+  }
+  .personalMenu .items .item:hover {
+    color: #579EFA;
+  }
+  .personalMenu .items .currentItem {
+    color: #579EFA;
+    background-color: #EBEDF5;
+    border-left: 2px solid #579EFA;
+  }
+  /* menu end*/
+  /* content start */
+  .centerBg {
+    width: 100%;
+    height: auto;
+    padding: 20px 0 100px;
+    background: #F4F5FA;
+  }
+
+  .centerLeft {
+    float: left;
+    width: 230px;
+  }
+
+  .centerRight {
+    float: right;
+    width: 950px;
+    min-height: 610px;
+    background: #fff;
+  }
+  .centerRight .centerTitle {
+    padding: 0 33px;
+    height: 60px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .centerRight .centerTitle ul li {
+    height: 58px;
+    line-height: 58px;
+    float: left;
+    color: #333;
+    font-size: 16px;
+    border-bottom: 2px solid #fff;
+  }
+  .centerRight .centerTitle ul li.active {
+    border-bottom: 2px solid #4F74F4;
+  }
+  .centerRight .centerContent {
+    padding: 35px 0 0;
+  }
+  .centerRight .centerContent .row {
+    margin-bottom: 15px;
+  }
+  .centerRight .centerContent .row .title {
+    float: left;
+    width: 100px;
+    line-height: 40px;
+    text-align: right;
+    margin-right: 15px;
+  }
+  .centerRight .centerContent .row .txBox {
+    float: left;
+    width: 94px;
+    height: 94px;
+    border: 1px solid #E3E4E5;
+    position: relative;
+  }
+  .centerRight .centerContent .row .txBox img {
+    display: block;
+    width: 94px;
+    height: 94px;
+  }
+  .centerRight .centerContent .row .txBox i {
+    color: #E1E3EB;
+  }
+  .centerRight .centerContent .row .txBox .uploadBtn {
+    width: 94px;
+    height: 94px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+  .centerRight .centerContent .row .beizhu {
+    font-size: 12px;
+    color: #999;
+    margin: 15px 0 34px;
+    padding-left: 117px;
+  }
+  .centerRight .centerContent .row .textInp {
+    width: 338px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #E3E4E5;
+    border-radius: 2px;
+    text-indent: 15px;
+  }
+  .centerRight .centerContent .row .sex {
+    height: 40px;
+    line-height: 40px;
+  }
+  .centerRight .centerContent .row .desc {
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    color: #000;
+  }
+  .centerRight .centerContent .keepBtn {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    background: -webkit-gradient(linear, 100% 0, 0 0, from(#579EFA), to(#4F74F4));
+    background: -webkit-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -moz-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -o-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: linear-gradient(to bottom, #579EFA, #4F74F4);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    margin: 30px 0 0 117px;
+  }
+  /* content end */
+  /* header start */
+  .personalHeader {
+    width: 100%;
+    background: #fff;
+    padding: 15px 0;
+  }
+  .personalHeader .content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .personalHeader .logo {
+    width: 194px;
+    height: 70px;
+  }
+  .personalHeader .tabs {
+    height: 70px;
+    line-height: 70px;
+  }
+  .personalHeader .tabs a {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    cursor: pointer;
+  }
+  .personalHeader .tabs a:hover {
+    color: #579EFA;
+  }
+  /* header end */
+
+</style>
+{/block}
+{block name="header"}{/block}
+{block name="content"}
+<div>
+  <div>
+    <div class="personalHeader">
+      <div class="wrapper content">
+        <a href="/">
+          <img class="logo" src="../../static/image/logo.png" alt="">
+        </a>
+        <div class="tabs">
+          <a href="/">首页</a>
+          <a href="{:url('index/item/index')}">找项目</a>
+          <a href="{:url('index/index/rankinglist')}">排行榜</a>
+          <a href="{:url('index/article/index')}">行业资讯</a>
+        </div>
+      </div>
+    </div>
+    <div class="centerBg">
+      <div class="wrapper clearfix">
+        <div class="centerLeft">
+          <div class="personalMenu">
+            <a href="{:url('index/user/index')}" class="header clearfix">
+              <img src="{$user.avatar}" alt="" class="avatar fl">
+              <div class="fl">{$user.uname}</div>
+            </a>
+            <div class="items">
+              <a href="{:url('index/user/message')}" class="item">
+                <span>我的消息</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/focus')}" class="item">
+                <span>我的关注</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/collect')}" class="item">
+                <span>我的收藏</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/leaveMessage')}" class="item">
+                <span>我的留言</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/index')}" class="item">
+                <span>我的账户</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/footmark')}" class="item">
+                <span>我的足迹</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/account')}" class="item">
+                <span>企业中心</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/feedback')}" class="item">
+                <span>意见反馈</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+              <a href="{:url('index/user/modify')}" class="item  a-exact-active a-active currentItem">
+                <span>资料设置</span>
+                <span class="el-icon-arrow-right"></span>
+              </a >
+            </div>
+          </div>
+        </div>
+        <div class="centerRight">
+          <div class="centerTitle">
+            <ul>
+              <li class="active">资料设置</li>
+            </ul>
+          </div>
+          <div class="centerContent">
+            <div class="row">
+              <label class="title">当前头像</label>
+              <div class="txBox">
+                <img v-if="imageUrl" class="avatar" src="{$data.avatar}" />
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <input class="uploadBtn" type="file" name="image" accept="image/*" @change='chooseImg'>
+              </div>
+              <p class="clear"></p>
+              <p class="beizhu">*仅支持JPG、GIF、PNG、JPEG、BMP格式 , 文件小于2M</p>
+            </div>
+            <div class="row clearfix">
+              <label class="title">昵称</label>
+              <input class="textInp" v-model="username" type="text" placeholder="请输入您的昵称" value="{$data.username}">
+            </div>
+            <div class="row clearfix">
+              <label class="title">真实姓名</label>
+              <input class="textInp" v-model="name" type="text" placeholder="请输入您的姓名" value="{$data.name}">
+            </div>
+            <div class="row clearfix">
+              <label class="title">性别</label>
+              <div class="sex">
+                <div>
+                  <input type="radio" name="sex" <?php if($data['sex']==1){echo 'checked';}?> value="1">男
+                  <input type="radio" name="sex" <?php if($data['sex']==0){echo 'checked';}?> value="0">女
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <label class="title">账号ID</label>
+              <p class="desc">{$data.phone}</p>
+            </div>
+            <div class="row clearfix">
+              <label class="title">注册时间</label>
+              <p class="desc">{$data.addtime}</p>
+            </div>
+            <div class="keepBtn" @click="getKeep">保存</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name="jq"}
+<script>
+  //content start
+  export default {
+    name: "index.vue",
+    data(){
+      return{
+        data: {},
+        imageUrl: '',
+        username:'',
+        name:'',
+        radio: '',
+        avatar:''
+      }
+    },
+    created(){
+      this.getData();
+    },
+    methods: {
+      getData(){
+        var _this = this
+        api.getUserData().then(data => {
+          this.data = data
+          console.log(data)
+          this.imageUrl = data.avatar;
+          this.username = data.username;
+          this.name = data.name;
+          this.radio = data.sex;
+          console.log(this.radio)
+        });
+      },
+      chooseImg (e) {
+        var file = e.target.files[0]
+        console.log(file)
+        let imgSize = file.size
+        console.log(imgSize)
+        var _this = this
+        if (imgSize <= 2 * 1024 * 1024) {
+          console.log('大小合适')
+          var reader = new FileReader();
+          reader.readAsDataURL(file); // 读出 base64
+          reader.onloadend = function () {
+            var dataURL = reader.result;
+            api.getUploadImg({type:0,file:dataURL}).then(data => {
+              _this.imageUrl = dataURL
+              _this.avatar = data
+            })
+          }
+        } else {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+      },
+      getKeep:function(){
+        const {avatar,username,name,radio} = this;
+        api.changeData({avatar,username,name,sex:radio}).then(data => {
+          this.$router.push("/data");
+        })
+      },
+    },
+    components: {
+      PersonalMenu,
+      PersonalHeader
+    }
+  }
+  //content end
+  //header start
+  export default {
+    name: "personalHeader",
+    created(){
+
+    }
+  }
+  //header end
+  //menu start
+  export default {
+    name: "personalMenu",
+    props:{
+      currentMenu:{
+        default: '0'
+      },
+    },
+    data(){
+      return{
+        userInfo:{
+        }
+      }
+    },
+    watch:{
+      $route(to,from){
+        if(from.path =='/data'){
+          if(to.path == '/data'){
+            console.log("chengggfgsgsaasfsdsdf")
+          }
+        }
+      }
+    },
+    created(){
+      this.userInfo = JSON.parse(localStorage.getItem('user'));
+
+    }
+  }
+  //menu end
+</script>
+{/block}

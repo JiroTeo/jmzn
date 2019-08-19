@@ -45,11 +45,15 @@ class User extends Model{
         $dataList['name'] =  $data['name'];
         $dataList['bname'] =  $data['bname'];
         $dataList['cname'] =  $data['cname'];
+        $dataList['avatar'] =  empty($data['avatar']) ? '' : trim($data['avatar'],'.');
         $dataList['email'] =  $data['email'];
         $dataList['phone'] =  $data['phone'];
         $dataList['wx_openid'] =  $data['wx_openid'];
         $dataList['token'] =  $data['token'];
         $dataList['uname'] =  empty($data['uname']) ? '': base64_decode($data['uname']);
+        $dataList['ncount'] =  $data['notice_count'];//可接收推送条数
+        $dataList['rncount'] =  $data['read_notice_num'];//已读数量
+        $dataList['rem'] =  $data['notice_count'] - $data['read_notice_num'];//差
         return $dataList;
     }
 

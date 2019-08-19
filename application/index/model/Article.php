@@ -20,6 +20,32 @@ class article extends Model{
         $this -> articleModel = db('article');
     }
 
+    /*  分页模式获取文章数据  */
+    public function getArticleDataByPage($where,$order=false,$num=false,$type=0,&$page){
+        $articleData = $this -> articleModel -> where($where) -> order($order) -> paginate($num,false,['var_page'=>'a']);
+        $page = $articleData ->render();
+        $data = iterator_to_array($articleData);
+        if(empty($data)){   return [];  }
+        switch ($type) {
+            case 1://首页推荐文章 图片-标题
+                $data = $this -> formatIndexArticleData ($data);
+                break;
+            case 2://首页-行业资讯-最新7条文章-数据
+                $data = $this -> formarIndexNewArticleList ($data);
+                break;
+            case 3://格式化-行业资讯-加盟咨询  -文章列表
+                $data = $this -> formarArticleToInformation ($data);
+                break;
+            case 4://详情数据
+                $data = $this -> formarArticleToInformation ($data);
+                break;
+            default:
+                $data = $this -> formatArticleData ($data);
+                break;
+        }
+        return $data;
+    }
+
     /*获取文章列表数据*/
     public function getArticleData($where,$order=false,$limit=false,$type=0,$user=[],$debug=false){
 
@@ -77,7 +103,7 @@ class article extends Model{
             $dataList[$key]['type'] = $value['type'];
             $image = [];
             $image = explode(',',$value['img']);
-            $dataList[$key]['img'] = empty($image[0]) ? '' : $perfix['PERFIX'].$image[0];
+            $dataList[$key]['img'] = empty($image[0]) ? '' : trim($image[0],'.');
             $dataList[$key]['sign'] = $value['sign'];
             $dataList[$key]['read_num'] = $value['read_num'];
             $dataList[$key]['addtime'] = date("Y-m-d",$value['addtime']);
