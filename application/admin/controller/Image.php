@@ -21,8 +21,8 @@ class image extends Base{
     public function image_list(){
         $data = input('get.');
         if(!empty($data)){
-            $where = $data;
-            unset($where['page']);
+//            $where = $data;
+//            unset($where['page']);
         }
         $where['status'] = 1;
         $objData = $this -> imageModel -> where($where) -> order('addtime desc') -> paginate(30);

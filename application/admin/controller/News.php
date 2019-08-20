@@ -93,7 +93,8 @@ class   news extends Base{
 
     /*  推送消息    */
     public function push_consult(){
-        $data = $this -> request -> param();
+        $data = input('post.');
+
         if(empty($data)){
             return view();
         }else{

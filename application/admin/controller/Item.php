@@ -43,6 +43,7 @@ class item extends Base{
         }
         if(!empty($get)){//查看推荐
             unset($get['page']);
+            unset($get['/admin/item/index_html']);
             $where = $get;
         }
         $whereOr = empty($whereOr)? false : $whereOr;

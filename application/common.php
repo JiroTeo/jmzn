@@ -13,6 +13,7 @@
 /*定义wapReturn*/
 function wapReturn($data){
     $jsonData = json_encode($data);
+//    return $jsonData;
     exit($jsonData);
 }
 

@@ -14,7 +14,7 @@ class login extends Base {
 
     /*  重构登录注册  */
     public function login(){
-        $info = $this -> request -> param();
+        $info = input('post.');
         if(!empty($info)){
             //验证手机号
             $resPhone = verifMobile($info['phone']);
