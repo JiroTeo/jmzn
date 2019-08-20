@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:61:"G:\www\jmzn\public/../application/index\view\index\index.html";i:1565942493;s:49:"G:\www\jmzn\application\index\view\defa\defa.html";i:1565942866;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:61:"G:\www\jmzn\public/../application/index\view\index\index.html";i:1566280523;s:49:"G:\www\jmzn\application\index\view\defa\defa.html";i:1566280445;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +11,13 @@
   <meta name="description" content="
     
     ">
+  <script type="text/javascript" charset="utf-8" async="" src="http://www.zhangjin.com\/statics/admin/lib/layui/layui.js"></script>
+  <meta name="360-site-verification" content="8fa3cbfa5b4b4bdf0a95dd925cf2f8b5" />
   
 <link href="http://www.zhangjin.com\/statics/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" async="" src="http://www.zhangjin.com\/statics/index/js/0.f5ed0d9d7e597a228142.js"></script>
 <script type="text/javascript" charset="utf-8" async="" src="http://www.zhangjin.com\/statics/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="http://www.zhangjin.com\/statics/admin/lib/layui/layui.js"></script>
 
 </head>
 <body>
@@ -228,7 +231,7 @@
         <?php endforeach; ?>
     </div>
     <div data-v-64375f02="" class="wrapper newsBox clearfix">
-    <div data-v-64375f02="" class="title clearfix"><h2 data-v-64375f02="" class="fl">行业资讯</h2>
+    <div data-v-64375f02="" class="title clearfix"><h2 data-v-64375f02="" class="fl" onclick="show()">行业资讯</h2>
     </div>
     <div data-v-64375f02="" class="between">
         <?php foreach($recoArticle as $key => $value): ?>
@@ -282,6 +285,12 @@
             </span>
             <?php endforeach; ?>
         </div>
+    <script>
+        function show(){
+            layer.msg('eror');
+            // alert(1);
+        }
+    </script>
 </div>
 
   
