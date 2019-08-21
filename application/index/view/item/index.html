@@ -15,22 +15,39 @@
 {/block}
 
 {block name="content"}
-
+<style>
+    .classify .title{
+        display: inline-block;
+        margin-right: 20px;
+    }
+    .classify span{
+        display: inline-block;
+    }
+</style>
 <div data-v-645de51c="" class="wrapper clearfix">
     <div data-v-645de51c="" class="classifyList">
         <div data-v-645de51c="" class="classify" id="classifyList">
             <div data-v-645de51c="" class="left">
-                <span data-v-645de51c="" class="title">行业分类</span><span data-v-645de51c="" classify="" class="currentClassify">不限</span>
+                <div data-v-645de51c="" class="title">行业分类</div><span data-v-645de51c="" classify="" class="currentClassify">不限</span>
             </div>
             <div data-v-645de51c="" class="right">
                 {foreach $cateData as $key => $value}
                 <span data-v-645de51c="" classify="{$value.id}" class="">{$value.name}</span>
                 {/foreach}
             </div>
-        </div> <!---->
+        </div>
+        <div data-v-645de51c="" class="classify"  id="cateList" >
+            <div class="left">
+                <div data-v-645de51c="" class="title">二级分类</div>
+                <span data-id=""  class="currentClassify" data-v-645de51c="">不限</span>
+            </div>
+            <div class="right" id="currentCate">
+<!--                <span data-id="item.id" >{{item.name}}</span>-->
+            </div>
+        </div>
         <div data-v-645de51c="" class="classify" id="moneyList">
             <div data-v-645de51c="" class="left">
-                <span data-v-645de51c="" class="title">投资金额</span><span data-v-645de51c="" data-money="0" class="currentClassify">不限</span>
+                <div data-v-645de51c="" class="title">投资金额</div><span data-v-645de51c="" data-money="0" class="currentClassify">不限</span>
             </div>
             <div data-v-645de51c="" class="right" >
                 <span data-v-645de51c="" money="1" class="">1万以下</span>
@@ -160,7 +177,23 @@
         $("#classifyList span").removeClass('currentClassify');
         $(this).addClass("currentClassify");
         console.log("classify",$(this).attr('classify'));
+        // 获取class 下的行业分类
+        //遍历插入行业分类
+
+        $("#currentCate").html('<span data-v-645de51c="" onclick="cateChange(this)">测试</span><span data-v-645de51c="" onclick="cateChange()">测试</span><span data-v-645de51c="" onclick="cateChange()">测试</span><span data-v-645de51c="">测试</span>')
 
     })
+    // /** 点击二级分类 */
+    // $('#cateList span').click(function(){
+    //     console.log('没绑上啊没榜上');
+    //     $("#cateList span").removeClass('currentClassify');
+    //     $(this).addClass("currentClassify");
+    //     /* 更新列表 */
+    // })
+    function cateChange(e){
+        console.log("触发了");
+        $("#cateList span").removeClass('currentClassify');
+        console.log('this',$(e).addClass("currentClassify"));
+    }
 </script>
 {/block}

@@ -255,7 +255,7 @@
               <span>我的留言</span>
               <span class="el-icon-arrow-right"></span>
             </a >
-              <a href="{:url('index/user/myAccount')}" class="item">
+              <a href="{:url('index/user/index')}" class="item">
               <span>我的账户</span>
               <span class="el-icon-arrow-right"></span>
             </a >
@@ -304,9 +304,8 @@
                   </p>
                 </a>
               </dd>
-              <span class="lookStatus lookStatus1" :data-id="item.id" v-if="item.status == 0" @click.stop="urge">催促查看</span>
-<!--              <span class="lookStatus lookStatus3" v-else-if="item.status == 2">已查看</span>-->
-              <span class="lookStatus lookStatus2" v-else-if="item.status == 3">催促查看</span>
+              <span class="lookStatus lookStatus1" >催促查看</span>
+
             </dl>
             <p class="content">{$value.content}</p>
           </div>
@@ -322,6 +321,7 @@
 
         <el-pagination class="paging" background layout="prev, pager, next" :total="count" @current-change="pageChange"></el-pagination>
       </div>
+
       </div>
       </div>
     </div>
@@ -330,94 +330,9 @@
 {/block}
 {block name="jq"}
 <script>
-  //message start
-  export default {
-    name: "index.vue",
-    data(){
-      return{
-        data:'',
-        count: 0,
-        page: 0
-      }
-    },
-
-    created(){
-      this.getData();
-    },
-
-    methods: {
-      /**
-       * 获取留言列表
-       */
-      getData: function(){
-        const {page} =this;
-        api.getLeaveList({page}).then(data=>{
-          this.data = data.data;
-          this.count = data.count;
-        })
-      },
-
-      /**
-       * 点击分页
-       * @param e
-       */
-      pageChange:function(e){
-        this.page = e-1;
-        window.scrollTo(0,0);
-        this.getData();
-      },
-      /**
-       * 催促查看
-       */
-      urge: function({currentTarget:{dataset:{id}}}){
-        api.urge({id}).then(data => {
-          this.$message({message:'已为您提醒商家',type:"success"});
-          this.getData();
-        });
-      }
-    },
-    components: {
-      PersonalHeader,
-      PersonalMenu
-    }
-  }
-  //message end
-  //header start
-  export default {
-    name: "personalHeader",
-    created(){
-
-    }
-  }
-  //header end
-  //menu start
-  export default {
-    name: "personalMenu",
-    props:{
-      currentMenu:{
-        default: '0'
-      },
-    },
-    data(){
-      return{
-        userInfo:{
-        }
-      }
-    },
-    watch:{
-      $route(to,from){
-        if(from.path =='/data'){
-          if(to.path == '/data'){
-            console.log("chengggfgsgsaasfsdsdf")
-          }
-        }
-      }
-    },
-    created(){
-      this.userInfo = JSON.parse(localStorage.getItem('user'));
-
-    }
-  }
-  //menu end
+    $(".lookStatus1").click(function(){
+      $(this).removeClass('lookStatus1').addClass('lookStatus2');
+      layer.msg('已提醒商家查看信息',{icon:'none'});
+    })
 </script>
 {/block}

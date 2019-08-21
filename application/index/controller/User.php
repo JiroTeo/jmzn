@@ -117,7 +117,31 @@ class user extends Base{
         $this -> assign('ip',$ip);
         return view();
     }
+ /*  我的收藏-文章收藏    */
+    public function articleCollect(){
+        //定义参数 && 接收参数
+        $followModel = new followModel();
+        $itemModel = new itemModel;
+        $articleModel = new articleModel();
+        $type = $this -> request -> param('type');
+        $type = empty($type) ? 0 : $type ;
+        $ip = '';//预定义 项目分页
+        $ap = '';//预定义 文章分页
+        //收藏的项目
+        $tids = $followModel -> getTid(['uid'=>$this -> uid,'ftype'=>2,'status'=>1]);
+        $item = $itemModel -> getItemDataListPage(['id'=>['in',$tids]],false ,2,4,$ip);
 
+        //收藏的文章
+        $aIds = $followModel -> getTid(['uid'=>$this -> uid ,'status'=>1,'ftype'=>3]);
+        $where['id'] = array('in',$aIds);
+        $article = $articleModel -> getArticleDataByPage(['id'=>['in',$aIds],'type'=>$type],'addtime desc',1,3,$ap);//where/order/limit/type/user
+        //分配变量
+        $this -> assign('item',$item);
+        $this -> assign('article',$article);
+        $this -> assign('ap',$ap);
+        $this -> assign('ip',$ip);
+        return view();
+    }
     public function leavemessage(){
         //接收 && 定义变量
         $consultModel = new consultModel();
@@ -147,6 +171,17 @@ class user extends Base{
 
     /*  企业中心    */
     public function account(){
+            //接收 && 定义 参数
+            $itemModel = new itemModel();
+            $trackModel = new trackModel();
+            $page = '';
+             //项目id
+             $itemIdStr = $trackModel -> getMyTrackTid(['uid'=>$this->uid,'status'=>1]);
+             $data = $itemModel -> getItemDataListPage(['logo'=>''],false,7,4,$page);
+
+             //分配变量
+             $this -> assign('data',$data);
+             $this -> assign('page',$page);
         return view();
     }
 
