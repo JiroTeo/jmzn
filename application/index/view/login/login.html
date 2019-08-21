@@ -157,6 +157,9 @@
   let intervalID = '';
   function getCode (){
     let outTime = 60;
+    if(!validatePhone()){
+      return
+    }
     if(intervalID){
 
       return;
@@ -165,6 +168,8 @@
       if(outTime == 0){
         outTime = 60;
         clearInterval(intervalID)
+        $(e).html('获取验证码');
+        return
       }
       outTime--;
       $("#time").html(outTime+'S后可重新获取');
