@@ -244,7 +244,7 @@
               <span>我的留言</span>
               <span class="el-icon-arrow-right"></span>
             </a >
-              <a href="{:url('index/user/myAccount')}" class="item">
+              <a href="{:url('index/user/index')}" class="item">
               <span>我的账户</span>
               <span class="el-icon-arrow-right"></span>
             </a >
@@ -268,13 +268,13 @@
         </div>
       </div>
       <div class="fr right">
-        <div class="header" @click="tabChange">
+        <div class="header" id="tab">
           <div class="tab fl" data-type="2">评论和赞</div>
           <div class="tab fl currentTab " data-type="1" >推送消息</div>
         </div>
         <div class="consult">
           {foreach $notice as $key => $value}
-          <div class="consultItem clearfix" v-if="type == 2" v-for="item in data" :key="'consult'+item.id" >
+          <div  class="consultItem box3 clearfix" style="display: none">
             <img class="avatar fl" src="{$value.userOper.avatar}" alt="">
             <div class="info fl">
               <div class="name">
@@ -289,7 +289,7 @@
                 {$value.userOper.content}
               </div>
               <div class="reply">
-                <div v-for="item in item.uerOper" :key="'oper'+item.id">{$value.username}：{$value.content}</div>
+                <div>{$value.username}：{$value.content}</div>
               </div>
             </div>
           </div>
@@ -302,7 +302,7 @@
             </div>
           </div>
           {foreach $consult as $key => $value}
-          <div class="consultItem box2 clearfix" v-if="type == 1" v-for="(item,index) in data" :key="'message'+item.id" >
+          <div class="consultItem box2 clearfix" >
             <div class="info fl">
               <div class="name">
                 姓名 {$value.name}
@@ -327,116 +327,24 @@
     </div>
   </div>
 </div>
+<script>
+  $('#tab>div').click(function(){
+      $('#tab>div').removeClass('currentTab');
+      $(this).addClass('currentTab');
+     console.log($(this)[0].dataset.type);
+     const type = $(this)[0].dataset.type;
+     console.log(" $('.consult')", $('.box2'));
+    if(type == 1){
+      $('.box2').css({display: 'block'});
+      $('.box3').css({display: 'none'});
+    }else{
+      $('.box2').css({display: 'none'});
+      $('.box3').css({display: 'block'});
+    }
+
+  })
+</script>
 {/block}
 {block name="jq"}
-<script>
-  //message start
-  export default {
-    name: "message",
-    data(){
-      return {
-        centerDialogVisible: false,
-        type: '1', //1消息 2 评论
-        page: 0,
-        count: 0,
-        data:[],
-        currentContent:{}
-      }
-    },
-    created(){
-      this.getData();
-    },
-    methods:{
-      getData(){
-        const {page,type } = this;
-        if( type == '1'){
-          api.getMessageList({page}).then( data =>{
-            this.data = data.data;
-            console.log("=====",data.data);
-            this.count = data.count;
-          });
-        }else if(type == '2'){
-          api.getConsultList({page}).then( data =>{
-            this.data = data.data;
-            console.log("=====",data.data);
-            this.count = data.count;
-          });
-        }
 
-      },
-
-      tabChange: function({target: {dataset:{type}}}){
-        this.page=0;
-        this.type = type;
-        this.data = [];
-        this.getData();
-      },
-      detail: function({currentTarget: {dataset:{id}}}){
-        // this.currentContent = this.data[index];
-        // this.centerDialogVisible = true
-
-        api.getDetail({id}).then(data=>{
-          this.$router.push("/investorManage");
-        })
-
-      },
-      PhonePwd :function(pwd){
-        // # 数字0-9按从小到大顺序变成 HEBIDAGJMZN，替换完成后在第5个字符后面加JMZN 例：EZDDBKAFBBAGEM
-        console.log("pwd",pwd);
-        const reg = "HEBIDAGJMZN";
-
-        let data = pwd.replace("JMZN",'');
-        let phone = '';
-        console.log("data",data);
-        for(const item in data){
-          phone += reg.indexOf(data.charAt(item));
-        }
-        phone = phone.substr(0,3) + "*****"+ phone.substr(-3);
-        return phone
-      }
-    },
-    components: {
-      PersonalHeader,
-      PersonalMenu
-    }
-  }
-  //message end
-  //header start
-  export default {
-    name: "personalHeader",
-    created(){
-
-    }
-  }
-  //header end
-  //menu start
-  export default {
-    name: "personalMenu",
-    props:{
-      currentMenu:{
-        default: '0'
-      },
-    },
-    data(){
-      return{
-        userInfo:{
-        }
-      }
-    },
-    watch:{
-      $route(to,from){
-        if(from.path =='/data'){
-          if(to.path == '/data'){
-            console.log("chengggfgsgsaasfsdsdf")
-          }
-        }
-      }
-    },
-    created(){
-      this.userInfo = JSON.parse(localStorage.getItem('user'));
-
-    }
-  }
-  //menu end
-</script>
 {/block}

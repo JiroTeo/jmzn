@@ -87,9 +87,50 @@
   .centerRight .centerTitle ul li.active {
     border-bottom: 2px solid #4F74F4;
   }
-  .centerRight .content {
-    padding-top: 35px;
-    width: 780px;
+  .centerRight .feedbackContent {
+    padding-top: 20px;
+  }
+  .centerRight .feedbackContent .row {
+    margin-top: 15px;
+  }
+  .centerRight .feedbackContent .row textarea {
+    width: 640px;
+    height: 90px;
+    border: 1px solid #E3E4E5;
+    border-radius: 2px;
+    resize: none;
+    padding: 15px 20px;
+  }
+  .centerRight .feedbackContent .row .title {
+    float: left;
+    width: 100px;
+    text-align: right;
+    margin-right: 17px;
+    line-height: 40px;
+  }
+  .centerRight .feedbackContent .row .textInp {
+    width: 338px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #E3E4E5;
+    border-radius: 2px;
+    text-indent: 15px;
+  }
+  .centerRight .feedbackContent .submitBtn {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    background: -webkit-gradient(linear, 100% 0, 0 0, from(#579EFA), to(#4F74F4));
+    background: -webkit-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -moz-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -o-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: linear-gradient(to bottom, #579EFA, #4F74F4);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    margin: 30px 0 0 117px;
   }
   /* content end */
   /* header start */
@@ -143,48 +184,50 @@
     <div class="centerBg">
       <div class="wrapper clearfix">
         <div class="centerLeft">
-          <div class="personalMenu">
-            <a href="{:url('index/user/index')}" class="header clearfix">
-              <img src="{$user.avatar}" alt="" class="avatar fl">
-              <div class="fl">{$user.uname}</div>
-            </a>
-            <div class="items">
-              <a href="{:url('index/user/message')}" class="item">
-                <span>我的消息</span>
-                <span class="el-icon-arrow-right"></span>
-              </a >
-              <a href="{:url('index/user/focus')}" class="item">
-                <span>我的关注</span>
-                <span class="el-icon-arrow-right"></span>
-              </a >
-              <a href="{:url('index/user/collect')}" class="item">
-                <span>我的收藏</span>
-                <span class="el-icon-arrow-right"></span>
-              </a >
-              <a href="{:url('index/user/leaveMessage')}" class="item">
-                <span>我的留言</span>
-                <span class="el-icon-arrow-right"></span>
-              </a >
-              <a href="{:url('index/user/index')}" class="item">
-                <span>我的账户</span>
-                <span class="el-icon-arrow-right"></span>
-              </a >
-              <a href="{:url('index/user/footmark')}" class="item">
-                <span>我的足迹</span>
-                <span class="el-icon-arrow-right"></span>
-              </a >
-              <a href="{:url('index/user/account')}" class="item">
-                <span>企业中心</span>
-                <span class="el-icon-arrow-right"></span>
-              </a >
-              <a href="{:url('index/user/feedback')}" class="item a-exact-active a-active currentItem">
-                <span>意见反馈</span>
-                <span class="el-icon-arrow-right"></span>
-              </a >
-              <a href="{:url('index/user/modify')}" class="item">
-                <span>资料设置</span>
-                <span class="el-icon-arrow-right"></span>
-              </a >
+          <div class="fl" currentMenu="1">
+            <div class="personalMenu">
+              <a href="{:url('index/user/index')}" class="header clearfix">
+                <img src="{$user.avatar}" alt="" class="avatar fl">
+                <div class="fl">{$user.uname}</div>
+              </a>
+              <div class="items">
+                <a href="{:url('index/user/message')}" class="item">
+                  <span>我的消息</span>
+                  <span class="el-icon-arrow-right"></span>
+                </a >
+                <a href="{:url('index/user/focus')}" class="item  ">
+                  <span>我的关注</span>
+                  <span class="el-icon-arrow-right"></span>
+                </a >
+                <a href="{:url('index/user/collect')}" class="item">
+                  <span>我的收藏</span>
+                  <span class="el-icon-arrow-right"></span>
+                </a >
+                <a href="{:url('index/user/leaveMessage')}" class="item">
+                  <span>我的留言</span>
+                  <span class="el-icon-arrow-right"></span>
+                </a >
+                <a href="{:url('index/user/index')}" class="item">
+                  <span>我的账户</span>
+                  <span class="el-icon-arrow-right"></span>
+                </a >
+                <a href="{:url('index/user/footmark')}" class="item">
+                  <span>我的足迹</span>
+                  <span class="el-icon-arrow-right"></span>
+                </a >
+                <a href="{:url('index/user/account')}" class="item">
+                  <span>企业中心</span>
+                  <span class="el-icon-arrow-right"></span>
+                </a >
+                <a href="{:url('index/user/feedback')}" class="item a-exact-active a-active currentItem">
+                  <span>意见反馈</span>
+                  <span class="el-icon-arrow-right"></span>
+                </a >
+                <a href="{:url('index/user/modify')}" class="item">
+                  <span>资料设置</span>
+                  <span class="el-icon-arrow-right"></span>
+                </a >
+              </div>
             </div>
           </div>
         </div>
@@ -194,169 +237,39 @@
               <li class="active">意见反馈</li>
             </ul>
           </div>
+          <form id="formData" >
 
-          <el-form ref="form" :rules="refs" :model="form" label-width="120px" class="content">
-            <el-form-item label="意见反馈" prop="propose">
-              <input type="textarea" v-model="form.propose" placeholder="请填写您的问题或建议" >
-            </el-form-item>
-            <el-form-item label="手机号码" prop="phone">
-              <el-col :span="11">
-                <input v-model="form.phone" placeholder="请填写您的手机号码">
-              </el-col>
-            </el-form-item>
-            <el-form-item label="真实姓名" prop="name">
-              <el-col :span="11">
-                <input v-model="form.name" placeholder="请填写您的真实姓名">
-              </el-col>
-            </el-form-item>
-            <el-form-item>
-              <button type="primary" @click="submitForm('form')">提交</button>
-            </el-form-item>
-          </el-form>
+
+            <div class="feedbackContent">
+              <div class="row clearfix">
+                <label class="title">意见反馈</label>
+                <textarea placeholder="请填写您的问题或建议" name="content"></textarea>
+              </div>
+              <div class="row clearfix">
+                <label class="title">手机号码</label>
+                <input class="textInp" name="phone" type="text" placeholder="请输入您的手机号码">
+              </div>
+              <div class="row clearfix">
+                <label class="title">真实姓名</label>
+                <input class="textInp" name="name" type="text" placeholder="请输入您的真实姓名">
+              </div>
+              <div onclick="submitForm()" class="submitBtn">提交</div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+  </div>
 </div>
-
+<script type="text/javascript">
+  function submitForm(){
+    console.log('sdfsdfdsfds');
+    console.log($("#formData").serializeArray()); //输出数组
+  //  todo  提交接口
+  }
+</script>
 {/block}
 {block name="jq"}
-<script>
-  //content start
-  export default {
-    name: "index.vue",
-    data() {
-      return {
-        dialogVisible: false,
-        consultId: '',
-        read: 0,
-        type: 0,
-        page: 0,
-        data: '',
-        count: 0,
-        currentData: {consult:{
-            name:'',
-            content:'',
-            read:'',
-            addtime:'',
-          },con_log:[]
-        },
-        detailName: ['待跟进','正在跟进','已签约','放弃跟进','无效'],
-        title:'',
-        content: [],
-        status: 1 // 0 无效，1有效
 
-      }
-    },
-    created() {
-      this.getData();
-    },
-    methods: {
-      getData: function () {
-        let {read, page,status} = this;
-        if(read == 4){
-          status = 0;
-        }
-        api.getInvertorManage({type: 0,status, read, page}).then(data => {
-          this.data = data.data;
-          this.count = data.count
-        });
-      },
-
-      tabChange: function ({target: {dataset: {read}}}) {
-        this.read = read;
-        this.page=0
-        this.getData();
-      },
-      /**
-       * 更改跟进状态
-       */
-      statusChange: function(read){
-        this.currentData.consult.read = read;
-
-      },
-      /**
-       * 修改意向状态
-       */
-      intentionChange: function(value){
-        this.currentData.consult.intention = value;
-      },
-      /**
-       * 点击分页
-       * @param e
-       */
-      pageChange: function (e) {
-        this.page = e - 1;
-        window.scrollTo(0, 0);
-        this.getData();
-      },
-
-      /**
-       * 查看详情
-       */
-      detail: function ({currentTarget: {dataset: {index}}}) {
-        api.getConsultDetail({id:this.data[index].id,type:0}).then(data =>{
-          this.currentData = data;
-          this.title = this.detailName[data.consult.read];
-          this.dialogVisible = true;
-        })
-      },
-      /**
-       * 添加跟进
-       */
-      addConsult: function(){
-        const { read,intention,id} = this.currentData.consult;
-        const {content} = this;
-        api.addConsult({id,int:intention,read,content}).then(data=>{
-          this.dialogVisible = false;
-          this.content = '';
-          this.$message.success('保存成功')
-        });
-
-      }
-    },
-    components: {
-      PersonalHeader,
-      PersonalMenu
-    }
-  }
-  //content end
-  //header start
-  export default {
-    name: "personalHeader",
-    created(){
-
-    }
-  }
-  //header end
-  //menu start
-  export default {
-    name: "personalMenu",
-    props:{
-      currentMenu:{
-        default: '0'
-      },
-    },
-    data(){
-      return{
-        userInfo:{
-        }
-      }
-    },
-    watch:{
-      $route(to,from){
-        if(from.path =='/data'){
-          if(to.path == '/data'){
-            console.log("chengggfgsgsaasfsdsdf")
-          }
-        }
-      }
-    },
-    created(){
-      this.userInfo = JSON.parse(localStorage.getItem('user'));
-
-    }
-  }
-  //menu end
-</script>
 {/block}
