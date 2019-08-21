@@ -346,45 +346,49 @@
       </div>
       <div class="fr right">
         <div class="header clearfix" @click="tabChange">
-          <a href="{:url('index/user/collect')}" class="tab fl currentTab">项目收藏</a>
-          <a href="{:url('index/user/articleCollect')}" class="tab fl" >文章收藏</a>
-        </div>
-        <div class="per">
-          {foreach $item as $key => $value}
-          <a href="{:url('index/item/detail')}?id={$value.id}" class="item" v-for="item in data" :key="'pro'+item.id">
-            <img src="{$value.img}" alt="">
-            <div class="right">
-              <div class="name clearfix">
-                <span class="fl">{$value.item_name}</span>
-                <span class="money fr">￥{$value.money}万</span>
-              </div>
-              <div class="detail">
-                <div class="info">
-                  所属行业：<span>{$value.cate_name}</span>
-                </div>
-                <div class="info">
-                  直营店：<span>{$value.shop_count}家</span>
-                </div>
-                <div class="info">
-                  申请人数：<span>{$value.apply}</span>
-                </div>
-
-                <div class="info">
-                  加盟店：<span>{$value.fran_store_num}家</span>
-                </div>
-              </div>
-            </div>
-            <div class="btns">
-              <button type="primary" @click.prevent="dialogFormVisible = true,productid = item.id" class="el-button el-button--primary">立即咨询</button>
-              <button id="cancelCollect" data-type="2" data-id="{$value.id}" class="el-button el-button--default">取消收藏</button>
-            </div>
-          </a>
-          {/foreach}
+          <a href="{:url('index/user/collect')}" class="tab fl" >项目收藏</a>
+          <a href="{:url('index/user/articleCollect')}" class="tab fl currentTab" >文章收藏</a>
         </div>
         <div class="layui-card-body ">
           <div class="page">
             <div>
               {$ip}
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="tabs clearfix" id="articleType">
+            <div class="tab fl currentType" data-type="1">加盟咨询</div>
+            <div class="tab fl" data-type="2" >加盟攻略</div>
+            <div class="tab fl" data-type="0" >行业报告</div>
+          </div>
+          <div class="article" >
+            {foreach $article as $key => $value}
+            <dl class="listDL clearfix" v-for="item in data" :key="'art'+item.id">
+              <a href="'consultDetail?id='+item.id">
+                <dt>
+                  <img src="{$value.img}">
+                </dt>
+                <dd>
+                  <h3>{$value.title}</h3>
+                  <p class="desc">{$value.sign}</p>
+                  <p class="icon">
+                    <span><i class="iconfont icon-data"></i>{$value.addtime}</span>
+                    <span><i class="iconfont icon-look"></i>{$value.read_num}</span>
+                  </p>
+                </dd>
+                <div class="btns">
+                  <button id="cancelCollect"  data-id="{$value.id}" class="el-button el-button--default">取消收藏</button>
+                </div>
+              </a>
+            </dl>
+            {/foreach}
+          </div>
+          <div class="layui-card-body ">
+            <div class="page">
+              <div>
+                {$ap}
+              </div>
             </div>
           </div>
         </div>
@@ -404,6 +408,16 @@
     layer.msg("取消收藏成功",{icon:1});
     /* todo 调用接口 */
     return false
+  })
+  /**
+   * 改变文章类型
+   */
+  $('#articleType>div').click(function(e){
+    $('#articleType>div').removeClass('currentType');
+    $(this).addClass('currentType');
+    console.log('=======', $(this)[0].dataset.type);
+    /* todo 调接口 更换数据 */
+
   })
 </script>
 {/block}

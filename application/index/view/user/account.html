@@ -275,9 +275,9 @@
             <div class="row">
               <label class="title">公司logo</label>
               <div class="txBox">
-                <img v-if="imageUrl" class="avatar" :src="imageUrl" />
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                <input class="uploadBtn" type="file" name="image" accept="image/*" @change='chooseImg'>
+                <img class="avatar" src="" />
+<!--                <i class="el-icon-plus avatar-uploader-icon"></i>-->
+                <input class="uploadBtn" type="file" name="image" accept="image/*">
               </div>
               <p class="clear"></p>
               <p class="beizhu">*仅支持JPG、GIF、PNG、JPEG、BMP格式 , 文件小于2M</p>
@@ -309,6 +309,29 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  function chooseImg(){
+    console.log('$(this)',$(this));
+  }
+  $(".uploadBtn").on('change',function(){
+    var objUrl = getObjectURL($(this)[0].files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+    console.log("objUrl",objUrl);
+    if (objUrl) {
+      $('.avatar').attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+    }
+  })
+  function getObjectURL(file) {
+    var url = null ;
+    if (window.createObjectURL!=undefined) { // basic
+      url = window.createObjectURL(file) ;
+    } else if (window.URL!=undefined) { // mozilla(firefox)
+      url = window.URL.createObjectURL(file) ;
+    } else if (window.webkitURL!=undefined) { // webkit or chrome
+      url = window.webkitURL.createObjectURL(file) ;
+    }
+    return url ;
+  }
+</script>
 {/block}
 {block name="jq"}
 <script>
