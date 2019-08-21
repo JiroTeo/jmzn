@@ -18,26 +18,27 @@
 
 <div data-v-645de51c="" class="wrapper clearfix">
     <div data-v-645de51c="" class="classifyList">
-        <div data-v-645de51c="" class="classify">
+        <div data-v-645de51c="" class="classify" id="classifyList">
             <div data-v-645de51c="" class="left">
-                <span data-v-645de51c="" class="title">行业分类</span><span data-v-645de51c="" data-id="" class="currentClassify">不限</span>
+                <span data-v-645de51c="" class="title">行业分类</span><span data-v-645de51c="" classify="" class="currentClassify">不限</span>
             </div>
             <div data-v-645de51c="" class="right">
                 {foreach $cateData as $key => $value}
-                <span data-v-645de51c="" data-id="{$value.id}" class="">{$value.name}</span>
+                <span data-v-645de51c="" classify="{$value.id}" class="">{$value.name}</span>
                 {/foreach}
             </div>
         </div> <!---->
-        <div data-v-645de51c="" class="classify">
+        <div data-v-645de51c="" class="classify" id="moneyList">
             <div data-v-645de51c="" class="left">
                 <span data-v-645de51c="" class="title">投资金额</span><span data-v-645de51c="" data-money="0" class="currentClassify">不限</span>
             </div>
-            <div data-v-645de51c="" class="right"><span data-v-645de51c="" data-money="1" class="">1万以下</span>
-                <span data-v-645de51c="" data-money="2" class="">1-10万</span>
-                <span data-v-645de51c="" data-money="3" class="">10-20万</span>
-                <span data-v-645de51c="" data-money="4" class="">20-50万</span>
-                <span data-v-645de51c="" data-money="5" class="">50-100万</span>
-                <span data-v-645de51c="" data-money="6" class="">100万以上</span>
+            <div data-v-645de51c="" class="right" >
+                <span data-v-645de51c="" money="1" class="">1万以下</span>
+                <span data-v-645de51c="" money="2" class="" >1-10万</span>
+                <span data-v-645de51c="" money="3" class="">10-20万</span>
+                <span data-v-645de51c="" money="4" class="">20-50万</span>
+                <span data-v-645de51c="" money="5" class="">50-100万</span>
+                <span data-v-645de51c="" money="6" class="">100万以上</span>
             </div>
         </div>
     </div>
@@ -46,18 +47,17 @@
             <div data-v-645de51c="" class="fl">加盟项目</div>
             <div data-v-645de51c="" class="el-select select fr"><!---->
                 <div class="el-input el-input--suffix"><!---->
-                    <input type="text" readonly="readonly" autocomplete="off" placeholder="请选择" class="el-input__inner"><!---->
+                    <input type="text" readonly="readonly" id="type" placeholder="请选择" class="el-input__inner">
                     <span class="el-input__suffix">
-                        <span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-arrow-up"></i><!----><!----><!----><!----><!----></span>
-                    <!---->
-                    </span><!----><!---->
+                        <span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-arrow-down"></i></span>
+                    </span>
                 </div>
                 <div class="el-select-dropdown el-popper" style="display: none; min-width: 100px;">
                     <div class="el-scrollbar" style="">
                         <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default">
                             <ul class="el-scrollbar__view el-select-dropdown__list"><!---->
-                                <li data-v-645de51c="" class="el-select-dropdown__item selected"><span>最新</span></li>
-                                <li data-v-645de51c="" class="el-select-dropdown__item"><span>热度</span></li>
+                                <li data-v-645de51c="" type="最新" class="el-select-dropdown__item selected"><span>最新</span></li>
+                                <li data-v-645de51c="" type="最热" class="el-select-dropdown__item "><span>热度</span></li>
                             </ul>
                         </div>
                         <div class="el-scrollbar__bar is-horizontal">
@@ -127,4 +127,40 @@
         </ul>
     </div>
 </div>
+<script type="text/javascript">
+    $('.el-input__inner').click(function(){
+
+        selectChange();
+    });
+    function selectChange(){
+        if($('.el-select-dropdown').css('display') == 'none'){
+            $('.el-select-dropdown').css({'display':'block'});
+            $('.el-icon-arrow-up').removeClass('el-icon-arrow-up').addClass("el-icon-arrow-down");
+        }else{
+            $('.el-select-dropdown').css({'display':'none'});
+            $('.el-icon-arrow-down').removeClass('el-icon-arrow-down').addClass("el-icon-arrow-up");
+        }
+    };
+    /**
+     * 点击最新 最热
+     */
+    $('.el-select-dropdown__list li').click(e=>{
+        $("#el-select-dropdown__list li").removeClass('select');
+        $(this).addClass("select");
+        console.log('e',e);
+        $('#type').val(e.currentTarget.type);
+        selectChange();
+    })
+    $('#moneyList span').click(function(e){
+       $("#moneyList span").removeClass('currentClassify');
+        $(this).addClass("currentClassify");
+        console.log("money",$(this).attr('money'));
+    })
+    $('#classifyList span').click(function(e){
+        $("#classifyList span").removeClass('currentClassify');
+        $(this).addClass("currentClassify");
+        console.log("classify",$(this).attr('classify'));
+
+    })
+</script>
 {/block}
