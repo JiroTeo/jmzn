@@ -1,15 +1,15 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:80:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\article\index.html";i:1566354043;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566296418;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:84:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\index\rankinglist.html";i:1566354043;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566296418;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>行业资讯</title>
+  <title></title>
   <meta name="keywords" content="
-   123456
+   
    ">
   <meta name="description" content="
-    654231
+    
     ">
   <script type="text/javascript" src="http://www.test.com\/statics/admin/js/jquery.min.js"></script>
   <script type="text/javascript" src="http://www.test.com\/statics/layer-v3.1.1/layer/layer.js"></script>
@@ -112,268 +112,178 @@
   
     
 <style>
-  .swiper-container{
-    width: 595px;
-    height: 422px;
-  }
+    .midMid{
+        padding-top: 10px;
+    }
+    .swiper-container{
+        width: 596px;
+        height: 316px;
+    }
 
-  .swiper-slide{
-    width: 100%;
-    height:  422px;
-  }
+    .swiper-slide{
+        width: 100%;
+        height:  316px;
+    }
 
-  .swiper-slide img{
-    width: 100%;
-    height: 100%;
-  }
+    .swiper-slide img{
+        width: 100%;
+        height: 100%;
+    }
 </style>
-<div id="app">
-  <div data-v-e7ea78d4="">
-    <div data-v-e7ea78d4="" class="greyBg">
-      <div data-v-e7ea78d4="" class="wrapper clearfix">
-        <div data-v-e7ea78d4="" class="onePart clearfix">
-          <div data-v-e7ea78d4="" class=" clearfix" style="display: block;height: 70px;cursor: pointer;float: left;width: 895px">
-            <div class="carousel fl">
-              <div class="swiper-container">
-                <div class="swiper-wrapper">
-                  <?php foreach($imageData[0] as $key => $value): ?>
-                  <div class="swiper-slide">
-                    <a data-v-64375f02="" href="<?php echo $value['link']; ?>" class="small">
-                      <img data-v-64375f02="" src="<?php echo $value['img']; ?>">
-                      <span data-v-e7ea78d4="" class="desc over"><?php echo $value['title']; ?></span>-->
-                    </a>
-                  </div>
-                  <?php endforeach; ?>
-                </div>
-                <!-- 如果需要分页器 -->
-                <div class="swiper-pagination"></div>
-              </div>
-            </div>
-
-
-            <!--            <div data-v-e7ea78d4="" class="carousel fl">-->
-<!--              <div data-v-e7ea78d4="" class="el-carousel el-carousel&#45;&#45;horizontal">-->
-<!--                <div class="el-carousel__container" style="height: 422px;">-->
-<!--                  <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;left" style="display: none;">-->
-<!--                    <i class="el-icon-arrow-left"></i>-->
-<!--                  </button>-->
-<!--                  <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;right" style="display: none;">-->
-<!--                    <i class="el-icon-arrow-right"></i>-->
-<!--                  </button>-->
-<!--                  <?php foreach($imageData[0] as $key => $value): ?>-->
-<!--                  <div data-v-e7ea78d4="" class="el-carousel__item is-active is-animating" style="transform: translateX(0px) scale(1);">&lt;!&ndash;&ndash;&gt;-->
-<!--                    <a data-v-e7ea78d4="" href="<?php echo $value['link']; ?>" class="small router-link-exact-active router-link-active">-->
-<!--                      <img data-v-e7ea78d4="" src="<?php echo $value['img']; ?>">-->
-<!--                      <span data-v-e7ea78d4="" class="desc over"><?php echo $value['title']; ?></span>-->
-<!--                    </a>-->
-<!--                  </div>-->
-<!--                  <?php endforeach; ?>-->
-<!--                </div>-->
-<!--                <ul class="el-carousel__indicators el-carousel__indicators&#45;&#45;horizontal">-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal is-active">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                </ul>-->
-<!--              </div>-->
-<!--            </div>-->
-            <ul data-v-e7ea78d4="" class="fr newsBig">
-              <?php foreach($imageData[1] as $key => $value): ?>
-              <li data-v-e7ea78d4="">
-                <a data-v-e7ea78d4="" href="<?php echo $value['link']; ?>" class="small router-link-exact-active router-link-active">
-                  <img data-v-e7ea78d4="" src="<?php echo $value['img']; ?>">
-                  <span data-v-e7ea78d4=""><?php echo $value['title']; ?></span>
-                </a>
-              </li>
-              <?php endforeach; ?>
-            </ul>
-          </div>
-          <div data-v-e7ea78d4="" class="fixedWidth" style="height: 422px;">
-            <div data-v-e7ea78d4="" style="height: 382px; overflow: hidden;">
-              <div data-v-7334df6a="" data-v-e7ea78d4="" class="hotConsult" currentmenu="8">
-                <div data-v-7334df6a="" class="title clearfix">
-                  <span data-v-7334df6a="" class="fl">热门资讯</span>
-                  <a data-v-7334df6a="" href="<?php echo url('index/article/index'); ?>}" class="fr more"> 更多
-                    <span data-v-7334df6a="" class="el-icon-arrow-right"></span>
-                  </a>
-                </div>
-                <div data-v-7334df6a="" class="list">
-                  <?php foreach($hotArt as $key => $value): ?>
-                  <a data-v-7334df6a="" href="<?php echo url('index/article/detail'); ?>?id=<?php echo $value['id']; ?>" class="item clearfix">
-                    <div data-v-7334df6a="" class="order fl"><?php echo $key+1; ?></div>
-                    <div data-v-7334df6a="" class="name fl"><?php echo $value['title']; ?></div>
+  <div data-v-78041906="" class="rankingList">
+    <div data-v-78041906="" class="wrapper box1">
+      <div data-v-78041906="" class="box1">
+        <div data-v-78041906="" class="longBanners"></div>
+        <div data-v-78041906="" class="ranking">
+          <div data-v-78041906="" class="title clearfix"><span data-v-78041906="" class="fl">推荐品牌排行榜</span></div>
+              <div data-v-78041906="" class="list">
+                  <?php foreach($recoRank as $key => $value): ?>
+                  <a data-v-78041906="" href="<?php echo url('index/item/detail'); ?>?id=<?php echo $value['id']; ?>" class="item clearfix">
+                    <div data-v-78041906="" class="order fl"><?php echo $key+1; ?></div>
+                    <div data-v-78041906="" class="name fl"><?php echo $value['brand']; ?></div>
+                    <div data-v-78041906="" class="count fr"><?php echo $value['read_num']; ?></div>
                   </a>
                   <?php endforeach; ?>
-                </div>
               </div>
-            </div>
+        </div>
+        <div class="midMid">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <?php foreach($imageData[0] as $key => $value): ?>
+                        <div class="swiper-slide">
+                            <a data-v-64375f02="" href="<?php echo $value['link']; ?>" class="small">
+                                <img data-v-64375f02="" src="<?php echo $value['img']; ?>">
+                            </a>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <!-- 如果需要分页器 -->
+                    <div class="swiper-pagination"></div>
+                </div>
+
+          <div data-v-78041906="" class="choice">
+              <p data-v-78041906="" class="title">
+                  <span data-v-78041906="">精选推荐 :</span>
+                  <?php foreach($synRank as $key=> $value): ?>
+                  <a data-v-78041906="" href="<?php echo url('index/item/detail'); ?>?id=<?php echo $value['id']; ?>" class=""> <?php echo $value['brand']; ?></a>
+                  <?php endforeach; ?>
+              </p>
           </div>
         </div>
-        <div data-v-e7ea78d4="" class="twoPart clearfix">
-          <div data-v-e7ea78d4="" class="joinNews">
-            <div data-v-e7ea78d4="" class="title between"><h2 data-v-e7ea78d4="">加盟资讯</h2>
-              <a data-v-e7ea78d4="" href="<?php echo url('index/article/index'); ?>?type=2" class="">
-                <span data-v-e7ea78d4="">更多 &gt;</span>
-              </a>
-            </div>
-            <div data-v-e7ea78d4="" class="between">
-              <div data-v-e7ea78d4="">
-                <?php foreach($jmzx['img'] as $key => $value): ?>
-                <a data-v-e7ea78d4="" href="<?php echo url('index/article/detail'); ?>?id=<?php echo $value['id']; ?>" class="">
-                  <dl data-v-e7ea78d4="" class="joinNewsDL">
-                    <dt data-v-e7ea78d4="" class="over"><?php echo $value['title']; ?></dt>
-                    <dd data-v-e7ea78d4="" class="clearfix">
-                      <img data-v-e7ea78d4="" src="<?php echo $value['img']; ?>">
-                      <p data-v-e7ea78d4="" class="desc">
-                      <span data-v-e7ea78d4=""></span>
-                        <i data-v-e7ea78d4=""><?php echo $value['addtime']; ?></i></p></dd>
-                  </dl>
-                </a>
-                <?php endforeach; ?>
-              </div>
-              <ul data-v-e7ea78d4="" class="joinNewsList">
-                <?php foreach($jmzx['list'] as $key => $value): ?>
-                <a data-v-e7ea78d4="" href="<?php echo url('index/article/index'); ?>?id=<?php echo $value['id']; ?>" class="">
-                  <li data-v-e7ea78d4="" class="clearfix">
-                  <span data-v-e7ea78d4="" class="over"><b data-v-e7ea78d4="">・</b><?php echo $value['title']; ?></span>
-                    <i data-v-e7ea78d4=""><?php echo $value['addtime']; ?></i></li>
-                </a>
-                <?php endforeach; ?>
-              </ul>
-            </div>
+        <div data-v-78041906="" class="ranking">
+          <div data-v-78041906="" class="title clearfix">
+              <span data-v-78041906="" class="fl">综合品牌排行榜</span>
           </div>
-          <div data-v-e7ea78d4="" class="fixedWidth" style="height: 480px;">
-            <div data-v-e7ea78d4="">
-              <div data-v-1921a26e="" data-v-e7ea78d4="" class="industryList">
-                <div data-v-1921a26e="" class="title clearfix">
-                  <span data-v-1921a26e="" class="fl">加盟攻略
-                  </span>
-                  <a data-v-1921a26e="" href="/newsList?type=2" class="fr more"> 更多
-                    <span data-v-1921a26e="" class="el-icon-arrow-right"></span>
+          <div data-v-78041906="" class="list">
+              <?php foreach($synRank as $key => $value): ?>
+              <a data-v-78041906="" href="/detail?id=1130" class="item clearfix">
+                <div data-v-78041906="" class="order fl"><?php echo $key+1; ?></div>
+                <div data-v-78041906="" class="name fl"><?php echo $value['brand']; ?></div>
+                <div data-v-78041906="" class="count fr"><?php echo $value['read_num']; ?></div>
+              </a>
+              <?php endforeach; ?>
+          </div>
+        </div>
+        <div data-v-78041906="" class="longBanners">
+            <?php foreach($imageData[1] as $key => $value): ?>
+            <span data-v-78041906="">
+                <a data-v-78041906="" href="<?php echo $value['link']; ?>" class="">
+                    <img data-v-78041906="" src="<?php echo $value['img']; ?>">
+                </a>
+            </span>
+            <?php endforeach; ?>
+        </div>
+          <?php foreach($brandRank as $key => $value): ?>
+        <div data-v-78041906="" class="ranking">
+          <div data-v-78041906="" class="title clearfix">
+              <span data-v-78041906="" class="fl">十大<span data-v-78041906="" class="strong"><?php echo $value['cate_name']; ?></span>品牌排行榜</span>
+          </div>
+          <div data-v-78041906="" class="list">
+              <?php foreach($value['item_data'] as $k => $v): ?>
+              <a data-v-78041906="" href="<?php echo url('index/item/detail'); ?>?id=278" class="item clearfix">
+                <div data-v-78041906="" class="order fl"><?php echo $key+1; ?></div>
+                <div data-v-78041906="" class="name fl"><?php echo $v['brand']; ?></div>
+                <div data-v-78041906="" class="count fr"><?php echo $v['read_num']; ?></div>
+              </a>
+              <?php endforeach; ?>
+          </div>
+        </div>
+          <?php endforeach; ?>
+
+        <div data-v-78041906="" class="longBanners">
+            <?php foreach($imageData[2] as $key => $value): ?>
+            <span data-v-78041906="">
+                <a data-v-78041906="" href="<?php echo $value['link']; ?>" class="">
+                    <img data-v-78041906="" src="<?php echo $value['img']; ?>">
+                </a>
+            </span>
+            <?php endforeach; ?>
+        </div>
+      </div>
+      <div data-v-78041906="" class="box2 clearfix">
+        <div data-v-78041906="" class="recommendBox fl">
+          <div data-v-78041906="" class="title clearfix">
+              <h2 data-v-78041906="" class="fl">项目推荐</h2>
+              <a data-v-78041906="" href="" class="fr">更多 &gt;</a>
+          </div>
+          <div data-v-78041906="" class="content clearfix">
+            <?php foreach($recoItem as $key => $value): ?>
+            <div data-v-78041906="" class="box">
+                <a data-v-78041906="" href="<?php echo url('index/item/detail'); ?>?id=<?php echo $value['id']; ?>" class="">
+                    <img data-v-78041906="" src="<?php echo $value['img']; ?>">
+                    <span data-v-78041906="" class="name over"><?php echo $value['item_name']; ?> <?php echo $value['money']; ?>万</span>
+                  <p data-v-78041906="" class="desc clearfix"><b data-v-78041906="" class="fl">￥<?php echo $value['money']; ?>万</b>
+                      <span data-v-78041906="" class="fr">门店: <?php echo $value['shop_count']; ?>家</span>
+                  </p>
+                </a>
+            </div>
+              <?php endforeach; ?>
+          </div>
+        </div>
+          <div data-v-2e73e232="" data-v-645de51c="" class="industryList fr industryList">
+              <div data-v-2e73e232="" class="title clearfix"><span data-v-2e73e232="" class="fl">行业资讯</span>
+                  <a data-v-2e73e232="" href="<?php echo url('index/article/index'); ?>" class="fr more"> 更多 <span data-v-2e73e232="" class="el-icon-arrow-right"></span></a>
+              </div>
+              <div data-v-2e73e232="" class="special">
+                  <a data-v-2e73e232="" href="<?php echo url('index/article/detail'); ?>?id=<?php echo $artData['rArticle']['id']; ?>" class="">
+                      <img data-v-2e73e232="" src="<?php echo $artData['rArticle']['img']; ?>" alt="">
+                      <div data-v-2e73e232=""><?php echo $artData['rArticle']['title']; ?></div>
                   </a>
-                </div>
-                <div data-v-1921a26e="" class="special">
-                  <a data-v-1921a26e="" href="<?php echo url('index/article/index'); ?>?id=<?php echo $jmgl['img']['id']; ?>" class="">
-                    <img data-v-1921a26e="" src="<?php echo $jmgl['img']['img']; ?>" alt="">
-                    <div data-v-1921a26e=""><?php echo $jmgl['img']['title']; ?></div>
-                  </a>
-                </div>
-                <ul data-v-1921a26e="">
-                  <?php foreach($jmgl['list'] as $key => $value): ?>
-                  <li data-v-1921a26e="">
-                    <a data-v-1921a26e="" href="<?php echo url('index/article/index'); ?>?id=<?php echo $value['id']; ?>" class=""><?php echo $value['title']; ?></a>
+              </div>
+              <ul data-v-2e73e232="">
+                  <?php foreach($artData['aticle'] as $key => $value): ?>
+                  <li data-v-2e73e232="">
+                      <a data-v-2e73e232="" href="<?php echo url('index/article/detail'); ?>?id=<?php echo $value['id']; ?>" class=""><?php echo $value['title']; ?></a>
                   </li>
                   <?php endforeach; ?>
-                </ul>
-              </div>
-            </div>
+              </ul>
           </div>
-        </div>
-        <div data-v-e7ea78d4="" class="otherAd wrapper">
-        </div>
-        <div data-v-e7ea78d4="" class="threePart clearfix">
-          <div data-v-e7ea78d4="" class="reportNews">
-            <div data-v-e7ea78d4="" class="title between"><h2 data-v-e7ea78d4="">行业报告</h2>
-              <a data-v-e7ea78d4="" href="<?php echo url('index/article/index'); ?>" class="">
-                <span data-v-e7ea78d4="">更多 &gt;</span>
-              </a>
-            </div>
-            <dl data-v-e7ea78d4="" class="reportNewsDL clearfix">
-              <dt data-v-e7ea78d4="">
-                <a data-v-e7ea78d4="" href="<?php echo url('index/article/index'); ?>?id=1<?php echo $value['id']; ?>" class="">
-                  <img data-v-e7ea78d4="" src="<?php echo $hybg['img']['img']; ?>">
-                  <span data-v-e7ea78d4="" class="over"><?php echo $hybg['img']['title']; ?></span>
-                </a>
-              </dt>
-              <dd data-v-e7ea78d4="">
-                <ul data-v-e7ea78d4="" class="joinNewsList">
-                  <?php foreach($hybg['list'] as $key => $value): ?>
-                  <a data-v-e7ea78d4="" href="<?php echo url('index/article/index'); ?>?id=<?php echo $value['id']; ?>" class="">
-                    <li data-v-e7ea78d4="" class="clearfix">
-                    <span data-v-e7ea78d4="" class="over"><b data-v-e7ea78d4="">・</b><?php echo $value['title']; ?></span>
-                      <i data-v-e7ea78d4=""><?php echo $value['addtime']; ?></i>
-                    </li>
-                  </a>
-                  <?php endforeach; ?>
-                  </ul>
-              </dd>
-            </dl>
-          </div>
-          <div data-v-e7ea78d4="" class="fixedWidth" style="height: 400px;">
-            <div data-v-e7ea78d4="" style="height: 380px; overflow: hidden;">
-              <div data-v-673d4749="" data-v-e7ea78d4="" class="hotOrder">
-                <div data-v-673d4749="" class="title clearfix">
-                  <span data-v-673d4749="" class="fl">加盟项目排行榜
-                  </span>
-                  <a data-v-673d4749="" href="<?php echo url('index/index/rankinglist'); ?>?order=1" class="fr more"> 更多
-                    <span data-v-673d4749="" class="el-icon-arrow-right"></span>
-                  </a>
-                </div>
-                <div data-v-673d4749="" class="list">
-                  <?php foreach($phb as $key => $value): ?>
-                  <a data-v-673d4749="" href="<?php echo url('index/item/detail'); ?>?id=<?php echo $value['id']; ?>" class="item clearfix">
-                    <div data-v-673d4749="" class="order fl"><?php echo $key+1; ?>
-                    </div>
-                    <div data-v-673d4749="" class="name fl"><?php echo $value['brand']; ?>
-                    </div>
-                    <div data-v-673d4749="" class="count fr"><?php echo $value['read_num']; ?>
-                    </div>
-                  </a>
-                  <?php endforeach; ?>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div data-v-e7ea78d4="" class="otherAd wrapper">
-          <?php foreach($imageData[2] as $key => $value): ?>
-          <span data-v-e7ea78d4="">
-            <a data-v-e7ea78d4=""
-               href="<?php echo $value['link']; ?>" class="">
-              <img data-v-e7ea78d4="" src="<?php echo $value['img']; ?>">
-            </a>
-          </span>
-          <?php endforeach; ?>
-        </div>
       </div>
     </div>
   </div>
-</div>
 <script type="text/javascript">
-  var mySwiper = new Swiper ('.swiper-container', {
-    direction: 'horizontal', // 水平切换选项
-    loop: true, // 循环模式选项
+    var mySwiper = new Swiper ('.swiper-container', {
+        direction: 'horizontal', // 水平切换选项
+        loop: true, // 循环模式选项
 
-    // 如果需要分页器
-    pagination: {
-      el: '.swiper-pagination',
-    },
+        // 如果需要分页器
+        pagination: {
+            el: '.swiper-pagination',
+        },
 
-    // 如果需要前进后退按钮
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
+        // 如果需要前进后退按钮
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
 
-    // 如果需要滚动条
-    scrollbar: {
-      el: '.swiper-scrollbar',
-    },
-  })
+        // 如果需要滚动条
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+    })
 </script>
-
+  
   
   <div data-v-4dfbcb4e="" class="common-footer">
     <div data-v-4dfbcb4e="" class="links ">

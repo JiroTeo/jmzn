@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\index\index.html";i:1566296418;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566296418;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\index\index.html";i:1566354043;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566296418;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,11 +19,29 @@
 <link href="http://www.test.com\/statics/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/index/js/0.f5ed0d9d7e597a228142.js"></script>
 <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
 
 </head>
 <body>
 <div id="app">
   
+<style>
+    .swiper-container{
+        width: 100%;
+        height: 296px;
+    }
+
+    .swiper-slide{
+        width: 100%;
+        height:  296px;
+    }
+
+    .swiper-slide img{
+        width: 100%;
+        height: 100%;
+    }
+</style>
 <div data-v-5eef6683="" class="common-header">
     <div data-v-5eef6683="" class="body wrapper">
         <div data-v-5eef6683="" class="left">
@@ -106,6 +124,7 @@
     </div>
 
     
+
 <div data-v-64375f02="" class="midBox">
     <div data-v-64375f02="" class="wrapper clearfix">
         <div data-v-64375f02="" class="allTrade">
@@ -131,31 +150,39 @@
             </ul>
         </div>
         <div data-v-64375f02="" class="midMid">
-            <div data-v-64375f02="" class="carousel">
-                <div data-v-64375f02="" class="el-carousel el-carousel--horizontal">
-                    <div class="el-carousel__container" style="height: 296px;">
-                        <button type="button" class="el-carousel__arrow el-carousel__arrow--left" style="display: none;"><i class="el-icon-arrow-left"></i></button>
-                        <button type="button" class="el-carousel__arrow el-carousel__arrow--right" style="display: none;"><i class="el-icon-arrow-right"></i></button>
-                        <?php foreach($imageData[0] as $key => $value): ?>
-                        <div data-v-64375f02="" class="el-carousel__item is-active is-animating"
-                             style="transform: translateX(0px) scale(1);"><!---->
+<!--            <div data-v-64375f02="" class="carousel">-->
+<!--                <div data-v-64375f02="" class="el-carousel el-carousel&#45;&#45;horizontal">-->
+<!--                    <div class="el-carousel__container" style="height: 296px;">-->
+<!--                        <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;left" style="display: none;"><i class="el-icon-arrow-left"></i></button>-->
+<!--                        <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;right" style="display: none;"><i class="el-icon-arrow-right"></i></button>-->
+<!--                        <?php foreach($imageData[0] as $key => $value): ?>-->
+<!--                        <div data-v-64375f02="" class="el-carousel__item is-active is-animating"-->
+<!--                             style="transform: translateX(0px) scale(1);">&lt;!&ndash;&ndash;&gt;-->
+<!--                            <a data-v-64375f02="" href="<?php echo $value['link']; ?>" class="small">-->
+<!--                                <img data-v-64375f02="" src="<?php echo $value['img']; ?>"></a>-->
+<!--                        </div>-->
+<!--                        <?php endforeach; ?>-->
+<!--                    </div>-->
+
+
+<!--                </div>-->
+<!--            </div>-->
+            <div class="swiper-container">
+
+                <div class="swiper-wrapper">
+                    <?php foreach($imageData[0] as $key => $value): ?>
+                        <div class="swiper-slide">
                             <a data-v-64375f02="" href="<?php echo $value['link']; ?>" class="small">
-                                <img data-v-64375f02="" src="<?php echo $value['img']; ?>"></a>
+                            <img data-v-64375f02="" src="<?php echo $value['img']; ?>">
+                            </a>
                         </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <ul class="el-carousel__indicators el-carousel__indicators--horizontal">
-                        <li class="el-carousel__indicator el-carousel__indicator--horizontal">
-                            <button class="el-carousel__button"><!----></button>
-                        </li>
-                        <li class="el-carousel__indicator el-carousel__indicator--horizontal is-active">
-                            <button class="el-carousel__button"><!----></button>
-                        </li>
-                        <li class="el-carousel__indicator el-carousel__indicator--horizontal">
-                            <button class="el-carousel__button"><!----></button>
-                        </li>
-                    </ul>
+                    <?php endforeach; ?>
                 </div>
+
+                <!-- 如果需要分页器 -->
+
+                <div class="swiper-pagination"></div>
+
             </div>
             <div data-v-64375f02="" class="choice">
                 <p data-v-64375f02="" class="title">
@@ -287,6 +314,41 @@
             <?php endforeach; ?>
         </div>
 </div>
+<script type="text/javascript">
+    $(function() {
+        var mySwiper = new Swiper ('.swiper-container', {
+
+            // 轮播图的方向，也可以是vertical方向
+
+            direction:'horizontal',
+
+            //播放速度
+
+            loop: true,
+
+            // 自动播放时间
+
+            autoplay:true,
+
+            // 播放的速度
+
+            speed:2000,
+
+            // 如果需要分页器，即下面的小圆点
+
+            pagination: {
+
+                el: '.swiper-pagination',
+
+            },
+
+            // 这样，即使我们滑动之后， 定时器也不会被清除
+
+            autoplayDisableOnInteraction : false,
+
+        });
+    })
+</script>
 
   
   <div data-v-4dfbcb4e="" class="common-footer">

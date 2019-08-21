@@ -24,6 +24,104 @@
   .el-radio__label{
     padding-left: 0!important;
   }
+  .consultBg{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9990;
+  }
+  .consultCase{
+    width: 386px;
+    height: 520px;
+    padding: 0 15px 0 25px;
+    background: #fff;
+    border-radius: 2px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin:-260px 0 0 -213px;
+    z-index: 9992;
+  }
+  .consultCase h2{
+    padding: 20px 20px 30px;
+    text-align:center;
+    font-size: 18px;
+  }
+  .consultCase .close{
+    width: 20px;
+    height: 20px;
+    background: url(__STATIC__/index/image/close.png) no-repeat;
+    background-size: 100%;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 10;
+    cursor: pointer;
+  }
+  .consultCase .row{
+    margin-bottom: 16px;
+  }
+  .consultCase .name{
+    width: 70px;
+    line-height: 41px;
+    text-align: right;
+    color: #666;
+    margin-right: 10px;
+  }
+  .consultCase .name i{
+    color: #f00;
+  }
+  .consultCase .commonInp{
+    width: 290px;
+    height: 39px;
+    line-height: 39px;
+    text-indent: 10px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+  }
+  .consultCase .picInp{
+    width: 180px;
+  }
+  .consultCase .picBtn{
+    float: left;
+    width: 105px;
+    height: 41px;
+    line-height: 41px;
+    margin-left: 5px;
+  }
+  .consultCase .checkBtn{
+    float: left;
+    width: 103px;
+    height: 39px;
+    line-height: 39px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    text-align: center;
+    margin-left: 5px;
+  }
+  .textArea{
+    width: 270px;
+    height: 60px;
+    padding: 10px;
+    border: 1px solid #dcdfe6;
+    border-radius: 2px;
+    resize: none;
+    margin-left: 80px;
+  }
+  .commitBtn{
+    display: block;
+    width: 75px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #409eff;
+    color: #fff;
+    border-radius: 4px;
+    margin: 0 auto;
+  }
 </style>
 <div id="app">
   <div data-v-4b135571="" class="list">
@@ -127,11 +225,11 @@
                   <label data-v-4b135571="">验证码</label>
                   <div data-v-4b135571="" class="between" style="width: 322px;">
                     <input data-v-4b135571="" type="text" placeholder="请输入手机验证码" class="checkInp">
-                    <span data-v-4b135571="" class="checkBtn">获取验证码</span></div>
+                    <span data-v-4b135571="" class="checkBtn" id="time" onclick="getCode()">获取验证码</span></div>
                 </div>
               </div>
             </div>
-            <div data-v-4b135571="" class="commitBtn">提交</div>
+            <div data-v-4b135571="" class="commitBtn" onclick="login()">提交</div>
           </div>
         </div>
         <div data-v-4b135571="" class="detailRight">
@@ -204,6 +302,52 @@
   </div>
 </div>
 
+<!-- 立即咨询 -->
+<div class="consultBg">
+  <div class="consultCase">
+    <h2>立即咨询</h2>
+    <span class="close"></span>
+    <div class="row clearfix">
+      <label class="fl name"><i>*</i> 姓名</label>
+      <input class="fl commonInp" type="text" name="" placeholder="请输入您的姓名">
+    </div>
+    <div class="row clearfix">
+      <label class="fl name"><i>*</i> 姓名</label>
+      <div class="fl" style="line-height:40px;">
+        <label class="el-radio sexLabel">
+          <input type="radio" name="sex" checked="">
+          <span class="el-radio__label">男</span>
+        </label>
+        <label class="el-radio sexLabel">
+          <input type="radio" name="sex">
+          <span class="el-radio__label">女</span>
+        </label>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <label class="fl name"><i>*</i> 手机号</label>
+      <input class="fl commonInp" type="text" name="" placeholder="请输入您的手机号">
+    </div>
+    <div class="row clearfix">
+      <label class="fl name"><i>*</i> 图片验证</label>
+      <input class="fl commonInp picInp" type="text" name="" placeholder="请输入图片验证码">
+      <img class="picBtn" src="">
+    </div>
+    <div class="row clearfix">
+      <label class="fl name"><i>*</i> 验证码</label>
+      <input class="fl commonInp picInp" type="text" name="" placeholder="请输入手机验证码">
+      <span class="checkBtn" id="time" onclick="getCode()">获取验证码</span>
+    </div>
+    <div class="row">
+      <textarea class="textArea" placeholder="请输入您要咨询的内容"></textarea>
+    </div>
+    <div>
+      <a class="commitBtn" href="javascript:;">提交</a>
+    </div>
+  </div>
+</div>
+
+
 <script>
   //banner
   $('.itemPic .between>label:first').addClass('active');
@@ -231,6 +375,42 @@
       $(this).addClass('on');
     }
   })
+  //验证手机格式
+  function validatePhone () {
+    const phone = $('#phone').val();
+    console.log('phone',phone);
+    if (!phone) {
+      layer.msg('请输入手机号码',{icon:2});
+      return false;
+    }
+    if (phone.length != 11) {
+      layer.msg('手机号码格式不正确',{icon:2});
+      return false;
+    }
+    return true;
+  }
+  //获取验证码
+  let intervalID = '';
+  function getCode (){
+    let outTime = 60;
+    if(intervalID){
+
+      return;
+    }
+    intervalID = setInterval(function(){
+      if(outTime == 0){
+        outTime = 60;
+        clearInterval(intervalID)
+      }
+      outTime--;
+      $("#time").html(outTime+'S后可重新获取');
+    },1000)
+    layer.msg('验证码发送成功',{icon:1});
+  }
+  function login(){
+    validatePhone();
+
+  }
 </script>
 {/block}
 
