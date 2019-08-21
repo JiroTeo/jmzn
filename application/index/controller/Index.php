@@ -73,6 +73,7 @@ class Index extends Base{
         $this -> assign('recoArticle',$recoArticle);//行业资讯
         $this -> assign('brandList',$brandList);//品牌聚焦
         $this -> assign('imageData',$imageData);//广告数据
+//        dump($imageData[0]);die;
         return view();
     }
 
