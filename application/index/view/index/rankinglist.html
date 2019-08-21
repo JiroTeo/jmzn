@@ -17,6 +17,9 @@
 <!--<div id="app">-->
 {block name="content"}
 <style>
+    .midMid{
+        padding-top: 10px;
+    }
     .swiper-container{
         width: 596px;
         height: 316px;
@@ -48,9 +51,8 @@
                   {/foreach}
               </div>
         </div>
-        <div data-v-78041906="" class="midMid">
+        <div class="midMid">
                 <div class="swiper-container">
-
                     <div class="swiper-wrapper">
                         {foreach $imageData[0] as $key => $value}
                         <div class="swiper-slide">
@@ -60,42 +62,10 @@
                         </div>
                         {/foreach}
                     </div>
-
                     <!-- 如果需要分页器 -->
-
                     <div class="swiper-pagination"></div>
-
                 </div>
-<!--          <div data-v-78041906="" class="carousel">-->
-<!--            <div data-v-78041906="" class="el-carousel el-carousel&#45;&#45;horizontal">-->
-<!--              <div class="el-carousel__container">-->
-<!--                <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;left" style="display: none;"><i-->
-<!--                  class="el-icon-arrow-left"></i></button>-->
-<!--                <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;right" style="display: none;">-->
-<!--                    <i class="el-icon-arrow-right"></i>-->
-<!--                </button>-->
-<!--                  {foreach $imageData[0] as $key => $value}-->
-<!--                  <div data-v-78041906="" class="el-carousel__item is-active is-animating"-->
-<!--                       style="transform: translateX(0px) scale(1);">&lt;!&ndash;&ndash;&gt;-->
-<!--                      <a data-v-78041906="" href="{$value.link}" class="small">-->
-<!--                          <img data-v-78041906="" src="{$value.img}">-->
-<!--                      </a>-->
-<!--                  </div>-->
-<!--                  {/foreach}-->
-<!--              </div>-->
-<!--              <ul class="el-carousel__indicators el-carousel__indicators&#45;&#45;horizontal">-->
-<!--                <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal">-->
-<!--                  <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;</button>-->
-<!--                </li>-->
-<!--                <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal is-active">-->
-<!--                  <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;</button>-->
-<!--                </li>-->
-<!--                <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal">-->
-<!--                  <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;</button>-->
-<!--                </li>-->
-<!--              </ul>-->
-<!--            </div>-->
-<!--          </div>-->
+
           <div data-v-78041906="" class="choice">
               <p data-v-78041906="" class="title">
                   <span data-v-78041906="">精选推荐 :</span>
@@ -196,5 +166,27 @@
       </div>
     </div>
   </div>
+<script type="text/javascript">
+    var mySwiper = new Swiper ('.swiper-container', {
+        direction: 'horizontal', // 水平切换选项
+        loop: true, // 循环模式选项
+
+        // 如果需要分页器
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // 如果需要前进后退按钮
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+        // 如果需要滚动条
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+    })
+</script>
   {/block}
 <!--</div>-->
