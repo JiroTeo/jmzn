@@ -34,6 +34,13 @@
         width: 100%;
         height: 100%;
     }
+    .longAd{
+      display: block;
+      margin-bottom: 10px;
+    }
+    .longAd:last-child{
+      margin-bottom: 0;
+    }
 </style>
   <div data-v-78041906="" class="rankingList">
     <div data-v-78041906="" class="wrapper box1">
@@ -91,8 +98,8 @@
         </div>
         <div data-v-78041906="" class="longBanners">
             {foreach $imageData[1] as $key => $value}
-            <span data-v-78041906="">
-                <a data-v-78041906="" href="{$value.link}" class="">
+            <span data-v-78041906="" class="longAd">
+                <a data-v-78041906="" href="{$value.link}">
                     <img data-v-78041906="" src="{$value.img}">
                 </a>
             </span>
@@ -117,7 +124,7 @@
 
         <div data-v-78041906="" class="longBanners">
             {foreach $imageData[2] as $key => $value}
-            <span data-v-78041906="">
+            <span data-v-78041906="" class="longAd">
                 <a data-v-78041906="" href="{$value.link}" class="">
                     <img data-v-78041906="" src="{$value.img}">
                 </a>
