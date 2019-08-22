@@ -324,6 +324,35 @@
   }
   $(".uploadBtn").on('change',function(){
     var objUrl = getObjectURL($(this)[0].files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+    let formData = new FormData(),
+            fs = $(this)[0].files;
+    let max_size = 1024 * 1024 * 100;
+    for (let i = 0; i < fs.length; i++) {
+      let d = fs[0]
+      if(d.size <= max_size){  //文件必须小于100M
+        if(/.(JPG|GIF|PNG|JPEG|BMP|jpg|gif|png|jpeg|bmp)$/.test(d.name)){ //文件必须为文档
+          formData.append("files", fs[i]);  //文件上传处理
+        }else{
+          alert('上传文件必须是PDF或DOC！')
+          return false
+        }
+
+      }else{
+        alert('上传文件过大！')
+        return false
+      }
+    }
+    $.ajax({
+      type: "POST",
+      url: "{:url('/index/index/uploadImage')}",
+      data: formData,
+      cache: false,
+      processData: false,
+      contentType: false,
+      success: function(data){
+          layer.msg('上传成功',{icon:1});
+      }
+    })
     console.log("objUrl",objUrl);
     if (objUrl) {
       $('.avatar').attr("src", objUrl) ; //将图片路径存入src中，显示出图片
