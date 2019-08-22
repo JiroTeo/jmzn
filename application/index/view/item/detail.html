@@ -123,6 +123,66 @@
     border-radius: 4px;
     margin: 0 auto;
   }
+  .consultBox {
+    width: 885px;
+    height: auto;
+    padding-bottom: 20px;
+    background: #fff;
+    margin: 20px 0;
+  }
+  .consultBox .title {
+    height: 62px;
+    line-height: 62px;
+    background: #F0F7FF;
+    padding: 0 21px 0 24px;
+    font-size: 14px;
+    color: #999;
+  }
+  .consultBox .title h3 {
+    font-size: 18px;
+    color: #000;
+  }
+  .consultBox .consultDL {
+    margin: 0 20px;
+    padding: 27px 0;
+    border-bottom: 1px dashed #E3E4E5;
+  }
+  .consultBox .consultDL dt {
+    width: 56px;
+    height: 56px;
+  }
+  .consultBox .consultDL dt img {
+    display: block;
+    width: 56px;
+    height: 56px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+  .consultBox .consultDL dd {
+    width: 760px;
+  }
+  .consultBox .consultDL dd .inf {
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+  }
+  .consultBox .consultDL dd .inf span:nth-child(1) {
+    font-size: 16px;
+    color: #333;
+  }
+  .consultBox .consultDL dd .word {
+    margin-top: 3px;
+    line-height: 26px;
+  }
+  .consultBox .lookBtn {
+    display: block;
+    width: 80px;
+    text-align: center;
+    color: #999;
+    margin: 20px auto 0;
+    cursor: pointer;
+  }
 </style>
 <div id="app">
   <div data-v-4b135571="" class="list">
@@ -193,7 +253,18 @@
           <div data-v-4b135571="" class="consultBox">
             <div data-v-4b135571="" class="title between"><h3 data-v-4b135571="">用户咨询</h3>
               <span data-v-4b135571="">{$data.apply}人申请加盟</span>
-            </div>  <!---->
+            </div>
+            <dl class="consultDL between" v-for="(item,i) in consult.data">
+              <dt><img :src="item.avatar"></dt>
+              <dd>
+                <p class="inf between">
+                  <span>{{item.username}}</span>
+                  <span>{{item.addtime}}</span>
+                </p>
+                <p class="word">{{item.content}}</p>
+              </dd>
+            </dl>
+            <span class="lookBtn" v-if="consult.count>4">查看更多 <i class="el-icon-caret-bottom"></i></span>
           </div>
           <div data-v-4b135571="" class="onceBox">
             <div data-v-4b135571="" class="title"><h3 data-v-4b135571="">立即咨询</h3></div>
@@ -287,20 +358,7 @@
         </div>
       </div>
     </div>
-    <div data-v-4b135571="" class="el-dialog__wrapper" style="display: none;">
-      <div role="dialog" aria-modal="true" aria-label="立即咨询" class="el-dialog el-dialog--center"
-           style="margin-top: 15vh; width: 30%;">
-        <div class="el-dialog__header">
-          <span class="el-dialog__title">立即咨询</span>
-          <button type="button" aria-label="Close" class="el-dialog__headerbtn"><i class="el-dialog__close el-icon el-icon-close"></i></button>
-        </div><!---->
-        <div class="el-dialog__footer">
-          <div data-v-4b135571="" class="dialog-footer">
-            <button data-v-4b135571="" type="button" class="el-button el-button--primary"><!----><!----><span>提 交</span></button>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </div>
 </div>
 <!-- 立即咨询 -->
