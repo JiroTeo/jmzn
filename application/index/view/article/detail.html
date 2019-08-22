@@ -10,6 +10,18 @@
 <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
 <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
 <style>
+  .submitBtn{
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    border-left: 1px solid #5389F7;
+    text-align: center;
+    color: #fff;
+    background-color: #5389F7;
+    cursor: pointer;
+    border-radius: 5px;
+  }
   .consultDetail {
     background-color: #F4F5FA;
     padding-bottom: 125px;
@@ -130,6 +142,9 @@
     font-size: 14px;
     color: #4D4D4D;
     padding: 0 41px;
+  }
+  .article .footer>div{
+   max-width: 50%;
   }
   .article .footer span {
     font-weight: bold;
@@ -320,9 +335,9 @@
             文章评论
           </div>
           <div class="content">
-            <textarea cols="30" rows="10" placeholder="请输入评论内容" v-model="content"></textarea>
+            <textarea cols="30" rows="10" placeholder="请输入评论内容" id="content"></textarea>
             <div class=" clearfix">
-              <el-button type="primary" class="fr" @click="addComment">提交评论</el-button>
+              <button class="submitBtn fr" @click="addComment">提交评论</button>
             </div>
           </div>
           <div class="consult" v-if="commentList.length>0">
