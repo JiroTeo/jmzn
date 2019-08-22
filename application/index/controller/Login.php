@@ -85,65 +85,6 @@ class login extends Base {
     }
 
 
-    /*登录*/
-    public function sign_in(){
-        //接收参数
-        $phone = empty($_REQUEST['phone']) ? false : trim($_REQUEST['phone']);
-        $code = empty($_REQUEST['code']) ? false : trim($_REQUEST['code']);
-        //验证手机号
-        $resPhone = verifMobile($phone);
-        if(empty($resPhone)){
-            $rinfo = $this -> returnCode['ERROR'][1];
-            $rinfo['msg'] = '手机号错误';
-            return $rinfo;
-        }
-        //验证验证码
-        $codeKey = 'CODE'.$phone;
-        $resCode = verifCode($code,$codeKey);
-        if(empty($resCode)){
-            $rinfo = $this -> returnCode['ERROR'][1];
-            $rinfo['msg'] = '验证码错误';
-            return $rinfo;
-        }
-        //查询用户是否存在
-        $where['phone'] = $phone;
-        $where['status'] = 1;
-        $resUser = $this -> userModel -> is_user($where);
-        $perfix = config('IMAGE');
-        if(empty($resUser)){//用户不存在执行注册操作
-            $addUser['phone'] = $phone;
-            $addUser['status'] = 1;
-            $addUser['rtime'] = time();
-            $addUser['uname'] = base64_encode('jmzn_'.$phone);
-            $userId = $this -> userModel -> addUser($addUser);
-            if(empty($userId)){//注册失败
-                $rinfo = $this -> returnCode['ERROR'][0];
-                $rinfo['msg'] = '注册失败';
-                return $rinfo;
-            }
-            //注册成功
-            $user['uid'] = $userId;
-            $user['username'] = $addUser['uname'];
-            $user['avatar'] = $perfix['AVATAR'];
-            $user['phone'] = $phone;
-            $token = '__JM'.$userId."__".md5(date('YmdHis').$userId.'_'.base64_encode('jmzn_'.$phone));
-            \cache($token,$user,7776000);//存储三个月
-
-        }else{//用户存在执行登录操作
-            $user['uid'] = $resUser['uid'];
-            $user['phone'] = $resUser['phone'];
-            $user['avatar'] = empty($resUser['avatar']) ? $perfix['AVATAR'] : $perfix['PERFIX'].trim($resUser['avatar'] , '.');
-            $user['username'] = base64_decode($resUser['uname']);
-            $token = '__JM'.$resUser['uid']."__".md5(date('YmdHis').$resUser['uid'].'_'.$resUser['uname']);
-            \cache($token,$user,7776000);//存储三个月
-
-        }
-        $data['user'] = $user;
-        $data['token'] = $token;
-        $rinfo = $this -> returnCode['SUCCESS'][0];
-        $rinfo['data'] = $data;
-        return $rinfo;
-    }
 
     /*  企业入驻    */
     public function ent_resi(){
@@ -217,18 +158,8 @@ class login extends Base {
 
     /*退出登录*/
     public function logout(){
-        $returnCode = config('RETURNLOG');
-        //接收参数token
-        $token = empty($_REQUEST['token']) ? false : $_REQUEST['token'];
-        if(empty($token)){
-            wapReturn($returnCode['ERROR'][5]);
-        }
-        //删除token
-        $res = Cache::rm($token);
-        if($res){
-        wapReturn($returnCode['SUCCESS'][0]);
-        }
-        wapReturn($returnCode['ERROR'][0]);
+        unset($_SESSION['jmzn_web']);
+        $this->redirect('/');
     }
 
     /*  获取图片验证码 */
