@@ -13,6 +13,105 @@
 <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
 <link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
 <style>
+  .consultBg{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9990;
+  }
+  .consultCase{
+    width: 386px;
+    height: 520px;
+    padding: 0 15px 0 25px;
+    background: #fff;
+    border-radius: 2px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin:-260px 0 0 -213px;
+    z-index: 9992;
+  }
+  .consultCase h2{
+    padding: 20px 20px 30px;
+    text-align:center;
+    font-size: 18px;
+  }
+  .consultCase .close{
+    width: 20px;
+    height: 20px;
+    background: url(__STATIC__/index/image/close.png) no-repeat;
+    background-size: 100%;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 10;
+    cursor: pointer;
+  }
+  .consultCase .row{
+    margin-bottom: 16px;
+  }
+  .consultCase .name{
+    width: 70px;
+    line-height: 41px;
+    text-align: right;
+    color: #666;
+    margin-right: 10px;
+  }
+  .consultCase .name i{
+    color: #f00;
+  }
+  .consultCase .commonInp{
+    width: 290px;
+    height: 39px;
+    line-height: 39px;
+    text-indent: 10px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+  }
+  .consultCase .picInp{
+    width: 180px;
+  }
+  .consultCase .picBtn{
+    float: left;
+    width: 105px;
+    height: 41px;
+    line-height: 41px;
+    margin-left: 5px;
+  }
+  .consultCase .checkBtn{
+    float: left;
+    width: 103px;
+    height: 39px;
+    font-size: 12px;
+    line-height: 39px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    text-align: center;
+    margin-left: 5px;
+  }
+  .textArea{
+    width: 270px;
+    height: 60px;
+    padding: 10px;
+    border: 1px solid #dcdfe6;
+    border-radius: 2px;
+    resize: none;
+    margin-left: 80px;
+  }
+  .commitBtn{
+    display: block;
+    width: 75px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #409eff;
+    color: #fff;
+    border-radius: 4px;
+    margin: 0 auto;
+  }
   /*  menu start*/
   .personalMenu {
     width: 230px;
@@ -375,10 +474,11 @@
               </div>
             </div>
             <div class="btns">
-              <button type="primary" @click.prevent="dialogFormVisible = true,productid = item.id" class="el-button el-button--primary">立即咨询</button>
+              <button type="primary" class="el-button el-button--primary consult" >立即咨询</button>
               <button id="cancelCollect" data-type="2" data-id="{$value.id}" class="el-button el-button--default">取消收藏</button>
             </div>
           </a>
+
           {/foreach}
         </div>
         <div class="layui-card-body ">
@@ -392,7 +492,198 @@
     </div>
   </div>
 </div>
+<!-- 立即咨询 -->
+<div class="consultBg" id="consultModal" style="display: none">
+  <!--    <form action="{:url('index/Consult/addConsultData')}" method="post" id="addconsult" accept-charset="utf-8">-->
+  <input type="hidden" id="tid" >
+  <div class="consultCase">
+    <h2>立即咨询</h2>
+    <span class="close" onclick="hideConsultModal()"></span>
+
+    <div class="row clearfix">
+      <label class="fl name"><i>*</i> 姓名</label>
+      <input class="fl commonInp" type="text" name="name" id="name" placeholder="请输入您的姓名">
+    </div>
+    <div class="row clearfix">
+      <label class="fl name"><i>*</i> 性别</label>
+      <div class="fl" style="line-height:40px;">
+        <label class="el-radio sexLabel">
+          <input type="radio" name="sex" value="1" checked="">
+          <span class="el-radio__label">男</span>
+        </label>
+        <label class="el-radio sexLabel">
+          <input type="radio" name="sex">
+          <span class="el-radio__label" value="0">女</span>
+        </label>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <label class="fl name"><i>*</i> 手机号</label>
+      <input class="fl commonInp phone" id="mobile" type="text" name="mobile" placeholder="请输入您的手机号">
+    </div>
+    <div class="row clearfix">
+      <label class="fl name"><i>*</i> 图片验证</label>
+      <input class="fl commonInp picInp" type="text" id="imgCode" name="imgCode" placeholder="请输入图片验证码">
+      　<img src="{:captcha_src()}" width="95" height="45" onclick="this.src='{:captcha_src()}'">
+    </div>
+    <div class="row clearfix">
+      <label class="fl name"><i>*</i> 验证码</label>
+      <input class="fl commonInp picInp" type="text" id="code" name="code" placeholder="请输入手机验证码">
+      <span class="checkBtn" onclick="getMobileCode(this)">获取验证码</span>
+    </div>
+    <div class="row">
+      <textarea class="textArea" name="content" id="content" placeholder="请输入您要咨询的内容"></textarea>
+    </div>
+    <div class="commitBtn" onclick="submitForm()">
+      <!--          <button class="commitBtn" onclick="submitForm()" type="button">-->
+      提交
+      <!--          </button>-->
+    </div>
+  </div>
+  <!--  </form>-->
+</div>
 <script type="text/javascript">
+  //验证手机格式
+  function validatePhone (phone) {
+    // // let phone = '';
+    // console.log("$('.phone')",phone);
+    //
+    // if($('#consultModal').css('display') == 'none'){
+    //   phone = $('.phone')[0].value;
+    // }else{
+    //   phone = $('.phone')[1].value;
+    // }
+    // console.log('phone',phone);
+    // layer.msg('请输入手机号码',{icon:2});
+    console.log('validatePhone',phone);
+    console.log('validatePhon=======e',phone);
+    // layer.msg('请输入手机号码',{icon:2});
+    if (!phone) {
+      layer.msg('请输入手机号码',{icon:2});
+      console.log('请输入手机号');
+      return false;
+    }
+    if (phone.length != 11) {
+      console.log('手机号格式不正确');
+      layer.msg('手机号码格式不正确',{icon:2});
+      return false;
+    }
+    return true;
+  }
+  //验证图片验证码
+  function validateImgCode(imgCode){
+    console.log('imgcode',imgCode);
+    if(!imgCode){
+      layer.msg('请输入图片验证码',{icon:2});
+      console.log('请输入图片验证码');
+      return false;
+    }
+  }
+
+  //获取验证码
+  let intervalID = '';
+  function getCode (e){
+    //验证手机号
+    console.log('页脚立即咨询');
+    var phone = $("#phone").val();
+    console.log('phone',phone);
+    var resPhone = validatePhone(phone);
+    if(!resPhone){
+      return
+    }
+    //验证图片验证码
+    var imgCode = $("#icode").val();
+    console.log('imgCode',imgCode);
+    var resImg = validateImgCode(imgCode);
+    if(!resImg){
+      return
+    }
+    //请求短信接口
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/login/get_code')}",
+      data:{
+        phone:phone,
+        icode:imgCode,
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code != 200){
+          console.log('msg',data.msg);
+          layer.msg(data.msg,{icon:1});
+          return ;
+        }
+        if(data.code == 200){
+          console.log('msg','验证码发送成功');
+          layer.msg('验证码发送成功',{icon:1});
+          let outTime = 60;
+          console.log($(e));
+          intervalID = setInterval(function(){
+            if(outTime == 0){
+              outTime = 60;
+              clearInterval(intervalID)
+              $(e).html('获取验证码');
+              return
+            }
+            outTime--;
+            $(e).html(outTime+'S后可重新获取');
+          },1000);
+        }
+      }
+    })
+  }
+
+  function getMobileCode(e) {
+    //验证手机号
+    console.log('立即咨询');
+    var phone = $("#mobile").val();
+    console.log('phone',phone);
+    var resPhone = validatePhone(phone);
+    if(!resPhone){
+      return
+    }
+    //验证图片验证码
+    var imgCode = $("#imgCode").val();
+    console.log('imgCode',imgCode);
+    var resImg = validateImgCode(imgCode);
+    // if(!resImg){
+    //   return
+    // }
+    //请 求短信接口
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/login/get_code')}",
+      data:{
+        phone:phone,
+        icode:imgCode,
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code != 200){
+          console.log('msg',data.msg);
+          layer.msg(data.msg,{icon:1});
+          return ;
+
+        }
+        if(data.code == 200){
+          console.log('msg','验证码发送成功');
+          layer.msg('验证码发送成功',{icon:1});
+          let outTime = 60;
+          console.log($(e));
+          intervalID = setInterval(function(){
+            if(outTime == 0){
+              outTime = 60;
+              clearInterval(intervalID)
+              $(e).html('获取验证码');
+              return
+            }
+            outTime--;
+            $(e).html(outTime+'S后可重新获取');
+          },1000);
+        }
+      }
+    })
+  }
   /**
    * 取消收藏
    */
@@ -403,5 +694,55 @@
     /* todo 调用接口 */
     return false
   })
+  $('.consult').click(function(){
+    showConsultModal();
+    return false
+  })
+  function showConsultModal(){
+    $("#consultModal").css({display: 'block'});
+  }
+  function hideConsultModal(){
+    $("#consultModal").css({display: 'none'});
+  }
+  function submitForm(){
+    var name = $("#name ").val();
+    var mobile = $("#mobile ").val();
+    var code = $("#code ").val();
+    var content = $("#content ").val();
+    var item_id = $("#tid").val();
+
+    // if(name && mobile && code && content ){
+    //   $("#addconsult").submit();
+    // }else{
+    //   console.log('请输入');
+    //   layer.msg('请输入');
+    // }
+    $("#formData").serializeArray();
+    console.log('  $("#formData").serializeArray()',  $("#formData").serializeArray());
+    // 所有的数据 自行提交吧
+    var forData = $("#formData").serializeArray();
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/consult/add_consult')}",
+      data:{
+        name:name,
+        phone:mobile,
+        code:code,
+        content:content,
+        item_id:item_id,
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code != 200){
+          layer.msg(data.msg);
+          console.log('msg',data.msg);
+        }else{
+          layer.msg(data.msg);
+          console.log('msg',data.msg);
+        }
+      }
+    });
+    hideConsultModal()
+  }
 </script>
 {/block}
