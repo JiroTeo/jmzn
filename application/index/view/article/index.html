@@ -1,7 +1,7 @@
 <!--继承模板-->
 {extend name="defa/defa" /}
 <!--title-->
-{block name="title"}行业资讯{/block}
+{block name="title"}{$title}{/block}
 <!--keywords-->
 {block name="keywords"}123456{/block}
 <!--description-->
@@ -54,45 +54,6 @@
               </div>
             </div>
 
-
-            <!--            <div data-v-e7ea78d4="" class="carousel fl">-->
-<!--              <div data-v-e7ea78d4="" class="el-carousel el-carousel&#45;&#45;horizontal">-->
-<!--                <div class="el-carousel__container" style="height: 422px;">-->
-<!--                  <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;left" style="display: none;">-->
-<!--                    <i class="el-icon-arrow-left"></i>-->
-<!--                  </button>-->
-<!--                  <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;right" style="display: none;">-->
-<!--                    <i class="el-icon-arrow-right"></i>-->
-<!--                  </button>-->
-<!--                  {foreach $imageData[0] as $key => $value}-->
-<!--                  <div data-v-e7ea78d4="" class="el-carousel__item is-active is-animating" style="transform: translateX(0px) scale(1);">&lt;!&ndash;&ndash;&gt;-->
-<!--                    <a data-v-e7ea78d4="" href="{$value.link}" class="small router-link-exact-active router-link-active">-->
-<!--                      <img data-v-e7ea78d4="" src="{$value.img}">-->
-<!--                      <span data-v-e7ea78d4="" class="desc over">{$value.title}</span>-->
-<!--                    </a>-->
-<!--                  </div>-->
-<!--                  {/foreach}-->
-<!--                </div>-->
-<!--                <ul class="el-carousel__indicators el-carousel__indicators&#45;&#45;horizontal">-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal is-active">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                </ul>-->
-<!--              </div>-->
-<!--            </div>-->
             <ul data-v-e7ea78d4="" class="fr newsBig">
               {foreach $imageData[1] as $key => $value}
               <li data-v-e7ea78d4="">
@@ -149,7 +110,7 @@
               </div>
               <ul data-v-e7ea78d4="" class="joinNewsList">
                 {foreach $jmzx['list'] as $key => $value}
-                <a data-v-e7ea78d4="" href="{:url('index/article/index')}?id={$value.id}" class="">
+                <a data-v-e7ea78d4="" href="{:url('index/article/detail')}?id={$value.id}" class="">
                   <li data-v-e7ea78d4="" class="clearfix">
                   <span data-v-e7ea78d4="" class="over"><b data-v-e7ea78d4="">・</b>{$value.title}</span>
                     <i data-v-e7ea78d4="">{$value.addtime}</i></li>

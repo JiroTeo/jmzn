@@ -63,7 +63,7 @@ class Index extends Base{
         //品牌精选
         $brandList = $this -> getBrandList();
         //广告
-        $imageData = $imageModel -> getImageDatList(['status'=>1,'web_page'=>1]);
+        $imageData = $imageModel -> getImageDatList(['status'=>1,'web_page'=>1,'client'=>1]);
 
         //分配变量渲染到页面
         $this -> assign('cateList',$cateList);//行业分类
@@ -73,7 +73,6 @@ class Index extends Base{
         $this -> assign('recoArticle',$recoArticle);//行业资讯
         $this -> assign('brandList',$brandList);//品牌聚焦
         $this -> assign('imageData',$imageData);//广告数据
-//        dump($imageData[0]);die;
         return view();
     }
 
@@ -134,7 +133,7 @@ class Index extends Base{
         $artwhere['id'] = ['neq',$artData['rArticle']['id']];
         $artData['aticle'] = $articleModel -> getArticleData($artwhere,'addtime desc',7,2);
         //广告
-        $imageData = $imageModel -> getImageDatList(['status'=>1,'web_page'=>5]);
+        $imageData = $imageModel -> getImageDatList(['status'=>1,'web_page'=>5,'client'=>1]);
         //分配变量
         $this -> assign('recoRank',$recoRank);//推荐品牌排行榜
         $this -> assign('synRank',$synRank);//综合品牌排行榜  //精选推荐
@@ -142,12 +141,7 @@ class Index extends Base{
         $this -> assign('recoItem',$recoItem);//项目推荐
         $this -> assign('artData',$artData);//行业分类
         $this -> assign('imageData',$imageData);//广告
-//        echo "【推荐品牌排行榜】";dump($recoRank);
-//        echo "【综合品牌排行榜  //精选推荐】";dump($synRank);
-//        echo "【十大品牌排行榜】";dump($brandRank);die;
-//        echo "【项目推荐】";dump($recoItem);
-//        echo "【行业资讯】";dump($artData);die;
-//        echo "【广告】";dump($imageData);die;
+        $this -> assign('title','排行榜');//广告
         return view();
     }
 

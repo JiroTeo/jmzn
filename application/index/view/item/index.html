@@ -1,7 +1,7 @@
 <!--继承模板-->
 {extend name="defa/defa" /}
 <!--title-->
-{block name="title"}找项目{/block}
+{block name="title"}{$title}{/block}
 <!--keywords-->
 {block name="keywords"}{123}{/block}
 <!--description-->
@@ -28,34 +28,43 @@
     <div data-v-645de51c="" class="classifyList">
         <div data-v-645de51c="" class="classify" id="classifyList">
             <div data-v-645de51c="" class="left">
-                <div data-v-645de51c="" class="title">行业分类</div><span data-v-645de51c="" classify="" class="currentClassify">不限</span>
+                <div data-v-645de51c="" class="title">行业分类</div>
+                <a href="{:url('index/item/index')}?mkey={$mkey}"><span data-v-645de51c="" classify="" class="{if $pid == 0}currentClassify{/if}">不限</span></a>
             </div>
             <div data-v-645de51c="" class="right">
                 {foreach $cateData as $key => $value}
-                <span data-v-645de51c="" classify="{$value.id}" class="">{$value.name}</span>
+                <a href="{:url('index/item/index')}?pid={$value.id}{$mkeyUrl}">
+<!--                    <span data-v-645de51c="" classify="{$value.id}" class="">{$value.name}</span>-->
+                    <span data-v-645de51c="" class="{if $pid == $value.id}currentClassify{/if}">{$value.name}</span>
+                </a>
                 {/foreach}
             </div>
         </div>
+        {if $cateChild !== false}
         <div data-v-645de51c="" class="classify"  id="cateList" >
             <div class="left">
                 <div data-v-645de51c="" class="title">二级分类</div>
-                <span data-id=""  class="currentClassify" data-v-645de51c="">不限</span>
+                <a href="{:url('index/item/index')}?pid={$pid}&cid=0{$mkeyUrl}"><span data-id=""  class="{if $cid == 0}currentClassify{/if}" data-v-645de51c="">不限</span></a>
             </div>
             <div class="right" id="currentCate">
-<!--                <span data-id="item.id" >{{item.name}}</span>-->
+                {foreach $cateChild as $key => $value}
+                <a href="{:url('index/item/index')}?pid={$pid}&cid={$value.id}"><span data-v-645de51c="" class="{if $cid == $value.id}currentClassify{/if}" onclick="cateChange(this)">{$value.name}</span></a>
+                {/foreach}
             </div>
         </div>
+        {/if}
         <div data-v-645de51c="" class="classify" id="moneyList">
             <div data-v-645de51c="" class="left">
-                <div data-v-645de51c="" class="title">投资金额</div><span data-v-645de51c="" data-money="0" class="currentClassify">不限</span>
+                <div data-v-645de51c="" class="title">投资金额</div>
+                <a href="{:url('index/item/index')}{$cidUrl}mkey=0"><span data-v-645de51c="" data-money="0" class="{if $mkey == 0}currentClassify{/if}">不限</span></a>
             </div>
             <div data-v-645de51c="" class="right" >
-                <span data-v-645de51c="" money="1" class="">1万以下</span>
-                <span data-v-645de51c="" money="2" class="" >1-10万</span>
-                <span data-v-645de51c="" money="3" class="">10-20万</span>
-                <span data-v-645de51c="" money="4" class="">20-50万</span>
-                <span data-v-645de51c="" money="5" class="">50-100万</span>
-                <span data-v-645de51c="" money="6" class="">100万以上</span>
+                <a href="{:url('index/item/index')}{$cidUrl}mkey=1"><span data-v-645de51c="" money="1" class="{if $mkey == 1}currentClassify{/if}">1万以下</span></a>
+                <a href="{:url('index/item/index')}{$cidUrl}mkey=2"><span data-v-645de51c="" money="2" class="{if $mkey == 2}currentClassify{/if}" >1-10万</span></a>
+                <a href="{:url('index/item/index')}{$cidUrl}mkey=3"><span data-v-645de51c="" money="3" class="{if $mkey == 3}currentClassify{/if}">10-20万</span></a>
+                <a href="{:url('index/item/index')}{$cidUrl}mkey=4"><span data-v-645de51c="" money="4" class="{if $mkey == 4}currentClassify{/if}">20-50万</span></a>
+                <a href="{:url('index/item/index')}{$cidUrl}mkey=5"><span data-v-645de51c="" money="5" class="{if $mkey == 5}currentClassify{/if}">50-100万</span></a>
+                <a href="{:url('index/item/index')}{$cidUrl}mkey=6"><span data-v-645de51c="" money="6" class="{if $mkey == 6}currentClassify{/if}">100万以上</span></a>
             </div>
         </div>
     </div>
@@ -176,20 +185,7 @@
     $('#classifyList span').click(function(e){
         $("#classifyList span").removeClass('currentClassify');
         $(this).addClass("currentClassify");
-        console.log("classify",$(this).attr('classify'));
-        // 获取class 下的行业分类
-        //遍历插入行业分类
-
-        $("#currentCate").html('<span data-v-645de51c="" onclick="cateChange(this)">测试</span><span data-v-645de51c="" onclick="cateChange()">测试</span><span data-v-645de51c="" onclick="cateChange()">测试</span><span data-v-645de51c="">测试</span>')
-
     })
-    // /** 点击二级分类 */
-    // $('#cateList span').click(function(){
-    //     console.log('没绑上啊没榜上');
-    //     $("#cateList span").removeClass('currentClassify');
-    //     $(this).addClass("currentClassify");
-    //     /* 更新列表 */
-    // })
     function cateChange(e){
         console.log("触发了");
         $("#cateList span").removeClass('currentClassify');

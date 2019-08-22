@@ -43,14 +43,7 @@ class article extends Base{
         $this -> assign('jmgl',$jmgl);//加盟攻略
         $this -> assign('hybg',$hybg);//行业报告
         $this -> assign('phb',$phb);//排行榜
-        //echo dump
-//        echo "【广告】";dump($imageData);die;
-//        echo "【热门资讯】";dump($hotArt);
-//        echo "【加盟资讯】";dump($jmzx);die;
-//        echo "【加盟攻略】";dump($jmgl);die;
-//        echo "【行业报告】";dump($hybg);die;
-//        echo "【加盟资讯】";dump($jmzx);
-//        echo "【排行榜】";dump($phb);
+        $this -> assign('title','行业资讯');//排行榜
         return view();
     }
 

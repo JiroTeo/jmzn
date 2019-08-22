@@ -59,7 +59,7 @@ class User extends Model{
 
     /*  查询用户时候还有可阅读消息的剩余数量 && 处理 */
     public function parseModel($where = false , $debug = false  ){
-        $data = $this -> userModel -> where($where) -> field('id,notice_count,read_notice_num') -> find();
+        $data = $this -> userModel -> where($where) -> field('uid,notice_count,read_notice_num') -> find();
         //用户不存在
         if(empty($data)){
             return false ;

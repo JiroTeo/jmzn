@@ -14,6 +14,7 @@ class Image extends Model{
 
     /*  获取广告数据  */
     public function getImageDatList($where){
+        $where['client'] = 1;
         $position = config('ADPOS')['WEB']['POSITION'];
         foreach ($position as $key => $value) {
             $where['position'] = $key;
@@ -36,10 +37,10 @@ class Image extends Model{
                     $dataList[$key]['link'] = empty($value['link']) ? 'javascript:;' : $value['link'];
                     break;
                 case 2://链接到项目
-                    $dataList[$key]['link'] = empty($value['link']) ? '' : "../item/detail?id={$value['link']}";
+                    $dataList[$key]['link'] = empty($value['link']) ? '' : "/index/item/detail?id={$value['link']}";
                     break;
                 case 3://链接到文章
-                    $dataList[$key]['link'] = empty($value['link']) ? '' :  "../article/detail?id={$value['link']}";
+                    $dataList[$key]['link'] = empty($value['link']) ? '' :  "/index/article/detail?id={$value['link']}";
                     break;
                 default://外链
                     $dataList[$key]['link'] = $value['link'];

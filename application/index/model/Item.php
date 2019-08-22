@@ -2,7 +2,7 @@
 namespace app\index\model;
 
 use think\Model;
-
+use think\Request;
 class Item extends Model{
 
     private static $itemModel; //
@@ -109,14 +109,14 @@ class Item extends Model{
             $itemData['image'][$key] = trim($value,'.');
         }
         //关注状态 && 收藏状态
-        if(empty($user)){
+        if(empty($_SESSION['jmzn_web'])){
             $itemData['is_foll'] = 0;//关注状态 1关注0未关注
             $itemData['is_like'] = 0;//收藏状态 1收藏0未收藏
         }else{
             $fwhere['ftype'] = 1;
             $fwhere['status'] = 1;
             $fwhere['tid'] = $data['id'];
-            $fwhere['uid'] = $user['uid'];
+            $fwhere['uid'] = $_SESSION['jmzn_web']['uid'];
             $foll = db('follow') -> where($fwhere) -> count();
             $itemData['is_foll'] = empty($foll) ? 0 : 1;//关注状态 1关注0未关注
             $fwhere['ftype'] = 2;
@@ -175,7 +175,8 @@ class Item extends Model{
 
     /*  分页模式获取项目列表  */
     public function getItemDataListPage($where = false , $order = false , $num = 10 , $type = 4 , &$page = '' , $debug = false ){
-        $itemData = $this -> itemModel -> where($where) -> order($order) -> paginate($num,false,['var_page'=>'p']);
+        $itemData = $this -> itemModel -> where($where) -> order($order) -> paginate($num,false,
+            ['query' => Request::instance()->param()]);
         $page = $itemData ->render();
         $data = iterator_to_array($itemData);
         if(empty($data)){return [];}//数据不存在返回array();

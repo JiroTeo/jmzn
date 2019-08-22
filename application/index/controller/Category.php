@@ -3,6 +3,7 @@ namespace app\index\controller;
 use think\Db;
 use think\Controller;
 use think\Request;
+use app\index\model\Category as cateModel;
 
 class category extends Base {
 
@@ -64,7 +65,21 @@ class category extends Base {
         $rinfo = $this -> returnCode['SUCCESS'][0];
         $rinfo['data'] = $dataList;
         wapReturn($rinfo);
+    }
 
+
+    /*  获取子分类   */
+    public function getCateChild(){
+        //接收&&定义参数
+        $cateModel = new cateModel();
+        $pid = $this -> request -> param('pid');
+        if(empty($pid)){
+            echo 400;exit();
+        }else{
+            $where['pid'] = $pid;
+        }
+        $data = $cateModel -> getCateChildList($where);
+        return json_encode($data);
     }
 
 

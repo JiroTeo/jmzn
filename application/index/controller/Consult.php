@@ -1,11 +1,13 @@
 <?php
 namespace app\index\controller;
-
+use app\index\model\consult as consultModel;
+use think\Cache;
+use think\Controller;
 class consult extends Base{
 
     private $consultModel;
 
-    public function __construct(){
+    public function _initialize(){
         parent::_initialize();
         // 实例化y用户模型
         $this->consultModel = model('consult');
@@ -22,6 +24,14 @@ class consult extends Base{
      *  todo    添加咨询/留言          add_consult
      *  todo    修改投资意向           edit_intention
      * **/
+
+    /*  发布留言-咨询 */
+    public function addConsultData(){
+        //接收 && 定义参数
+        $info = $this -> request -> param();
+        dump($info);
+    }
+
 
     /*  获取留言列表  */
     public function get_consult_list(){
@@ -247,7 +257,7 @@ class consult extends Base{
         if(empty($resultMobile)){
             $rinfo = $this -> returnCode['ERROR'][1];
             $rinfo['msg'] = '手机号错误';
-            wapReturn($rinfo);
+            return $rinfo;
         }
         //验证手机验证码
         $code = empty($_REQUEST['code']) ? 0 : $_REQUEST['code'];
@@ -256,26 +266,26 @@ class consult extends Base{
         if(empty($resultCode)){
             $rinfo = $this -> returnCode['ERROR'][1];
             $rinfo['msg'] = '手机验证码错误';
-            wapReturn($rinfo);
+            return $rinfo;
         }
         //验证姓名
         $name = empty($_REQUEST['name']) ? false : $_REQUEST['name'];
         if(empty($name)){
             $rinfo = $this -> returnCode['ERROR'][1];
             $rinfo['msg'] = '请输入真实姓名';
-            wapReturn($rinfo);
+            return $rinfo;
         }
         //验证发布内容
         $content = empty($_REQUEST['content']) ? false : $_REQUEST['content'];
         if(empty($content)){
             $rinfo = $this -> returnCode['ERROR'][1];
             $rinfo['msg'] = '请输入留言内容';
-            wapReturn($rinfo);
+            return $rinfo;
         }
         $item_id = empty($_REQUEST['item_id']) ? 0 : $_REQUEST['item_id'];
         if(empty($item_id)){
             $rinfo = $this -> returnCode['ERROR'][1];
-            wapReturn($rinfo);
+            return $rinfo;
         }
         //验证 end    数据存库
         $conData['addtime'] = time();                                              //添加咨询时间
@@ -287,7 +297,7 @@ class consult extends Base{
         $conData['content'] = $content;                                            //咨询、留言内容
         $conData['item_id'] = $item_id;                                            //项目
         $conData['type'] = empty($_REQUEST['type'])? 0 : $_REQUEST['type'];        //类型0为咨询1为留言。
-        $res = $this -> consultModel -> addConsult($conData,$this -> debug);       //执行添加操作
+        $res = $this -> consultModel -> addConsult($conData,false);       //执行添加操作
         if(!empty($res)){
             //发送通知  status
             $noticeModel = \model('notice');
@@ -311,7 +321,7 @@ class consult extends Base{
         }else{
             $rinfo = $this -> returnCode['ERROR'][1];
         }
-        wapReturn($rinfo);
+        return $rinfo;
     }
 
     /*  接收推送消息  */

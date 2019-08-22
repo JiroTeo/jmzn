@@ -140,24 +140,21 @@ class login extends Base {
     public function get_code(){
         //接收参数
         $phone = empty($_REQUEST['phone']) ? false : $_REQUEST['phone'];
-        $imgCode = empty($_REQUEST['img_code']) ? false : strtolower(trim($_REQUEST['img_code']));
+        $icode = empty($_REQUEST['icode']) ? false : strtolower(trim($_REQUEST['icode']));
         //验证手机号
         $resPhone = verifMobile($phone);
         if(empty($resPhone)){
             $rinfo = $this -> returnCode['ERROR'][1];
             $rinfo['msg'] = '手机号错误';
-            wapReturn($rinfo);
+            return $rinfo;
         }
         //验证图片验证码
-        $key = 'jmzn_'.$imgCode.'_imageCode';
-        $resImgCode = verifImgCode($key,$imgCode);
-        if(empty($resImgCode)){
+        $icodeRes = captcha_check($icode);
+        if(empty($icodeRes)){
             $rinfo = $this -> returnCode['ERROR'][1];
             $rinfo['msg'] = '图片验证码错误';
-            wapReturn($rinfo);
+            return $rinfo;
         }
-        //删除图片验证码
-        Cache::rm($key);
         //发送短信
         $str = sendMesasage($phone);
         $res = explode(',',$str);
@@ -167,7 +164,7 @@ class login extends Base {
             $rinfo = $this -> returnCode['ERROR'][0];
             $rinfo['msg'] = '获取验证码失败';
         }
-        wapReturn($rinfo);
+        return $rinfo;
     }
 
     /*退出登录*/

@@ -22,18 +22,40 @@ class item extends Base{
         $cateModel = new cateModel();
         $itemModel = new itemModel();
         $artModel = new artModel();
-        //接收参数
-        $n = empty($_REQUEST['n']) ? 10 : $_REQUEST['n'];
-        $p = empty($_REQUEST['p']) ? 0 : $_REQUEST['p'];
-        $limit = ($n * $p) .','.$n;
+
+        //接收 && 定义参数
+        $cateChild = false;
+        $pid = $this -> request -> param('pid');
+        $cid = $this -> request -> param('cid');
+        $mKey = $this -> request -> param('mkey');
 
         $sort = $this -> request -> param('sort');
         //获取行业分类
         $cateData = $cateModel -> getCateDataList(['status'=>1,'pid'=>0],'id asc',false ,2);
+        //获取子级别行业分类
+        if(!empty($pid)){
+            //子集分类
+            $cateChild = $cateModel -> getCateChildList(['status'=>1,'pid'=>$pid]);
+            //子集分类id没有传递的时候 查询出父级分类下所有的项目
+            if(empty($cid)){
+                $cateIds = $pid.',';
+                $cateIds .= $cateModel -> getChildIdByWhere(['pid'=>$pid,'status'=>1]);
+                $where['cate_id'] = array('in',$cateIds);
+            }
+        }
+        //根据子集分类获取项目列表
+        if(!empty($cid)){
+            $where['cate_id'] = $cid;
+        }
+        //金额
+        if(!empty($mKey)){
+            $moeney = config('MONEY');
+            $where['min_money'] = array('egt',$moeney[$mKey]['min']);
+            $where['max_money'] = array('elt',$moeney[$mKey]['max']);
+        }
         //项目列表
         $where['status'] = 1;
         $order = empty($sort) ? 'id desc' : 'read_num desc' ;
-//        $itemData =$itemModel -> getItemDataList($where,$order,$limit,4);
         $page = '';
         $itemData =$itemModel -> getItemDataListPage($where,$order,10,4,$page);
         //项目排行榜
@@ -43,20 +65,32 @@ class item extends Base{
         $artwhere['status'] = 1;
         $artwhere['id'] = ['neq',$artData['rArticle']['id']];
         $artData['aticle'] = $artModel -> getArticleData($artwhere,'addtime desc',7,2);
+        //处理跳转链接
+        $mKeyUrl = '';
+        if($mKey){
+            $mKeyUrl = '&mkey='.$mKey;
+        }
+        $cidUrl = '';
+        if($pid && $cid){
+            $cidUrl = '?pid='.$pid.'&cid='.$cid.'&';
+        }else if(empty($cid)){
+            $cidUrl = '?pid='.$pid.'&';
+        }else{
+            $cidUrl = '?';
+        }
         //分配变量
         $this -> assign('cateData',$cateData);//顶级行业分类
+        $this -> assign('cateChild',$cateChild);//子级行业分类
         $this -> assign('itemData',$itemData);//项目列表
         $this -> assign('ranking',$ranking);//项目排行
         $this -> assign('artData',$artData);//行业资讯
         $this -> assign('page',$page);//分页
-//        echo '【行业分类】';
-//        dump($cateData);
-//        echo '【项目列表】';
-//        dump($itemData);
-//        echo "【项目排行】";
-//        dump($ranking);
-//        echo "【行业资讯】";
-//        dump($artData);
+        $this -> assign('mkeyUrl',$mKeyUrl);
+        $this -> assign('cidUrl',$cidUrl);
+        $this -> assign('pid',empty($pid)? 0 : $pid);//顶级分类id
+        $this -> assign('cid',empty($cid)? 0 : $cid);//二级分类id
+        $this -> assign('mkey',empty($mKey)? 0 : $mKey);//金额mkey
+        $this -> assign('title','找项目');
         return view();
     }
 
