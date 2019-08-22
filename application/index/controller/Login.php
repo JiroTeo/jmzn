@@ -16,15 +16,63 @@ class login extends Base {
     public function login(){
         $info = input('post.');
         if(!empty($info)){
+            //接收参数
+            $phone = empty($info['phone']) ? false : trim($info['phone']);
+            $code = empty($info['code']) ? false : trim($info['code']);
             //验证手机号
-            $resPhone = verifMobile($info['phone']);
+            $resPhone = verifMobile($phone);
             if(empty($resPhone)){
-
+                $rinfo = $this -> returnCode['ERROR'][1];
+                $rinfo['msg'] = '手机号错误';
+                return $rinfo;
             }
+            //验证验证码
+            $codeKey = 'CODE'.$phone;
+            $resCode = verifCode($code,$codeKey);
+            if(empty($resCode)){
+                $rinfo = $this -> returnCode['ERROR'][1];
+                $rinfo['msg'] = '验证码错误';
+                return $rinfo;
+            }
+            //查询用户是否存在
+            $where['phone'] = $phone;
+            $where['status'] = 1;
+            $resUser = $this -> userModel -> is_user($where);
+            $perfix = config('IMAGE');
+            if(empty($resUser)){//用户不存在执行注册操作
+                $addUser['phone'] = $phone;
+                $addUser['status'] = 1;
+                $addUser['rtime'] = time();
+                $addUser['uname'] = base64_encode('jmzn_'.$phone);
+                $userId = $this -> userModel -> addUser($addUser);
+                if(empty($userId)){//注册失败
+                    $rinfo = $this -> returnCode['ERROR'][0];
+                    $rinfo['msg'] = '注册失败';
+                    return $rinfo;
+                }
+                //注册成功
+                $user['uid'] = $userId;
+                $user['username'] = $addUser['uname'];
+                $user['avatar'] = $perfix['AVATAR'];
+                $user['phone'] = $phone;
+                //session登录
+                $_SESSION['jmzn_web'] = $user;
+
+            }else{//用户存在执行登录操作
+                //session 登录
+                $user['uid'] = $resUser['uid'];
+                $user['phone'] = $resUser['phone'];
+                $user['avatar'] = empty($resUser['avatar']) ? $perfix['AVATAR'] : $perfix['PERFIX'].trim($resUser['avatar'] , '.');
+                $user['username'] = base64_decode($resUser['uname']);
+                $_SESSION['jmzn_web'] = $user;
+            }
+            $rinfo = $this -> returnCode['SUCCESS'][0];
+            return $rinfo;
         }else{
             return view();
         }
     }
+
 
     /*  企业入驻    */
     public function login_qy(){
@@ -38,7 +86,7 @@ class login extends Base {
 
 
     /*登录*/
-    public function login_bf(){
+    public function sign_in(){
         //接收参数
         $phone = empty($_REQUEST['phone']) ? false : trim($_REQUEST['phone']);
         $code = empty($_REQUEST['code']) ? false : trim($_REQUEST['code']);
@@ -47,7 +95,7 @@ class login extends Base {
         if(empty($resPhone)){
             $rinfo = $this -> returnCode['ERROR'][1];
             $rinfo['msg'] = '手机号错误';
-            wapReturn($rinfo);
+            return $rinfo;
         }
         //验证验证码
         $codeKey = 'CODE'.$phone;
@@ -55,7 +103,7 @@ class login extends Base {
         if(empty($resCode)){
             $rinfo = $this -> returnCode['ERROR'][1];
             $rinfo['msg'] = '验证码错误';
-            wapReturn($rinfo);
+            return $rinfo;
         }
         //查询用户是否存在
         $where['phone'] = $phone;
@@ -71,7 +119,7 @@ class login extends Base {
             if(empty($userId)){//注册失败
                 $rinfo = $this -> returnCode['ERROR'][0];
                 $rinfo['msg'] = '注册失败';
-                wapReturn($rinfo);
+                return $rinfo;
             }
             //注册成功
             $user['uid'] = $userId;
@@ -94,7 +142,7 @@ class login extends Base {
         $data['token'] = $token;
         $rinfo = $this -> returnCode['SUCCESS'][0];
         $rinfo['data'] = $data;
-        wapReturn($rinfo);
+        return $rinfo;
     }
 
     /*  企业入驻    */
@@ -150,11 +198,11 @@ class login extends Base {
         }
         //验证图片验证码
         $icodeRes = captcha_check($icode);
-        if(empty($icodeRes)){
-            $rinfo = $this -> returnCode['ERROR'][1];
-            $rinfo['msg'] = '图片验证码错误';
-            return $rinfo;
-        }
+//        if(empty($icodeRes)){
+//            $rinfo = $this -> returnCode['ERROR'][1];
+//            $rinfo['msg'] = '图片验证码错误';
+//            return $rinfo;
+//        }
         //发送短信
         $str = sendMesasage($phone);
         $res = explode(',',$str);

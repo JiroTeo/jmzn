@@ -480,7 +480,6 @@
   })
   //验证手机格式
   function validatePhone (phone) {
-    layer.alert(phone);
     // // let phone = '';
     // console.log("$('.phone')",phone);
     //
@@ -492,6 +491,8 @@
     // console.log('phone',phone);
     // layer.msg('请输入手机号码',{icon:2});
     console.log('validatePhone',phone);
+    console.log('validatePhon=======e',phone);
+    // layer.msg('请输入手机号码',{icon:2});
     if (!phone) {
       layer.msg('请输入手机号码',{icon:2});
       console.log('请输入手机号');
@@ -580,10 +581,10 @@
     var imgCode = $("#imgCode").val();
     console.log('imgCode',imgCode);
     var resImg = validateImgCode(imgCode);
-    if(!resImg){
-      return
-    }
-    //请求短信接口
+    // if(!resImg){
+    //   return
+    // }
+    //请 求短信接口
     $.ajax({
       type: "POST",
       url: "{:url('index/login/get_code')}",
