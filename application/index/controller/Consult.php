@@ -1,8 +1,8 @@
 <?php
 namespace app\index\controller;
 use app\index\model\consult as consultModel;
-use think\Cache;
-use think\Controller;
+use app\common\model\NoticeLog as logModel;
+use app\common\model\User as userModel;
 class consult extends Base{
 
     private $consultModel;
@@ -347,6 +347,48 @@ class consult extends Base{
         $rinfo = $this -> returnCode['SUCCESS'][0];
         $rinfo['data'] = $dataList;
         wapReturn($rinfo);
+    }
+
+    /*  阅读过推送消息 ，推送消息状态变成 投资者管理*/
+    public function readNotify(){
+
+        //验证登录
+        if(empty($_SESSION['jmzn_web'])){
+            return $this -> returnCode['ERROR'][0];
+        }
+        //接收参数 &&验证参数&&修改状态
+        $id = $this -> request -> param('id');
+        if(empty($id)){
+            return $this -> returnCode['ERROR'][1];
+        }
+        //验证是否还有剩余查看条数
+        $userModel = new userModel();
+        $res = $userModel -> parseModel(['uid'=>$_SESSION['jmzn_web']['uid']]);
+        if(empty($res)){
+            //条数不足
+            $rinfo = $this -> returnCode['ERROR'][6];
+            return $rinfo;
+        }
+        //验证end
+        //修改数据状态
+        $where['id'] = $id;
+        $save['type'] = 0;
+        $consultModel = new consultModel();
+        $result = $consultModel -> edit_consult_data($where,$save);
+        //update notice_log.readtime
+        $logModel = new logModel();
+        $logWhere['tid'] = $id;
+        $logWhere['uid'] = $_SESSION['jmzn_web']['uid'];
+        $logWhere['type'] = 1;
+        $logSave['readtime'] = time();
+        $result = $logModel -> editNoticeLogField($logWhere,$logSave);
+        //update end
+        if(empty($result)){
+            $rinfo = $this -> returnCode['ERROR'][0];
+        }else{
+            $rinfo = $this -> returnCode['SUCCESS'][0];
+        }
+        return $rinfo;
     }
 
 }
