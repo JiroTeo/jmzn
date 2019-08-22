@@ -327,12 +327,10 @@
     </div>
   </div>
 </div>
-{/block}
-{block name="jq"}
-<script>
-    $(".lookStatus1").click(function(){
-      $(this).removeClass('lookStatus1').addClass('lookStatus2');
-      layer.msg('已提醒商家查看信息',{icon:'none'});
-    })
+<script type="text/javascript">
+  $(".lookStatus1").click(function(){
+    $(this).removeClass('lookStatus1').addClass('lookStatus2');
+    layer.msg('已提醒商家查看信息',{icon:'none'});
+  })
 </script>
 {/block}
