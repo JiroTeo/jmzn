@@ -548,16 +548,6 @@
   })
   //验证手机格式
   function validatePhone (phone) {
-    // // let phone = '';
-    // console.log("$('.phone')",phone);
-    //
-    // if($('#consultModal').css('display') == 'none'){
-    //   phone = $('.phone')[0].value;
-    // }else{
-    //   phone = $('.phone')[1].value;
-    // }
-    // console.log('phone',phone);
-    // layer.msg('请输入手机号码',{icon:2});
     console.log('validatePhone',phone);
     console.log('validatePhon=======e',phone);
     // layer.msg('请输入手机号码',{icon:2});
@@ -581,6 +571,7 @@
         console.log('请输入图片验证码');
         return false;
       }
+      return true
   }
 
   //获取验证码
@@ -613,7 +604,7 @@
         console.log('data',data);
         if(data.code != 200){
           console.log('msg',data.msg);
-          layer.msg(data.msg,{icon:1});
+          layer.msg(data.msg,{icon:2});
           return ;
         }
         if(data.code == 200){
@@ -649,9 +640,9 @@
     var imgCode = $("#imgCode").val();
     console.log('imgCode',imgCode);
     var resImg = validateImgCode(imgCode);
-    // if(!resImg){
-    //   return
-    // }
+    if(!resImg){
+      return
+    }
     //请 求短信接口
     $.ajax({
       type: "POST",
@@ -664,7 +655,7 @@
         console.log('data',data);
         if(data.code != 200){
           console.log('msg',data.msg);
-          layer.msg(data.msg,{icon:1});
+          layer.msg(data.msg,{icon:2});
           return ;
 
         }

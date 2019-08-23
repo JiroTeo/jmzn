@@ -289,18 +289,14 @@
 {block name='description'}{456}{/block}
 {block name="content"}
       <div class="wrapper clearfix">
-        <div class="crumbs">您的位置：<a to=“{:url('index/article/index')}”>行业咨询</a> > {$data.mode}</div>
+        <div class="crumbs">您的位置：<a href="{:url('index/article/index')}">行业咨询</a> > {$data.mode}</div>
         <div class="article fl">
           <div class="title">{$data.title}</div>
           <div class="subhead between">
             <div>作者：{$data.username} &nbsp;&nbsp; 发布时间：{$data.addtime} &nbsp;&nbsp; 阅读量：{$data.read_num}</div>
-            <span class="collectBtn">
+            <span id="follow" class="collectBtn {if $data.is_fow == 1}collectActive{/if}" onclick="modifyFollow('{$data.id}','{$data.is_fow}')">
               <i class="iconfont icon-collect"></i>
-              <b>已收藏</b>
-            </span>
-            <span class="collectBtn collectActive" >
-              <i class="iconfont icon-collect"></i>
-              <b>收藏</b>
+              <b id="state">{if $data.is_fow == 1}已收藏{else/}收藏{/if}</b>
             </span>
           </div>
           <div class="content" v-html="data.detail">
@@ -382,6 +378,33 @@
       </div>
     </div>
 <script type="text/javascript">
+  function modifyFollow(id,state) {
+    console.log(state);
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/follow/modify_foolow')}",
+      data:{
+        'tid':id,
+        'type':3
+      },
+      success: function(data){
+        if(data.code == 200){
+          if(state == 1){
+            layer.msg('取消收藏',{icon:1});
+            $("#state").html('收藏');
+            $("span").addClass('collectActive');
+          }else{
+            layer.msg('收藏成功',{icon:1});
+            $("#state").html('取消收藏');
+            $("span").removeClass('collectActive');
+          }
+        }else{
+          layer.msg(data.msg,{icon:1});
+        }
+        console.log('data',data);
+      }
+    })
+  }
 </script>
 {/block}
 

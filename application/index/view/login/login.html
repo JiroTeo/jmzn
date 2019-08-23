@@ -212,6 +212,11 @@
     //手机号&&图片验证码
     var phone = $("#phone").val();
     var icode = $('#icode').val();
+    let outTime = 60;
+    if(intervalID){
+
+      return;
+    }
     //ajax获取短信验证码
     $.ajax({
       type: "POST",
@@ -233,11 +238,6 @@
           layer.msg('验证码发送成功',{icon:1});
 
           //定时器
-          let outTime = 60;
-          if(intervalID){
-
-            return;
-          }
           intervalID = setInterval(function(){
             if(outTime == 0){
               outTime = 60;

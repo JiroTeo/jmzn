@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"G:\www\jmzn\public/../application/admin\view\image\add_image.html";i:1563780518;s:53:"G:\www\jmzn\application\admin\view\public\header.html";i:1563188997;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"G:\www\jmzn\public/../application/admin\view\image\add_image.html";i:1563780518;s:53:"G:\www\jmzn\application\admin\view\public\header.html";i:1565681034;}*/ ?>
 <!DOCTYPE html>
 <html class="x-admin-sm">
 
@@ -16,7 +16,8 @@
 
 
 
-        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://www.zhangjin.com\/statics/admin/js/jquery.min.js"></script>
+<!--        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
         <link rel="stylesheet" type="text/css" href="http://www.zhangjin.com\/statics/admin/css/theme5.css" />
         <link rel="stylesheet" type="text/css" href="http://www.zhangjin.com\/statics/admin/css/xadmin.css" />
         <link rel="stylesheet" type="text/css" href="http://www.zhangjin.com\/statics/admin/css/font.css" />

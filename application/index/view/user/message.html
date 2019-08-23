@@ -282,7 +282,7 @@
                 <div class="time fr">
                   <span class="">{$value.addtime}</span>
                   <!--                  todo 添加评论链接 应该有两种评论 文章和项目-->
-                  <a href="/" class="replyBtn">查看</a>
+                  <a href="{:url('index/article/detail')}?id={$value.aid}" class="replyBtn">查看</a>
                 </div>
               </div>
               <div>
@@ -306,7 +306,7 @@
             <div class="info fl">
               <div class="name">
                 姓名 {$value.name}
-                <span class="lockBtn" >查看</span>
+                <span class="lockBtn" onclick="checkNotice('{$value.id}')" >查看</span>
                 <div class="">手机号：{$value.phone}</div>
               </div>
               <div class="des">
@@ -341,7 +341,26 @@
       $('.box2').css({display: 'none'});
       $('.box3').css({display: 'block'});
     }
-
   })
+  /*  查看推送消息  */
+  function checkNotice(obj) {
+    var id = obj;
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/consult/readNotify')}",
+      data:{
+        'id':id
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code == 200){
+          window.location.href = "/index/user/consult";
+        }else{
+          layer.msg(data.msg,{icon:2});
+        }
+      }
+    });
+  }
+
 </script>
 {/block}

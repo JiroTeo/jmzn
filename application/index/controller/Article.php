@@ -56,7 +56,7 @@ class article extends Base{
         //浏览次数+1
         $artModel -> where('id',$id) -> setInc('read_num',1);
         //获取项目详情
-        $data = $artModel -> getArticleDataOnce(['status'=>1,'id'=>$id]);//$where,$order=false,$limit=false,$type=0,$user=[],$debug
+        $data = $artModel -> getArticleDataOnce(['status'=>1,'id'=>$id],$_SESSION['jmzn_web']);//$where,$order=false,$limit=false,$type=0,$user=[],$debug
         //评论
         $comment['data'] = $comModel -> getComment(['topic_id'=>$id,'status'=>1],'addtime desc',false,1,$this -> user);
         $comment['count'] = $comModel -> countNum(['topic_id'=>$id,'status'=>1]);
@@ -70,6 +70,32 @@ class article extends Base{
         return view();
 
     }
+
+    /*  文章列表    */
+    public function artlist(){
+        //接收 && 定义参数
+        $artModel = new artModel();
+        $itemModel = new itemModel();
+        $type = $this -> request -> param('type');
+        $page = '';
+        $where['status'] = 1;
+        $where['type'] = (int)$type;
+        $data = $artModel -> getArticleDataByPage($where,'reco desc , id desc ',10,3,$page);
+
+        //加盟项目排行榜
+        $ranking = $itemModel -> getItemDataList(['status'=>1],'read_num desc',13,1);
+        //分配变量
+        $this -> assign('data',$data);
+        $this -> assign('ranking',$ranking);
+        $this -> assign('page',$page);
+        $this -> assign('type',(int)$type);
+        $this -> assign('title','行业资讯');
+        return view();
+
+
+
+    }
+
 
     /*  热门资讯【右侧边栏】  */
     public function hotArticle($fail = true){

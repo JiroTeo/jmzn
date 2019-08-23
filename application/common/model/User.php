@@ -48,6 +48,8 @@ class User extends Model{
         $dataList['avatar'] =  empty($data['avatar']) ? '' : trim($data['avatar'],'.');
         $dataList['email'] =  $data['email'];
         $dataList['phone'] =  $data['phone'];
+        $dataList['logo'] =  $data['logo'];
+        $dataList['address'] =  $data['address'];
         $dataList['wx_openid'] =  $data['wx_openid'];
         $dataList['token'] =  $data['token'];
         $dataList['uname'] =  empty($data['uname']) ? '': base64_decode($data['uname']);

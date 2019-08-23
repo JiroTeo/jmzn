@@ -139,11 +139,11 @@ class login extends Base {
         }
         //验证图片验证码
         $icodeRes = captcha_check($icode);
-//        if(empty($icodeRes)){
-//            $rinfo = $this -> returnCode['ERROR'][1];
-//            $rinfo['msg'] = '图片验证码错误';
-//            return $rinfo;
-//        }
+        if(empty($icodeRes)){
+            $rinfo = $this -> returnCode['ERROR'][1];
+            $rinfo['msg'] = '图片验证码错误';
+            return $rinfo;
+        }
         //发送短信
         $str = sendMesasage($phone);
         $res = explode(',',$str);

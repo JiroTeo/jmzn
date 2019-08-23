@@ -175,8 +175,7 @@ class Item extends Model{
 
     /*  分页模式获取项目列表  */
     public function getItemDataListPage($where = false , $order = false , $num = 10 , $type = 4 , &$page = '' , $debug = false ){
-        $itemData = $this -> itemModel -> where($where) -> order($order) -> paginate($num,false,
-            ['query' => Request::instance()->param()]);
+        $itemData = $this -> itemModel -> where($where) -> order($order) -> paginate($num,false, ['query' => Request::instance()->param()]);
         $page = $itemData ->render();
         $data = iterator_to_array($itemData);
         if(empty($data)){return [];}//数据不存在返回array();

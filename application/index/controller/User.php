@@ -23,7 +23,7 @@ class user extends Base{
          $this->userModel = model('user');
 
         $userModel = new uModel();
-        $this -> uid = empty($_SESSION['jmzn_web']['uid']) ? 25 : $_SESSION['jmzn_web']['uid'];
+        $this -> uid = empty($_SESSION['jmzn_web']['uid']) ? false : $_SESSION['jmzn_web']['uid'];
         if(empty($this -> uid)){
             echo "请先登录";
             $this -> redirect('index/login/login');
@@ -165,18 +165,36 @@ class user extends Base{
 
     /*  企业中心    */
     public function account(){
-            //接收 && 定义 参数
-            $itemModel = new itemModel();
-            $trackModel = new trackModel();
-            $page = '';
-             //项目id
-             $itemIdStr = $trackModel -> getMyTrackTid(['uid'=>$this->uid,'status'=>1]);
-             $data = $itemModel -> getItemDataListPage(['logo'=>''],false,7,4,$page);
-
-             //分配变量
-             $this -> assign('data',$data);
-             $this -> assign('page',$page);
-        return view();
+        $info = input('post.');
+        if(empty($info)){
+            $userModel = new uModel();
+            $data = $userModel -> getUserData(['uid'=>$this -> uid],1);
+//            dump($data);die;
+            $this -> assign('data',$data);
+            return view();
+        }else{
+            if(!empty($info['logo'])){          //logo cname address email bname
+                $data['logo'] = $info['logo'];
+            }
+            if(!empty($info['cname'])){
+                $data['cname'] = $info['cname'];
+            }
+            if(!empty($info['address'])){
+                $data['address'] = $info['address'];
+            }
+            if(!empty($info['email'])){
+                $data['email'] = $info['email'];
+            }
+            if(!empty($info['bname'])){
+                $data['bname'] = $info['bname'];
+            }
+            $result = db('user') -> where(['uid'=>$this -> uid]) -> update($data);
+            if(empty($result)){
+                return ['code'=>400,'msg'=>'修改失败'];
+            }else{
+                return ['code'=>200,'msg'=>'修改成功'];
+            }
+        }
     }
 
     /*  投资者管理   */
@@ -191,7 +209,7 @@ class user extends Base{
         $where['read'] = (int)$read;
         $where['status'] = 1;
 //        0未跟进/未回复1已跟进/已回复 2已签约/已查看 3放弃跟进/已催促  4 无效
-        $data = $consultModel -> getConsultListByPage($where,'id desc',1,2,$page);
+        $data = $consultModel -> getConsultListByPage($where,'id desc',10,2,$page);
         //分配变量
         $this -> assign('data',$data);
         $this -> assign('page',$page);
@@ -208,9 +226,27 @@ class user extends Base{
     /*  资料设置页面  */
     public function modify(){
         //获取用信息
-        $type = $this -> request -> param('type');
-        if($type){
+        $info = input('post.');
+        if(!empty($info)){
+            if(!empty($info['avatar'])){
+                $data['avatar'] = $info['avatar'];
+            }
+            if(!empty($info['name'])){
+                $data['name'] = $info['name'];
+            }
+            if(!empty($info['username'])){
+                $data['uname'] = base64_encode($info['username']);
+            }
+            if(!empty($info['sex'])){
+                $data['sex'] = $info['sex'];
+            }
 
+            $result = db('user') -> where(['uid'=>$this -> uid]) -> update($data);
+            if(empty($result)){
+                return ['code'=>400,'msg'=>'修改失败'];
+            }else{
+                return ['code'=>200,'msg'=>'修改成功'];
+            }
         }else{
             $userModel = new userModel();
             $where['uid'] = $this -> uid;
@@ -218,6 +254,8 @@ class user extends Base{
             $data = $userModel -> getUserDetail(['uid'=>$this -> uid,'status'=>1]);
             //分配变量
             $this -> assign('data',$data);
+//            dump($data);die;
+            $this -> assign('title','资料设置');
             return view();
         }
 
@@ -381,24 +419,6 @@ class user extends Base{
         }else{
             $rinfo = $this -> returnCode['SUCCESS'][0];
         }
-        wapReturn($rinfo);
-    }
-
-    /*  base64转存为图片  */
-    public function upload_image(){
-        $type = empty($_REQUEST['type']) ? 0 : $_REQUEST['type'];
-        $base64Str = empty($_REQUEST['file']) ? wapReturn($this -> returnCode['ERROR'][4]) : $_REQUEST['file'];
-        if(empty($type)){
-            $fileName = getBase64Image($base64Str,'avatar/');
-        }else{
-            $fileName = getBase64Image($base64Str,'logo/');
-        }
-        if(empty($fileName)){
-            $rinfo = $this -> returnCode['ERROR'][0];
-        }else{
-            $rinfo = $this -> returnCode['SUCCESS'][0];
-        }
-        $rinfo['data'] = trim($fileName,'.');
         wapReturn($rinfo);
     }
 }

@@ -2,7 +2,7 @@
 namespace app\index\model;
 
 use think\Model;
-
+use think\Request;
 class article extends Model{
 
     /*  todo    获取文章列表数据
@@ -22,7 +22,7 @@ class article extends Model{
 
     /*  分页模式获取文章数据  */
     public function getArticleDataByPage($where,$order=false,$num=false,$type=0,&$page){
-        $articleData = $this -> articleModel -> where($where) -> order($order) -> paginate($num,false,['var_page'=>'a']);
+        $articleData = $this -> articleModel -> where($where) -> order($order) -> paginate($num,false,['query' => Request::instance()->param()]);
         $page = $articleData ->render();
         $data = iterator_to_array($articleData);
         if(empty($data)){   return [];  }
@@ -125,6 +125,9 @@ class article extends Model{
         $formatData['detail'] = $data['detail'];//详情
         $formatData['type'] = $data['type'];//
         switch ($data['type']) {
+            case 0:
+                $formatData['mode'] = '行业报告';//
+                break;
             case 1:
                 $formatData['mode'] = '行业资讯';//
                 break;

@@ -74,13 +74,13 @@ class follow extends Base{
     /*取消关注*/
     public function remove_follow(){
         //验证登录
-        if(empty( $this -> user)){
+        if(empty( $_SESSION['jmzn_web']['uid'] )){
             $rinfo = $this -> returnCode['ERROR'][5];
-            wapReturn($rinfo);
+            return $rinfo;
         }
         //接收参数
         $where['tid'] = array('in',$_REQUEST['id']);//被关注的id
-        $where['uid'] = $this -> user['uid'];
+        $where['uid'] = $_SESSION['jmzn_web']['uid'];
         $where['ftype'] = $_REQUEST['type'];
         //执行删除操作
         $result = $this -> follModel -> delFollow($where);
@@ -89,7 +89,7 @@ class follow extends Base{
         }else{
             $rinfo = $this -> returnCode['ERROR'][0];
         }
-        wapReturn($rinfo);
+        return $rinfo;
     }
 
     /*获取关注OR收藏项目*/
