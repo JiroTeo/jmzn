@@ -251,7 +251,7 @@
           <div :class="[step > 1 ? 'active':'']"><span>2</span></div>
           <div :class="[step > 2 ? 'active':'']"><span>3</span></div>
         </div>
-        <div class="part1" :hidden="step != 1">
+        <div class="part1" >
           <h4 class="evaTitle">请填写您的基本信息</h4>
           <div class="row clearfix">
             <label class="name">您的姓名</label>
@@ -281,7 +281,7 @@
             <input class="textInp" type="text" placeholder="请填写您的个人资源" value="">
           </div>
         </div>
-        <div class="part2" :hidden="step != 2">
+        <div class="part2" style="display: none">
           <h4 class="evaTitle">请选择您从事的行业</h4>
 
           <div class="choiceBox">
@@ -298,7 +298,7 @@
             </div>
           </div>
         </div>
-        <div class="part3" :hidden="step != 3">
+        <div class="part3" style="display: none">
           <h4 class="evaTitle">请选择您的意向行业</h4>
           <div class="choiceBox">
             <el-checkbox-group v-model="likeCate" size="medium">
@@ -329,9 +329,9 @@
           </div>
         </div>
         <div class="btns">
-          <el-button type="info" @click="upPage" :style="{'display': step == 1 ? 'none':'inline-block'}" >上一步</el-button>
-          <el-button  type="primary"  @click="nextPage"  :style="{'display': step == 3 ? 'none':'inline-block'}">下一步</el-button>
-          <el-button type="primary" @click="submitForm" :style="{'display': step != 3 ? 'none':'inline-block'}">完成</el-button>
+          <button class="upPage" type="info" onclick="upPage()" :style="{'display': step == 1 ? 'none':'inline-block'}" >上一步</button>
+          <button  class="nextPage" type="primary"  onclick="nextPage()"  :style="{'display': step == 3 ? 'none':'inline-block'}">下一步</button>
+          <button class="submitForm" type="primary" onclick="submitForm()" :style="{'display': step != 3 ? 'none':'inline-block'}">完成</button>
         </div>
 
 
@@ -339,4 +339,24 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  var type = 1;
+  function upPage(){
+     if(type == 1){
+       $('.upPage').css({display:'none'});
+       $('.submitForm').css({display:'none'});
+       $('.nextPage').css({display:'none'});
+
+     }else if(type == 2){
+       $('.upPage').css({display:'none'});
+       $('.submitForm').css({display:'none'});
+       $('.nextPage').css({display:'none'});
+
+     }else if(type == 3){
+       $('.upPage').css({display:'none'});
+       $('.submitForm').css({display:'none'});
+       $('.nextPage').css({display:'none'});
+     }
+  }
+</script>
 {/block}
