@@ -1,0 +1,342 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}投资者管理{/block}
+<!--keywords-->
+{block name="keywords"}{/block}
+<!--description-->
+{block name='description'}{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<style>
+  .evaBox {
+    width: 100%;
+    padding: 70px 0;
+    height: auto;
+    background: url("../../../static/image/evaluateBg.png") center top no-repeat #F4F5FA;
+  }
+  .evaBox .evaContent {
+    width: 1200px;
+    padding-bottom: 55px;
+    background: #fff;
+    margin: 0 auto;
+    box-shadow: 0px 0px 10px 0px rgba(153, 153, 153, 0.5);
+  }
+  .evaBox .evaContent h3 {
+    height: 70px;
+    line-height: 70px;
+    color: #1A1A1A;
+    border-bottom: 1px solid #E3E4E5;
+    font-size: 18px;
+    padding: 0 30px;
+  }
+  .evaBox .evaContent .line {
+    width: 990px;
+    height: 8px;
+    background: #D0E0F9;
+    margin: 70px auto;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+  }
+  .evaBox .evaContent .line div {
+    float: left;
+    width: 33.33%;
+    height: 8px;
+    position: relative;
+    text-align: center;
+  }
+  .evaBox .evaContent .line div span {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background: #D0E0F8;
+    color: #09224B;
+    font-size: 20px;
+    position: absolute;
+    left: 50%;
+    margin-left: -16px;
+    top: -12px;
+  }
+  .evaBox .evaContent .line div.active {
+    background: -webkit-gradient(linear, 100% 0, 0 0, from(#579EFA), to(#4F74F4));
+    background: -webkit-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -moz-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -o-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: linear-gradient(to bottom, #579EFA, #4F74F4);
+  }
+  .evaBox .evaContent .line div.active span {
+    background: -webkit-gradient(linear, 100% 0, 0 0, from(#579EFA), to(#4F74F4));
+    background: -webkit-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -moz-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -o-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: linear-gradient(to bottom, #579EFA, #4F74F4);
+    color: #fff;
+  }
+  .evaBox .evaContent .line div:nth-child(1) {
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
+  }
+  .evaBox .evaContent .line div:nth-child(3) {
+    -webkit-border-radius: 0px 4px 4px 0;
+    -moz-border-radius: 0px 4px 4px 0;
+    border-radius: 0px 4px 4px 0;
+  }
+  .evaBox .evaContent .evaTitle {
+    font-size: 20px;
+    color: #1A1A1A;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .evaBox .evaContent .part1 .row {
+    width: 420px;
+    margin: 0 auto 15px;
+  }
+  .evaBox .evaContent .part1 .row .name {
+    float: left;
+    margin-right: 15px;
+    color: #1A1A1A;
+    line-height: 42px;
+  }
+  .evaBox .evaContent .part1 .row .textInp {
+    float: left;
+    width: 338px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #DCDFE6;
+    text-indent: 15px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+  }
+  .evaBox .evaContent .part1 .row .selectBox {
+    float: left;
+    width: 130px;
+  }
+  .evaBox .evaContent .part1 .row .unit {
+    line-height: 42px;
+    margin-left: 8px;
+  }
+  .evaBox .evaContent .part1 .row .provice {
+    margin-right: 28px;
+  }
+  .evaBox .evaContent .part2 .choiceBox {
+    width: 1000px;
+    margin: 0 auto 30px;
+  }
+  .evaBox .evaContent .part2 .choiceBox span {
+    float: left;
+    width: 75px;
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid #E3E4E5;
+    text-align: center;
+    color: #333;
+    border-radius: 3px;
+    margin: 0 3px 16px;
+  }
+  .evaBox .evaContent .part2 .budget {
+    width: 410px;
+    margin: 0 auto;
+  }
+  .evaBox .evaContent .part2 .budget .name {
+    float: left;
+    line-height: 40px;
+    color: #1a1a1a;
+  }
+  .evaBox .evaContent .part2 .budget .border {
+    float: right;
+    width: 320px;
+    padding-right: 18px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #E3E4E5;
+    position: relative;
+    border-radius: 2px;
+  }
+  .evaBox .evaContent .part2 .budget .border input {
+    width: 280px;
+    height: 38px;
+    line-height: 38px;
+    text-indent: 15px;
+  }
+  .evaBox .evaContent .part3 .budget {
+    width: 410px;
+    margin: 0 auto 13px;
+  }
+  .evaBox .evaContent .part3 .budget .name {
+    float: left;
+    line-height: 40px;
+    color: #1a1a1a;
+  }
+  .evaBox .evaContent .part3 .budget .border {
+    float: right;
+    width: 338px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #E3E4E5;
+    position: relative;
+    border-radius: 2px;
+  }
+  .evaBox .evaContent .part3 .budget .border input {
+    float: left;
+    width: 100%;
+    height: 38px;
+    line-height: 38px;
+    text-indent: 15px;
+  }
+  .evaBox .evaContent .part3 .budget .border .testInp {
+    width: 220px;
+  }
+  .evaBox .evaContent .part3 .budget .border .getBtn {
+    float: right;
+    width: 115px;
+    height: 18px;
+    line-height: 18px;
+    border-left: 1px solid #E3E4E5;
+    color: #5389F7;
+    text-align: center;
+    margin-top: 11px;
+    cursor: pointer;
+  }
+  .evaBox .evaContent .part3 .budget .border .imgCode {
+    float: right;
+    width: 115px;
+    height: 38px;
+    cursor: pointer;
+  }
+
+  .btns {
+    text-align: center;
+    margin-top: 60px;
+  }
+  .btns .el-button {
+    width: 200px;
+  }
+
+  .choiceBox {
+    width: 1000px;
+    margin: 0 auto 30px;
+  }
+  .el-checkbox-button {
+    border-radius: 3px;
+    margin: 0 10px 16px;
+  }
+
+  .el-checkbox-group .el-checkbox-button .el-checkbox-button__inner {
+    border: 1px solid #DCDFE6;
+    border-radius: 5px;
+    box-shadow: 0 0 0 0 #8cc5ff;
+  }
+</style>
+{/block}
+{block name="header"}{/block}
+{block name="content"}
+<div>
+  <div>
+    <PersonalHeader></PersonalHeader>
+    <div class="evaBox">
+      <div class="evaContent">
+        <h3>智能评估</h3>
+        <div class="line">
+          <div class="active"><span>1</span></div>
+          <div :class="[step > 1 ? 'active':'']"><span>2</span></div>
+          <div :class="[step > 2 ? 'active':'']"><span>3</span></div>
+        </div>
+        <div class="part1" :hidden="step != 1">
+          <h4 class="evaTitle">请填写您的基本信息</h4>
+          <div class="row clearfix">
+            <label class="name">您的姓名</label>
+            <input class="textInp" v-model="form.name" type="text" placeholder="请填写您的姓名" value="">
+          </div>
+          <div class="row clearfix">
+            <label class="name">加盟区域</label>
+            <div class="selectBox">
+              <el-select v-model="province_id" placeholder="请选择省份" @change="getCity">
+                <el-option v-for="item in provinceList" :key="'province'+item.id" :label="item.cityname" :value="item.id">
+                  <span >{{ item.cityname }}</span>
+                </el-option>
+              </el-select>
+            </div>
+            <span class="fl unit provice">省</span>
+            <div class="selectBox">
+              <el-select v-model="form.city_id" placeholder="请选择城市">
+                <el-option v-for="item in cityList" :key="'city'+item.id" :label="item.cityname" :value="item.id">
+                  <span >{{ item.cityname }}</span>
+                </el-option>
+              </el-select>
+            </div>
+            <span class="fl unit">市</span>
+          </div>
+          <div class="row clearfix">
+            <label class="name">个人资源</label>
+            <input class="textInp" type="text" placeholder="请填写您的个人资源" value="">
+          </div>
+        </div>
+        <div class="part2" :hidden="step != 2">
+          <h4 class="evaTitle">请选择您从事的行业</h4>
+
+          <div class="choiceBox">
+            <el-checkbox-group v-model="currentCate" size="medium">
+              <el-checkbox-button  v-for="(item,index) in cateList" :label="item.id" :key="'current'+item.id"> {{item.name}}</el-checkbox-button>
+            </el-checkbox-group>
+          </div>
+          <h4 class="evaTitle">请填写您的预算金额</h4>
+          <div class="budget clearfix">
+            <label class="name">预算金额</label>
+            <div class="border clearfix">
+              <input class="fl" type="text" v-model="form.money" placeholder="请输入您的预算金额">
+              <span class="fr">万元</span>
+            </div>
+          </div>
+        </div>
+        <div class="part3" :hidden="step != 3">
+          <h4 class="evaTitle">请选择您的意向行业</h4>
+          <div class="choiceBox">
+            <el-checkbox-group v-model="likeCate" size="medium">
+              <el-checkbox-button  v-for="(item,index) in cateList" :label="item.id" :key="'like'+item.id"> {{item.name}}</el-checkbox-button>
+            </el-checkbox-group>
+          </div>
+          <h4 class="evaTitle">请填写您的联系方式</h4>
+          <div class="budget clearfix">
+            <label class="name">手机号码</label>
+            <div class="border clearfix">
+              <input class="fl" type="text" v-model="form.phone" placeholder="请输入您的手机号码">
+            </div>
+          </div>
+          <div class="budget clearfix">
+            <label class="name">图片验证</label>
+            <div class="border clearfix">
+              <input class="fl testInp" type="text" v-model="form.img_code" placeholder="请输入图片验证码">
+              <img class="imgCode" @click="getImgCode" :src="imgCode">
+            </div>
+          </div>
+          <div class="budget clearfix">
+            <label class="name">手机验证</label>
+            <div class="border clearfix">
+              <input class="fl testInp" type="text" v-model="form.code" placeholder="请输入手机验证码">
+              <span class="getBtn" v-if="showCode" @click="getCode">获取验证码</span>
+              <span class="getBtn" v-else>{{outTime}}S后重新获取</span>
+            </div>
+          </div>
+        </div>
+        <div class="btns">
+          <el-button type="info" @click="upPage" :style="{'display': step == 1 ? 'none':'inline-block'}" >上一步</el-button>
+          <el-button  type="primary"  @click="nextPage"  :style="{'display': step == 3 ? 'none':'inline-block'}">下一步</el-button>
+          <el-button type="primary" @click="submitForm" :style="{'display': step != 3 ? 'none':'inline-block'}">完成</el-button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
