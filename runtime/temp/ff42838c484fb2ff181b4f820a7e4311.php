@@ -1,17 +1,27 @@
-<!--继承模板-->
-{extend name="defa/defa" /}
-<!--title-->
-{block name="title"}{$title}{/block}
-<!--keywords-->
-{block name="keywords"}{/block}
-<!--description-->
-{block name='description'}{/block}
-<!--index js && css -->
-{block name="index"}
-<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
-<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
-<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
-<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:80:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\login\settled.html";i:1566541662;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566522668;}*/ ?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title><?php echo $title; ?></title>
+  <meta name="keywords" content="
+   
+   ">
+  <meta name="description" content="
+    
+    ">
+  <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/admin/lib/layui/layui.js"></script>
+  <meta name="360-site-verification" content="8fa3cbfa5b4b4bdf0a95dd925cf2f8b5" />
+  <script type="text/javascript" src="http://www.test.com\/statics/admin/js/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.test.com\/statics/layer-v3.1.1/layer/layer.js" merge="true"> </script>
+  <link rel="stylesheet" href="http://www.test.com\/statics/layer-v3.1.1/layer/theme/default/layer.css"/>
+
+  
+<link href="http://www.test.com\/statics/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<link href="http://www.test.com\/statics/admin/css/xadmin.css" rel="stylesheet">
 <style>
   .clearfix:after {
     display: block;
@@ -109,9 +119,12 @@
     border-radius: 4px;
   }
 </style>
-{/block}
-{block name="header"}{/block}
-{block name="content"}
+
+</head>
+<body>
+<div id="app">
+  
+    
 <a>
   <div class="personal">
     <PersonalHeader></PersonalHeader>
@@ -144,7 +157,7 @@
             <div class="row clearfix">
               <label>图片验证</label>
               <input class="commonInp" type="text" id="icode" name="icode" placeholder="请输入图片验证码" >
-              <img class="picYz" src="{:captcha_src()}" onclick="this.src='{:captcha_src()}'">
+              <img class="picYz" src="<?php echo captcha_src(); ?>" onclick="this.src='<?php echo captcha_src(); ?>'">
             </div>
             <div class="row clearfix">
               <label>验证码</label>
@@ -203,7 +216,7 @@
         //ajax获取短信验证码
         $.ajax({
             type: "POST",
-            url: "{:url('index/login/get_code')}",
+            url: "<?php echo url('index/login/get_code'); ?>",
             data:{
                 phone:phone,
                 icode:icode,
@@ -276,4 +289,50 @@
     }
 
 </script>
-{/block}
+
+  
+  <div data-v-4dfbcb4e="" class="common-footer">
+    <div data-v-4dfbcb4e="" class="links ">
+      <div data-v-4dfbcb4e="" class="wrapper">
+        <div data-v-4dfbcb4e="" class="left">
+          <a data-v-4dfbcb4e="" href="<?php echo url('index/aboutus/aboutus'); ?>" class="">关于我们</a> <a
+                data-v-4dfbcb4e="" href="<?php echo url('index/aboutus/aboutus'); ?>" class="">产品服务</a>
+          <a data-v-4dfbcb4e="" href="<?php echo url('index/aboutus/aboutus'); ?>" class="">产品优势</a>
+          <a data-v-4dfbcb4e="" href="<?php echo url('index/aboutus/aboutus'); ?>" class="">客户合作</a>
+          <a data-v-4dfbcb4e="" href="<?php echo url('index/aboutus/aboutus'); ?>"
+             class="">联系我们</a>
+        </div>
+        <div data-v-4dfbcb4e="" class="right">
+          客服热线：400-619-8882
+        </div>
+      </div>
+    </div>
+    <div data-v-4dfbcb4e="" class="body wrapper">
+      <div data-v-4dfbcb4e="" class="left">
+        <div data-v-4dfbcb4e="">友情提示：创业有风险，投资需谨慎
+        </div>
+        <div data-v-4dfbcb4e="">Copyright © 2019 jinrongbaijia.com All Rights Reserved.冀ICP备17023127号-7
+        </div>
+        <div data-v-4dfbcb4e="">法律支持：河北盈华律师事务所
+        </div>
+        <a data-v-4dfbcb4e="" href="http://www.bcpcn.com/product/rz/bq/BCP30497889F2859242.html" target="_blank"><img
+                data-v-4dfbcb4e="" src="http://www.bcpcn.com/bcptags/img/csrz.gif" border="0" class="csrz"></a>
+      </div>
+      <div data-v-4dfbcb4e="" class="right">
+        <div data-v-4dfbcb4e="" class="item">
+          <img data-v-4dfbcb4e="" src="http://www.test.com\/statics/index/img/wx_qrcode.d7de962.jpg" alt="" class="QRcode">
+          <div data-v-4dfbcb4e="">微信公众号</div>
+        </div>
+        <div data-v-4dfbcb4e="" class="item">
+          <img data-v-4dfbcb4e="" src="http://www.test.com\/statics/index/img/wap_qrcode.475f601.jpg" alt="" class="QRcode">
+          <div data-v-4dfbcb4e="">手机版
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
