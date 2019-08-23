@@ -99,7 +99,7 @@
                 <div class="el-select-dropdown el-popper" style="display: none; min-width: 100px;">
                     <div class="el-scrollbar" style="">
                         <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default">
-                            <ul class="el-scrollbar__view el-select-dropdown__list"><!---->
+                            <ul class="el-scrollbar__view el-select-dropdown__list sort"><!---->
                                 <li data-v-645de51c="" type="最新" class="el-select-dropdown__item selected"><span>最新</span></li>
                                 <li data-v-645de51c="" type="最热" class="el-select-dropdown__item "><span>热度</span></li>
                             </ul>
@@ -188,8 +188,8 @@
     /**
      * 点击最新 最热
      */
-    $('.el-select-dropdown__list li').click(e=>{
-        $("#el-select-dropdown__list li").removeClass('select');
+    $('.sort li').click(e=>{
+        $(".sort li").removeClass('select');
         $(this).addClass("select");
         console.log('e',e);
         $('#type').val(e.currentTarget.type);
