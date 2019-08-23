@@ -545,6 +545,7 @@
         console.log('data',data);
         if(data.code == 200){
           layer.msg('成功',{icon:1})
+          window.location.href = "{:url('index/assess/outcome')}?id="+data.data;
         }else{
           layer.msg(data.msg,{icon:2});
         }

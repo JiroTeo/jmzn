@@ -1,7 +1,7 @@
 <!--继承模板-->
 {extend name="defa/defa" /}
 <!--title-->
-{block name="title"}投资者管理{/block}
+{block name="title"}评估报告{/block}
 <!--keywords-->
 {block name="keywords"}{/block}
 <!--description-->
@@ -351,7 +351,7 @@
                 <div class="box"></div>
                 <div class="box"></div>
                 <div class="box"></div>
-                <span class="text">12345</span>
+                <span class="text">{$count}</span>
               </div>
             </div>
             <!-- 项目总量 -->
@@ -362,15 +362,17 @@
                 <div class="qiun-title-dot-light">项目符合度</div>
               </div>
               <div class="bar">
+                {foreach $like_cate_count as $key => $value}
                 <div class="row" v-for="item in data.like_cate_count" :key="'like'+item.id">
                   <div class="text">
-                    一个项目
+                    {$value.name}
                   </div>
                   <div class="transition">
-                    <img class="icon-transition" src="../../../../static/image/icon_transition.jpg"  :style="{'width':item.data+'%'}" mode=""/>
+                    <img class="icon-transition" src="../../../../static/image/icon_transition.jpg"  :style="{'width':{$value.data}+'%'}" mode=""/>
                   </div>
-                  <div class="text">80%</div>
+                  <div class="text">{$value.data}%</div>
                 </div>
+                {/foreach}
               </div>
             </div>
             <!-- 项目符合度 -->
@@ -382,32 +384,34 @@
 
               <div class="qiun-common-mt">
                 <div class="qiun-title-dot-light">平均投资额</div>
+
                 <div class="qiun-select">
                   <el-dropdown @command="handleCommand">
                       <span class="el-dropdown-link">
-                        50<i class="el-icon-arrow-down el-icon--right"></i>
+                        {value.value}<i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                     <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item v-for="(item,index) in barData" :key="'command'+index" :command="index">{{item.name}}</el-dropdown-item>
+                      <el-dropdown-item v-for="(item,index) in barData" :key="'command'+index" :command="index">{value.name}</el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
                 </div>
+
               </div>
               <div class="columns">
                 <div class="col">
-                  <div class="money">{{columnData.min}}万</div>
+                  <div class="money">{$column.min}万</div>
                   <img class="icon_col" src="../../../../static/image/icon_col.png" :style="{'height': columnData.min/columnData.full*100+'%'}" />
                   <div class="name">平均最低投资额</div>
                 </div>
                 <div class="col">
-                  <div class="money">{{columnData.max}}万</div>
+                  <div class="money">{$column.max}万</div>
                   <div class="icon_col" :style="{'height': columnData.max/columnData.full*100+'%'}" >
                     <img  src="../../../../static/image/icon_col.png" />
                   </div>
                   <div class="name">平均最高投资额</div>
                 </div>
                 <div class="col">
-                  <div class="money">{{columnData.avg}}万</div>
+                  <div class="money">{$column.avg}}万</div>
                   <img class="icon_col" src="../../../../static/image/icon_col.png" :style="{'height': columnData.avg/columnData.full*100+'%'}" />
                   <div class="name">平均投资额</div>
                 </div>
