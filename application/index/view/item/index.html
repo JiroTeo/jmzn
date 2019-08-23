@@ -100,8 +100,12 @@
                     <div class="el-scrollbar" style="">
                         <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default">
                             <ul class="el-scrollbar__view el-select-dropdown__list"><!---->
-                                <li data-v-645de51c="" type="最新" class="el-select-dropdown__item selected"><span>最新</span></li>
-                                <li data-v-645de51c="" type="最热" class="el-select-dropdown__item "><span>热度</span></li>
+                                <a href="{:url('index/item/index')}">
+                                    <li data-v-645de51c="" type="最新" class="el-select-dropdown__item selected"><span>最新</span></li>
+                                </a>
+                                <a href="{:url('index/item/index')}?sort=1">
+                                    <li data-v-645de51c="" type="最热" class="el-select-dropdown__item "><span>热度</span></li>
+                                </a>
                             </ul>
                         </div>
                         <div class="el-scrollbar__bar is-horizontal">

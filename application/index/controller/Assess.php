@@ -42,15 +42,6 @@ class assess extends Base {
         $id = input('get.id');
         $itemCount = $this -> itemModel -> itemCount();//项目总数
 
-
-        //项目占比-饼状图
-        $getCateIdStrWhere['pid'] = 0;
-        $getCateIdStrWhere['status'] = 1;
-        $getCateIdStr = $this -> cateModel -> getChildIdByWhere($getCateIdStrWhere);
-        $getAllCateArr = explode(',',$getCateIdStr);//分割成数组
-        $allCateIdFormat = $this -> getChildIdFormat($getAllCateArr);
-        $allCateCount = $this -> getItemCountData($allCateIdFormat,1);//饼状图数据
-
         //项目符合度-进度条图
         //获取意向行业和所属行业的id
         $id = empty($_REQUEST['id']) ? 0 : $_REQUEST['id'];
@@ -97,19 +88,18 @@ class assess extends Base {
 
         //分布图
         //获取符合度最高的行业
-        $getCidWherer['pid'] = $fit[0]['id'];
-        $getCidWherer['status'] = 1;
-        $cateIdStr = model('category') ->getChildIdByWhere($getCidWherer);
-        $getCountWhere['id'] = array('in',trim($cateIdStr,','));
-        $minCount = $this -> itemModel -> getMinCount('min_money',$getCountWhere);//最小值
-        $maxCount = $this -> itemModel -> getMaxCount('max_money',$getCountWhere);//最大值
-        $avgMinCount = $this -> itemModel -> getAvgCount('min_money',$getCountWhere);//最小平均值
-        $avgMaxCount = $this -> itemModel -> getAvgCount('max_money',$getCountWhere);//最大平均值
-        $avgCount = ($avgMinCount+$avgMaxCount)/2;
-        //分布图
-        $dsc = array(round($avgCount,2),round($minCount,2),round($avgMaxCount,2),round($avgMinCount,2),round($maxCount,2));
-
-
+//        $getCidWherer['pid'] = $fit[0]['id'];
+//        $getCidWherer['status'] = 1;
+//        $cateIdStr = model('category') ->getChildIdByWhere($getCidWherer);
+//        $getCountWhere['id'] = array('in',trim($cateIdStr,','));
+//        $minCount = $this -> itemModel -> getMinCount('min_money',$getCountWhere);//最小值
+//        $maxCount = $this -> itemModel -> getMaxCount('max_money',$getCountWhere);//最大值
+//        $avgMinCount = $this -> itemModel -> getAvgCount('min_money',$getCountWhere);//最小平均值
+//        $avgMaxCount = $this -> itemModel -> getAvgCount('max_money',$getCountWhere);//最大平均值
+//        $avgCount = ($avgMinCount+$avgMaxCount)/2;
+//        //分布图
+//        $dsc = array(round($avgCount,2),round($minCount,2),round($avgMaxCount,2),round($avgMinCount,2),round($maxCount,2));
+//
         //柱状图
         //接收参数并且算出id
         $where['id'] = $id;
@@ -141,26 +131,32 @@ class assess extends Base {
             $column['full'] = number_format($fullCount,2);
 
         }
-        echo "柱状图";
-        dump($column);
-        echo "项目总数";
-        dump($itemCount);
-        echo "饼状图";
-//        dump($allCateCount);
-//        echo "符合度";
-        dump($like_cate_count);
-        echo "分布图";
-        dump($dsc);
         $itemCount = substr(strval($itemCount+100000),1,5);
         //分配变量
         $this -> assign('column',$column);//柱状图
         $this -> assign('count',$itemCount);//总数
-        $this -> assign('allCateCount',$allCateCount);//饼状图
-//        dump($allCateCount);die;
         $this -> assign('like_cate_count',$like_cate_count);//符合度
-        $this -> assign('dsc',$dsc);//分布
+//        $this -> assign('dsc',$dsc);//分布
         return view();
     }
+
+    /*雷达图*/
+    public function radarchart(){
+        $pid = $this -> request -> param('pid');
+        $getCidWherer['pid'] = $pid;
+        $getCidWherer['status'] = 1;
+        $cateIdStr = model('category') ->getChildIdByWhere($getCidWherer);
+        $getCountWhere['id'] = array('in',trim($cateIdStr,','));
+        $minCount = $this -> itemModel -> getMinCount('min_money',$getCountWhere);//最小值
+        $maxCount = $this -> itemModel -> getMaxCount('max_money',$getCountWhere);//最大值
+        $avgMinCount = $this -> itemModel -> getAvgCount('min_money',$getCountWhere);//最小平均值
+        $avgMaxCount = $this -> itemModel -> getAvgCount('max_money',$getCountWhere);//最大平均值
+        $avgCount = ($avgMinCount+$avgMaxCount)/2;
+        //分布图
+        $dsc = array(round($avgCount,2),round($minCount,2),round($avgMaxCount,2),round($avgMinCount,2),round($maxCount,2));
+        return $dsc;
+    }
+
 
     /*  饼状图接口   */
     public function piechart(){

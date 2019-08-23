@@ -19,6 +19,7 @@
 {block name="header"}{/block}
 {block name="content"}
 <div id="app">
+    <input type="hidden" id="pid" value="{$like_cate_count[0]['id']}">
     <div data-v-5eef6683="" class="common-header">
         <div data-v-5eef6683="" class="body wrapper">
             <div data-v-5eef6683="" class="left">
@@ -104,14 +105,7 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
                                 <div data-v-949c1ac6="" class="qiun-title-dot-light">平均投资额</div>
                                 <div data-v-949c1ac6="" class="qiun-select">
                                     <div data-v-949c1ac6="" class="el-dropdown">
-                                        <span data-v-949c1ac6="" class="el-dropdown-link el-dropdown-selfdefine" aria-haspopup="list" aria-controls="dropdown-menu-2549" role="button" tabindex="0">
-                                            餐饮<i data-v-949c1ac6="" class="el-icon-arrow-down el-icon--right"></i>
-                                        </span>
-                                        <ul data-v-949c1ac6="" class="el-dropdown-menu el-popper" id="dropdown-menu-2549" style="display: none;">
-                                            {foreach $like_cate_count as $key => $value}
-
-                                            {/foreach}
-                                        </ul>
+                                        <span data-v-949c1ac6="" class="el-dropdown-link el-dropdown-selfdefine" aria-haspopup="list" aria-controls="dropdown-menu-2549" role="button" tabindex="0">餐饮</span>
                                     </div>
                                 </div>
                             </div>
@@ -153,11 +147,9 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
                         </div>
                     </div>
                 </div>
-                <a data-v-949c1ac6="" href="/list?cateid=" class="">
+                <a data-v-949c1ac6="" href="{:url('index/item/index')}?sort=1" class="">
                     <button data-v-949c1ac6="" type="button" class="el-button btn el-button--primary "><!---->
-                        <!----><span>
-         查看推荐项目
-        </span></button>
+                        <!----><span>查看推荐项目</span></button>
                 </a></div>
         </div>
     </div>
@@ -245,11 +237,15 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
     }
     function showRadar(){
         let myChart = echarts.init(document.getElementById('canvasRadar'));
+        var pid = $("#pid").val();
         $.ajax({
             type: "POST",
-            url: "{:url('index/assess/piechart')}",
-            data:{},
+            url: "{:url('index/assess/radarchart')}",
+            data:{
+                'pid':pid,
+            },
             success: function(data){
+                console.log('data',data);
                 let dcs = data;
                 if(dcs[4]>200){
                     dcs[4] = 200;

@@ -206,6 +206,7 @@ class user extends Base{
         $page = '';
         //获取留言信息
         $where['type'] = (int)$type;
+        $where['to_uid'] = $_SESSION['jmzn_web']['uid'];
         $where['read'] = (int)$read;
         $where['status'] = 1;
 //        0未跟进/未回复1已跟进/已回复 2已签约/已查看 3放弃跟进/已催促  4 无效

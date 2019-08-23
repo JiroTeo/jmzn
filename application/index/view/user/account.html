@@ -303,7 +303,7 @@
               <div class="row">
                 <label class="title">公司logo</label>
                 <div class="txBox">
-                  <img class="logo" src="{$data.logo}" />
+                  <img class="logo_" src="{$data.logo}" />
                   <input class="uploadBtn" type="file" name="image" accept="image/*">
                 </div>
                 <p class="clear"></p>
@@ -375,7 +375,7 @@
     })
     console.log("objUrl",objUrl);
     if (objUrl) {
-      $('.logo').attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+      $('.logo_').attr("src", objUrl) ; //将图片路径存入src中，显示出图片
     }
   })
   function getObjectURL(file) {
