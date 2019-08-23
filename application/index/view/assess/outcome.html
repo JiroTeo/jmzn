@@ -10,6 +10,7 @@
     <link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
     <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
     <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/1.3df231c13ef594287ac8.js"></script>
+    <script type="text/javascript" src="__STATIC__/echarts.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -177,5 +178,115 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
 <!--<script type="text/javascript" src="__STATIC__/index/js/manifest.4c70778beadeccbf5422.js"></script>-->
 <script type="text/javascript" src="__STATIC__/index/js/vendor.ca774af52bc39667be8d.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/app.e7671a9f70033ac0eaad.js"></script>
+<script type="text/javascript">
+    showPie();
+    showRadar();
+    function showPie(){
+        let myChart = echarts.init(document.getElementById('canvasRing'));
+        var all_cate_count = [10,10,10,100];
+        var  option = {
+            legend: {
+                // show: false,
+                // orient: 'vertical',
+                x: 'center',
+                top: 'bottom',
+                // data: this.cateName
+                textStyle:{
+                    color: "#BAFFFC"
+                }
+            },
+            label:{
+                show:false,
+
+            },
+            series: [
+                {
+                    type:'pie',
+                    radius: ['55%', '65%'],
+                    center:['50%','40%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        show: false,
+                        position: 'center',
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data: all_cate_count,
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        },
+                        normal:{
+                            color:function(params) {
+                                //自定义颜色
+                                var colorList = ['#ffef01','#fdc800','#f29700','#eb6001',
+                                    '#e50112', '#e80137','#e80151','#e6006a',
+                                    '#e6007f', '#bf0081','#950684','#611786',
+                                    '#1d2087', '#01499e','#0168b5','#0186d3',
+                                    '#00a1e9', '#019fc2','#029f98','#009c6d',
+                                    '#009946', '#23ac3a','#90c320','#d0dc00'];
+                                return colorList[params.dataIndex]
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+        myChart.setOption(option);
+    }
+    function showRadar(){
+        let myChart = echarts.init(document.getElementById('canvasRadar'));
+        var dcs = [100,100,100,100];
+        if(dcs[4]>200){
+            dcs[4] = 200;
+        }
+        var option = {
+            legend: {},
+
+            // polar:{radius:'80%'},
+            radar: {
+                radius: '70%',
+                center:['50%','50%'],
+
+                splitNumber: 3,
+                // shape: 'circle',
+                indicator: [
+                    { name: '平均', max: 200},
+                    { name: '最低', max: 200},
+                    { name: '平均最高', max: 200},
+                    { name: '平均最低', max: 200},
+                    { name: '最高', max: 200}
+                ]
+            },
+            series: [{
+                type: 'radar',
+                areaStyle: {normal: {
+                        color: 'RGBA(34, 155, 178, 0.5)',
+                    }},
+                lineStyle: {
+                    color: '#2594B9'
+                },
+                data : [
+                    {
+                        value : dcs
+                    }
+                ]
+            }]
+        };
+        myChart.setOption(option);
+    }
+</script>
 </body>
 </html>
