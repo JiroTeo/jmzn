@@ -1,20 +1,22 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:84:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\index\rankinglist.html";i:1566354043;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566296418;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:84:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\index\rankinglist.html";i:1566480350;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566477832;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title></title>
+  <title><?php echo $title; ?></title>
   <meta name="keywords" content="
    
    ">
   <meta name="description" content="
     
     ">
-  <script type="text/javascript" src="http://www.test.com\/statics/admin/js/jquery.min.js"></script>
-  <script type="text/javascript" src="http://www.test.com\/statics/layer-v3.1.1/layer/layer.js"></script>
-
+  <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/admin/lib/layui/layui.js"></script>
   <meta name="360-site-verification" content="8fa3cbfa5b4b4bdf0a95dd925cf2f8b5" />
+  <script type="text/javascript" src="http://www.test.com\/statics/admin/js/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.test.com\/statics/layer-v3.1.1/layer/layer.js" merge="true"> </script>
+  <link rel="stylesheet" href="http://www.test.com\/statics/layer-v3.1.1/layer/theme/default/layer.css"/>
+
   
 <link href="http://www.test.com\/statics/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/index/js/0.f5ed0d9d7e597a228142.js"></script>
@@ -94,15 +96,15 @@
           <a data-v-645de51c="" href="/" class="router-link-active">
             <span data-v-645de51c="">首页</span><i data-v-645de51c=""></i>
           </a>
-          <a data-v-645de51c="" href="<?php echo url('index/item/index'); ?>" class="active router-link-exact-active router-link-active">
+          <a data-v-645de51c="" href="<?php echo url('index/item/index'); ?>" class="<?php if($title=='找项目'): ?>active router-link-exact-active router-link-active<?php endif; ?>">
             <span data-v-645de51c="">找项目</span>
             <img data-v-645de51c="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAARCAMAAACLgl7OAAAAP1BMVEVHcEz/egD/fQD/fgD/fQD/fQD/fgD/fgD/fQD/cwD//v3/n03/hxz/7eL/vX7/4c7/x5v/kS3/rGH/0Kr/28JveqjrAAAACnRSTlMAMC//2PjAl+sIVJiFyAAAAKhJREFUKM+NkdsOhCAMRNGixKHl6v9/64KCrm40Ow9kQk+m0Cr1j0ajJ7pp0mZs5cXQg8yy1Wd61FwJQy8ypf/uXCSKjn+IoQfAEll0wPkzQl+B6Fwi66WHadX+h+xcBkeIICSBb8CkWhTEewFnYQpC4WhxAnuLNRMlfAH6BgREXqWGHI+8AixAsQn9Q0MHbLlgW0115TwG9TbHbdSvg66reCqWdQ91lx88RQo8unUbdwAAAABJRU5ErkJggg==" class="hot"><i data-v-645de51c=""></i>
           </a>
-          <a data-v-645de51c="" href="<?php echo url('index/index/rankinglist'); ?>" class="">
+          <a data-v-645de51c="" href="<?php echo url('index/index/rankinglist'); ?>" class="<?php if($title=='排行榜'): ?>active router-link-exact-active router-link-active<?php endif; ?>">
             <span data-v-645de51c="">排行榜</span>
             <i data-v-645de51c=""></i>
           </a>
-          <a data-v-645de51c="" href="<?php echo url('index/article/index'); ?>" class="">
+          <a data-v-645de51c="" href="<?php echo url('index/article/index'); ?>" class="<?php if($title=='行业资讯'): ?>active router-link-exact-active router-link-active<?php endif; ?>">
             <span data-v-645de51c="">行业资讯</span> <i data-v-645de51c=""></i>
           </a>
         </div>
@@ -128,6 +130,13 @@
     .swiper-slide img{
         width: 100%;
         height: 100%;
+    }
+    .longAd{
+      display: block;
+      margin-bottom: 10px;
+    }
+    .longAd:last-child{
+      margin-bottom: 0;
     }
 </style>
   <div data-v-78041906="" class="rankingList">
@@ -186,8 +195,8 @@
         </div>
         <div data-v-78041906="" class="longBanners">
             <?php foreach($imageData[1] as $key => $value): ?>
-            <span data-v-78041906="">
-                <a data-v-78041906="" href="<?php echo $value['link']; ?>" class="">
+            <span data-v-78041906="" class="longAd">
+                <a data-v-78041906="" href="<?php echo $value['link']; ?>">
                     <img data-v-78041906="" src="<?php echo $value['img']; ?>">
                 </a>
             </span>
@@ -212,7 +221,7 @@
 
         <div data-v-78041906="" class="longBanners">
             <?php foreach($imageData[2] as $key => $value): ?>
-            <span data-v-78041906="">
+            <span data-v-78041906="" class="longAd">
                 <a data-v-78041906="" href="<?php echo $value['link']; ?>" class="">
                     <img data-v-78041906="" src="<?php echo $value['img']; ?>">
                 </a>
@@ -327,8 +336,6 @@
   </div>
 </div>
 </div>
-
-
 
 </body>
 </html>

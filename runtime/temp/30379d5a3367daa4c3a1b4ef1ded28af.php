@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\item\detail.html";i:1566377864;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566296418;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\item\detail.html";i:1566434125;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566379090;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +11,11 @@
   <meta name="description" content="
     "加盟指南网是为招商加盟企业提供招商外包服务的专业招商外包服务平台，平台设有加盟指南栏目,为加盟者提供各招商行业的加盟指南资讯,最新的加盟指南数据分析，创新的推送加盟线索招商外包服务模式对招商企业提供专业的招商外包服务,使其招商成功，招商外包服务热线:400-619-8882。"
     ">
+  <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/admin/lib/layui/layui.js"></script>
+  <meta name="360-site-verification" content="8fa3cbfa5b4b4bdf0a95dd925cf2f8b5" />
   <script type="text/javascript" src="http://www.test.com\/statics/admin/js/jquery.min.js"></script>
   <script type="text/javascript" src="http://www.test.com\/statics/layer-v3.1.1/layer/layer.js"></script>
 
-  <meta name="360-site-verification" content="8fa3cbfa5b4b4bdf0a95dd925cf2f8b5" />
   
   <link href="http://www.test.com\/statics/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
   <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/index/js/0.f5ed0d9d7e597a228142.js"></script>
@@ -198,6 +199,7 @@
     float: left;
     width: 103px;
     height: 39px;
+    font-size: 12px;
     line-height: 39px;
     border: 1px solid #dcdfe6;
     border-radius: 4px;
@@ -271,7 +273,7 @@
                 <label data-v-4b135571="" class="block"><b data-v-4b135571=""><?php echo $data['apply']; ?>人</b> <i data-v-4b135571="">申请加盟</i></label>
               </div>
               <div data-v-4b135571="" class="btnsBox between">
-                <span data-v-4b135571="" class="consultBtn">立即咨询</span>
+                <span data-v-4b135571="" class="consultBtn" onclick="showConsultModal()">立即咨询</span>
                 <span data-v-4b135571="" class="planBtn">获取开店方案</span>
                 <span data-v-4b135571="" class="collectBtn"><i data-v-4b135571="" class="iconfont icon-collect"></i></span>
                 <span data-v-4b135571="" class="focusBtn"><i data-v-4b135571="" class="iconfont icon-focus"></i></span>
@@ -318,7 +320,7 @@
               </div>
               <div data-v-4b135571="" class="row clearfix clearfix">
                 <div data-v-4b135571="" class="column between"><label data-v-4b135571="">手机号</label>
-                  <input data-v-4b135571="" type="text" placeholder="请输入您的手机号" class="textInp"></div>
+                  <input data-v-4b135571="" type="text" id="phone" placeholder="请输入您的手机号" class="textInp phone"></div>
                 <div data-v-4b135571="" class="column between"><label data-v-4b135571="">图片验证</label>
                   <input data-v-4b135571="" type="text" placeholder="请输入图片验证验证码" class="checkInp">
                   <img src="<?php echo captcha_src(); ?>" class="captcha" width="95" height="45" onclick="this.src='<?php echo captcha_src(); ?>'">
@@ -327,7 +329,7 @@
                   <label data-v-4b135571="">验证码</label>
                   <div data-v-4b135571="" class="between" style="width: 322px;">
                     <input data-v-4b135571="" type="text" placeholder="请输入手机验证码" class="checkInp">
-                    <span data-v-4b135571="" class="checkBtn" id="time" onclick="getCode()">获取验证码</span></div>
+                    <span data-v-4b135571="" class="checkBtn" onclick="getCode(this)">获取验证码</span></div>
                 </div>
               </div>
             </div>
@@ -405,13 +407,14 @@
 </div>
 
 <!-- 立即咨询 -->
-<div class="consultBg">
+<div class="consultBg" id="consultModal" style="display: none">
+  <form id="formData">
   <div class="consultCase">
     <h2>立即咨询</h2>
-    <span class="close"></span>
+    <span class="close" onclick="hideConsultModal()"></span>
     <div class="row clearfix">
       <label class="fl name"><i>*</i> 姓名</label>
-      <input class="fl commonInp" type="text" name="" placeholder="请输入您的姓名">
+      <input class="fl commonInp" type="text" name="name" placeholder="请输入您的姓名">
     </div>
     <div class="row clearfix">
       <label class="fl name"><i>*</i> 姓名</label>
@@ -428,29 +431,40 @@
     </div>
     <div class="row clearfix">
       <label class="fl name"><i>*</i> 手机号</label>
-      <input class="fl commonInp" type="text" name="" placeholder="请输入您的手机号">
+      <input class="fl commonInp phone" id="phone" type="text" name="phone" placeholder="请输入您的手机号">
     </div>
     <div class="row clearfix">
       <label class="fl name"><i>*</i> 图片验证</label>
-      <input class="fl commonInp picInp" type="text" name="" placeholder="请输入图片验证码">
+      <input class="fl commonInp picInp" type="text" name="codeImg" placeholder="请输入图片验证码">
       <img class="picBtn" src="">
     </div>
     <div class="row clearfix">
       <label class="fl name"><i>*</i> 验证码</label>
-      <input class="fl commonInp picInp" type="text" name="" placeholder="请输入手机验证码">
-      <span class="checkBtn" id="time" onclick="getCode()">获取验证码</span>
+      <input class="fl commonInp picInp" type="text" name="code" placeholder="请输入手机验证码">
+      <span class="checkBtn" onclick="getCode(this)">获取验证码</span>
     </div>
     <div class="row">
-      <textarea class="textArea" placeholder="请输入您要咨询的内容"></textarea>
+      <textarea class="textArea" name="content" placeholder="请输入您要咨询的内容"></textarea>
     </div>
-    <div>
-      <a class="commitBtn" href="javascript:;">提交</a>
-    </div>
+    <div class="commitBtn" onclick="submitForm()">提交</div>
   </div>
+  </form>
 </div>
 
 
-<script>
+<script type="text/javascript">
+  function showConsultModal(){
+    $("#consultModal").css({display: 'block'});
+  }
+  function hideConsultModal(){
+    $("#consultModal").css({display: 'none'});
+  }
+  function submitForm(){
+    $("#formData").serializeArray();
+    console.log('  $("#formData").serializeArray()',  $("#formData").serializeArray());
+    // 所有的数据 自行提交吧
+    hideConsultModal()
+  }
   //banner
   $('.itemPic .between>label:first').addClass('active');
   $(".itemPic .between>label").click(function(){
@@ -479,7 +493,15 @@
   })
   //验证手机格式
   function validatePhone () {
-    const phone = $('#phone').val();
+    let phone = '';
+    console.log("$('.phone')",$('.phone'));
+
+    if($('#consultModal').css('display') == 'none'){
+      phone = $('.phone')[0].value;
+    }else{
+      phone = $('.phone')[1].value;
+    }
+
     console.log('phone',phone);
     if (!phone) {
       layer.msg('请输入手机号码',{icon:2});
@@ -493,19 +515,24 @@
   }
   //获取验证码
   let intervalID = '';
-  function getCode (){
+  function getCode (e){
     let outTime = 60;
+    console.log($(e));
+    if(!validatePhone()){
+      return
+    }
     if(intervalID){
-
       return;
     }
     intervalID = setInterval(function(){
       if(outTime == 0){
         outTime = 60;
         clearInterval(intervalID)
+        $(e).html('获取验证码');
+        return
       }
       outTime--;
-      $("#time").html(outTime+'S后可重新获取');
+      $(e).html(outTime+'S后可重新获取');
     },1000)
     layer.msg('验证码发送成功',{icon:1});
   }
@@ -558,8 +585,6 @@
   </div>
 </div>
 </div>
-
-
 
 </body>
 </html>

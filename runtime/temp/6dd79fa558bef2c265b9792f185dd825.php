@@ -1,20 +1,22 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:80:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\article\index.html";i:1566354043;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566296418;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:80:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\article\index.html";i:1566477832;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566477832;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>行业资讯</title>
+  <title><?php echo $title; ?></title>
   <meta name="keywords" content="
    123456
    ">
   <meta name="description" content="
     654231
     ">
-  <script type="text/javascript" src="http://www.test.com\/statics/admin/js/jquery.min.js"></script>
-  <script type="text/javascript" src="http://www.test.com\/statics/layer-v3.1.1/layer/layer.js"></script>
-
+  <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/admin/lib/layui/layui.js"></script>
   <meta name="360-site-verification" content="8fa3cbfa5b4b4bdf0a95dd925cf2f8b5" />
+  <script type="text/javascript" src="http://www.test.com\/statics/admin/js/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.test.com\/statics/layer-v3.1.1/layer/layer.js" merge="true"> </script>
+  <link rel="stylesheet" href="http://www.test.com\/statics/layer-v3.1.1/layer/theme/default/layer.css"/>
+
   
 <link href="http://www.test.com\/statics/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/index/js/0.f5ed0d9d7e597a228142.js"></script>
@@ -94,15 +96,15 @@
           <a data-v-645de51c="" href="/" class="router-link-active">
             <span data-v-645de51c="">首页</span><i data-v-645de51c=""></i>
           </a>
-          <a data-v-645de51c="" href="<?php echo url('index/item/index'); ?>" class="active router-link-exact-active router-link-active">
+          <a data-v-645de51c="" href="<?php echo url('index/item/index'); ?>" class="<?php if($title=='找项目'): ?>active router-link-exact-active router-link-active<?php endif; ?>">
             <span data-v-645de51c="">找项目</span>
             <img data-v-645de51c="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAARCAMAAACLgl7OAAAAP1BMVEVHcEz/egD/fQD/fgD/fQD/fQD/fgD/fgD/fQD/cwD//v3/n03/hxz/7eL/vX7/4c7/x5v/kS3/rGH/0Kr/28JveqjrAAAACnRSTlMAMC//2PjAl+sIVJiFyAAAAKhJREFUKM+NkdsOhCAMRNGixKHl6v9/64KCrm40Ow9kQk+m0Cr1j0ajJ7pp0mZs5cXQg8yy1Wd61FwJQy8ypf/uXCSKjn+IoQfAEll0wPkzQl+B6Fwi66WHadX+h+xcBkeIICSBb8CkWhTEewFnYQpC4WhxAnuLNRMlfAH6BgREXqWGHI+8AixAsQn9Q0MHbLlgW0115TwG9TbHbdSvg66reCqWdQ91lx88RQo8unUbdwAAAABJRU5ErkJggg==" class="hot"><i data-v-645de51c=""></i>
           </a>
-          <a data-v-645de51c="" href="<?php echo url('index/index/rankinglist'); ?>" class="">
+          <a data-v-645de51c="" href="<?php echo url('index/index/rankinglist'); ?>" class="<?php if($title=='排行榜'): ?>active router-link-exact-active router-link-active<?php endif; ?>">
             <span data-v-645de51c="">排行榜</span>
             <i data-v-645de51c=""></i>
           </a>
-          <a data-v-645de51c="" href="<?php echo url('index/article/index'); ?>" class="">
+          <a data-v-645de51c="" href="<?php echo url('index/article/index'); ?>" class="<?php if($title=='行业资讯'): ?>active router-link-exact-active router-link-active<?php endif; ?>">
             <span data-v-645de51c="">行业资讯</span> <i data-v-645de51c=""></i>
           </a>
         </div>
@@ -150,45 +152,6 @@
               </div>
             </div>
 
-
-            <!--            <div data-v-e7ea78d4="" class="carousel fl">-->
-<!--              <div data-v-e7ea78d4="" class="el-carousel el-carousel&#45;&#45;horizontal">-->
-<!--                <div class="el-carousel__container" style="height: 422px;">-->
-<!--                  <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;left" style="display: none;">-->
-<!--                    <i class="el-icon-arrow-left"></i>-->
-<!--                  </button>-->
-<!--                  <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;right" style="display: none;">-->
-<!--                    <i class="el-icon-arrow-right"></i>-->
-<!--                  </button>-->
-<!--                  <?php foreach($imageData[0] as $key => $value): ?>-->
-<!--                  <div data-v-e7ea78d4="" class="el-carousel__item is-active is-animating" style="transform: translateX(0px) scale(1);">&lt;!&ndash;&ndash;&gt;-->
-<!--                    <a data-v-e7ea78d4="" href="<?php echo $value['link']; ?>" class="small router-link-exact-active router-link-active">-->
-<!--                      <img data-v-e7ea78d4="" src="<?php echo $value['img']; ?>">-->
-<!--                      <span data-v-e7ea78d4="" class="desc over"><?php echo $value['title']; ?></span>-->
-<!--                    </a>-->
-<!--                  </div>-->
-<!--                  <?php endforeach; ?>-->
-<!--                </div>-->
-<!--                <ul class="el-carousel__indicators el-carousel__indicators&#45;&#45;horizontal">-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal is-active">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                  <li class="el-carousel__indicator el-carousel__indicator&#45;&#45;horizontal">-->
-<!--                    <button class="el-carousel__button">&lt;!&ndash;&ndash;&gt;-->
-<!--                    </button>-->
-<!--                  </li>-->
-<!--                </ul>-->
-<!--              </div>-->
-<!--            </div>-->
             <ul data-v-e7ea78d4="" class="fr newsBig">
               <?php foreach($imageData[1] as $key => $value): ?>
               <li data-v-e7ea78d4="">
@@ -245,7 +208,7 @@
               </div>
               <ul data-v-e7ea78d4="" class="joinNewsList">
                 <?php foreach($jmzx['list'] as $key => $value): ?>
-                <a data-v-e7ea78d4="" href="<?php echo url('index/article/index'); ?>?id=<?php echo $value['id']; ?>" class="">
+                <a data-v-e7ea78d4="" href="<?php echo url('index/article/detail'); ?>?id=<?php echo $value['id']; ?>" class="">
                   <li data-v-e7ea78d4="" class="clearfix">
                   <span data-v-e7ea78d4="" class="over"><b data-v-e7ea78d4="">・</b><?php echo $value['title']; ?></span>
                     <i data-v-e7ea78d4=""><?php echo $value['addtime']; ?></i></li>
@@ -417,8 +380,6 @@
   </div>
 </div>
 </div>
-
-
 
 </body>
 </html>

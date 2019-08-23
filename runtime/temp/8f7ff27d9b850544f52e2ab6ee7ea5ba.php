@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\index\index.html";i:1566354043;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566296418;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\index\index.html";i:1566379090;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566477832;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +11,12 @@
   <meta name="description" content="
     
     ">
-  <script type="text/javascript" src="http://www.test.com\/statics/admin/js/jquery.min.js"></script>
-  <script type="text/javascript" src="http://www.test.com\/statics/layer-v3.1.1/layer/layer.js"></script>
-
+  <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/admin/lib/layui/layui.js"></script>
   <meta name="360-site-verification" content="8fa3cbfa5b4b4bdf0a95dd925cf2f8b5" />
+  <script type="text/javascript" src="http://www.test.com\/statics/admin/js/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.test.com\/statics/layer-v3.1.1/layer/layer.js" merge="true"> </script>
+  <link rel="stylesheet" href="http://www.test.com\/statics/layer-v3.1.1/layer/theme/default/layer.css"/>
+
   
 <link href="http://www.test.com\/statics/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/index/js/0.f5ed0d9d7e597a228142.js"></script>
@@ -150,23 +152,6 @@
             </ul>
         </div>
         <div data-v-64375f02="" class="midMid">
-<!--            <div data-v-64375f02="" class="carousel">-->
-<!--                <div data-v-64375f02="" class="el-carousel el-carousel&#45;&#45;horizontal">-->
-<!--                    <div class="el-carousel__container" style="height: 296px;">-->
-<!--                        <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;left" style="display: none;"><i class="el-icon-arrow-left"></i></button>-->
-<!--                        <button type="button" class="el-carousel__arrow el-carousel__arrow&#45;&#45;right" style="display: none;"><i class="el-icon-arrow-right"></i></button>-->
-<!--                        <?php foreach($imageData[0] as $key => $value): ?>-->
-<!--                        <div data-v-64375f02="" class="el-carousel__item is-active is-animating"-->
-<!--                             style="transform: translateX(0px) scale(1);">&lt;!&ndash;&ndash;&gt;-->
-<!--                            <a data-v-64375f02="" href="<?php echo $value['link']; ?>" class="small">-->
-<!--                                <img data-v-64375f02="" src="<?php echo $value['img']; ?>"></a>-->
-<!--                        </div>-->
-<!--                        <?php endforeach; ?>-->
-<!--                    </div>-->
-
-
-<!--                </div>-->
-<!--            </div>-->
             <div class="swiper-container">
 
                 <div class="swiper-wrapper">
@@ -393,8 +378,6 @@
   </div>
 </div>
 </div>
-
-
 
 </body>
 </html>

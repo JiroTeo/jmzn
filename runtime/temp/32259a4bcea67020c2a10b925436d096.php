@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\login\login.html";i:1566373756;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566296418;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\login\login.html";i:1566477832;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566477832;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +11,12 @@
   <meta name="description" content="
     {456}
     ">
-  <script type="text/javascript" src="http://www.test.com\/statics/admin/js/jquery.min.js"></script>
-  <script type="text/javascript" src="http://www.test.com\/statics/layer-v3.1.1/layer/layer.js"></script>
-
+  <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/admin/lib/layui/layui.js"></script>
   <meta name="360-site-verification" content="8fa3cbfa5b4b4bdf0a95dd925cf2f8b5" />
+  <script type="text/javascript" src="http://www.test.com\/statics/admin/js/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.test.com\/statics/layer-v3.1.1/layer/layer.js" merge="true"> </script>
+  <link rel="stylesheet" href="http://www.test.com\/statics/layer-v3.1.1/layer/theme/default/layer.css"/>
+
   
 <link href="http://www.test.com\/statics/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/index/js/0.f5ed0d9d7e597a228142.js"></script>
@@ -87,8 +89,7 @@
     </div>
     
     
-    <form action="">
-
+    <form action="<?php echo url('index/login/login'); ?>" method="post" id="postform">
 
     <div data-v-f46e99e4="" class="loginBg">
       <div data-v-f46e99e4="" class="loginBox"><h2 data-v-f46e99e4="">用户登录</h2>
@@ -100,7 +101,7 @@
           　<img src="<?php echo captcha_src(); ?>" width="95" height="45" onclick="this.src='<?php echo captcha_src(); ?>'">
         </div>
         <div data-v-f46e99e4="" class="row"><i data-v-f46e99e4="" class="iconfont icon-message"></i>
-          <input data-v-f46e99e4="" name="pcode" type="text" placeholder="请输入短信验证码">
+          <input data-v-f46e99e4="" name="pcode" id="pcode" type="text" placeholder="请输入短信验证码">
           <span data-v-f46e99e4="" id="time" onclick="getCode()" class="messageYz">获取验证码</span>
         </div>
           <div data-v-f46e99e4="" class="loginBtn" onclick="login()">登 录</div>
@@ -136,13 +137,45 @@
    * 登陆
    */
   function login(){
+    var phone = $('#phone').val();
+    //验证input不能为null
+    if(!validatePhone()){
+      return false;
+    }
+    //验证短信验证码是否有填写
+    var pcode = $("#pcode").val();
+    if(!pcode){
+      console.log('phoneCode','请输入短信验证码');
+      layer.msg('请输入短信验证码');
+      return false;
+    }
+    //协议阅读
     const isOK = $("#isOK")[0].checked;
     console.log("isOK",isOK);
     if(!isOK){
       layer.msg('请先阅读并同意服务协议',{icon:2});
       return;
     }
-    validatePhone();
+    //提交表单
+    // $("#postform").submit();
+    //ajax 提交表单
+    $.ajax({
+      type: "POST",
+      url: "<?php echo url('index/login/login'); ?>",
+      data:{
+        phone:phone,
+        code:pcode,
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code != 200){
+          console.log('msg',data.msg);
+        }else{
+          window.location.href = "/";
+        }
+      }
+    })
+
   }
   /**
    * 验证手机格式
@@ -163,24 +196,75 @@
   }
 
   /**
+   *  验证图片验证码
+   *  @param {object} icode
+   * **/
+  function validateImgCode () {
+    const icode = $('#icode').val();
+    console.log('imgCode',icode);
+    if (!icode) {
+      layer.msg('请输入图片验证码',{icon:2});
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * 获取验证码
    */
   let intervalID = '';
   function getCode (){
-    let outTime = 60;
-    if(intervalID){
-
-      return;
+    //验证手机号
+    if(!validatePhone()){
+      return
     }
-    intervalID = setInterval(function(){
-      if(outTime == 0){
-        outTime = 60;
-        clearInterval(intervalID)
+    //验证图片验证码
+    if(!validateImgCode()){
+      return
+    }
+    //手机号&&图片验证码
+    var phone = $("#phone").val();
+    var icode = $('#icode').val();
+    //ajax获取短信验证码
+    $.ajax({
+      type: "POST",
+      url: "<?php echo url('index/login/get_code'); ?>",
+      data:{
+        phone:phone,
+        icode:icode,
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code != 200){
+          console.log('msg',data.msg);
+          layer.msg(data.msg,{icon:1});
+          return ;
+
+        }
+        if(data.code == 200){
+          console.log('msg','验证码发送成功');
+          layer.msg('验证码发送成功',{icon:1});
+
+          //定时器
+          let outTime = 60;
+          if(intervalID){
+
+            return;
+          }
+          intervalID = setInterval(function(){
+            if(outTime == 0){
+              outTime = 60;
+              clearInterval(intervalID)
+              $(e).html('获取验证码');
+              return
+            }
+            outTime--;
+            $("#time").html(outTime+'S后可重新获取');
+          },1000)
+        }
       }
-      outTime--;
-      $("#time").html(outTime+'S后可重新获取');
-    },1000)
-    layer.msg('验证码发送成功',{icon:1});
+    })
+
   }
 
   $("#showModal").click(function (event) {
@@ -352,8 +436,6 @@
   </div>
 </div>
 </div>
-
-
 
 </body>
 </html>
