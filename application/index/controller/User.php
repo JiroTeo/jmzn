@@ -258,11 +258,8 @@ class user extends Base{
             $this -> assign('title','资料设置');
             return view();
         }
-
     }
-
-
-
+    
     /*  todo   消息统计             count
      *  todo   个人信息接口         userCenter
      *  todo    修改个人信息接口    edit_user_data

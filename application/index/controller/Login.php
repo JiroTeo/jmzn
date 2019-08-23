@@ -74,14 +74,12 @@ class login extends Base {
     }
 
 
-    /*  企业入驻    */
-    public function login_qy(){
-        $info = $this -> request -> param();
-        if($info){
-            echo "企业入驻";
-        }else{
-            echo "企业入驻";
-        }
+    /*  企业入驻
+     *
+     *
+     * ***/
+    public function settled(){
+        return view();
     }
 
 
