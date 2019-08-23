@@ -429,6 +429,7 @@
   }
   function hideConsultModal(){
     $("#consultModal").css({display: 'none'});
+      $("#consultModal input").val("");
   }
   function submitForm(){
     var name = $("#name ").val();
@@ -465,10 +466,12 @@
         }else{
           layer.msg(data.msg);
           console.log('msg',data.msg);
+          hideConsultModal()
+
         }
       }
     });
-    hideConsultModal()
+
   }
   //banner
   $('.itemPic .between>label:first').addClass('active');
@@ -706,6 +709,7 @@
         }else{
           layer.msg(data.msg);
           console.log('msg',data.msg);
+          $(".conContent input").val("");
         }
       }
     });

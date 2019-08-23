@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\index\index.html";i:1566522668;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566522668;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\index\index.html";i:1566550863;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566550863;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +25,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
 
 </head>
+<style type="text/css">
+  #app .tag{
+    margin-top: 25px;
+  }
+</style>
 <body>
 <div id="app">
   
@@ -80,24 +85,24 @@
                class="router-link-exact-active router-link-active"><img
                     data-v-3a1bbf91="" src="http://www.test.com\/statics/index/img/logo.45da167.png" title="加盟指南" class="logo"></a>
             <div data-v-3a1bbf91="">
+                <form action="<?php echo url('index/item/index'); ?>" method="post">
                 <div data-v-3a1bbf91=""
                      class="input-with-select el-input el-input-group el-input-group--append el-input--prefix el-input--suffix">
-                    <!----><input type="text" autocomplete="off" placeholder="请输入内容" class="el-input__inner">
+                    <!----><input type="text" autocomplete="off" name="keyword" placeholder="请输入内容" class="el-input__inner">
                     <span class="el-input__prefix"><i data-v-3a1bbf91="" class="el-input__icon el-icon-search"></i><!----></span>
                     <!---->
                     <div class="el-input-group__append">
-                        <button data-v-3a1bbf91="" type="button" class="el-button el-button--default"><!----><!---->
-                            <span><a data-v-3a1bbf91="" href="javascript" class="">搜索</a></span>
+                        <button data-v-3a1bbf91="" type="submit" class="el-button "><!----><!---->
+                            <span>搜索</span>
                         </button>
                     </div><!---->
                 </div>
+                </form>
                 <div data-v-3a1bbf91="" class="tag">
                     <span data-v-3a1bbf91="" class="name">热门搜索：</span>
-                    <span data-v-3a1bbf91="">装修</span>
-                    <span data-v-3a1bbf91="">服装</span>
-                    <span data-v-3a1bbf91="">小吃</span>
-                    <span data-v-3a1bbf91="">美容</span>
-                    <span data-v-3a1bbf91="">餐饮</span>
+                    <?php foreach($hotLog as $key => $value): ?>
+                    <a href="<?php echo url('index/item/index'); ?>?keyword=<?php echo $value['word']; ?>"><span data-v-3a1bbf91=""><?php echo $value['word']; ?></span></a>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <a data-v-3a1bbf91="" href="<?php echo url('index/assess/index'); ?>" class="">
@@ -138,17 +143,17 @@
             <ul data-v-64375f02="">
                 <?php foreach($cateList as $key => $value): ?>
                 <li data-v-64375f02="">
-                    <a data-v-64375f02="" href="javascript:;" class=""><?php echo $value['name']; ?></a>
-                    <a data-v-64375f02="" href="javascript:;" class=""><?php echo $value['child'][0]['name']; ?></a>
+                    <a data-v-64375f02="" href="<?php echo url('index/item/index'); ?>?pid=<?php echo $value['id']; ?>" class=""><?php echo $value['name']; ?></a>
+                    <a data-v-64375f02="" href="<?php echo url('index/item/index'); ?>?pid=<?php echo $value['id']; ?>&cid=<?php echo $value['child'][0]['id']; ?>" class=""><?php echo $value['child'][0]['name']; ?></a>
                     <i data-v-64375f02="">/</i>
-                    <a data-v-64375f02="" href="javascript:;" class=""><?php echo $value['child'][1]['name']; ?></a>
+                    <a data-v-64375f02="" href="<?php echo url('index/item/index'); ?>?pid=<?php echo $value['id']; ?>&cid=<?php echo $value['child'][1]['id']; ?>" class=""><?php echo $value['child'][1]['name']; ?></a>
                     <i data-v-64375f02=""></i>
                     <div data-v-64375f02="" class="tradePop">
                         <div data-v-64375f02="" class="ind-line"><p data-v-64375f02=""><?php echo $value['name']; ?></p>
                         </div>
                         <div data-v-64375f02="" class="ind-list">
                             <?php foreach($value['child'] as $key => $v): ?>
-                            <a data-v-64375f02="" href="javascript:;" class=""><?php echo $v['name']; ?></a>
+                            <a data-v-64375f02="" href="<?php echo url('index/item/index'); ?>?pid=<?php echo $value['id']; ?>&cid=<?php echo $v['id']; ?>" class=""><?php echo $v['name']; ?></a>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -193,7 +198,7 @@
         <div data-v-673d4749="" data-v-64375f02="" class="hotOrder fr hotOrder">
             <div data-v-673d4749="" class="title clearfix">
                 <span data-v-673d4749="" class="fl">加盟项目排行榜</span> <a
-                    data-v-673d4749="" href="<?php echo url('index/index/rankinglist'); ?>?order=1" class="fr more"> 更多
+                    data-v-673d4749="" href="<?php echo url('index/item/index'); ?>?sort=1" class="fr more"> 更多
                 <span data-v-673d4749=""
                       class="el-icon-arrow-right"></span></a>
             </div>
