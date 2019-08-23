@@ -12,6 +12,8 @@
 <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
 <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
 <link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/admin/lib/layui/layui.js"></script>
+
 <style>
   .evaBox {
     width: 100%;
@@ -121,6 +123,13 @@
     float: left;
     width: 130px;
   }
+  .evaBox .evaContent .part1 .row .selectBox select {
+    width: 130px;
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #E3E4E5;
+
+  }
   .evaBox .evaContent .part1 .row .unit {
     line-height: 42px;
     margin-left: 8px;
@@ -142,6 +151,11 @@
     color: #333;
     border-radius: 3px;
     margin: 0 3px 16px;
+  }
+  .evaBox .evaContent .part2 .choiceBox  span.current {
+    color: #fff;
+    border: 1px solid #5389F7;
+    background-color: #5389F7;
   }
   .evaBox .evaContent .part2 .budget {
     width: 410px;
@@ -218,8 +232,17 @@
     text-align: center;
     margin-top: 60px;
   }
-  .btns .el-button {
+  .btns button {
     width: 200px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    border-left: 1px solid #5389F7;
+    text-align: center;
+    color: #fff;
+    background-color: #5389F7;
+    cursor: pointer;
+    border-radius: 5px;
   }
 
   .choiceBox {
@@ -236,6 +259,17 @@
     border-radius: 5px;
     box-shadow: 0 0 0 0 #8cc5ff;
   }
+ .part{
+   width: 100%;
+    margin: auto;
+ }
+  .clearfix:after {
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+  }
 </style>
 {/block}
 {block name="header"}{/block}
@@ -248,10 +282,10 @@
         <h3>智能评估</h3>
         <div class="line">
           <div class="active"><span>1</span></div>
-          <div :class="[step > 1 ? 'active':'']"><span>2</span></div>
-          <div :class="[step > 2 ? 'active':'']"><span>3</span></div>
+          <div><span>2</span></div>
+          <div><span>3</span></div>
         </div>
-        <div class="part1" >
+        <div class="part part1" >
           <h4 class="evaTitle">请填写您的基本信息</h4>
           <div class="row clearfix">
             <label class="name">您的姓名</label>
@@ -260,19 +294,19 @@
           <div class="row clearfix">
             <label class="name">加盟区域</label>
             <div class="selectBox">
-              <el-select v-model="province_id" placeholder="请选择省份" @change="getCity">
-                <el-option v-for="item in provinceList" :key="'province'+item.id" :label="item.cityname" :value="item.id">
-                  <span >{{ item.cityname }}</span>
-                </el-option>
-              </el-select>
+              <select >
+                <option value="010">北京</option>
+                <option value="021">上海</option>
+                <option value="0571">杭州</option>
+              </select>
             </div>
             <span class="fl unit provice">省</span>
             <div class="selectBox">
-              <el-select v-model="form.city_id" placeholder="请选择城市">
-                <el-option v-for="item in cityList" :key="'city'+item.id" :label="item.cityname" :value="item.id">
-                  <span >{{ item.cityname }}</span>
-                </el-option>
-              </el-select>
+              <select lay-verify="">
+                <option value="010">北京</option>
+                <option value="021">上海</option>
+                <option value="0571">杭州</option>
+              </select>
             </div>
             <span class="fl unit">市</span>
           </div>
@@ -281,13 +315,29 @@
             <input class="textInp" type="text" placeholder="请填写您的个人资源" value="">
           </div>
         </div>
-        <div class="part2" style="display: none">
+        <div class="part part2" style="display: none">
           <h4 class="evaTitle">请选择您从事的行业</h4>
 
-          <div class="choiceBox">
-            <el-checkbox-group v-model="currentCate" size="medium">
-              <el-checkbox-button  v-for="(item,index) in cateList" :label="item.id" :key="'current'+item.id"> {{item.name}}</el-checkbox-button>
-            </el-checkbox-group>
+          <div class="choiceBox clearfix" >
+            <label >
+              <input type="checkbox" name="cate" value="4" onchange="cateChange()" style="position: fixed;top: -10%">
+              <span >写作</span>
+            </label>
+            <label>
+              <input type="checkbox" name="cate" value="1"  onchange="cateChange()" style="position: fixed;top: -10%">
+              <span>写作</span>
+
+            </label>
+            <label>
+              <input type="checkbox" name="cate" value="2"  onchange="cateChange()" style="position: fixed;top: -10%">
+              <span >写作</span>
+
+            </label>
+            <label>
+              <input type="checkbox" name="cate" value="3" onchange="cateChange()" style="position: fixed;top: -10%">
+              <span >写作</span>
+
+            </label>
           </div>
           <h4 class="evaTitle">请填写您的预算金额</h4>
           <div class="budget clearfix">
@@ -298,40 +348,55 @@
             </div>
           </div>
         </div>
-        <div class="part3" style="display: none">
+        <div class="part part3" style="display: none">
           <h4 class="evaTitle">请选择您的意向行业</h4>
-          <div class="choiceBox">
-            <el-checkbox-group v-model="likeCate" size="medium">
-              <el-checkbox-button  v-for="(item,index) in cateList" :label="item.id" :key="'like'+item.id"> {{item.name}}</el-checkbox-button>
-            </el-checkbox-group>
+          <div class="choiceBox clearfix" >
+            <label >
+              <input type="checkbox" name="cate2" value="4" onchange="cateChange()" style="position: fixed;top: -10%">
+              <span >写作</span>
+            </label>
+            <label>
+              <input type="checkbox" name="cate2" value="1"  onchange="cateChange()" style="position: fixed;top: -10%">
+              <span>写作</span>
+
+            </label>
+            <label>
+              <input type="checkbox" name="cate2" value="2"  onchange="cateChange()" style="position: fixed;top: -10%">
+              <span >写作</span>
+
+            </label>
+            <label>
+              <input type="checkbox" name="cate2" value="3" onchange="cateChange()" style="position: fixed;top: -10%">
+              <span >写作</span>
+
+            </label>
           </div>
           <h4 class="evaTitle">请填写您的联系方式</h4>
           <div class="budget clearfix">
             <label class="name">手机号码</label>
             <div class="border clearfix">
-              <input class="fl" type="text" v-model="form.phone" placeholder="请输入您的手机号码">
+              <input class="fl" type="text" id="mobile" placeholder="请输入您的手机号码">
             </div>
           </div>
           <div class="budget clearfix">
             <label class="name">图片验证</label>
             <div class="border clearfix">
-              <input class="fl testInp" type="text" v-model="form.img_code" placeholder="请输入图片验证码">
+              <input class="fl testInp" type="text" id="icode" placeholder="请输入图片验证码">
               <img class="imgCode" @click="getImgCode" :src="imgCode">
             </div>
           </div>
           <div class="budget clearfix">
             <label class="name">手机验证</label>
             <div class="border clearfix">
-              <input class="fl testInp" type="text" v-model="form.code" placeholder="请输入手机验证码">
-              <span class="getBtn" v-if="showCode" @click="getCode">获取验证码</span>
-              <span class="getBtn" v-else>{{outTime}}S后重新获取</span>
+              <input class="fl testInp" type="text"id="code"  placeholder="请输入手机验证码">
+              <span class="getBtn" onclick="getMobileCode(this)">获取验证码</span>
             </div>
           </div>
         </div>
         <div class="btns">
-          <button class="upPage" type="info" onclick="upPage()" :style="{'display': step == 1 ? 'none':'inline-block'}" >上一步</button>
-          <button  class="nextPage" type="primary"  onclick="nextPage()"  :style="{'display': step == 3 ? 'none':'inline-block'}">下一步</button>
-          <button class="submitForm" type="primary" onclick="submitForm()" :style="{'display': step != 3 ? 'none':'inline-block'}">完成</button>
+          <button class="upPage" type="info" onclick="upPage()" style="display: none" >上一步</button>
+          <button  class="nextPage" type="primary"  onclick="nextPage()" >下一步</button>
+          <button class="submitForm" type="primary" onclick="submitForm()" style="display: none" >完成</button>
         </div>
 
 
@@ -340,23 +405,242 @@
   </div>
 </div>
 <script type="text/javascript">
+  function cateChange(){
+    $("input[name='cate']:checked").each(function(){
+      console.log($(this).val());
+    })
+    $("input[name='cate']").next().removeClass('current')
+    $("input[name='cate']:checked").next().addClass('current');
+    console.log($("input[name='cate']:checked").next().addClass('current'));
+
+  }
   var type = 1;
   function upPage(){
      if(type == 1){
-       $('.upPage').css({display:'none'});
-       $('.submitForm').css({display:'none'});
-       $('.nextPage').css({display:'none'});
-
-     }else if(type == 2){
-       $('.upPage').css({display:'none'});
-       $('.submitForm').css({display:'none'});
-       $('.nextPage').css({display:'none'});
-
-     }else if(type == 3){
-       $('.upPage').css({display:'none'});
-       $('.submitForm').css({display:'none'});
-       $('.nextPage').css({display:'none'});
+       return
      }
+     type --;
+     pageChange();
+  }
+  function nextPage(){
+    if(type == 3){
+      return
+    }
+    type ++;
+    pageChange();
+  }
+
+  function pageChange(){
+    console.log('type',type);
+    console.log(" $('.line>div')", $('.line>div'));
+
+    if(type == 1){
+      $('.upPage').css({display:'none'});
+      $('.submitForm').css({display:'none'});
+      $('.nextPage').css({display:'inline-block'});
+      $('.line>div').eq(1).removeClass('active');
+
+    }else if(type == 2){
+      $('.upPage').css({display:'inline-block'});
+      $('.submitForm').css({display:'none'});
+      $('.nextPage').css({display:'inline-block'});
+      $('.line>div').eq(1).addClass('active');
+      $('.line>div').eq(2).removeClass('active');
+
+
+    }else if(type == 3){
+      $('.upPage').css({display:'inline-block'});
+      $('.submitForm').css({display:'inline-block'});
+      $('.nextPage').css({display:'none'});
+      $('.line>div').eq(2).addClass('active');
+    }
+
+    console.log(" $('.part')", $('.part'));
+    $('.part').css({display: 'none'});
+    // $('.part')[2].css({display: 'inline-block'})
+    console.log(" $('.part')", $('.part').eq(type-1).css({display: 'inline-block'}));
+
+  }
+  function submitForm(){
+    var name = $("#name ").val();
+    var mobile = $("#mobile ").val();
+    var code = $("#code ").val();
+    var content = $("#content ").val();
+    var item_id = $("#item_id").val();
+
+    // if(name && mobile && code && content ){
+    //   $("#addconsult").submit();
+    // }else{
+    //   console.log('请输入');
+    //   layer.msg('请输入');
+    // }
+    $("#formData").serializeArray();
+    console.log('  $("#formData").serializeArray()',  $("#formData").serializeArray());
+    // 所有的数据 自行提交吧
+    var forData = $("#formData").serializeArray();
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/consult/add_consult')}",
+      data:{
+        name:name,
+        phone:mobile,
+        code:code,
+        content:content,
+        item_id:item_id,
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code != 200){
+          layer.msg(data.msg);
+          console.log('msg',data.msg);
+        }else{
+          layer.msg(data.msg);
+          console.log('msg',data.msg);
+        }
+      }
+    });
+    hideConsultModal()
+  }
+  //验证手机格式
+  function validatePhone (phone) {
+    // // let phone = '';
+    // console.log("$('.phone')",phone);
+    //
+    // if($('#consultModal').css('display') == 'none'){
+    //   phone = $('.phone')[0].value;
+    // }else{
+    //   phone = $('.phone')[1].value;
+    // }
+    // console.log('phone',phone);
+    // layer.msg('请输入手机号码',{icon:2});
+    console.log('validatePhone',phone);
+    console.log('validatePhon=======e',phone);
+    // layer.msg('请输入手机号码',{icon:2});
+    if (!phone) {
+      layer.msg('请输入手机号码',{icon:2});
+      console.log('请输入手机号');
+      return false;
+    }
+    if (phone.length != 11) {
+      console.log('手机号格式不正确');
+      layer.msg('手机号码格式不正确',{icon:2});
+      return false;
+    }
+    return true;
+  }
+  //验证图片验证码
+  function validateImgCode(imgCode){
+    console.log('imgcode',imgCode);
+    if(!imgCode){
+      layer.msg('请输入图片验证码',{icon:2});
+      console.log('请输入图片验证码');
+      return false;
+    }
+  }
+
+  //获取验证码
+  let intervalID = '';
+  function getCode (e){
+    //验证手机号
+    console.log('页脚立即咨询');
+    var phone = $("#phone").val();
+    console.log('phone',phone);
+    var resPhone = validatePhone(phone);
+    if(!resPhone){
+      return
+    }
+    //验证图片验证码
+    var imgCode = $("#icode").val();
+    console.log('imgCode',imgCode);
+    var resImg = validateImgCode(imgCode);
+    if(!resImg){
+      return
+    }
+    //请求短信接口
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/login/get_code')}",
+      data:{
+        phone:phone,
+        icode:imgCode,
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code != 200){
+          console.log('msg',data.msg);
+          layer.msg(data.msg,{icon:1});
+          return ;
+        }
+        if(data.code == 200){
+          console.log('msg','验证码发送成功');
+          layer.msg('验证码发送成功',{icon:1});
+          let outTime = 60;
+          console.log($(e));
+          intervalID = setInterval(function(){
+            if(outTime == 0){
+              outTime = 60;
+              clearInterval(intervalID)
+              $(e).html('获取验证码');
+              return
+            }
+            outTime--;
+            $(e).html(outTime+'S后可重新获取');
+          },1000);
+        }
+      }
+    })
+  }
+
+  function getMobileCode(e) {
+    //验证手机号
+    console.log('立即咨询');
+    var phone = $("#mobile").val();
+    console.log('phone',phone);
+    var resPhone = validatePhone(phone);
+    if(!resPhone){
+      return
+    }
+    //验证图片验证码
+    var imgCode = $("#imgCode").val();
+    console.log('imgCode',imgCode);
+    var resImg = validateImgCode(imgCode);
+    // if(!resImg){
+    //   return
+    // }
+    //请 求短信接口
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/login/get_code')}",
+      data:{
+        phone:phone,
+        icode:imgCode,
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code != 200){
+          console.log('msg',data.msg);
+          layer.msg(data.msg,{icon:1});
+          return ;
+
+        }
+        if(data.code == 200){
+          console.log('msg','验证码发送成功');
+          layer.msg('验证码发送成功',{icon:1});
+          let outTime = 60;
+          console.log($(e));
+          intervalID = setInterval(function(){
+            if(outTime == 0){
+              outTime = 60;
+              clearInterval(intervalID)
+              $(e).html('获取验证码');
+              return
+            }
+            outTime--;
+            $(e).html(outTime+'S后可重新获取');
+          },1000);
+        }
+      }
+    })
   }
 </script>
 {/block}
