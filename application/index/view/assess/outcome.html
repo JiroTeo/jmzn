@@ -15,20 +15,20 @@
 <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/admin/lib/layui/layui.js"></script>
 
 <style>
+  @charset "UTF-8";
   .evaBox {
     width: 100%;
     padding: 70px 0;
     height: auto;
-    background: url("../../../static/image/evaluateBg.png") center top no-repeat #F4F5FA;
+    background: url("/static/image/evaluateBg.png") center top no-repeat #F4F5FA;
   }
-  .evaBox .evaContent {
-    width: 1200px;
+  .evaBox .report {
+    text-align: center;
     padding-bottom: 55px;
     background: #fff;
-    margin: 0 auto;
     box-shadow: 0px 0px 10px 0px rgba(153, 153, 153, 0.5);
   }
-  .evaBox .evaContent h3 {
+  .evaBox .report .title {
     height: 70px;
     line-height: 70px;
     color: #1A1A1A;
@@ -36,223 +36,211 @@
     font-size: 18px;
     padding: 0 30px;
   }
-  .evaBox .evaContent .line {
-    width: 990px;
-    height: 8px;
-    background: #D0E0F9;
-    margin: 70px auto;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+
+  /*  迁过来的样式*/
+  .echarts {
+    padding: 30px;
   }
-  .evaBox .evaContent .line div {
-    float: left;
-    width: 33.33%;
-    height: 8px;
+  /* 项目总量开始 */
+  .productCount {
+    width: 373px;
+    background-color: #00112E;
+  }
+  .productCount .count {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px 39px 20px;
+    border-bottom: 1px solid #1C3A55;
     position: relative;
-    text-align: center;
   }
-  .evaBox .evaContent .line div span {
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    background: #D0E0F8;
-    color: #09224B;
-    font-size: 20px;
+
+  .productCount .count .box {
+    height: 57px;
+    width: 63px;
+    border: 1px solid #1C3A55;
+    margin-right: 10px;
+  }
+
+  .productCount .count .box:last-of-type {
+    margin: 0;
+  }
+
+  .productCount .count .text {
     position: absolute;
-    left: 50%;
-    margin-left: -16px;
-    top: -12px;
-  }
-  .evaBox .evaContent .line div.active {
-    background: -webkit-gradient(linear, 100% 0, 0 0, from(#579EFA), to(#4F74F4));
-    background: -webkit-linear-gradient(to bottom, #579EFA, #4F74F4);
-    background: -moz-linear-gradient(to bottom, #579EFA, #4F74F4);
-    background: -o-linear-gradient(to bottom, #579EFA, #4F74F4);
-    background: linear-gradient(to bottom, #579EFA, #4F74F4);
-  }
-  .evaBox .evaContent .line div.active span {
-    background: -webkit-gradient(linear, 100% 0, 0 0, from(#579EFA), to(#4F74F4));
-    background: -webkit-linear-gradient(to bottom, #579EFA, #4F74F4);
-    background: -moz-linear-gradient(to bottom, #579EFA, #4F74F4);
-    background: -o-linear-gradient(to bottom, #579EFA, #4F74F4);
-    background: linear-gradient(to bottom, #579EFA, #4F74F4);
-    color: #fff;
-  }
-  .evaBox .evaContent .line div:nth-child(1) {
-    -webkit-border-radius: 4px 0 0 4px;
-    -moz-border-radius: 4px 0 0 4px;
-    border-radius: 4px 0 0 4px;
-  }
-  .evaBox .evaContent .line div:nth-child(3) {
-    -webkit-border-radius: 0px 4px 4px 0;
-    -moz-border-radius: 0px 4px 4px 0;
-    border-radius: 0px 4px 4px 0;
-  }
-  .evaBox .evaContent .evaTitle {
-    font-size: 20px;
-    color: #1A1A1A;
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  .evaBox .evaContent .part1 .row {
-    width: 420px;
-    margin: 0 auto 15px;
-  }
-  .evaBox .evaContent .part1 .row .name {
-    float: left;
-    margin-right: 15px;
-    color: #1A1A1A;
-    line-height: 42px;
-  }
-  .evaBox .evaContent .part1 .row .textInp {
-    float: left;
-    width: 338px;
-    height: 40px;
-    line-height: 40px;
-    border: 1px solid #DCDFE6;
-    text-indent: 15px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-  }
-  .evaBox .evaContent .part1 .row .selectBox {
-    float: left;
-    width: 130px;
-  }
-  .evaBox .evaContent .part1 .row .selectBox select {
-    width: 130px;
-    height: 40px;
-    background-color: #fff;
-    border: 1px solid #E3E4E5;
-
-  }
-  .evaBox .evaContent .part1 .row .unit {
-    line-height: 42px;
-    margin-left: 8px;
-  }
-  .evaBox .evaContent .part1 .row .provice {
-    margin-right: 28px;
-  }
-  .evaBox .evaContent .part .choiceBox {
-    width: 1000px;
-    margin: 0 auto 30px;
-  }
-  .evaBox .evaContent .part .choiceBox span {
-    float: left;
-    width: 75px;
-    height: 36px;
-    line-height: 36px;
-    border: 1px solid #E3E4E5;
-    text-align: center;
-    color: #333;
-    border-radius: 3px;
-    margin: 0 3px 16px;
-  }
-  .evaBox .evaContent .part .choiceBox  span.current {
-    color: #fff;
-    border: 1px solid #5389F7;
-    background-color: #5389F7;
-  }
-  .evaBox .evaContent .part2 .budget {
-    width: 410px;
-    margin: 0 auto;
-  }
-  .evaBox .evaContent .part2 .budget .name {
-    float: left;
-    line-height: 40px;
-    color: #1a1a1a;
-  }
-  .evaBox .evaContent .part2 .budget .border {
-    float: right;
-    width: 320px;
-    padding-right: 18px;
-    height: 38px;
-    line-height: 38px;
-    border: 1px solid #E3E4E5;
-    position: relative;
-    border-radius: 2px;
-  }
-  .evaBox .evaContent .part2 .budget .border input {
-    width: 280px;
-    height: 38px;
-    line-height: 38px;
-    text-indent: 15px;
-  }
-  .evaBox .evaContent .part3 .budget {
-    width: 410px;
-    margin: 0 auto 13px;
-  }
-  .evaBox .evaContent .part3 .budget .name {
-    float: left;
-    line-height: 40px;
-    color: #1a1a1a;
-  }
-  .evaBox .evaContent .part3 .budget .border {
-    float: right;
-    width: 338px;
-    height: 38px;
-    line-height: 38px;
-    border: 1px solid #E3E4E5;
-    position: relative;
-    border-radius: 2px;
-  }
-  .evaBox .evaContent .part3 .budget .border input {
-    float: left;
-    width: 100%;
-    height: 38px;
-    line-height: 38px;
-    text-indent: 15px;
-  }
-  .evaBox .evaContent .part3 .budget .border .testInp {
-    width: 220px;
-  }
-  .evaBox .evaContent .part3 .budget .border .getBtn {
-    float: right;
-    width: 115px;
-    height: 18px;
-    line-height: 18px;
-    border-left: 1px solid #E3E4E5;
-    color: #5389F7;
-    text-align: center;
-    margin-top: 11px;
-    cursor: pointer;
-  }
-  .evaBox .evaContent .part3 .budget .border .imgCode {
-    float: right;
-    width: 115px;
-    height: 38px;
-    cursor: pointer;
+    left: 40px;
+    top: 20px;
+    font-size: 32px;
+    letter-spacing: 51px;
+    color: #BAFFFC;
+    text-shadow: 0 5px 20px #fff;
   }
 
-  .btns {
-    text-align: center;
-    margin-top: 60px;
+  /* 项目总量结束 */
+  /* 项目占比图开始 */
+  .box3 {
+    border-right: 1px solid #1C3A55;
   }
-  .btns button {
-    width: 200px;
-    height: 40px;
-    line-height: 40px;
+
+  .qiun-columns {
+    width: 353px;
+    padding: 10px;
+    background-color: #00112E;
+  }
+
+  .qiun-common-mt {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    width: 96%;
+    font-size: 30px;
+    line-height: 30px;
+    padding: 10px 2%;
+    color: #BAFFFC;
+  }
+
+  .qiun-title-dot-light {
+    border-left: 5px solid #F1FF52;
+    padding-left: 10px;
+    font-size: 16px;
+    color: #BAFFFC;
+  }
+
+  .qiun-select {
+    color: #579EFA;
+  }
+
+  .el-dropdown {
+    float: right;
+  }
+
+  .el-dropdown-link {
+    cursor: pointer;
+    color: #BAFFFC;
+  }
+
+  .el-icon-arrow-down {
+    font-size: 12px;
+  }
+
+  .qiun-charts {
+    position: relative;
+    background-color: #0B1026;
+  }
+
+  .pieBg {
+    position: absolute;
+    top: 36px;
+    left: 114px;
+    width: 100px;
+    height: 66px;
+    z-index: 1;
+  }
+
+  .box3 .charts {
+    background: url("/static/image/pie_bg.jpg") center 28.5% no-repeat #00112E;
+    background-size: 250px;
+  }
+
+  .charts {
+    width: 360px;
+    height: 480px;
+  }
+
+  /* 项目占比图结束 */
+  /* 项目符合度开始 */
+  .bar {
+    padding-bottom: 60px;
+  }
+
+  .bar .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 14px;
-    border-left: 1px solid #5389F7;
-    text-align: center;
-    color: #fff;
-    background-color: #5389F7;
-    cursor: pointer;
-    border-radius: 5px;
+    color: #BAFFFC;
+    padding: 0 15px;
+    margin-top: 25px;
   }
 
-  .choiceBox {
-    width: 1000px;
-    margin: 0 auto 30px;
+  .bar .row .transition {
+    position: relative;
+    width: 225px;
+    height: 7px;
+    background: #0D2253;
   }
-  .el-checkbox-button {
-    border-radius: 3px;
-    margin: 0 10px 16px;
+
+  .bar .row .icon-transition {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 7px;
   }
+
+  /* 项目符合度结束 */
+  /* 平均投资额开始 */
+  .box1 {
+    border-bottom: 1px solid #1C3A55;
+  }
+
+  .columns {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    width: 100%;
+    height: 216px;
+    padding-bottom: 20px;
+  }
+
+  .columns .col {
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .columns .icon_col {
+    width: 49px;
+    margin: 10px 0;
+  }
+
+  .columns .icon_col img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .columns .name {
+    color: #BAFFFC;
+  }
+
+  .columns .money {
+    font-weight: bold;
+    color: #32FAFF;
+  }
+
+  /* 平均投资额结束 */
+  .lookBtn {
+    font-size: 30px;
+    background: #3C77DD;
+    margin: 36px 30px 48px 30px;
+  }
+
+  .right {
+    width: 373px;
+  }
+
+  .charts2 {
+    width: 100%;
+    height: 200px;
+  }
+
+  .btn {
+    width: 200px;
+    margin-top: 18px;
+  }
+
+
+  .
 
   .el-checkbox-group .el-checkbox-button .el-checkbox-button__inner {
     border: 1px solid #DCDFE6;
@@ -346,102 +334,121 @@
         </div>
       </div>
     </div>
-    <div class="evaBox">
-      <div class="evaContent">
-        <h3>智能评估</h3>
-        <div class="line">
-          <div class="active"><span>1</span></div>
-          <div><span>2</span></div>
-          <div><span>3</span></div>
-        </div>
-        <div class="part part1" >
-          <h4 class="evaTitle">请填写您的基本信息</h4>
-          <div class="row clearfix">
-            <label class="name">您的姓名</label>
-            <input class="textInp" id="name" v-model="form.name" type="text" placeholder="请填写您的姓名" value="">
-          </div>
-          <div class="row clearfix">
-            <label class="name">加盟区域</label>
-            <div class="selectBox">
-              <select id="province" onchange="cityChange()" >
-                {foreach $city as $key => $value}
-                <option value="{$value.id}">{$value.cityname}</option>
-                {/foreach}
-              </select>
-            </div>
-            <span class="fl unit provice">省</span>
-            <div class="selectBox">
-              <select id="city" lay-verify="">
-                <option value="0">请选择</option>
-              </select>
-            </div>
-            <span class="fl unit">市</span>
-          </div>
-          <div class="row clearfix">
-            <label class="name">个人资源</label>
-            <input class="textInp" id="resources" type="text" placeholder="请填写您的个人资源" value="">
-          </div>
-        </div>
-        <div class="part part2" style="display: none">
-          <h4 class="evaTitle">请选择您从事的行业</h4>
 
-          <div class="choiceBox clearfix" >
-            {foreach $cate as $key => $value}
-            <label >
-              <input type="checkbox" name="cate" value="{$value.id}" onchange="cateChange()" style="position: fixed;top: -10%">
-              <span >{$value.name}</span>
-            </label>
-            {/foreach}
+    <div class="evaBox">
+      <div class="report wrapper">
+        <div class="title">评估报告</div>
+        <div class="echarts clearfix">
+          <div class="left fl">
+            <!-- 项目总量 -->
+            <div class="productCount">
+              <div class="qiun-common-mt">
+                <div class="qiun-title-dot-light">平台项目总量</div>
+              </div>
+              <div class="count">
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <span class="text">12345</span>
+              </div>
+            </div>
+            <!-- 项目总量 -->
+            <!-- 项目符合度 -->
+            <div class="qiun-columns " >
+
+              <div class="qiun-common-mt">
+                <div class="qiun-title-dot-light">项目符合度</div>
+              </div>
+              <div class="bar">
+                <div class="row" v-for="item in data.like_cate_count" :key="'like'+item.id">
+                  <div class="text">
+                    一个项目
+                  </div>
+                  <div class="transition">
+                    <img class="icon-transition" src="../../../../static/image/icon_transition.jpg"  :style="{'width':item.data+'%'}" mode=""/>
+                  </div>
+                  <div class="text">80%</div>
+                </div>
+              </div>
+            </div>
+            <!-- 项目符合度 -->
           </div>
-          <h4 class="evaTitle">请填写您的预算金额</h4>
-          <div class="budget clearfix">
-            <label class="name">预算金额</label>
-            <div class="border clearfix">
-              <input class="fl" id="money" type="text" v-model="form.money" placeholder="请输入您的预算金额">
-              <span class="fr">万元</span>
+
+          <div class="right fr">
+            <!-- 平均投资额开始 -->
+            <div class="qiun-columns box1">
+
+              <div class="qiun-common-mt">
+                <div class="qiun-title-dot-light">平均投资额</div>
+                <div class="qiun-select">
+                  <el-dropdown @command="handleCommand">
+                      <span class="el-dropdown-link">
+                        50<i class="el-icon-arrow-down el-icon--right"></i>
+                      </span>
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item v-for="(item,index) in barData" :key="'command'+index" :command="index">{{item.name}}</el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
+                </div>
+              </div>
+              <div class="columns">
+                <div class="col">
+                  <div class="money">{{columnData.min}}万</div>
+                  <img class="icon_col" src="../../../../static/image/icon_col.png" :style="{'height': columnData.min/columnData.full*100+'%'}" />
+                  <div class="name">平均最低投资额</div>
+                </div>
+                <div class="col">
+                  <div class="money">{{columnData.max}}万</div>
+                  <div class="icon_col" :style="{'height': columnData.max/columnData.full*100+'%'}" >
+                    <img  src="../../../../static/image/icon_col.png" />
+                  </div>
+                  <div class="name">平均最高投资额</div>
+                </div>
+                <div class="col">
+                  <div class="money">{{columnData.avg}}万</div>
+                  <img class="icon_col" src="../../../../static/image/icon_col.png" :style="{'height': columnData.avg/columnData.full*100+'%'}" />
+                  <div class="name">平均投资额</div>
+                </div>
+
+              </div>
+            </div>
+            <!-- 平均投资额结束 -->
+            <!-- 投资分布开始 -->
+            <div class="qiun-columns box2">
+
+              <div class="qiun-common-mt">
+                <div class="qiun-title-dot-light">投资分布</div>
+              </div>
+              <div class="qiun-charts">
+                <div id="canvasRadar" class="charts charts2"></div>
+              </div>
+            </div>
+            <!-- 投资分布结束 -->
+          </div>
+          <!-- 项目占比图 -->
+          <div class="qiun-columns  fr box3" style="height: 557px">
+
+            <div class="qiun-common-mt">
+              <div class="qiun-title-dot-light">项目占比</div>
+            </div>
+            <div class="qiun-charts">
+              <div  id="canvasRing" class="charts"></div>
             </div>
           </div>
+          <!-- 项目占比图 -->
         </div>
-        <div class="part part3" style="display: none">
-          <h4 class="evaTitle">请选择您的意向行业</h4>
-          <div class="choiceBox clearfix" >
-            {foreach $cate as $key => $value}
-            <label >
-              <input type="checkbox" name="likeCate" value="{$value.id}" onchange="likeCateChange()" style="position: fixed;top: -10%">
-              <span >{$value.name}</span>
-            </label>
-            {/foreach}
-          </div>
-          <h4 class="evaTitle">请填写您的联系方式</h4>
-          <div class="budget clearfix">
-            <label class="name">手机号码</label>
-            <div class="border clearfix">
-              <input class="fl" type="text" id="phone" placeholder="请输入您的手机号码">
-            </div>
-          </div>
-          <div class="budget clearfix">
-            <label class="name">图片验证</label>
-            <div class="border clearfix">
-              <input class="fl testInp" type="text" id="icode" placeholder="请输入图片验证码">
-              <img class="imgCode" src="{:captcha_src()}" onclick="this.src='{:captcha_src()}'">
-            </div>
-          </div>
-          <div class="budget clearfix">
-            <label class="name">手机验证</label>
-            <div class="border clearfix">
-              <input class="fl testInp" type="text"id="pcode"  placeholder="请输入手机验证码">
-              <span class="getBtn" onclick="getMobileCode(this)">获取验证码</span>
-            </div>
-          </div>
-        </div>
-        <div class="btns">
-          <button class="upPage" type="info" onclick="upPage()" style="display: none" >上一步</button>
-          <button  class="nextPage" type="primary"  onclick="nextPage()" >下一步</button>
-          <button class="submitForm" type="primary" onclick="submitForm()" style="display: none" >完成</button>
-        </div>
+        <router-link :to="'/list?cateid='+data.like_cate_count[0].id" >
+          <el-button type="primary " class="btn">
+            查看推荐项目
+          </el-button>
+        </router-link>
+
+
       </div>
     </div>
-  </div>˚
+  </div>
 </div>
 <script type="text/javascript">
   function cityChange() {

@@ -203,6 +203,36 @@
 {block name="content"}
 <div>
   <div>
+    <div>
+      <div data-v-5eef6683="" class="common-header">
+        <div data-v-5eef6683="" class="body wrapper">
+          <div data-v-5eef6683="" class="left">
+            欢迎来到加盟指南网！ 全国服务热线：400-619-8882
+          </div>
+          <div data-v-5eef6683="" class="right">
+            <div data-v-5eef6683="" class="phoneVersion">
+              <span data-v-5eef6683="" class="iconfont icon-phone"></span>
+              <span
+                      data-v-5eef6683="">手机版</span>
+              <img data-v-5eef6683="" src="__STATIC__/index/img/wap_qrcode.475f601.jpg" alt="手机二维码"
+                   class="QRcode">
+            </div>
+            <div data-v-5eef6683="" class="weChatVersion">
+              <span data-v-5eef6683="" class="iconfont icon-weChat"></span>
+              <span data-v-5eef6683="">微信版</span>
+              <img data-v-5eef6683="" src="__STATIC__/index/img/wx_qrcode.d7de962.jpg" alt="微信二维码" class="QRcode">
+            </div>
+            <div data-v-5eef6683="">
+              {if $_SESSION['jmzn_web']['uid'] !== false}
+              <a data-v-5eef6683="" href="{:url('index/user/index')}" class=""><span data-v-5eef6683="" class="name">您好，{$_SESSION['jmzn_web']['username']}</span></a>
+              &nbsp;&nbsp;<a href="{:url('index/login/logout')}"><span data-v-5eef6683="">退出登陆</span></a>
+              {else}
+              <a data-v-5eef6683="" href="{:url('index/login/login')}" class="">登陆</a>
+              {/if}
+            </div>
+          </div>
+        </div>
+      </div>
     <div class="personalHeader">
       <div class="wrapper content">
         <a href="/">

@@ -3,6 +3,7 @@ namespace app\index\controller;
 use think\Cache;
 use think\Db;
 use think\Controller;
+use app\index\model\Category as cateModel;
 class assess extends Base {
 
     private $assModel;
@@ -21,6 +22,23 @@ class assess extends Base {
      *  评估
      * ***/
     public function index(){
+        //接收 && 定义 参数
+        $cateModel = new cateModel();
+        //行业分类
+        $cateData = $cateModel -> getCateDataList(['status'=>1,'pid'=>0],'id asc',false ,2);
+        //城市
+        $cityData = db('city') -> where(['pid'=>0]) -> select();
+        //分配变量
+        $this -> assign('cate',$cateData);
+        $this -> assign('city',$cityData);
+        $this -> assign('title','智能评估');
+        return view();
+    }
+
+    /*
+     *  评估报告页面
+     * ***/
+    public function outcome(){
         return view();
     }
 
@@ -55,13 +73,13 @@ class assess extends Base {
         $res = $this -> assModel -> addAssData($data);
         //返回数据start
         if($res){
-            $dataList = $this -> returnCode['SUCCESS'][0];
-            $dataList['data'] = $res;
+            $rinfo = $this -> returnCode['SUCCESS'][0];
+            $rinfo['data'] = $res;
         }else{
-            $dataList = $this -> returnCode['ERROR'][4];
-            $dataList['data'] = 0;
+            $rinfo = $this -> returnCode['ERROR'][4];
+            $rinfo['data'] = 0;
         }
-        wapReturn($dataList);
+        return $rinfo;
     }
     /*  评估数据
      *  全部项目统计
