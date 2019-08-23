@@ -61,7 +61,7 @@
         <div class="midMid">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
-                        {foreach $imageData[0] as $key => $value}
+                        {foreach $imageData[1] as $key => $value}
                         <div class="swiper-slide">
                             <a data-v-64375f02="" href="{$value.link}" class="small">
                                 <img data-v-64375f02="" src="{$value.img}">
@@ -88,7 +88,7 @@
           </div>
           <div data-v-78041906="" class="list">
               {foreach $synRank as $key => $value}
-              <a data-v-78041906="" href="/detail?id=1130" class="item clearfix">
+              <a data-v-78041906="" href="{:url('index/item/detail')}?id={$value.id}" class="item clearfix">
                 <div data-v-78041906="" class="order fl">{$key+1}</div>
                 <div data-v-78041906="" class="name fl">{$value.brand}</div>
                 <div data-v-78041906="" class="count fr">{$value.read_num}</div>
@@ -97,10 +97,10 @@
           </div>
         </div>
         <div data-v-78041906="" class="longBanners">
-            {foreach $imageData[1] as $key => $value}
-            <span data-v-78041906="" class="longAd">
+            {foreach $imageData[2] as $key => $value}
+            <span data-v-78041906="" class="">
                 <a data-v-78041906="" href="{$value.link}">
-                    <img data-v-78041906="" src="{$value.img}">
+                    <img src="{$value.img}">
                 </a>
             </span>
             {/foreach}
@@ -123,7 +123,7 @@
           {/foreach}
 
         <div data-v-78041906="" class="longBanners">
-            {foreach $imageData[2] as $key => $value}
+            {foreach $imageData[3] as $key => $value}
             <span data-v-78041906="" class="longAd">
                 <a data-v-78041906="" href="{$value.link}" class="">
                     <img data-v-78041906="" src="{$value.img}">

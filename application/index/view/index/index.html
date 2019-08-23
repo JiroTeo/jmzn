@@ -125,17 +125,17 @@
             <ul data-v-64375f02="">
                 {foreach $cateList as $key => $value}
                 <li data-v-64375f02="">
-                    <a data-v-64375f02="" href="javascript:;" class="">{$value.name}</a>
-                    <a data-v-64375f02="" href="javascript:;" class="">{$value['child'][0]['name']}</a>
+                    <a data-v-64375f02="" href="{:url('index/item/index')}?pid={$value.id}" class="">{$value.name}</a>
+                    <a data-v-64375f02="" href="{:url('index/item/index')}?pid={$value.id}&cid={$value['child'][0]['id']}" class="">{$value['child'][0]['name']}</a>
                     <i data-v-64375f02="">/</i>
-                    <a data-v-64375f02="" href="javascript:;" class="">{$value['child'][1]['name']}</a>
+                    <a data-v-64375f02="" href="{:url('index/item/index')}?pid={$value.id}&cid={$value['child'][1]['id']}" class="">{$value['child'][1]['name']}</a>
                     <i data-v-64375f02=""></i>
                     <div data-v-64375f02="" class="tradePop">
                         <div data-v-64375f02="" class="ind-line"><p data-v-64375f02="">{$value.name}</p>
                         </div>
                         <div data-v-64375f02="" class="ind-list">
                             {foreach $value['child'] as $key => $v}
-                            <a data-v-64375f02="" href="javascript:;" class="">{$v.name}</a>
+                            <a data-v-64375f02="" href="{:url('index/item/index')}?pid={$value.id}&cid={$v.id}" class="">{$v.name}</a>
                             {/foreach}
                         </div>
                     </div>

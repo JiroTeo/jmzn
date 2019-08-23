@@ -1,0 +1,248 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}{$title}{/block}
+<!--keywords-->
+{block name="keywords"}123456{/block}
+<!--description-->
+{block name='description'}654231{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
+<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<style>
+  .commonNav {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: #2F333B;
+    font-size: 16px;
+    color: #fff;
+  }
+  .commonNav .all {
+    float: left;
+    width: 240px;
+    height: 40px;
+    text-align: center;
+    background: #51575D;
+  }
+  .commonNav .all .icon-mulu {
+    margin-right: 12px;
+  }
+  .commonNav .all img, .commonNav .all label {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .commonNav .all img {
+    margin: -2px 14px 0 0;
+  }
+  .commonNav .part a {
+    float: left;
+    width: 160px;
+    height: 40px;
+    position: relative;
+    color: #fff;
+    text-align: center;
+  }
+  .commonNav .part a .hot {
+    position: absolute;
+    top: 4px;
+    margin-left: 6px;
+  }
+  .commonNav .part a.active {
+    background: #1A1D21;
+  }
+  .commonNav .part a.active i {
+    width: 34px;
+    height: 2px;
+    background: -webkit-gradient(linear, 100% 0, 0 0, from(#579EFA), to(#4F74F4));
+    background: -webkit-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -moz-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -o-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: linear-gradient(to bottom, #579EFA, #4F74F4);
+    position: absolute;
+    left: 50%;
+    margin-left: -17px;
+    bottom: 2px;
+    z-index: 1;
+  }
+  .commonNav .issueBtn {
+    float: right;
+    color: #FEAB17;
+  }
+
+  .greyBg {
+    padding: 0 0 100px;
+    background: #F4F5FA;
+  }
+  .greyBg .adress {
+    color: #999;
+    height: 60px;
+    line-height: 60px;
+  }
+  .greyBg .listLeft {
+    float: left;
+    width: 820px;
+    padding: 0 41px 35px 34px;
+    background: #fff;
+  }
+  .greyBg .listLeft .listNav {
+    height: 62px;
+    line-height: 62px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .greyBg .listLeft .listNav li {
+    float: left;
+    margin-right: 40px;
+    position: relative;
+    cursor: pointer;
+  }
+  .greyBg .listLeft .listNav li.active {
+    color: #000;
+  }
+  .greyBg .listLeft .listNav li.active i {
+    width: 20px;
+    height: 3px;
+    background: linear-gradient(0deg, #4f74f4 0%, #579efa 100%);
+    border-radius: 2px;
+    position: absolute;
+    left: 50%;
+    margin-left: -10px;
+    bottom: 9px;
+  }
+  .greyBg .listLeft .listDL {
+    padding: 20px 0;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .greyBg .listLeft .listDL dt {
+    float: left;
+    width: 198px;
+    height: 140px;
+  }
+  .greyBg .listLeft .listDL dt img {
+    display: block;
+    width: 198px;
+    height: 140px;
+  }
+  .greyBg .listLeft .listDL dd {
+    float: left;
+    width: 580px;
+    margin-left: 25px;
+  }
+  .greyBg .listLeft .listDL dd h3 {
+    font-size: 18px;
+    color: #000;
+    margin-top: 12px;
+  }
+  .greyBg .listLeft .listDL dd .desc {
+    line-height: 26px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-top: 13px;
+  }
+  .greyBg .listLeft .listDL dd .icon {
+    color: #999;
+    line-height: 20px;
+    margin-top: 12px;
+  }
+  .greyBg .listLeft .listDL dd .icon span {
+    margin-right: 35px;
+  }
+  .greyBg .listLeft .listDL dd .icon span i {
+    color: #ccc;
+    margin-right: 10px;
+  }
+  .greyBg .listRight {
+    float: right;
+    width: 295px;
+  }
+
+  .paging {
+    margin: 30px;
+    text-align: center;
+  }
+</style>
+{/block}
+{block name="content"}
+  <div>
+    <div class="greyBg">
+      <div class="wrapper clearfix">
+        <p class="adress">您的位置：<a to="/news">行业咨询</a> > 行业报告</p>
+        <div class="listLeft">
+          <ul class="listNav clearfix" @click="tabChange">
+            <a href="{:url('index/article/artlist')}"><li class="{if $type == 0 } active {/if}" data-type="0">行业报告<i></i></li></a>
+            <a href="{:url('index/article/artlist')}?type=1"><li class="{if $type == 1 } active {/if}" data-type="1">加盟资讯<i></i></li></a>
+            <a href="{:url('index/article/artlist')}?type=2"><li class="{if $type == 2 } active {/if}" data-type="2">加盟攻略<i></i></li></a>
+          </ul>
+          <div >
+            {foreach $data as $key => $value}
+            <dl class="listDL clearfix" v-for="item in data" :key="'article'+item.id">
+              <a href="{:url('index/article/detail')}?id={$value.id}">
+                <dt>
+                  <img src="{$value.img}">
+                </dt>
+                <dd>
+                  <h3>{$value.title}</h3>
+                  <p class="desc">{$value.sign}</p>
+                  <p class="icon">
+                    <span><i class="iconfont icon-data"></i>{$value.addtime}</span>
+                    <span><i class="iconfont icon-look"></i>{$value.read_num}</span>
+                  </p>
+                </dd>
+              </a>
+            </dl>
+            {/foreach}
+          </div>
+          <div class="layui-card-body ">
+            <div class="page">
+              <div>
+                {$page}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-v-673d4749="" data-v-645de51c="" class="hotOrder hotOrder fr">
+          <div data-v-673d4749="" class="title clearfix"><span data-v-673d4749="" class="fl">加盟项目排行榜</span> <!----></div>
+          <div data-v-673d4749="" class="list">
+            {foreach $ranking as $key => $value}
+            <a data-v-673d4749="" href="{:url('index/item/detail')}?id={$value.id}" class="item clearfix">
+              <div data-v-673d4749="" class="order fl">{$key+1}</div>
+              <div data-v-673d4749="" class="name fl">{$value.brand}</div>
+              <div data-v-673d4749="" class="count fr">{$value.read_num}</div>
+            </a>
+            {/foreach}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript">
+  var mySwiper = new Swiper ('.swiper-container', {
+    direction: 'horizontal', // 水平切换选项
+    loop: true, // 循环模式选项
+
+    // 如果需要分页器
+    pagination: {
+      el: '.swiper-pagination',
+    },
+
+    // 如果需要前进后退按钮
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+
+    // 如果需要滚动条
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+  })
+</script>
+{/block}

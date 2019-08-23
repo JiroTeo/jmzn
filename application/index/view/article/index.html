@@ -157,7 +157,7 @@
             </div>
             <dl data-v-e7ea78d4="" class="reportNewsDL clearfix">
               <dt data-v-e7ea78d4="">
-                <a data-v-e7ea78d4="" href="{:url('index/article/index')}?id=1{$value.id}" class="">
+                <a data-v-e7ea78d4="" href="{:url('index/article/detail')}?id={$hybg.img.id}" class="">
                   <img data-v-e7ea78d4="" src="{$hybg.img.img}">
                   <span data-v-e7ea78d4="" class="over">{$hybg.img.title}</span>
                 </a>
@@ -165,7 +165,7 @@
               <dd data-v-e7ea78d4="">
                 <ul data-v-e7ea78d4="" class="joinNewsList">
                   {foreach $hybg.list as $key => $value}
-                  <a data-v-e7ea78d4="" href="{:url('index/article/index')}?id={$value.id}" class="">
+                  <a data-v-e7ea78d4="" href="{:url('index/article/detail')}?id={$value.id}" class="">
                     <li data-v-e7ea78d4="" class="clearfix">
                     <span data-v-e7ea78d4="" class="over"><b data-v-e7ea78d4="">・</b>{$value.title}</span>
                       <i data-v-e7ea78d4="">{$value.addtime}</i>
