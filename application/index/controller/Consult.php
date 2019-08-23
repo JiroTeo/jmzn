@@ -263,11 +263,11 @@ class consult extends Base{
         $code = empty($_REQUEST['code']) ? 0 : $_REQUEST['code'];
         $key = 'CODE'.$mobile;
         $resultCode = verifCode($code,$key);
-//        if(empty($resultCode)){
-//            $rinfo = $this -> returnCode['ERROR'][1];
-//            $rinfo['msg'] = '手机验证码错误';
-//            return $rinfo;
-//        }
+        if(empty($resultCode)){
+            $rinfo = $this -> returnCode['ERROR'][1];
+            $rinfo['msg'] = '手机验证码错误';
+            return $rinfo;
+        }
         //验证姓名
         $name = empty($_REQUEST['name']) ? false : $_REQUEST['name'];
         if(empty($name)){
@@ -319,7 +319,7 @@ class consult extends Base{
             //定义返回数据
             $rinfo = $this -> returnCode['SUCCESS'][0];
         }else{
-            $rinfo = $this -> returnCode['ERROR'][1];
+            $rinfo = $this -> returnCode['ERROR'][0];
         }
         return $rinfo;
     }

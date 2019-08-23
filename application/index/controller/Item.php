@@ -102,6 +102,7 @@ class item extends Base{
         $this -> assign('artData',$artData);//行业资讯
         $this -> assign('page',$page);//分页
         $this -> assign('mkeyUrl',$mKeyUrl);
+        $this -> assign('sort',(int)$sort);
         $this -> assign('cidUrl',$cidUrl);
         $this -> assign('pid',empty($pid)? 0 : $pid);//顶级分类id
         $this -> assign('cid',empty($cid)? 0 : $cid);//二级分类id

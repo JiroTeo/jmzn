@@ -705,10 +705,10 @@
         console.log('data',data);
         if(data.code != 200){
           layer.msg(data.msg);
-          console.log('msg',data.msg);
+          console.log('msg',data.msg,{icon:1});
         }else{
           layer.msg(data.msg);
-          console.log('msg',data.msg);
+          console.log('msg',data.msg,{icon:2});
           $(".conContent input").val("");
           window.location.reload();
         }
