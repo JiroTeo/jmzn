@@ -39,8 +39,7 @@
                 </div>
                 <div data-v-5eef6683="">
                     {if $_SESSION['jmzn_web']['uid'] !== false}
-                    <a data-v-5eef6683="" href="{:url('index/user/index')}" class=""><span data-v-5eef6683="" class="name">您好，{$_SESSION['jmzn_web']['username']}</span></a>
-                    &nbsp;&nbsp;<a href="{:url('index/login/logout')}"><span data-v-5eef6683="">退出登陆</span></a>
+                    <a data-v-5eef6683="" href="{:url('index/user/index')}" class=""><span data-v-5eef6683="" class="name">您好，{$_SESSION['jmzn_web']['username']}</span></a>&nbsp;&nbsp;<a href="{:url('index/login/logout')}"><span data-v-5eef6683="">退出登陆</span></a>
                     {else}
                     <a data-v-5eef6683="" href="{:url('index/login/login')}" class="">登陆</a>
                     {/if}
@@ -50,14 +49,13 @@
     </div>
     <div data-v-949c1ac6="" class="evaluationReport">
         <div data-v-13f8abc6="" data-v-949c1ac6="" class="personalHeader">
-            <div data-v-13f8abc6="" class="wrapper content"><a data-v-13f8abc6="" href="/"
-                                                               class="router-link-active"><img data-v-13f8abc6=""
-                                                                                               src="__STATIC__/index/img/logo.45da167.png"
-                                                                                               alt="" class="logo"></a>
-                <div data-v-13f8abc6="" class="tabs"><a data-v-13f8abc6="" href="/" class="router-link-active">首页</a> <a
-                        data-v-13f8abc6="" href="/list" class="">找项目</a> <a data-v-13f8abc6="" href="/rankingList"
-                                                                            class="">排行榜</a> <a data-v-13f8abc6=""
-                                                                                                href="/news" class="">行业资讯</a>
+            <div data-v-13f8abc6="" class="wrapper content">
+                <a data-v-13f8abc6="" href="/" class="router-link-active">
+                    <img data-v-13f8abc6="" src="__STATIC__/index/img/logo.45da167.png" alt="" class="logo"></a>
+                <div data-v-13f8abc6="" class="tabs"><a data-v-13f8abc6="" href="/" class="router-link-active">首页</a>
+                    <a data-v-13f8abc6="" href="{:url('index/item/index')}" class="">找项目</a>
+                    <a data-v-13f8abc6="" href="{:url('index/item/rankinglist')}" class="">排行榜</a>
+                    <a data-v-13f8abc6="" href="{:url('index/article/index')}" class="">行业资讯</a>
                 </div>
             </div>
         </div>
@@ -83,7 +81,6 @@
                             <div data-v-949c1ac6="" class="qiun-common-mt">
                                 <div data-v-949c1ac6="" class="qiun-title-dot-light">项目符合度</div>
                             </div>
-
                             <div data-v-949c1ac6="" class="bar">
                                 {foreach $like_cate_count as $key => $value}
                                 <div data-v-949c1ac6="" class="row">
@@ -108,28 +105,32 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
                                 <div data-v-949c1ac6="" class="qiun-select">
                                     <div data-v-949c1ac6="" class="el-dropdown">
                                         <span data-v-949c1ac6="" class="el-dropdown-link el-dropdown-selfdefine" aria-haspopup="list" aria-controls="dropdown-menu-2549" role="button" tabindex="0">
-                    <i data-v-949c1ac6="" class="el-icon-arrow-down el-icon--right"></i></span>
-                                        <ul data-v-949c1ac6="" class="el-dropdown-menu el-popper"
-                                            id="dropdown-menu-2549" style="display: none;"></ul>
+                                            餐饮<i data-v-949c1ac6="" class="el-icon-arrow-down el-icon--right"></i>
+                                        </span>
+                                        <ul data-v-949c1ac6="" class="el-dropdown-menu el-popper" id="dropdown-menu-2549" style="display: none;">
+                                            {foreach $like_cate_count as $key => $value}
+
+                                            {/foreach}
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
                             <div data-v-949c1ac6="" class="columns">
                                 <div data-v-949c1ac6="" class="col">
-                                    <div data-v-949c1ac6="" class="money">万</div>
-                                    <img data-v-949c1ac6="" src="__STATIC__/index/img/icon_col.c9fa1b5.png" class="icon_col">
+                                    <div data-v-949c1ac6="" class="money">{$column.min}万</div>
+                                    <img data-v-949c1ac6="" src="__STATIC__/index/img/icon_col.c9fa1b5.png" height="{$column.min}%" class="icon_col">
                                     <div data-v-949c1ac6="" class="name">平均最低投资额</div>
                                 </div>
                                 <div data-v-949c1ac6="" class="col">
-                                    <div data-v-949c1ac6="" class="money">万</div>
-                                    <div data-v-949c1ac6="" class="icon_col"><img data-v-949c1ac6=""
-                                                                                  src="__STATIC__/index/img/icon_col.c9fa1b5.png">
+                                    <div data-v-949c1ac6="" class="money">{$column.max}万</div>
+                                    <div data-v-949c1ac6="" class="icon_col">
+                                        <img data-v-949c1ac6="" height="{$column.max}%" src="__STATIC__/index/img/icon_col.c9fa1b5.png">
                                     </div>
                                     <div data-v-949c1ac6="" class="name">平均最高投资额</div>
                                 </div>
                                 <div data-v-949c1ac6="" class="col">
-                                    <div data-v-949c1ac6="" class="money">万</div>
-                                    <img data-v-949c1ac6="" src="__STATIC__/index/img/icon_col.c9fa1b5.png" class="icon_col">
+                                    <div data-v-949c1ac6="" class="money">{$column.avg}万</div>
+                                    <img data-v-949c1ac6="" src="__STATIC__/index/img/icon_col.c9fa1b5.png" height="{$column.avg}%" class="icon_col">
                                     <div data-v-949c1ac6="" class="name">平均投资额</div>
                                 </div>
                             </div>
@@ -170,7 +171,7 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
     showRadar();
     function showPie(){
         let myChart = echarts.init(document.getElementById('canvasRing'));
-        var all_cate_count = [10,10,10,100];
+        var all_cate_count = [20,30,40,80];
         var  option = {
             legend: {
                 // show: false,

@@ -146,12 +146,12 @@ class assess extends Base {
         echo "项目总数";
         dump($itemCount);
         echo "饼状图";
-        dump($allCateCount);
-        echo "符合度";
+//        dump($allCateCount);
+//        echo "符合度";
         dump($like_cate_count);
         echo "分布图";
         dump($dsc);
-
+        $itemCount = substr(strval($itemCount+100000),1,5);
         //分配变量
         $this -> assign('column',$column);//柱状图
         $this -> assign('count',$itemCount);//总数
@@ -161,6 +161,22 @@ class assess extends Base {
         $this -> assign('dsc',$dsc);//分布
         return view();
     }
+
+    /*  饼状图接口   */
+    public function piechart(){
+        //项目占比-饼状图
+        $getCateIdStrWhere['pid'] = 0;
+        $getCateIdStrWhere['status'] = 1;
+        $getCateIdStr = $this -> cateModel -> getChildIdByWhere($getCateIdStrWhere);
+        $getAllCateArr = explode(',',$getCateIdStr);//分割成数组
+        $allCateIdFormat = $this -> getChildIdFormat($getAllCateArr);
+        $allCateCount = $this -> getItemCountData($allCateIdFormat,1);//饼状图数据
+        return $allCateCount;
+    }
+
+    /**/
+
+
     /*
      *  评估报告页面
      * ***/
