@@ -1,18 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>智能评估</title>
-    <meta name="keywords" content="加盟指南,加盟指南栏目,加盟指南网,项目加盟指南,创业好项目加盟指南，招商外包服务，专业招商外包服务公司，只做招商外包服务">
-    <meta name="description"
-          content="加盟指南网是为招商加盟企业提供招商外包服务的专业招商外包服务平台，平台设有加盟指南栏目,为加盟者提供各招商行业的加盟指南资讯,最新的加盟指南数据分析，创新的推送加盟线索招商外包服务模式对招商企业提供专业的招商外包服务,使其招商成功，招商外包服务热线:400-619-8882。">
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}投资者管理{/block}
+<!--keywords-->
+{block name="keywords"}{/block}
+<!--description-->
+{block name='description'}{/block}
+{block name="index"}
     <link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
     <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
     <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/1.3df231c13ef594287ac8.js"></script>
     <script type="text/javascript" src="__STATIC__/echarts.min.js"></script>
 </head>
 <body>
+<script type="text/javascript" src="__STATIC__/index/js/vendor.ca774af52bc39667be8d.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/app.e7671a9f70033ac0eaad.js"></script>
+{/block}
+{block name="header"}{/block}
+{block name="content"}
 <div id="app">
     <div data-v-5eef6683="" class="common-header">
         <div data-v-5eef6683="" class="body wrapper">
@@ -20,14 +25,26 @@
                 欢迎来到加盟指南网！ 全国服务热线：400-619-8882
             </div>
             <div data-v-5eef6683="" class="right">
-                <div data-v-5eef6683="" class="phoneVersion"><span data-v-5eef6683="" class="iconfont icon-phone"></span> <span
-                        data-v-5eef6683="">手机版</span> <img data-v-5eef6683="" src="__STATIC__/index/img/wap_qrcode.475f601.jpg"
-                                                           alt="手机二维码" class="QRcode"></div>
-                <div data-v-5eef6683="" class="weChatVersion"><span data-v-5eef6683=""
-                                                                    class="iconfont icon-weChat"></span> <span
-                        data-v-5eef6683="">微信版</span> <img data-v-5eef6683="" src="__STATIC__/index/img/wx_qrcode.d7de962.jpg"
-                                                           alt="微信二维码" class="QRcode"></div>
-                <div data-v-5eef6683=""><a data-v-5eef6683="" href="/login" class="">登陆</a></div>
+                <div data-v-5eef6683="" class="phoneVersion">
+                    <span data-v-5eef6683="" class="iconfont icon-phone"></span>
+                    <span
+                            data-v-5eef6683="">手机版</span>
+                    <img data-v-5eef6683="" src="__STATIC__/index/img/wap_qrcode.475f601.jpg" alt="手机二维码"
+                         class="QRcode">
+                </div>
+                <div data-v-5eef6683="" class="weChatVersion">
+                    <span data-v-5eef6683="" class="iconfont icon-weChat"></span>
+                    <span data-v-5eef6683="">微信版</span>
+                    <img data-v-5eef6683="" src="__STATIC__/index/img/wx_qrcode.d7de962.jpg" alt="微信二维码" class="QRcode">
+                </div>
+                <div data-v-5eef6683="">
+                    {if $_SESSION['jmzn_web']['uid'] !== false}
+                    <a data-v-5eef6683="" href="{:url('index/user/index')}" class=""><span data-v-5eef6683="" class="name">您好，{$_SESSION['jmzn_web']['username']}</span></a>
+                    &nbsp;&nbsp;<a href="{:url('index/login/logout')}"><span data-v-5eef6683="">退出登陆</span></a>
+                    {else}
+                    <a data-v-5eef6683="" href="{:url('index/login/login')}" class="">登陆</a>
+                    {/if}
+                </div>
             </div>
         </div>
     </div>
@@ -59,25 +76,28 @@
                                 <div data-v-949c1ac6="" class="box"></div>
                                 <div data-v-949c1ac6="" class="box"></div>
                                 <div data-v-949c1ac6="" class="box"></div>
-                                <span data-v-949c1ac6="" class="text">1024</span>
+                                <span data-v-949c1ac6="" class="text">{$count}</span>
                             </div>
                         </div>
                         <div data-v-949c1ac6="" class="qiun-columns ">
                             <div data-v-949c1ac6="" class="qiun-common-mt">
                                 <div data-v-949c1ac6="" class="qiun-title-dot-light">项目符合度</div>
                             </div>
+
                             <div data-v-949c1ac6="" class="bar">
+                                {foreach $like_cate_count as $key => $value}
                                 <div data-v-949c1ac6="" class="row">
                                     <div data-v-949c1ac6="" class="text">
-
+                                        {$value.name}
                                     </div>
                                     <div data-v-949c1ac6="" class="transition">
                                         <img data-v-949c1ac6=""
 src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElEQVRoge2TO24EMQxDSfZ7iVwp9z9LUqw/lBbZpIoaPmBmYA0lU4bFx8fnFzYkLrzvHmfV7P980di36H75f/bj3ZvvND3u9fmaQ5UckLdPy6evZdodPzVocdQaYvXhde05MXXvtwZlvneeam1QgACya/HMX72QWHstnVh9yerDfIkABKrl6AdPJ09Wq/ew1qs//qUWcPc8GphnFE87l/usWw4EEGp9op2D3Zmisxi2/3Zn3R+eRxBC+GcyeCEMkMELYYAMXggDZPBCGCCDF8IAGbwQBsjghTBABi+EATJ4IQzwDWi2AyT0i2oZAAAAAElFTkSuQmCC"
-                                             mode=""  class="icon-transition" style="width: 99%">
+                                             mode=""  class="icon-transition" style="width: {$value.data}%">
                                     </div>
-                                    <div data-v-949c1ac6="" class="text">99%</div>
+                                    <div data-v-949c1ac6="" class="text">{$value.data}%</div>
                                 </div>
+                                {/foreach}
                             </div>
                         </div>
                     </div>
@@ -140,40 +160,7 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
                 </a></div>
         </div>
     </div>
-    <div data-v-4dfbcb4e="" class="common-footer">
-        <div data-v-4dfbcb4e="" class="links ">
-            <div data-v-4dfbcb4e="" class="wrapper">
-                <div data-v-4dfbcb4e="" class="left"><a data-v-4dfbcb4e="" href="/aboutUs" class="">关于我们</a> <a
-                        data-v-4dfbcb4e="" href="/aboutUs" class="">产品服务</a> <a data-v-4dfbcb4e="" href="/aboutUs"
-                                                                                class="">产品优势</a> <a data-v-4dfbcb4e=""
-                                                                                                     href="/aboutUs"
-                                                                                                     class="">客户合作</a>
-                    <a data-v-4dfbcb4e="" href="/aboutUs" class="">联系我们</a></div>
-                <div data-v-4dfbcb4e="" class="right">
-                    客服热线：400-619-8882
-                </div>
-            </div>
-        </div>
-        <div data-v-4dfbcb4e="" class="body wrapper">
-            <div data-v-4dfbcb4e="" class="left">
-                <div data-v-4dfbcb4e="">友情提示：创业有风险，投资需谨慎</div>
-                <div data-v-4dfbcb4e="">Copyright © 2019 jinrongbaijia.com All Rights Reserved.冀ICP备17023127号-7</div>
-                <div data-v-4dfbcb4e="">法律支持：河北盈华律师事务所</div>
-                <a data-v-4dfbcb4e="" href="http://www.bcpcn.com/product/rz/bq/BCP30497889F2859242.html"
-                   target="_blank"><img data-v-4dfbcb4e="" src="http://www.bcpcn.com/bcptags/img/csrz.gif" border="0"
-                                        class="csrz"></a></div>
-            <div data-v-4dfbcb4e="" class="right">
-                <div data-v-4dfbcb4e="" class="item"><img data-v-4dfbcb4e="" src="__STATIC__/index/img/wx_qrcode.d7de962.jpg" alt=""
-                                                          class="QRcode">
-                    <div data-v-4dfbcb4e="">微信公众号</div>
-                </div>
-                <div data-v-4dfbcb4e="" class="item"><img data-v-4dfbcb4e="" src="__STATIC__/index/img/wap_qrcode.475f601.jpg"
-                                                          alt="" class="QRcode">
-                    <div data-v-4dfbcb4e="">手机版</div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 <!--<script type="text/javascript" src="__STATIC__/index/js/manifest.4c70778beadeccbf5422.js"></script>-->
 <script type="text/javascript" src="__STATIC__/index/js/vendor.ca774af52bc39667be8d.js"></script>
@@ -288,5 +275,4 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
         myChart.setOption(option);
     }
 </script>
-</body>
-</html>
+{/block}
