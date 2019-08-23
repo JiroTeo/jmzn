@@ -41,7 +41,12 @@ class assess extends Base {
     public function outcome(){
         return view();
     }
-
+    /*
+     *  评估报告页面
+     * ***/
+    public function detail(){
+        return view();
+    }
 
     /*发布并进行评估
      *  @param  name        姓名
