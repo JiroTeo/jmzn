@@ -136,13 +136,15 @@
     border-bottom: 1px solid #E3E4E5;
     position: relative;
   }
-  .offBg .offline .head i {
+  .offBg .offline .head .close {
     color: #999;
     position: absolute;
     right: 43px;
     top: 0;
     z-index: 10;
     cursor: pointer;
+    width: 30px;
+    height: 30px;
   }
   .offBg .offline img {
     width: 500px;
@@ -387,7 +389,7 @@
     <!--线下付款-->
     <div class="offBg" style="display: none;">
       <div class="offline">
-        <div class="head">线下付款<i class="iconfont icon-close" onclick="hideOff()"></i></div>
+        <div class="head">线下付款<img src="__STATIC__/index/image/close.jpg" class="close" onclick="hideOff()"/></div>
         <img src="__STATIC__/index/image/offBg.jpg" alt="">
       </div>
     </div>
