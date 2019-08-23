@@ -140,6 +140,7 @@ class Index extends Base{
         $this -> assign('recoItem',$recoItem);//项目推荐
         $this -> assign('artData',$artData);//行业分类
         $this -> assign('imageData',$imageData);//广告
+//        dump($imageData);die;
         $this -> assign('title','排行榜');//广告
         return view();
     }
