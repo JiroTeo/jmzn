@@ -108,13 +108,82 @@
     color: #fff;
     border-radius: 4px;
   }
+  .personalHeader {
+      width: 100%;
+      background: #fff;
+      padding: 15px 0;
+  }
+  .personalHeader .content {
+      display: flex;
+      justify-content: space-between;
+  }
+  .personalHeader .logo {
+      width: 194px;
+      height: 70px;
+  }
+  .personalHeader .tabs {
+      height: 70px;
+      line-height: 70px;
+  }
+  .personalHeader .tabs a {
+      display: inline-block;
+      width: 100px;
+      text-align: right;
+      cursor: pointer;
+  }
+  .personalHeader .tabs a:hover {
+      color: #579EFA;
+  }
 </style>
 {/block}
 {block name="header"}{/block}
 {block name="content"}
+<div data-v-5eef6683="" class="common-header">
+    <div data-v-5eef6683="" class="body wrapper">
+        <div data-v-5eef6683="" class="left">
+            欢迎来到加盟指南网！ 全国服务热线：400-619-8882
+        </div>
+        <div data-v-5eef6683="" class="right">
+            <div data-v-5eef6683="" class="phoneVersion">
+                <span data-v-5eef6683="" class="iconfont icon-phone"></span>
+                <span
+                        data-v-5eef6683="">手机版</span>
+                <img data-v-5eef6683="" src="__STATIC__/index/img/wap_qrcode.475f601.jpg" alt="手机二维码"
+                     class="QRcode">
+            </div>
+            <div data-v-5eef6683="" class="weChatVersion">
+                <span data-v-5eef6683="" class="iconfont icon-weChat"></span>
+                <span data-v-5eef6683="">微信版</span>
+                <img data-v-5eef6683="" src="__STATIC__/index/img/wx_qrcode.d7de962.jpg" alt="微信二维码" class="QRcode">
+            </div>
+            <div data-v-5eef6683="">
+                {if $_SESSION['jmzn_web']['uid'] !== false}
+                <a data-v-5eef6683="" href="{:url('index/user/index')}" class=""><span data-v-5eef6683="" class="name">您好，{$_SESSION['jmzn_web']['username']}</span></a>
+                &nbsp;&nbsp;<a href="{:url('index/login/logout')}"><span data-v-5eef6683="">退出登陆</span></a>
+                {else}
+                <a data-v-5eef6683="" href="{:url('index/login/login')}" class="">登陆</a>
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="personalHeader">
+        <div class="wrapper content">
+            <a href="/">
+                <img class="logo" src="../../static/image/logo.png" alt="">
+            </a>
+            <div class="tabs">
+                <a href="/">首页</a>
+                <a href="/list">找项目</a>
+                <a href="/rankingList">排行榜</a>
+                <a href="/news">行业资讯</a>
+            </div>
+        </div>
+    </div>
+</div>
 <a>
   <div class="personal">
-    <PersonalHeader></PersonalHeader>
     <div class="greyBg">
       <div class="enterBox">
         <div class="title">
@@ -135,7 +204,7 @@
             </div>
             <div class="row clearfix">
               <label>注册地址</label>
-              <input class="commonInp adress" type="text" placeholder="请输入公司注册地址" >
+              <input class="commonInp address" type="text" placeholder="请输入公司注册地址" >
             </div>
             <div class="row clearfix">
               <label>手机号</label>
@@ -239,40 +308,59 @@
         var brand = $('.brand').val();
         var company = $('.company').val();
         var name = $('.name').val();
-        var adress = $('.adress').val();
+        var address = $('.address').val();
         var brand = $('.brand').val();
         var phone = $('#phone').val();
         var icode = $('#icode').val();
         var pcode = $("#pcode").val();
+        if(!address){
+            layer.msg('请输入注册地址',{icon:2});
+            return false;
+        }
         if(!brand){
-            layer.msg('请输入品牌名');
+            layer.msg('请输入品牌名',{icon:2});
             return false;
         }
         if(!company){
-            layer.msg('请输入公司名');
+            layer.msg('请输入公司名',{icon:2});
             return false;
         }
         if(!name){
-            layer.msg('请输入您的姓名');
-            return false;
-        }
-        if(!name){
-            layer.msg('请输入公司注册地址');
+            layer.msg('请输入您的姓名',{icon:2});
             return false;
         }
         if(!validatePhone()){
             return false;
         }
         if(!icode){
-            layer.msg('请输入图片验证码');
+            layer.msg('请输入图片验证码',{icon:2});
             return false;
         }
         if(!pcode){
-            layer.msg('请输入手机验证码');
+            layer.msg('请输入手机验证码',{icon:2});
             return false;
         }
-
-        //ajax请求
+        //发送请求
+        $.ajax({
+            type: "POST",
+            url: "{:url('index/login/ent_resi')}",
+            data:{
+                'bname':brand,
+                'cname':company,
+                'name':name,
+                'address':address,
+                'phone':phone,
+                'code':pcode,
+            },
+            success: function(data){
+                console.log('data',data);
+                if(data.code == 200){
+                    layer.msg('入驻成功,审核中',{icon:1});
+                }else{
+                    layer.msg(data.msg,{icon:2});
+                }
+            }
+        })
     }
 
 </script>
