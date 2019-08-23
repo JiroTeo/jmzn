@@ -39,6 +39,116 @@ class assess extends Base {
      *  评估报告页面
      * ***/
     public function outcome(){
+        $id = input('get.id');
+        $itemCount = $this -> itemModel -> itemCount();//项目总数
+
+
+        //项目占比-饼状图
+        $getCateIdStrWhere['pid'] = 0;
+        $getCateIdStrWhere['status'] = 1;
+        $getCateIdStr = $this -> cateModel -> getChildIdByWhere($getCateIdStrWhere);
+        $getAllCateArr = explode(',',$getCateIdStr);//分割成数组
+        $allCateIdFormat = $this -> getChildIdFormat($getAllCateArr);
+        $allCateCount = $this -> getItemCountData($allCateIdFormat,1);//饼状图数据
+
+        //项目符合度-进度条图
+        //获取意向行业和所属行业的id
+        $id = empty($_REQUEST['id']) ? 0 : $_REQUEST['id'];
+        $where['id'] = $id;
+        $assdata = $this -> assModel -> getAssEssData($where);
+        $idStr = $assdata['cate_id'].','.$assdata['like_cate_id'];
+        $cateIdArr = array_unique(explode(',',$idStr));//分割成数组 并且排重
+        //遍历获取所关联行业的最大平均值和最小平均值
+        $money = $assdata['money'];//预算值
+        foreach ($cateIdArr as $key => $value) {
+            $cateData = $this -> cateModel -> getCateData(['id'=>$value]);
+            if($cateData){
+            $fit[$key]['name'] = $cateData['name'];
+            $fit[$key]['id'] = $cateData['id'];
+            //获取子分类
+            $cIds = $value.',';
+            $cIds .= $this->cateModel -> getChildIdByWhere(['pid'=>$value,'status'=>1]);//当前分类下的全部子分类
+            $min_avg = $this -> itemModel -> getAvgCount('min_money',['id'=>['in',$cIds],'status'=>1]);//获取最小平均值
+            $max_avg = $this -> itemModel -> getAvgCount('max_money',['id'=>['in',$cIds],'status'=>1]);//获取最大平均值
+            $avg = ( $max_avg + $min_avg ) / 2 ;//平均值
+            $D_value = $money - $avg;//预算-平均=差值
+            if($D_value < 0){//负数   小于平均值
+                //转整数 算出和平均值的百分比
+                $per = (-1 * $D_value) / $avg ;
+                $fit[$key]['data'] = number_format(50 - $per,2);
+            }else{//整数  大于平均值
+                if(0 < $money - $max_avg){
+                    $fit[$key]['data'] = number_format(100,2);
+                }else{
+                    $per = $D_value / $avg ;
+                    $fit[$key]['data'] = number_format(50 + $per,2);
+                }
+            }
+            }
+        }
+
+        //排序
+        foreach ($fit as $key => $row) {
+            $volume[$key]  = $row['data'];
+            $edition[$key] = $row['name'];
+        }
+        array_multisort($volume, SORT_DESC, $edition, SORT_ASC, $fit);
+        $like_cate_count = $fit;//项目符合度
+
+        //分布图
+        //获取符合度最高的行业
+        $getCidWherer['pid'] = $fit[0]['id'];
+        $getCidWherer['status'] = 1;
+        $cateIdStr = model('category') ->getChildIdByWhere($getCidWherer);
+        $getCountWhere['id'] = array('in',trim($cateIdStr,','));
+        $minCount = $this -> itemModel -> getMinCount('min_money',$getCountWhere);//最小值
+        $maxCount = $this -> itemModel -> getMaxCount('max_money',$getCountWhere);//最大值
+        $avgMinCount = $this -> itemModel -> getAvgCount('min_money',$getCountWhere);//最小平均值
+        $avgMaxCount = $this -> itemModel -> getAvgCount('max_money',$getCountWhere);//最大平均值
+        $avgCount = ($avgMinCount+$avgMaxCount)/2;
+        //分布图
+        $dsc = array(round($avgCount,2),round($minCount,2),round($avgMaxCount,2),round($avgMinCount,2),round($maxCount,2));
+
+
+        //柱状图
+        //接收参数并且算出id
+        $where['id'] = $id;
+        $cateId = $this -> assModel -> getAssValue($where,'cate_id');//获取分类id
+        $likeCateId = $this -> assModel -> getAssValue($where,'like_cate_id');//获取分类id
+        $idStr = $cateId.','.$likeCateId;
+        $cateIdArr = array_unique(explode(',',$idStr));//分割成数组 并且排重
+        $cateIdStr = implode(',',$cateIdArr);
+        $where['id'] = array('in',$cateIdStr);
+        $where['status'] = 1;
+        $cateData = $this -> cateModel -> getCate($where,false);
+        //获取一条数据
+        $cate_id = empty($_REQUEST['cate_id']) ? $cateData[0]['id'] : $_REQUEST['cate_id'];
+        $getChildIdWhere['pid'] = $cate_id;
+        $childIdStr = $this -> cateModel -> getChildIdByWhere($getChildIdWhere);
+        $childIdStr = trim($childIdStr,',');
+        $getAvgWhere['cate_id'] = array('in',$childIdStr);
+        $getAvgWhere['status'] = 1;
+        $minAvfCount = $this -> itemModel -> getAvgCount('min_money',$getAvgWhere);//最小平均值
+        $maxAvfCount = $this -> itemModel -> getAvgCount('max_money',$getAvgWhere);//最小平均值
+        $avgfCount = ($minAvfCount + $maxAvfCount) / 2;
+        $fullCount = $maxAvfCount / 0.8 ;
+        if(empty($minAvfCount)){
+            $column = [];
+        }else{
+            $column['min'] = number_format($minAvfCount,2);
+            $column['max'] = number_format($maxAvfCount,2);
+            $column['avg'] = number_format($avgfCount,2);
+            $column['full'] = number_format($fullCount,2);
+
+        }
+
+        //分配变量
+        $this -> assign('column',$column);//柱状图
+        $this -> assign('count',$itemCount);//总数
+        $this -> assign('allCateCount',$allCateCount);//饼状图
+//        dump($allCateCount);die;
+        $this -> assign('like_cate_count',$like_cate_count);//符合度
+        $this -> assign('dsc',$dsc);//分布
         return view();
     }
     /*

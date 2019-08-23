@@ -1,707 +1,182 @@
-<!--继承模板-->
-{extend name="defa/defa" /}
-<!--title-->
-{block name="title"}投资者管理{/block}
-<!--keywords-->
-{block name="keywords"}{/block}
-<!--description-->
-{block name='description'}{/block}
-<!--index js && css -->
-{block name="index"}
-<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
-<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
-<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
-<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
-<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/admin/lib/layui/layui.js"></script>
-
-<style>
-  @charset "UTF-8";
-  .evaBox {
-    width: 100%;
-    padding: 70px 0;
-    height: auto;
-    background: url("/static/image/evaluateBg.png") center top no-repeat #F4F5FA;
-  }
-  .evaBox .report {
-    text-align: center;
-    padding-bottom: 55px;
-    background: #fff;
-    box-shadow: 0px 0px 10px 0px rgba(153, 153, 153, 0.5);
-  }
-  .evaBox .report .title {
-    height: 70px;
-    line-height: 70px;
-    color: #1A1A1A;
-    border-bottom: 1px solid #E3E4E5;
-    font-size: 18px;
-    padding: 0 30px;
-  }
-
-  /*  迁过来的样式*/
-  .echarts {
-    padding: 30px;
-  }
-  /* 项目总量开始 */
-  .productCount {
-    width: 373px;
-    background-color: #00112E;
-  }
-  .productCount .count {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px 39px 20px;
-    border-bottom: 1px solid #1C3A55;
-    position: relative;
-  }
-
-  .productCount .count .box {
-    height: 57px;
-    width: 63px;
-    border: 1px solid #1C3A55;
-    margin-right: 10px;
-  }
-
-  .productCount .count .box:last-of-type {
-    margin: 0;
-  }
-
-  .productCount .count .text {
-    position: absolute;
-    left: 40px;
-    top: 20px;
-    font-size: 32px;
-    letter-spacing: 51px;
-    color: #BAFFFC;
-    text-shadow: 0 5px 20px #fff;
-  }
-
-  /* 项目总量结束 */
-  /* 项目占比图开始 */
-  .box3 {
-    border-right: 1px solid #1C3A55;
-  }
-
-  .qiun-columns {
-    width: 353px;
-    padding: 10px;
-    background-color: #00112E;
-  }
-
-  .qiun-common-mt {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    width: 96%;
-    font-size: 30px;
-    line-height: 30px;
-    padding: 10px 2%;
-    color: #BAFFFC;
-  }
-
-  .qiun-title-dot-light {
-    border-left: 5px solid #F1FF52;
-    padding-left: 10px;
-    font-size: 16px;
-    color: #BAFFFC;
-  }
-
-  .qiun-select {
-    color: #579EFA;
-  }
-
-  .el-dropdown {
-    float: right;
-  }
-
-  .el-dropdown-link {
-    cursor: pointer;
-    color: #BAFFFC;
-  }
-
-  .el-icon-arrow-down {
-    font-size: 12px;
-  }
-
-  .qiun-charts {
-    position: relative;
-    background-color: #0B1026;
-  }
-
-  .pieBg {
-    position: absolute;
-    top: 36px;
-    left: 114px;
-    width: 100px;
-    height: 66px;
-    z-index: 1;
-  }
-
-  .box3 .charts {
-    background: url("/static/image/pie_bg.jpg") center 28.5% no-repeat #00112E;
-    background-size: 250px;
-  }
-
-  .charts {
-    width: 360px;
-    height: 480px;
-  }
-
-  /* 项目占比图结束 */
-  /* 项目符合度开始 */
-  .bar {
-    padding-bottom: 60px;
-  }
-
-  .bar .row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    color: #BAFFFC;
-    padding: 0 15px;
-    margin-top: 25px;
-  }
-
-  .bar .row .transition {
-    position: relative;
-    width: 225px;
-    height: 7px;
-    background: #0D2253;
-  }
-
-  .bar .row .icon-transition {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 7px;
-  }
-
-  /* 项目符合度结束 */
-  /* 平均投资额开始 */
-  .box1 {
-    border-bottom: 1px solid #1C3A55;
-  }
-
-  .columns {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    width: 100%;
-    height: 216px;
-    padding-bottom: 20px;
-  }
-
-  .columns .col {
-    height: 160px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-  }
-
-  .columns .icon_col {
-    width: 49px;
-    margin: 10px 0;
-  }
-
-  .columns .icon_col img {
-    width: 100%;
-    height: 100%;
-  }
-
-  .columns .name {
-    color: #BAFFFC;
-  }
-
-  .columns .money {
-    font-weight: bold;
-    color: #32FAFF;
-  }
-
-  /* 平均投资额结束 */
-  .lookBtn {
-    font-size: 30px;
-    background: #3C77DD;
-    margin: 36px 30px 48px 30px;
-  }
-
-  .right {
-    width: 373px;
-  }
-
-  .charts2 {
-    width: 100%;
-    height: 200px;
-  }
-
-  .btn {
-    width: 200px;
-    margin-top: 18px;
-  }
-
-
-  .
-
-  .el-checkbox-group .el-checkbox-button .el-checkbox-button__inner {
-    border: 1px solid #DCDFE6;
-    border-radius: 5px;
-    box-shadow: 0 0 0 0 #8cc5ff;
-  }
- .part{
-   width: 100%;
-    margin: auto;
- }
-  .clearfix:after {
-    display: block;
-    clear: both;
-    content: "";
-    visibility: hidden;
-    height: 0;
-  }
-  .personalHeader {
-    width: 100%;
-    background: #fff;
-    padding: 15px 0;
-  }
-  .personalHeader .content {
-    display: flex;
-    justify-content: space-between;
-  }
-  .personalHeader .logo {
-    width: 194px;
-    height: 70px;
-  }
-  .personalHeader .tabs {
-    height: 70px;
-    line-height: 70px;
-  }
-  .personalHeader .tabs a {
-    display: inline-block;
-    width: 100px;
-    text-align: right;
-    cursor: pointer;
-  }
-  .personalHeader .tabs a:hover {
-    color: #579EFA;
-  }
-</style>
-{/block}
-{block name="header"}{/block}
-{block name="content"}
-<div>
-  <div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>智能评估</title>
+    <meta name="keywords" content="加盟指南,加盟指南栏目,加盟指南网,项目加盟指南,创业好项目加盟指南，招商外包服务，专业招商外包服务公司，只做招商外包服务">
+    <meta name="description"
+          content="加盟指南网是为招商加盟企业提供招商外包服务的专业招商外包服务平台，平台设有加盟指南栏目,为加盟者提供各招商行业的加盟指南资讯,最新的加盟指南数据分析，创新的推送加盟线索招商外包服务模式对招商企业提供专业的招商外包服务,使其招商成功，招商外包服务热线:400-619-8882。">
+    <link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+    <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/1.3df231c13ef594287ac8.js"></script>
+</head>
+<body>
+<div id="app">
     <div data-v-5eef6683="" class="common-header">
-      <div data-v-5eef6683="" class="body wrapper">
-        <div data-v-5eef6683="" class="left">
-          欢迎来到加盟指南网！ 全国服务热线：400-619-8882
+        <div data-v-5eef6683="" class="body wrapper">
+            <div data-v-5eef6683="" class="left">
+                欢迎来到加盟指南网！ 全国服务热线：400-619-8882
+            </div>
+            <div data-v-5eef6683="" class="right">
+                <div data-v-5eef6683="" class="phoneVersion"><span data-v-5eef6683="" class="iconfont icon-phone"></span> <span
+                        data-v-5eef6683="">手机版</span> <img data-v-5eef6683="" src="__STATIC__/index/img/wap_qrcode.475f601.jpg"
+                                                           alt="手机二维码" class="QRcode"></div>
+                <div data-v-5eef6683="" class="weChatVersion"><span data-v-5eef6683=""
+                                                                    class="iconfont icon-weChat"></span> <span
+                        data-v-5eef6683="">微信版</span> <img data-v-5eef6683="" src="__STATIC__/index/img/wx_qrcode.d7de962.jpg"
+                                                           alt="微信二维码" class="QRcode"></div>
+                <div data-v-5eef6683=""><a data-v-5eef6683="" href="/login" class="">登陆</a></div>
+            </div>
         </div>
-        <div data-v-5eef6683="" class="right">
-          <div data-v-5eef6683="" class="phoneVersion">
-            <span data-v-5eef6683="" class="iconfont icon-phone"></span>
-            <span
-                    data-v-5eef6683="">手机版</span>
-            <img data-v-5eef6683="" src="__STATIC__/index/img/wap_qrcode.475f601.jpg" alt="手机二维码"
-                 class="QRcode">
-          </div>
-          <div data-v-5eef6683="" class="weChatVersion">
-            <span data-v-5eef6683="" class="iconfont icon-weChat"></span>
-            <span data-v-5eef6683="">微信版</span>
-            <img data-v-5eef6683="" src="__STATIC__/index/img/wx_qrcode.d7de962.jpg" alt="微信二维码" class="QRcode">
-          </div>
-          <div data-v-5eef6683="">
-            {if $_SESSION['jmzn_web']['uid'] !== false}
-            <a data-v-5eef6683="" href="{:url('index/user/index')}" class=""><span data-v-5eef6683="" class="name">您好，{$_SESSION['jmzn_web']['username']}</span></a>
-            &nbsp;&nbsp;<a href="{:url('index/login/logout')}"><span data-v-5eef6683="">退出登陆</span></a>
-            {else}
-            <a data-v-5eef6683="" href="{:url('index/login/login')}" class="">登陆</a>
-            {/if}
-          </div>
-        </div>
-      </div>
     </div>
-    <div>
-      <div class="personalHeader">
-        <div class="wrapper content">
-          <a href="/">
-            <img class="logo" src="../../static/image/logo.png" alt="">
-          </a>
-          <div class="tabs">
-            <a href="/">首页</a>
-            <a href="/list">找项目</a>
-            <a href="/rankingList">排行榜</a>
-            <a href="/news">行业资讯</a>
-          </div>
+    <div data-v-949c1ac6="" class="evaluationReport">
+        <div data-v-13f8abc6="" data-v-949c1ac6="" class="personalHeader">
+            <div data-v-13f8abc6="" class="wrapper content"><a data-v-13f8abc6="" href="/"
+                                                               class="router-link-active"><img data-v-13f8abc6=""
+                                                                                               src="__STATIC__/index/img/logo.45da167.png"
+                                                                                               alt="" class="logo"></a>
+                <div data-v-13f8abc6="" class="tabs"><a data-v-13f8abc6="" href="/" class="router-link-active">首页</a> <a
+                        data-v-13f8abc6="" href="/list" class="">找项目</a> <a data-v-13f8abc6="" href="/rankingList"
+                                                                            class="">排行榜</a> <a data-v-13f8abc6=""
+                                                                                                href="/news" class="">行业资讯</a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+        <div data-v-949c1ac6="" class="evaBox">
+            <div data-v-949c1ac6="" class="report wrapper">
+                <div data-v-949c1ac6="" class="title">评估报告</div>
+                <div data-v-949c1ac6="" class="echarts clearfix">
+                    <div data-v-949c1ac6="" class="left fl">
+                        <div data-v-949c1ac6="" class="productCount">
+                            <div data-v-949c1ac6="" class="qiun-common-mt">
+                                <div data-v-949c1ac6="" class="qiun-title-dot-light">平台项目总量</div>
+                            </div>
+                            <div data-v-949c1ac6="" class="count">
+                                <div data-v-949c1ac6="" class="box"></div>
+                                <div data-v-949c1ac6="" class="box"></div>
+                                <div data-v-949c1ac6="" class="box"></div>
+                                <div data-v-949c1ac6="" class="box"></div>
+                                <div data-v-949c1ac6="" class="box"></div>
+                                <span data-v-949c1ac6="" class="text"></span></div>
+                        </div>
+                        <div data-v-949c1ac6="" class="qiun-columns ">
+                            <div data-v-949c1ac6="" class="qiun-common-mt">
+                                <div data-v-949c1ac6="" class="qiun-title-dot-light">项目符合度</div>
+                            </div>
+                            <div data-v-949c1ac6="" class="bar">
+                                <div data-v-949c1ac6="" class="row">
+                                    <div data-v-949c1ac6="" class="text">
 
-    <div class="evaBox">
-      <div class="report wrapper">
-        <div class="title">评估报告</div>
-        <div class="echarts clearfix">
-          <div class="left fl">
-            <!-- 项目总量 -->
-            <div class="productCount">
-              <div class="qiun-common-mt">
-                <div class="qiun-title-dot-light">平台项目总量</div>
-              </div>
-              <div class="count">
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <span class="text">12345</span>
-              </div>
-            </div>
-            <!-- 项目总量 -->
-            <!-- 项目符合度 -->
-            <div class="qiun-columns " >
-
-              <div class="qiun-common-mt">
-                <div class="qiun-title-dot-light">项目符合度</div>
-              </div>
-              <div class="bar">
-                <div class="row" v-for="item in data.like_cate_count" :key="'like'+item.id">
-                  <div class="text">
-                    一个项目
-                  </div>
-                  <div class="transition">
-                    <img class="icon-transition" src="../../../../static/image/icon_transition.jpg"  :style="{'width':item.data+'%'}" mode=""/>
-                  </div>
-                  <div class="text">80%</div>
+                                    </div>
+                                    <div data-v-949c1ac6="" class="transition"><img data-v-949c1ac6=""
+                                                                                    src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElEQVRoge2TO24EMQxDSfZ7iVwp9z9LUqw/lBbZpIoaPmBmYA0lU4bFx8fnFzYkLrzvHmfV7P980di36H75f/bj3ZvvND3u9fmaQ5UckLdPy6evZdodPzVocdQaYvXhde05MXXvtwZlvneeam1QgACya/HMX72QWHstnVh9yerDfIkABKrl6AdPJ09Wq/ew1qs//qUWcPc8GphnFE87l/usWw4EEGp9op2D3Zmisxi2/3Zn3R+eRxBC+GcyeCEMkMELYYAMXggDZPBCGCCDF8IAGbwQBsjghTBABi+EATJ4IQzwDWi2AyT0i2oZAAAAAElFTkSuQmCC"
+                                                                                    mode="" class="icon-transition">
+                                    </div>
+                                    <div data-v-949c1ac6="" class="text">%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-v-949c1ac6="" class="right fr">
+                        <div data-v-949c1ac6="" class="qiun-columns box1">
+                            <div data-v-949c1ac6="" class="qiun-common-mt">
+                                <div data-v-949c1ac6="" class="qiun-title-dot-light">平均投资额</div>
+                                <div data-v-949c1ac6="" class="qiun-select">
+                                    <div data-v-949c1ac6="" class="el-dropdown"><span data-v-949c1ac6=""
+                                                                                      class="el-dropdown-link el-dropdown-selfdefine"
+                                                                                      aria-haspopup="list"
+                                                                                      aria-controls="dropdown-menu-2549"
+                                                                                      role="button" tabindex="0">
+                    <i data-v-949c1ac6="" class="el-icon-arrow-down el-icon--right"></i></span>
+                                        <ul data-v-949c1ac6="" class="el-dropdown-menu el-popper"
+                                            id="dropdown-menu-2549" style="display: none;"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-v-949c1ac6="" class="columns">
+                                <div data-v-949c1ac6="" class="col">
+                                    <div data-v-949c1ac6="" class="money">万</div>
+                                    <img data-v-949c1ac6="" src="__STATIC__/index/img/icon_col.c9fa1b5.png" class="icon_col">
+                                    <div data-v-949c1ac6="" class="name">平均最低投资额</div>
+                                </div>
+                                <div data-v-949c1ac6="" class="col">
+                                    <div data-v-949c1ac6="" class="money">万</div>
+                                    <div data-v-949c1ac6="" class="icon_col"><img data-v-949c1ac6=""
+                                                                                  src="__STATIC__/index/img/icon_col.c9fa1b5.png">
+                                    </div>
+                                    <div data-v-949c1ac6="" class="name">平均最高投资额</div>
+                                </div>
+                                <div data-v-949c1ac6="" class="col">
+                                    <div data-v-949c1ac6="" class="money">万</div>
+                                    <img data-v-949c1ac6="" src="__STATIC__/index/img/icon_col.c9fa1b5.png" class="icon_col">
+                                    <div data-v-949c1ac6="" class="name">平均投资额</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-v-949c1ac6="" class="qiun-columns box2">
+                            <div data-v-949c1ac6="" class="qiun-common-mt">
+                                <div data-v-949c1ac6="" class="qiun-title-dot-light">投资分布</div>
+                            </div>
+                            <div data-v-949c1ac6="" class="qiun-charts">
+                                <div data-v-949c1ac6="" id="canvasRadar" class="charts charts2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-v-949c1ac6="" class="qiun-columns  fr box3" style="height: 557px;">
+                        <div data-v-949c1ac6="" class="qiun-common-mt">
+                            <div data-v-949c1ac6="" class="qiun-title-dot-light">项目占比</div>
+                        </div>
+                        <div data-v-949c1ac6="" class="qiun-charts">
+                            <div data-v-949c1ac6="" id="canvasRing" class="charts"></div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <!-- 项目符合度 -->
-          </div>
-
-          <div class="right fr">
-            <!-- 平均投资额开始 -->
-            <div class="qiun-columns box1">
-
-              <div class="qiun-common-mt">
-                <div class="qiun-title-dot-light">平均投资额</div>
-                <div class="qiun-select">
-                  <el-dropdown @command="handleCommand">
-                      <span class="el-dropdown-link">
-                        50<i class="el-icon-arrow-down el-icon--right"></i>
-                      </span>
-                    <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item v-for="(item,index) in barData" :key="'command'+index" :command="index">{{item.name}}</el-dropdown-item>
-                    </el-dropdown-menu>
-                  </el-dropdown>
-                </div>
-              </div>
-              <div class="columns">
-                <div class="col">
-                  <div class="money">{{columnData.min}}万</div>
-                  <img class="icon_col" src="../../../../static/image/icon_col.png" :style="{'height': columnData.min/columnData.full*100+'%'}" />
-                  <div class="name">平均最低投资额</div>
-                </div>
-                <div class="col">
-                  <div class="money">{{columnData.max}}万</div>
-                  <div class="icon_col" :style="{'height': columnData.max/columnData.full*100+'%'}" >
-                    <img  src="../../../../static/image/icon_col.png" />
-                  </div>
-                  <div class="name">平均最高投资额</div>
-                </div>
-                <div class="col">
-                  <div class="money">{{columnData.avg}}万</div>
-                  <img class="icon_col" src="../../../../static/image/icon_col.png" :style="{'height': columnData.avg/columnData.full*100+'%'}" />
-                  <div class="name">平均投资额</div>
-                </div>
-
-              </div>
-            </div>
-            <!-- 平均投资额结束 -->
-            <!-- 投资分布开始 -->
-            <div class="qiun-columns box2">
-
-              <div class="qiun-common-mt">
-                <div class="qiun-title-dot-light">投资分布</div>
-              </div>
-              <div class="qiun-charts">
-                <div id="canvasRadar" class="charts charts2"></div>
-              </div>
-            </div>
-            <!-- 投资分布结束 -->
-          </div>
-          <!-- 项目占比图 -->
-          <div class="qiun-columns  fr box3" style="height: 557px">
-
-            <div class="qiun-common-mt">
-              <div class="qiun-title-dot-light">项目占比</div>
-            </div>
-            <div class="qiun-charts">
-              <div  id="canvasRing" class="charts"></div>
-            </div>
-          </div>
-          <!-- 项目占比图 -->
+                <a data-v-949c1ac6="" href="/list?cateid=" class="">
+                    <button data-v-949c1ac6="" type="button" class="el-button btn el-button--primary "><!---->
+                        <!----><span>
+         查看推荐项目
+        </span></button>
+                </a></div>
         </div>
-        <router-link :to="'/list?cateid='+data.like_cate_count[0].id" >
-          <el-button type="primary " class="btn">
-            查看推荐项目
-          </el-button>
-        </router-link>
-
-
-      </div>
     </div>
-  </div>
+    <div data-v-4dfbcb4e="" class="common-footer">
+        <div data-v-4dfbcb4e="" class="links ">
+            <div data-v-4dfbcb4e="" class="wrapper">
+                <div data-v-4dfbcb4e="" class="left"><a data-v-4dfbcb4e="" href="/aboutUs" class="">关于我们</a> <a
+                        data-v-4dfbcb4e="" href="/aboutUs" class="">产品服务</a> <a data-v-4dfbcb4e="" href="/aboutUs"
+                                                                                class="">产品优势</a> <a data-v-4dfbcb4e=""
+                                                                                                     href="/aboutUs"
+                                                                                                     class="">客户合作</a>
+                    <a data-v-4dfbcb4e="" href="/aboutUs" class="">联系我们</a></div>
+                <div data-v-4dfbcb4e="" class="right">
+                    客服热线：400-619-8882
+                </div>
+            </div>
+        </div>
+        <div data-v-4dfbcb4e="" class="body wrapper">
+            <div data-v-4dfbcb4e="" class="left">
+                <div data-v-4dfbcb4e="">友情提示：创业有风险，投资需谨慎</div>
+                <div data-v-4dfbcb4e="">Copyright © 2019 jinrongbaijia.com All Rights Reserved.冀ICP备17023127号-7</div>
+                <div data-v-4dfbcb4e="">法律支持：河北盈华律师事务所</div>
+                <a data-v-4dfbcb4e="" href="http://www.bcpcn.com/product/rz/bq/BCP30497889F2859242.html"
+                   target="_blank"><img data-v-4dfbcb4e="" src="http://www.bcpcn.com/bcptags/img/csrz.gif" border="0"
+                                        class="csrz"></a></div>
+            <div data-v-4dfbcb4e="" class="right">
+                <div data-v-4dfbcb4e="" class="item"><img data-v-4dfbcb4e="" src="__STATIC__/index/img/wx_qrcode.d7de962.jpg" alt=""
+                                                          class="QRcode">
+                    <div data-v-4dfbcb4e="">微信公众号</div>
+                </div>
+                <div data-v-4dfbcb4e="" class="item"><img data-v-4dfbcb4e="" src="__STATIC__/index/img/wap_qrcode.475f601.jpg"
+                                                          alt="" class="QRcode">
+                    <div data-v-4dfbcb4e="">手机版</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<script type="text/javascript">
-  function cityChange() {
-    //省份id
-    var p = $("#province").children('option:selected').val();
-    console.log('provinceId',p);
-    //获取城市
-    $.ajax({
-      type: "POST",
-      url: "{:url('index/index/getCityDataList')}",
-      data:{
-        pid:p,
-      },
-      success: function(data) {
-        if(data.code == 200){
-          $("#city").html(false);
-          layui.each(data.data,function (index,item) {
-            //数据填充给option
-            $("#city").append("<option class='city' value='"+item.id+"'>"+item.cityname+"</option>");
-          });
-        }else{
-          layer.msg(data.msg,{icon:2});
-        }
-      }
-    });
-  }
-  function submitForm(){
-    //获取信息
-    var name = $("#name").val();//姓名
-    var city = $("#city").val();//加盟区域
-    var resources = $("#resources").val();//个人资源
-    var money = $("#money").val();//投资金额
-    var phone = $("#phone").val();//手机号
-    var pcode = $("#pcode").val();//短信验证码
-    //验证手机号
-    var resPhone = validatePhone(phone);
-    if(!resPhone){
-      return
-    }
-    //验证短信验证码
-    if(!pcode){
-      layer.msg('请输入短信验证码',{icon:2})
-      return false;
-    }
-    //预算金额
-    if(!money){
-      layer.msg('请输入预算金额',{icon:2})
-      return false;
-    }
-    //city
-    if(city == 0){
-      layer.msg('请选择加盟城市',{icon:2})
-      return false;
-    }
-
-    console.log('name',name);
-    console.log('city',city);
-    console.log('resources',resources);
-    console.log('money',money);
-    console.log('phone',phone);
-    console.log('pcode',pcode);
-
-    //从事行业
-    var catelenth = $("input[name='cate']:checked").length;
-    var cate_id = "";
-    $("input[name='cate']:checked").each(function (index, item) {
-      if(catelenth-1){
-        cate_id += $(this).val()+',';
-      }else{
-        cate_id += $(this).val() + ",";
-      }
-    });
-    console.log('cate_id',cate_id);
-    //意向行业
-    var likeCateLength = $("input[name='cate']:checked").length;
-    var likeCateId = "";
-    $("input[name='cate']:checked").each(function (index, item) {
-      if(likeCateLength-1){
-        likeCateId += $(this).val()+',';
-      }else{
-        likeCateId += $(this).val() + ",";
-      }
-    });
-    console.log('likeCateId',likeCateId);
-
-    //ajax 提交
-    $.ajax({
-      type: "POST",
-      url: "{:url('index/assess/add_ass')}",
-      data:{
-        'name':name,
-        'city_id' :city,
-        'resources' :resources,
-        'money' :money,
-        'phone' :phone,
-        'code':pcode,
-        'cate_id' :cate_id,
-        'like_cate_id'  :likeCateId,
-      },
-      success: function(data){
-        console.log('data',data);
-        if(data.code == 200){
-          layer.msg('成功',{icon:1})
-        }else{
-          layer.msg(data.msg,{icon:2});
-        }
-      }
-    })
-  }
-
-  //选择从事行业
-  function cateChange(){
-    $("input[name='cate']:checked").each(function(){
-      // console.log($(this).val());
-    })
-    $("input[name='cate']").next().removeClass('current')
-    $("input[name='cate']:checked").next().addClass('current');
-    // console.log($("input[name='cate']:checked").next().addClass('current'));
-  }
-
-  // 选择意向行业
-  function likeCateChange() {
-    console.log('进来了啊');
-    $("input[name='likeCate']:checked").each(function(){
-      console.log($(this).val());
-    })
-    $("input[name='likeCate']").next().removeClass('current')
-    console.log($("input[name='cate']:checked").next().addClass('current'));
-    $("input[name='likeCate']:checked").next().addClass('current');
-  }
-
-  var type = 1;
-  function upPage(){
-     if(type == 1){
-       return
-     }
-     type --;
-     pageChange();
-  }
-  function nextPage(){
-    if(type == 3){
-      return
-    }
-    type ++;
-    pageChange();
-  }
-
-  function pageChange(){
-    console.log('type',type);
-    console.log(" $('.line>div')", $('.line>div'));
-
-    if(type == 1){
-      $('.upPage').css({display:'none'});
-      $('.submitForm').css({display:'none'});
-      $('.nextPage').css({display:'inline-block'});
-      $('.line>div').eq(1).removeClass('active');
-
-    }else if(type == 2){
-      $('.upPage').css({display:'inline-block'});
-      $('.submitForm').css({display:'none'});
-      $('.nextPage').css({display:'inline-block'});
-      $('.line>div').eq(1).addClass('active');
-      $('.line>div').eq(2).removeClass('active');
-
-
-    }else if(type == 3){
-      $('.upPage').css({display:'inline-block'});
-      $('.submitForm').css({display:'inline-block'});
-      $('.nextPage').css({display:'none'});
-      $('.line>div').eq(2).addClass('active');
-    }
-
-    console.log(" $('.part')", $('.part'));
-    $('.part').css({display: 'none'});
-    // $('.part')[2].css({display: 'inline-block'})
-    console.log(" $('.part')", $('.part').eq(type-1).css({display: 'inline-block'}));
-
-  }
-  //验证手机格式
-  function validatePhone (phone) {
-    if (!phone) {
-      layer.msg('请输入手机号码',{icon:2});
-      return false;
-    }
-    if (phone.length != 11) {
-      layer.msg('手机号码格式不正确',{icon:2});
-      return false;
-    }
-    return true;
-  }
-  //验证图片验证码
-  function validateImgCode(imgCode){
-    console.log('imgcode',imgCode);
-    if(!imgCode){
-      layer.msg('请输入图片验证码',{icon:2});
-      console.log('请输入图片验证码');
-      return false;
-    }
-    return true
-  }
-
-  //获取验证码
-  let intervalID = '';
-  function getMobileCode(e) {
-    //验证手机号
-    console.log('立即咨询');
-    var phone = $("#phone").val();
-    console.log('phone',phone);
-    var resPhone = validatePhone(phone);
-    if(!resPhone){
-      return
-    }
-    //验证图片验证码
-    var imgCode = $("#icode").val();
-    console.log('imgCode',imgCode);
-    var resImg = validateImgCode(imgCode);
-    if(!resImg){
-      return
-    }
-    //请 求短信接口
-    $.ajax({
-      type: "POST",
-      url: "{:url('index/login/get_code')}",
-      data:{
-        phone:phone,
-        icode:imgCode,
-      },
-      success: function(data){
-        console.log('data',data);
-        if(data.code != 200){
-          console.log('msg',data.msg);
-          layer.msg(data.msg,{icon:2});
-          return ;
-
-        }
-        if(data.code == 200){
-          console.log('msg','验证码发送成功');
-          layer.msg('验证码发送成功',{icon:1});
-          let outTime = 60;
-          console.log($(e));
-          intervalID = setInterval(function(){
-            if(outTime == 0){
-              outTime = 60;
-              clearInterval(intervalID)
-              $(e).html('获取验证码');
-              return
-            }
-            outTime--;
-            $(e).html(outTime+'S后可重新获取');
-          },1000);
-        }
-      }
-    })
-  }
-</script>
-{/block}
+<script type="text/javascript" src="__STATIC__/index/js/manifest.4c70778beadeccbf5422.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/vendor.ca774af52bc39667be8d.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/app.e7671a9f70033ac0eaad.js"></script>
+</body>
+</html>

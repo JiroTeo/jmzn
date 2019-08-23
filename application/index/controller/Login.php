@@ -94,14 +94,14 @@ class login extends Base {
         if(empty($resPhone)){
             $rinfo = $this -> returnCode['ERROR'][1];
             $rinfo['msg'] = '手机号格式错误';
-            wapReturn($rinfo);
+            return $rinfo;
         }
         $codeKey = 'CODE'.$phone;
         $resCode = verifCode($code,$codeKey);
         if(empty($resCode)){
             $rinfo = $this -> returnCode['ERROR'][1];
             $rinfo['msg'] = '手机验证码错误';
-            wapReturn($rinfo);
+            return $rinfo;
         }
         // 根据手机号查询用户是否存在
         $where['phone'] = $phone;
@@ -111,6 +111,7 @@ class login extends Base {
             $data['cname'] = empty($_REQUEST['cname']) ? '' : $_REQUEST['cname'];
             $data['name'] = empty($_REQUEST['name']) ? '' : $_REQUEST['name'];
             $data['address'] = empty($_REQUEST['address']) ? '' : $_REQUEST['address'];
+            $data['uname'] = base64_encode('jmzn_'.$phone);
             $data['phone'] = $phone;
             $data['status'] = 1;
             $data['type'] = 1;
@@ -121,7 +122,7 @@ class login extends Base {
             $result = $this -> userModel -> editUserData($where,$data);
             $rinfo = empty($result) ? $this -> returnCode['ERROR'][0] : $this -> returnCode['SUCCESS'][0];
         }
-        wapReturn($rinfo);
+        return $rinfo;
     }
 
     public function get_code(){
