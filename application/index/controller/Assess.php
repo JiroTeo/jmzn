@@ -151,7 +151,12 @@ class assess extends Base {
         $this -> assign('dsc',$dsc);//分布
         return view();
     }
-
+    /*
+     *  评估报告页面
+     * ***/
+    public function detail(){
+        return view();
+    }
 
     /*发布并进行评估
      *  @param  name        姓名
