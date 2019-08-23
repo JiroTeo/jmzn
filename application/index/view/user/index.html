@@ -379,12 +379,20 @@
       </div>
     </div>
     <!--线下付款-->
-    <div class="offBg" v-if="offShow" style="display: none;">
+    <div class="offBg" style="display: none;">
       <div class="offline">
-        <div class="head">线下付款<i class="iconfont icon-close" @click="showOff"></i></div>
+        <div class="head">线下付款<i class="iconfont icon-close" onclick="hideOff()"></i></div>
       </div>
     </div>
 
   </div>
 </div>
+  <script type="text/javascript">
+    function hideOff(){
+      $('.offBg').css({display:'none'})
+    }
+    function showOff(){
+      $('.offBg').css({display:'block'})
+    }
+  </script>
 {/block}
