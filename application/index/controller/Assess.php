@@ -141,6 +141,16 @@ class assess extends Base {
             $column['full'] = number_format($fullCount,2);
 
         }
+        echo "柱状图";
+        dump($column);
+        echo "项目总数";
+        dump($itemCount);
+        echo "饼状图";
+        dump($allCateCount);
+        echo "符合度";
+        dump($like_cate_count);
+        echo "分布图";
+        dump($dsc);
 
         //分配变量
         $this -> assign('column',$column);//柱状图
