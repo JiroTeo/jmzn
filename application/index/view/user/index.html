@@ -126,6 +126,7 @@
     left: 50%;
     top: 50%;
     margin: -210px 0 0 -270px;
+    text-align: center;
   }
   .offBg .offline .head {
     height: 100px;
@@ -142,6 +143,11 @@
     top: 0;
     z-index: 10;
     cursor: pointer;
+  }
+  .offBg .offline img {
+    width: 500px;
+    height: 274px;
+    margin: auto;
   }
   /*导航栏*/
   .dialog-footer {
@@ -382,6 +388,7 @@
     <div class="offBg" style="display: none;">
       <div class="offline">
         <div class="head">线下付款<i class="iconfont icon-close" onclick="hideOff()"></i></div>
+        <img src="__STATIC__/index/image/offBg.jpg" alt="">
       </div>
     </div>
 
