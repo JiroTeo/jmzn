@@ -67,24 +67,24 @@
                class="router-link-exact-active router-link-active"><img
                     data-v-3a1bbf91="" src="__STATIC__/index/img/logo.45da167.png" title="加盟指南" class="logo"></a>
             <div data-v-3a1bbf91="">
+                <form action="{:url('index/item/index')}" method="post">
                 <div data-v-3a1bbf91=""
                      class="input-with-select el-input el-input-group el-input-group--append el-input--prefix el-input--suffix">
-                    <!----><input type="text" autocomplete="off" placeholder="请输入内容" class="el-input__inner">
+                    <!----><input type="text" autocomplete="off" name="keyword" placeholder="请输入内容" class="el-input__inner">
                     <span class="el-input__prefix"><i data-v-3a1bbf91="" class="el-input__icon el-icon-search"></i><!----></span>
                     <!---->
                     <div class="el-input-group__append">
-                        <button data-v-3a1bbf91="" type="button" class="el-button el-button--default"><!----><!---->
-                            <span><a data-v-3a1bbf91="" href="javascript" class="">搜索</a></span>
+                        <button data-v-3a1bbf91="" type="submit" class="el-button "><!----><!---->
+                            <span>搜索</span>
                         </button>
                     </div><!---->
                 </div>
+                </form>
                 <div data-v-3a1bbf91="" class="tag">
                     <span data-v-3a1bbf91="" class="name">热门搜索：</span>
-                    <span data-v-3a1bbf91="">装修</span>
-                    <span data-v-3a1bbf91="">服装</span>
-                    <span data-v-3a1bbf91="">小吃</span>
-                    <span data-v-3a1bbf91="">美容</span>
-                    <span data-v-3a1bbf91="">餐饮</span>
+                    {foreach $hotLog as $key => $value}
+                    <a href="{:url('index/item/index')}?keyword={$value.word}"><span data-v-3a1bbf91="">{$value.word}</span></a>
+                    {/foreach}
                 </div>
             </div>
             <a data-v-3a1bbf91="" href="{:url('index/assess/index')}" class="">
@@ -180,7 +180,7 @@
         <div data-v-673d4749="" data-v-64375f02="" class="hotOrder fr hotOrder">
             <div data-v-673d4749="" class="title clearfix">
                 <span data-v-673d4749="" class="fl">加盟项目排行榜</span> <a
-                    data-v-673d4749="" href="{:url('index/index/rankinglist')}?order=1" class="fr more"> 更多
+                    data-v-673d4749="" href="{:url('index/item/index')}?sort=1" class="fr more"> 更多
                 <span data-v-673d4749=""
                       class="el-icon-arrow-right"></span></a>
             </div>

@@ -294,7 +294,8 @@
           <div class="title">{$data.title}</div>
           <div class="subhead between">
             <div>作者：{$data.username} &nbsp;&nbsp; 发布时间：{$data.addtime} &nbsp;&nbsp; 阅读量：{$data.read_num}</div>
-            <span id="follow" class="collectBtn {if $data.is_fow == 1}collectActive{/if}" onclick="modifyFollow('{$data.id}','{$data.is_fow}')">
+            <input type="hidden" id="is_fow" value="{$data.is_fow}">
+            <span id="followlike" class="collectBtn {if $data.is_fow == 1}collectActive{/if}" onclick="modifyFollow('{$data.id}')">
               <i class="iconfont icon-collect"></i>
               <b id="state">{if $data.is_fow == 1}已收藏{else/}收藏{/if}</b>
             </span>
@@ -336,12 +337,16 @@
           <div class="title">
             文章评论
           </div>
+
           <div class="content">
-            <textarea cols="30" rows="10" placeholder="请输入评论内容" id="content"></textarea>
+            <textarea cols="30" rows="10"placeholder="请输入评论内容" name="content" id="content"></textarea>
+              <input type="hidden" id="topic_id" value="{$data.id}">
+              <input type="hidden" id="to_uid" value="{$data.id}">
             <div class=" clearfix">
-              <button class="submitBtn fr" @click="addComment">提交评论</button>
+              <button class="submitBtn fr" onclick="addComment()">提交评论</button>
             </div>
           </div>
+
           <div class="consult" v-if="commentList.length>0">
             <div class="count">
               共{$comment.count}条评论
@@ -353,7 +358,7 @@
               <div class="info fl">
                 <div class="name">
                   {$value.username}
-                  <div class="fr noPraise" data-id="item.id" @click="addLike($event,item.id)">
+                  <div class="fr noPraise" data-id="item.id" onclick="addLike('{$value.id}')">
                     <span class="iconfont icon-praise"></span> {$value.likes}
                   </div>
                 </div>
@@ -365,10 +370,6 @@
                 </div>
                 {/foreach}
                 {/if}
-                <div class="time clearfix">
-                  <span class="fl"></span>
-                  <span class="fr replyBtn">回复</span>
-                </div>
               </div>
             </div>
             {/foreach}
@@ -378,7 +379,58 @@
       </div>
     </div>
 <script type="text/javascript">
-  function modifyFollow(id,state) {
+  function addComment() {
+    var content = $("#content").val();
+    if(!content){
+      layer.msg('请输入评论内容',{icon:2})
+      return false;
+    }
+    // add_comment
+    var topic_id = $("#topic_id").val();
+    var to_uid = $("#to_uid").val();
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/comment/add_comment')}",
+      data:{
+        'topic_id':topic_id,
+        'to_uid':to_uid,
+        'content':content
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code == 200){
+          layer.msg('发表成功',{icon:1});
+          window.location.reload();
+        }else{
+          layer.msg(data.msg,{icon:2});
+        }
+      }
+    })
+  }
+
+  /**
+   *  评论点赞
+   *  @param id
+   * */
+  function addLike(id) {
+    console.log('id',id);
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/comment/add_likes')}",
+      data:{
+        'id':id,
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code == 200){
+        }
+      }
+    })
+  }
+  
+  
+  function modifyFollow(id) {
+    var state = $("#is_fow").val();
     console.log(state);
     $.ajax({
       type: "POST",
@@ -389,14 +441,18 @@
       },
       success: function(data){
         if(data.code == 200){
-          if(state == 1){
+          if(state == 0){
+            $("#is_fow").val(1);
+            layer.msg('收藏成功',{icon:1});
+            $("#state").html('已收藏');
+            $("#followlike").addClass('collectActive');
+            console.log('添加属性');
+          }else{
+            $("#is_fow").val(0);
             layer.msg('取消收藏',{icon:1});
             $("#state").html('收藏');
-            $("span").addClass('collectActive');
-          }else{
-            layer.msg('收藏成功',{icon:1});
-            $("#state").html('取消收藏');
-            $("span").removeClass('collectActive');
+            $("#followlike").removeClass('collectActive');
+            console.log('清除属性');
           }
         }else{
           layer.msg(data.msg,{icon:1});

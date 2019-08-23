@@ -101,8 +101,12 @@ class comment extends Base{
     /*评论点赞*/
     public function add_likes(){
 
-        $id = empty($_REQUEST['id']) ? wapReturn($this -> returnCode['ERROR'][1]) : $_REQUEST['id'];
-        $uid = empty($this -> user['uid']) ? 0 : $this -> user['uid'];
+        $id = empty($_REQUEST['id']) ? false : $_REQUEST['id'];
+        $uid = empty($_SESSION['jmzn_web']['uid']) ? 0 : $_SESSION['jmzn_web']['uid'];
+
+        if(empty($id)){
+            return $this -> returnCode['ERROR'][1];
+        }
 
         $where['id'] = $id;
         $res = $this -> ComModel -> commentLike($where);
@@ -133,7 +137,7 @@ class comment extends Base{
             $rinfo = $this -> returnCode['ERROR'][0];
 
         }
-        wapReturn($rinfo);
+        return $rinfo;
     }
 
 

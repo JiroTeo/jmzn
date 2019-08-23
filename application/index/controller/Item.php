@@ -54,6 +54,21 @@ class item extends Base{
             $where['min_money'] = array('egt',$moeney[$mKey]['min']);
             $where['max_money'] = array('elt',$moeney[$mKey]['max']);
         }
+        //关键字
+        //关键字检索项目
+        $keyword = empty($_REQUEST['keyword']) ? false : $_REQUEST['keyword'];
+        if(!empty($keyword)){
+            $where['item_name'] = array('like', '%' . trim($keyword) . '%');
+            //验证登录——埋点——添加到搜索记录
+            if(!empty($this -> user)){
+                $addSearchData['uid'] = $this -> user['uid'];
+                $addSearchData['word'] = $keyword;
+                $addSearchData['type'] = 0;
+                $addSearchData['addtime'] = time();
+                $addSearchData['status'] = 1;
+                db('search_log') -> insertGetId($addSearchData);
+            }
+        }
         //项目列表
         $where['status'] = 1;
         $order = empty($sort) ? 'id desc' : 'read_num desc' ;
