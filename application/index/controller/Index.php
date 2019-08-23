@@ -19,7 +19,6 @@ class Index extends Base{
      *  【加盟行业、加盟项目排行、品牌精选模块（字、图）、项目推荐、行业资讯、品牌聚焦】
      * **/
     public function index(){
-
         //实例化模型
         $cateModel = new cateModel();
         $itemModel = new itemModel();
@@ -91,10 +90,10 @@ class Index extends Base{
                     $dataList[$key]['link'] = empty($value['link']) ? 'javascript:;' : $value['link'];
                     break;
                 case 2://链接到项目
-                    $dataList[$key]['link'] = empty($value['link']) ? '' : "../item/detail?id={$value['link']}";
+                    $dataList[$key]['link'] = empty($value['link']) ? '' : "/index/item/detail?id={$value['link']}";
                     break;
                 case 3://链接到文章
-                    $dataList[$key]['link'] = empty($value['link']) ? '' : "../article/detail?id={$value['link']}";
+                    $dataList[$key]['link'] = empty($value['link']) ? '' : "/index/article/detail?id={$value['link']}";
                     break;
                 default://外链
                     $dataList[$key]['link'] = $value['link'];
@@ -143,6 +142,33 @@ class Index extends Base{
         $this -> assign('imageData',$imageData);//广告
         $this -> assign('title','排行榜');//广告
         return view();
+    }
+
+    /*  文件上传    */
+    public function uploadImage(){
+
+        $key = key($_FILES);    //获取数组下标
+        $file = request()->file( $key ); //获取文件内容
+        // 移动到框架应用根目录/public/uploads/ 目录下
+        $path = '../public/uploads/';
+        if( !is_dir( $path ) ){
+            @mkdir( $path, 0777, true ); //如果目录不存在，则生成
+        }
+        $date = date('Ymd/');
+        if( !is_dir( $path.$date ) ){
+            @mkdir( $path.$date, 0777, true ); //如果目录不存在，则生成
+        }
+        $fileName =   $date . uniqid() . '.png';
+        $image = \think\Image::open( $file );
+
+        $res = $image-> save( $path . $fileName );
+//        $image-> thumb(300,300,\think\Image::THUMB_CENTER)->save( $path . $fileName ); //压缩
+        if($res){
+//            echo '{"code":200,"msg":"成功上传","data":{"src":"/uploads/'.$fileName.'"}}';
+     	    echo '/uploads/'.$fileName;
+        }else{
+            echo '{"code":400,"msg":"上传失败","data":{"src":"/uploads/'.$fileName.'"}}';
+        }
     }
 
 }

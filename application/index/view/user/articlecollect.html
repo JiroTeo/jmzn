@@ -1,0 +1,435 @@
+<!--继承模板-->
+{extend name="defa/defa" /}
+<!--title-->
+{block name="title"}我的收藏{/block}
+<!--keywords-->
+{block name="keywords"}{/block}
+<!--description-->
+{block name='description'}{/block}
+<!--index js && css -->
+{block name="index"}
+<link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/0.f5ed0d9d7e597a228142.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="__STATIC__/index/js/17.2ca34d5d16f167d8013d.js"></script>
+<link href="__STATIC__/admin/css/xadmin.css" rel="stylesheet">
+<style>
+  /*  menu start*/
+  .personalMenu {
+    width: 230px;
+    background-color: #fff;
+  }
+  .personalMenu .header {
+    display: block;
+    font-size: 16px;
+    line-height: 60px;
+    padding: 31px 21px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .personalMenu .header .avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+  .personalMenu .items {
+    padding: 22px 0;
+  }
+  .personalMenu .items .item {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 28px;
+  }
+  .personalMenu .items .item:hover {
+    color: #579EFA;
+  }
+  .personalMenu .items .currentItem {
+    color: #579EFA;
+    background-color: #EBEDF5;
+    border-left: 2px solid #579EFA;
+  }
+  /* menu end*/
+  /* collect start */
+  .collect {
+    background-color: #F4F5FA;
+    padding-bottom: 120px;
+  }
+  .collect .content {
+    padding-top: 20px;
+  }
+  .collect .content .right {
+    width: 950px;
+    background-color: #fff;
+  }
+  .collect .content .right .header {
+    height: 60px;
+    line-height: 58px;
+    color: #999;
+    font-size: 16px;
+    padding: 0 30px;
+    cursor: pointer;
+  }
+  .collect .content .right .header .tab {
+    margin-right: 45px;
+  }
+  .collect .content .right .header .currentTab {
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid #579EFA;
+  }
+  .collect .content .right .tabs {
+    height: 60px;
+    line-height: 58px;
+    color: #999;
+    font-size: 16px;
+    padding: 0 30px;
+    cursor: pointer;
+    background-color: #F0F7FF;
+  }
+  .collect .content .right .tabs .tab {
+    margin-right: 45px;
+  }
+  .collect .content .right .tabs .currentType {
+    color: #5389F7;
+  }
+
+  .per {
+    padding: 0 30px;
+  }
+  .per .item {
+    position: relative;
+    display: flex;
+    font-size: 14px;
+    color: #999;
+    padding: 20px 0;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .per .item .right {
+    margin-left: 22px;
+  }
+  .per .item .right .name {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 24px;
+  }
+  .per .item .right .name .money {
+    color: #FF7E00;
+    font-size: 16px;
+  }
+  .per .item img {
+    width: 140px;
+    height: 140px;
+  }
+  .per .item .detail {
+    width: 320px;
+    margin-top: 15px;
+  }
+  .per .item .detail .info {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .per .item .detail .info span {
+    display: inline-block;
+    width: 80px;
+  }
+  .per .item:last-child {
+    border: 0;
+  }
+
+  .article {
+    padding: 0 30px;
+  }
+  .article .listDL {
+    position: relative;
+    padding: 20px 0;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .article .listDL dt {
+    float: left;
+    width: 198px;
+    height: 140px;
+  }
+  .article .listDL dt img {
+    display: block;
+    width: 198px;
+    height: 140px;
+  }
+  .article .listDL dd {
+    float: left;
+    width: 580px;
+    margin-left: 25px;
+  }
+  .article .listDL dd h3 {
+    font-size: 18px;
+    color: #000;
+    margin-top: 12px;
+  }
+  .article .listDL dd .desc {
+    line-height: 26px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-top: 13px;
+  }
+  .article .listDL dd .icon {
+    color: #999;
+    line-height: 20px;
+    margin-top: 12px;
+  }
+  .article .listDL dd .icon span {
+    margin-right: 35px;
+  }
+  .article .listDL dd .icon span i {
+    color: #ccc;
+    margin-right: 10px;
+  }
+  .article .listDL .reply {
+    width: 850px;
+    font-size: 14px;
+    color: #808080;
+    padding: 10px 20px;
+    background-color: #F4F5FA;
+    margin-top: 20px;
+  }
+  .article .listDL:last-child {
+    border: 0;
+  }
+
+  .btns {
+    position: absolute;
+    bottom: 10px;
+    right: 0px;
+    display: flex;
+    text-align: right;
+  }
+
+  .dialog-footer {
+    text-align: center;
+  }
+
+  .pages {
+    text-align: center;
+    margin: 34px 0;
+  }
+
+  /* 咨询弹窗 */
+  .code .el-input {
+    width: 186px;
+  }
+
+  .codeRight {
+    height: 44px;
+    width: 105px;
+    vertical-align: middle;
+    display: inline-block;
+    margin-top: -4px;
+    line-height: 44px;
+    cursor: pointer;
+  }
+
+  .codeBtn {
+    height: 41px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #4272FF;
+    text-align: center;
+    border: 1px solid #DCDFE6;
+    border-radius: 10px;
+  }
+
+  .outTime {
+    color: #666;
+  }
+  /* collect end */
+  /* header start */
+  .personalHeader {
+    width: 100%;
+    background: #fff;
+    padding: 15px 0;
+  }
+  .personalHeader .content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .personalHeader .logo {
+    width: 194px;
+    height: 70px;
+  }
+  .personalHeader .tabs {
+    height: 70px;
+    line-height: 70px;
+  }
+  .personalHeader .tabs a {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    cursor: pointer;
+  }
+  .personalHeader .tabs a:hover {
+    color: #579EFA;
+  }
+  /* header end */
+
+</style>
+{/block}
+{block name="header"}{/block}
+{block name="content"}
+<div>
+  <div class="collect">
+    <div>
+      <div class="personalHeader">
+        <div class="wrapper content">
+          <a href="/">
+            <img class="logo" src="../../static/image/logo.png" alt="">
+          </a>
+          <div class="tabs">
+            <a href="/">首页</a>
+            <a href="{:url('index/item/index')}">找项目</a>
+            <a href="{:url('index/item/rankingList')}">排行榜</a>
+            <a href="{:url('index/article/index')}">行业资讯</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper clearfix content">
+      <div class="fl" currentMenu="1">
+        <div class="personalMenu">
+          <a href="{:url('index/user/index')}" class="header clearfix">
+            <img src="{$user.avatar}" alt="" class="avatar fl">
+            <div class="fl">{$user.uname}</div>
+          </a>
+          <div class="items">
+            <a href="{:url('index/user/message')}" class="item">
+              <span>我的消息</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/focus')}" class="item">
+              <span>我的关注</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/collect')}" class="item a-exact-active a-active currentItem">
+              <span>我的收藏</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/leaveMessage')}" class="item">
+              <span>我的留言</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/index')}" class="item">
+              <span>我的账户</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/footmark')}" class="item">
+              <span>我的足迹</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/account')}" class="item">
+              <span>企业中心</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/feedback')}" class="item">
+              <span>意见反馈</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+            <a href="{:url('index/user/modify')}" class="item">
+              <span>资料设置</span>
+              <span class="el-icon-arrow-right"></span>
+            </a >
+          </div>
+        </div>
+      </div>
+      <div class="fr right">
+        <div class="header clearfix" @click="tabChange">
+          <a href="{:url('index/user/collect')}" class="tab fl" >项目收藏</a>
+          <a href="{:url('index/user/articleCollect')}" class="tab fl currentTab" >文章收藏</a>
+        </div>
+        <div>
+          <div class="tabs clearfix" id="articleType">
+            <a href="{:url('index/user/articlecollect')}"><div class="tab fl {if $type == 0}currentType{/if}" data-type="0" >行业报告</div></a>
+            <a href="{:url('index/user/articlecollect')}?type=1"><div class="tab fl {if $type == 1}currentType{/if}" data-type="1">加盟资讯</div></a>
+            <a href="{:url('index/user/articlecollect')}?type=2"><div class="tab fl {if $type == 2}currentType{/if}" data-type="2" >加盟攻略</div></a>
+          </div>
+          <div class="article" >
+            {foreach $article as $key => $value}
+            <dl class="listDL clearfix" v-for="item in data" :key="'art'+item.id">
+              <a href="{:url('index/article/detail')}?id={$value.id}">
+                <dt>
+                  <img src="{$value.img}">
+                </dt>
+                <dd>
+                  <h3>{$value.title}</h3>
+                  <p class="desc">{$value.sign}</p>
+                  <p class="icon">
+                    <span><i class="iconfont icon-data"></i>{$value.addtime}</span>
+                    <span><i class="iconfont icon-look"></i>{$value.read_num}</span>
+                  </p>
+                </dd>
+                <div class="btns">
+                  <button id="cancelCollect"  data-id="{$value.id}" class="el-button el-button--default cancelCollect">取消收藏</button>
+                </div>
+              </a>
+            </dl>
+            {/foreach}
+          </div>
+          <div class="layui-card-body ">
+            <div class="page">
+              <div>
+                {$page}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  /**
+   * 取消收藏
+   */
+  $('.cancelCollect').click(function() {
+    var id = $(this)[0].dataset.id;
+    console.log("this", id );
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/follow/remove_follow')}",
+      data:{
+        'id':id,
+        'type':3,
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code != 200){
+          layer.msg(data.msg);
+          console.log('msg',data.msg);
+        }else{
+          layer.msg(data.msg);
+          console.log('msg',data.msg);
+          window.location.href = "/index/user/articlecollect";
+        }
+      }
+    });
+    return false
+  })
+
+  /**
+   * 改变文章类型
+   */
+  $('#articleType>div').click(function(e){
+    $('#articleType>div').removeClass('currentType');
+    $(this).addClass('currentType');
+    console.log('=======', $(this)[0].dataset.type);
+    /* todo 调接口 更换数据 */
+
+  })
+</script>
+{/block}
+{block name="jq"}
+
+{/block}

@@ -1,7 +1,7 @@
 <!--继承模板-->
 {extend name="defa/defa" /}
 <!--title-->
-{block name="title"}我的足迹{/block}
+{block name="title"}企业中心{/block}
 <!--keywords-->
 {block name="keywords"}{/block}
 <!--description-->
@@ -196,7 +196,6 @@
 {block name="content"}
 <div>
   <div>
-    <div class="personalHeader">
       <div class="wrapper content">
         <a href="/">
           <img class="logo" src="../../static/image/logo.png" alt="">
@@ -271,39 +270,39 @@
               </a>
             </ul>
           </div>
-          <div class="centerContent">
-            <div class="row">
-              <label class="title">公司logo</label>
-              <div class="txBox">
-                <img class="avatar" src="" />
-<!--                <i class="el-icon-plus avatar-uploader-icon"></i>-->
-                <input class="uploadBtn" type="file" name="image" accept="image/*">
+            <div class="centerContent">
+              <div class="row">
+                <label class="title">公司logo</label>
+                <div class="txBox">
+                  <img class="logo" src="{$data.logo}" />
+                  <input class="uploadBtn" type="file" name="image" accept="image/*">
+                </div>
+                <p class="clear"></p>
+                <p class="beizhu">*仅支持JPG、GIF、PNG、JPEG、BMP格式 , 文件小于2M</p>
               </div>
-              <p class="clear"></p>
-              <p class="beizhu">*仅支持JPG、GIF、PNG、JPEG、BMP格式 , 文件小于2M</p>
+              <div class="row clearfix">
+                <label class="title">企业名称</label>
+                <input class="textInp" name="cname" v-model="cname" type="text" placeholder="请输入企业名称" value="{$data.cname}">
+                <input type="hidden" class="textInp" id="logo" value="">
+              </div>
+              <div class="row clearfix">
+                <label class="title">手机号码</label>
+                <p class="desc">{$data.phone}</p>
+              </div>
+              <div class="row clearfix">
+                <label class="title">品牌名</label>
+                <input class="textInp" v-model="bname" name="bname" type="text" placeholder="请输入品牌名" value="{$data.bname}">
+              </div>
+              <div class="row clearfix">
+                <label class="title">注册地址</label>
+                <input class="textInp" v-model="address" name="address" type="text" placeholder="请输入注册地址" value="{$data.address}">
+              </div>
+              <div class="row clearfix">
+                <label class="title">联系邮箱</label>
+                <input class="textInp" v-model="email" name="email" type="text" placeholder="请输入联系邮箱" value="{$data.email}">
+              </div>
+              <button type="primary" onclick="submitForm()" class="el-button keepBtn el-button--primary">保存</button>
             </div>
-            <div class="row clearfix">
-              <label class="title">企业名称</label>
-              <input class="textInp" v-model="cname" type="text" placeholder="请输入企业名称">
-            </div>
-            <div class="row clearfix">
-              <label class="title">手机号码</label>
-              <p class="desc">18333156487</p>
-            </div>
-            <div class="row clearfix">
-              <label class="title">品牌名</label>
-              <input class="textInp" v-model="bname" type="text" placeholder="请输入品牌名">
-            </div>
-            <div class="row clearfix">
-              <label class="title">注册地址</label>
-              <input class="textInp" v-model="address" type="text" placeholder="请输入注册地址">
-            </div>
-            <div class="row clearfix">
-              <label class="title">联系邮箱</label>
-              <input class="textInp" v-model="email" type="text" placeholder="请输入联系邮箱">
-            </div>
-            <button type="primary" class="el-button keepBtn el-button--primary" @click="getKeep">保存</button>
-          </div>
         </div>
       </div>
     </div>
@@ -315,9 +314,39 @@
   }
   $(".uploadBtn").on('change',function(){
     var objUrl = getObjectURL($(this)[0].files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+    let formData = new FormData(),
+            fs = $(this)[0].files;
+    let max_size = 1024 * 1024 * 100;
+    for (let i = 0; i < fs.length; i++) {
+      let d = fs[0]
+      if(d.size <= max_size){  //文件必须小于100M
+        if(/.(JPG|GIF|PNG|JPEG|BMP|jpg|gif|png|jpeg|bmp)$/.test(d.name)){ //文件必须为文档
+          formData.append("files", fs[i]);  //文件上传处理
+        }else{
+          alert('上传文件必须是PDF或DOC！')
+          return false
+        }
+
+      }else{
+        alert('上传文件过大！')
+        return false
+      }
+    }
+    $.ajax({
+      type: "POST",
+      url: "{:url('/index/index/uploadImage')}",
+      data: formData,
+      cache: false,
+      processData: false,
+      contentType: false,
+      success: function(data){
+        layer.msg('上传成功',{icon:1});
+        $('#logo').val(data);
+      }
+    })
     console.log("objUrl",objUrl);
     if (objUrl) {
-      $('.avatar').attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+      $('.logo').attr("src", objUrl) ; //将图片路径存入src中，显示出图片
     }
   })
   function getObjectURL(file) {
@@ -331,5 +360,40 @@
     }
     return url ;
   }
+
+  /**
+   * 提交修改
+   * */
+  function submitForm() {
+    var logo = $("#logo").val();
+    var cname = $("#cname").val();
+    var address = $("#address").val();
+    var email = $("#email").val();
+    var bname = $("#bname").val();
+    $.ajax({
+      type: "POST",
+      url: "{:url('/index/user/account')}",
+      data:{
+        'logo':logo,
+        'cname':cname,
+        'address':address,
+        'email':email,
+        'bname':bname,
+      },
+      success: function(data){
+        if(data.code == 200){
+          console.log('success',data);
+          layer.msg(data.msg,{icon:1});
+        }else{
+          console.log('error',data);
+          layer.msg(data,msg,{icon:1});
+        }
+
+
+      }
+    })
+  }
+
+
 </script>
 {/block}

@@ -2,6 +2,7 @@
 namespace app\index\model;
 
 use think\Model;
+use think\Request;
 use app\index\model\Item as itemModel;
 class consult extends Model{
 
@@ -33,7 +34,8 @@ class consult extends Model{
     }
     /*  分页获取咨询列表    */
     public function getConsultListByPage($where = false , $order = false , $num = false , $type = 0 , &$page = '' , $debug = false ){
-        $consultList = $this -> consultModel -> where($where) -> order($order) -> paginate($num,false,['var_page'=>'p']);
+        $consultList = $this -> consultModel -> where($where) -> order($order) -> paginate($num,false, ['query' => Request::instance()->param()]);
+//        $num,false,['var_page'=>'p']
         $page = $consultList->render();
         $data = iterator_to_array($consultList);
         if(empty($data)){    return [];  }
@@ -93,7 +95,7 @@ class consult extends Model{
     }
 
     /*  格式化-项目详情-留言列表数据   */
-    public function formarItemDetailConsultList($data,$user,$debug){
+    public function formarItemDetailConsultList($data){
         $userModel = \model('user');
         $perfix = config('IMAGE');
         foreach ($data as $key => $value) {

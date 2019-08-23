@@ -74,14 +74,12 @@ class login extends Base {
     }
 
 
-    /*  企业入驻    */
-    public function login_qy(){
-        $info = $this -> request -> param();
-        if($info){
-            echo "企业入驻";
-        }else{
-            echo "企业入驻";
-        }
+    /*  企业入驻
+     *
+     *
+     * ***/
+    public function settled(){
+        return view();
     }
 
 
@@ -139,11 +137,11 @@ class login extends Base {
         }
         //验证图片验证码
         $icodeRes = captcha_check($icode);
-//        if(empty($icodeRes)){
-//            $rinfo = $this -> returnCode['ERROR'][1];
-//            $rinfo['msg'] = '图片验证码错误';
-//            return $rinfo;
-//        }
+        if(empty($icodeRes)){
+            $rinfo = $this -> returnCode['ERROR'][1];
+            $rinfo['msg'] = '图片验证码错误';
+            return $rinfo;
+        }
         //发送短信
         $str = sendMesasage($phone);
         $res = explode(',',$str);

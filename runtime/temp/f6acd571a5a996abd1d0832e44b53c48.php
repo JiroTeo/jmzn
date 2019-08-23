@@ -1,15 +1,15 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:84:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\index\rankinglist.html";i:1566480350;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566477832;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:81:"D:\PHPTutorial\WWW\jmzn\jmzn\public/../application/index\view\article\detail.html";i:1566477832;s:66:"D:\PHPTutorial\WWW\jmzn\jmzn\application\index\view\defa\defa.html";i:1566477832;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title><?php echo $title; ?></title>
+  <title>文章详情</title>
   <meta name="keywords" content="
-   
+   {123}
    ">
   <meta name="description" content="
-    
+    {456}
     ">
   <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/admin/lib/layui/layui.js"></script>
   <meta name="360-site-verification" content="8fa3cbfa5b4b4bdf0a95dd925cf2f8b5" />
@@ -21,8 +21,281 @@
 <link href="http://www.test.com\/statics/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/index/js/0.f5ed0d9d7e597a228142.js"></script>
 <script type="text/javascript" charset="utf-8" async="" src="http://www.test.com\/statics/index/js/17.2ca34d5d16f167d8013d.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
+<style>
+  .submitBtn{
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    border-left: 1px solid #5389F7;
+    text-align: center;
+    color: #fff;
+    background-color: #5389F7;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .consultDetail {
+    background-color: #F4F5FA;
+    padding-bottom: 125px;
+  }
+
+  /* tabbar */
+  .commonNav {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: #2F333B;
+    font-size: 16px;
+    color: #fff;
+  }
+  .commonNav .all {
+    float: left;
+    width: 240px;
+    height: 40px;
+    text-align: center;
+    background: #51575D;
+  }
+  .commonNav .all img, .commonNav .all label {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .commonNav .all img {
+    margin: -2px 14px 0 0;
+  }
+  .commonNav .part a {
+    float: left;
+    width: 160px;
+    height: 40px;
+    position: relative;
+    color: #fff;
+    text-align: center;
+  }
+  .commonNav .part a.active {
+    background: #1A1D21;
+  }
+  .commonNav .part a.active i {
+    width: 34px;
+    height: 2px;
+    background: -webkit-gradient(linear, 100% 0, 0 0, from(#579EFA), to(#4F74F4));
+    background: -webkit-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -moz-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: -o-linear-gradient(to bottom, #579EFA, #4F74F4);
+    background: linear-gradient(to bottom, #579EFA, #4F74F4);
+    position: absolute;
+    left: 50%;
+    margin-left: -17px;
+    bottom: 2px;
+    z-index: 1;
+  }
+  .commonNav .issueBtn {
+    float: right;
+    color: #FEAB17;
+  }
+
+  /* tabbar */
+  /* 面包屑 */
+  .crumbs {
+    color: #999;
+    font-size: 14px;
+    line-height: 60px;
+  }
+
+  /* 面包屑 */
+  /* 文章 */
+  .article {
+    width: 895px;
+    background-color: #fff;
+    padding-top: 41px;
+  }
+  .article .title {
+    font-weight: bold;
+    font-size: 22px;
+    padding: 0 41px;
+  }
+  .article .subhead {
+    font-size: 12px;
+    color: #999;
+    padding: 25px 41px;
+  }
+  .article .collectBtn {
+    width: 78px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border: 1px solid #E3E4E5;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .article .collectBtn i, .article .collectBtn b {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: normal;
+  }
+  .article .collectBtn i {
+    margin: -2px 5px 0 0;
+    font-size: 18px;
+    color: #C8C9CC;
+  }
+  .article .collectActive {
+    color: #5389F7;
+  }
+  .article .collectActive i {
+    color: #5389F7;
+  }
+  .article .content {
+    min-height: 160px;
+    padding: 0 41px 30px 41px;
+    border-bottom: 1px solid #E3E4E5;
+    line-height: 26px;
+  }
+  .article .footer {
+    height: 90px;
+    line-height: 90px;
+    font-size: 14px;
+    color: #4D4D4D;
+    padding: 0 41px;
+  }
+  .article .footer>div{
+   max-width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .article .footer span {
+    font-weight: bold;
+  }
+
+  /* 文章 */
+  /* 文章评论 */
+  .articleConsult {
+    width: 895px;
+    background-color: #fff;
+    margin-top: 20px;
+  }
+  .articleConsult .title {
+    height: 22px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px 40px;
+    background-color: #F0F7FF;
+  }
+  .articleConsult .content {
+    padding: 32px 40px;
+  }
+  .articleConsult .content textarea {
+    width: 771px;
+    height: 90px;
+    padding: 20px;
+    border: 1px solid #E3E4E5;
+    resize: none;
+    margin-bottom: 23px;
+  }
+  .articleConsult .consult {
+    padding: 0 41px;
+  }
+  .articleConsult .consult .count {
+    font-size: 14px;
+    line-height: 30px;
+    color: #999;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .articleConsult .consult .consultItem {
+    padding: 30px 0;
+  }
+  .articleConsult .consult .consultItem .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+  }
+  .articleConsult .consult .consultItem .info {
+    width: 730px;
+    font-size: 14px;
+    line-height: 30px;
+    color: #999;
+    margin-left: 27px;
+  }
+  .articleConsult .consult .consultItem .info .name {
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .articleConsult .consult .consultItem .info .name .noPraise {
+    font-weight: normal;
+    font-size: 14px;
+    color: #C8C9CC;
+    cursor: pointer;
+  }
+  .articleConsult .consult .consultItem .info .name .noPraise span {
+    font-size: 20px;
+    position: relative;
+    top: 1px;
+  }
+  .articleConsult .consult .consultItem .info .reply {
+    color: #808080;
+    padding: 9px 23px;
+    background-color: #F4F5FA;
+    margin-top: 9px;
+  }
+  .articleConsult .consult .consultItem .info .time {
+    margin-top: 9px;
+  }
+  .articleConsult .consult .consultItem .info .time .replyBtn {
+    color: #5389F7;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .hotConsult {
+    width: 295px;
+    min-height: 420px;
+    background-color: #fff;
+  }
+  .hotConsult .title {
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 19px;
+    border-bottom: 1px solid #E3E4E5;
+  }
+  .hotConsult .title .more {
+    color: #999;
+    font-size: 12px;
+    font-weight: normal;
+  }
+
+  .list {
+    padding: 13px 20px 23px 20px;
+  }
+  .list .item {
+    padding-top: 10px;
+    display: block;
+  }
+  .list .item .order {
+    width: 18px;
+    height: 21px;
+    text-align: center;
+    line-height: 21px;
+    font-size: 12px;
+    color: #999;
+  }
+  .list .item .name {
+    width: 89%;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 10px;
+  }
+  .list .item .count {
+    color: #999;
+    font-size: 12px;
+  }
+  .list .item:nth-child(-n+3) .order {
+    color: #fff;
+    background: url("/statics/index/image/icon_hotConsult.jpg") 100% 100% no-repeat;
+  }
+  /* 文章评论 */
+</style>
 
 </head>
 <body>
@@ -113,186 +386,98 @@
   </div>
   
     
-<style>
-    .midMid{
-        padding-top: 10px;
-    }
-    .swiper-container{
-        width: 596px;
-        height: 316px;
-    }
-
-    .swiper-slide{
-        width: 100%;
-        height:  316px;
-    }
-
-    .swiper-slide img{
-        width: 100%;
-        height: 100%;
-    }
-    .longAd{
-      display: block;
-      margin-bottom: 10px;
-    }
-    .longAd:last-child{
-      margin-bottom: 0;
-    }
-</style>
-  <div data-v-78041906="" class="rankingList">
-    <div data-v-78041906="" class="wrapper box1">
-      <div data-v-78041906="" class="box1">
-        <div data-v-78041906="" class="longBanners"></div>
-        <div data-v-78041906="" class="ranking">
-          <div data-v-78041906="" class="title clearfix"><span data-v-78041906="" class="fl">推荐品牌排行榜</span></div>
-              <div data-v-78041906="" class="list">
-                  <?php foreach($recoRank as $key => $value): ?>
-                  <a data-v-78041906="" href="<?php echo url('index/item/detail'); ?>?id=<?php echo $value['id']; ?>" class="item clearfix">
-                    <div data-v-78041906="" class="order fl"><?php echo $key+1; ?></div>
-                    <div data-v-78041906="" class="name fl"><?php echo $value['brand']; ?></div>
-                    <div data-v-78041906="" class="count fr"><?php echo $value['read_num']; ?></div>
-                  </a>
-                  <?php endforeach; ?>
+      <div class="wrapper clearfix">
+        <div class="crumbs">您的位置：<a to=“<?php echo url('index/article/index'); ?>”>行业咨询</a> > <?php echo $data['mode']; ?></div>
+        <div class="article fl">
+          <div class="title"><?php echo $data['title']; ?></div>
+          <div class="subhead between">
+            <div>作者：<?php echo $data['username']; ?> &nbsp;&nbsp; 发布时间：<?php echo $data['addtime']; ?> &nbsp;&nbsp; 阅读量：<?php echo $data['read_num']; ?></div>
+            <span class="collectBtn">
+              <i class="iconfont icon-collect"></i>
+              <b>已收藏</b>
+            </span>
+            <span class="collectBtn collectActive" >
+              <i class="iconfont icon-collect"></i>
+              <b>收藏</b>
+            </span>
+          </div>
+          <div class="content" v-html="data.detail">
+              <?php echo $data['detail']; ?>
+          </div>
+          <div class="footer ">
+              <div class="fl">
+                <span>上一篇：</span>
+                <a href="<?php echo url('index/article/detail'); ?>?id=<?php echo $data['prev']['id']; ?>"><?php echo $data['prev']['title']; ?></a>
               </div>
-        </div>
-        <div class="midMid">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <?php foreach($imageData[0] as $key => $value): ?>
-                        <div class="swiper-slide">
-                            <a data-v-64375f02="" href="<?php echo $value['link']; ?>" class="small">
-                                <img data-v-64375f02="" src="<?php echo $value['img']; ?>">
-                            </a>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <!-- 如果需要分页器 -->
-                    <div class="swiper-pagination"></div>
-                </div>
-
-          <div data-v-78041906="" class="choice">
-              <p data-v-78041906="" class="title">
-                  <span data-v-78041906="">精选推荐 :</span>
-                  <?php foreach($synRank as $key=> $value): ?>
-                  <a data-v-78041906="" href="<?php echo url('index/item/detail'); ?>?id=<?php echo $value['id']; ?>" class=""> <?php echo $value['brand']; ?></a>
-                  <?php endforeach; ?>
-              </p>
+              <div class="fr">
+                <span>下一篇：</span>
+                <a href="<?php echo url('index/article/detail'); ?>?id=<?php echo $data['next']['id']; ?>"><?php echo $data['next']['title']; ?></a>
+              </div>
           </div>
         </div>
-        <div data-v-78041906="" class="ranking">
-          <div data-v-78041906="" class="title clearfix">
-              <span data-v-78041906="" class="fl">综合品牌排行榜</span>
-          </div>
-          <div data-v-78041906="" class="list">
-              <?php foreach($synRank as $key => $value): ?>
-              <a data-v-78041906="" href="/detail?id=1130" class="item clearfix">
-                <div data-v-78041906="" class="order fl"><?php echo $key+1; ?></div>
-                <div data-v-78041906="" class="name fl"><?php echo $value['brand']; ?></div>
-                <div data-v-78041906="" class="count fr"><?php echo $value['read_num']; ?></div>
+        <div class="fr">
+          <div class="hotConsult">
+            <div class="title clearfix" >
+              <span class="fl" >热门资讯</span>
+              <a class="fr more" to="/newsList?type=1"> 更多 <span class="el-icon-arrow-right"></span></a>
+            </div>
+            <div class="list">
+              <?php foreach($hotArt as $key => $value): ?>
+              <a  href="<?php echo url('index/item/detail'); ?>?id=<?php echo $value['id']; ?>" class="item clearfix" v-for="(item,index) in data" :key="'hot'+item.id" >
+                <div class="order fl"><?php echo $key+1; ?></div>
+                <div class="name fl"><?php echo $value['title']; ?></div>
+                <!--            <div class="count fr">{{item.read_num}}</div>-->
               </a>
               <?php endforeach; ?>
+            </div>
           </div>
-        </div>
-        <div data-v-78041906="" class="longBanners">
-            <?php foreach($imageData[1] as $key => $value): ?>
-            <span data-v-78041906="" class="longAd">
-                <a data-v-78041906="" href="<?php echo $value['link']; ?>">
-                    <img data-v-78041906="" src="<?php echo $value['img']; ?>">
-                </a>
-            </span>
-            <?php endforeach; ?>
-        </div>
-          <?php foreach($brandRank as $key => $value): ?>
-        <div data-v-78041906="" class="ranking">
-          <div data-v-78041906="" class="title clearfix">
-              <span data-v-78041906="" class="fl">十大<span data-v-78041906="" class="strong"><?php echo $value['cate_name']; ?></span>品牌排行榜</span>
-          </div>
-          <div data-v-78041906="" class="list">
-              <?php foreach($value['item_data'] as $k => $v): ?>
-              <a data-v-78041906="" href="<?php echo url('index/item/detail'); ?>?id=278" class="item clearfix">
-                <div data-v-78041906="" class="order fl"><?php echo $key+1; ?></div>
-                <div data-v-78041906="" class="name fl"><?php echo $v['brand']; ?></div>
-                <div data-v-78041906="" class="count fr"><?php echo $v['read_num']; ?></div>
-              </a>
-              <?php endforeach; ?>
-          </div>
-        </div>
-          <?php endforeach; ?>
-
-        <div data-v-78041906="" class="longBanners">
-            <?php foreach($imageData[2] as $key => $value): ?>
-            <span data-v-78041906="" class="longAd">
-                <a data-v-78041906="" href="<?php echo $value['link']; ?>" class="">
-                    <img data-v-78041906="" src="<?php echo $value['img']; ?>">
-                </a>
-            </span>
-            <?php endforeach; ?>
         </div>
       </div>
-      <div data-v-78041906="" class="box2 clearfix">
-        <div data-v-78041906="" class="recommendBox fl">
-          <div data-v-78041906="" class="title clearfix">
-              <h2 data-v-78041906="" class="fl">项目推荐</h2>
-              <a data-v-78041906="" href="" class="fr">更多 &gt;</a>
+      <div class="wrapper">
+        <div class="articleConsult ">
+          <div class="title">
+            文章评论
           </div>
-          <div data-v-78041906="" class="content clearfix">
-            <?php foreach($recoItem as $key => $value): ?>
-            <div data-v-78041906="" class="box">
-                <a data-v-78041906="" href="<?php echo url('index/item/detail'); ?>?id=<?php echo $value['id']; ?>" class="">
-                    <img data-v-78041906="" src="<?php echo $value['img']; ?>">
-                    <span data-v-78041906="" class="name over"><?php echo $value['item_name']; ?> <?php echo $value['money']; ?>万</span>
-                  <p data-v-78041906="" class="desc clearfix"><b data-v-78041906="" class="fl">￥<?php echo $value['money']; ?>万</b>
-                      <span data-v-78041906="" class="fr">门店: <?php echo $value['shop_count']; ?>家</span>
-                  </p>
-                </a>
+          <div class="content">
+            <textarea cols="30" rows="10" placeholder="请输入评论内容" id="content"></textarea>
+            <div class=" clearfix">
+              <button class="submitBtn fr" @click="addComment">提交评论</button>
             </div>
-              <?php endforeach; ?>
+          </div>
+          <div class="consult" v-if="commentList.length>0">
+            <div class="count">
+              共<?php echo $comment['count']; ?>条评论
+            </div>
+            <?php if($comment['data'] !== []): foreach($comment['data'] as $key => $value): ?>
+            <div class="consultItem clearfix" v-for="(item,index) in commentList">
+              <img class="avatar fl" src="<?php echo $value['userAvatar']; ?>" alt="">
+              <div class="info fl">
+                <div class="name">
+                  <?php echo $value['username']; ?>
+                  <div class="fr noPraise" data-id="item.id" @click="addLike($event,item.id)">
+                    <span class="iconfont icon-praise"></span> <?php echo $value['likes']; ?>
+                  </div>
+                </div>
+                <div ><?php echo $value['content']; ?></div>
+                <?php if($value['comment'] !== []): foreach($value['comment'] as $k => $v): ?>
+                <div class="reply" v-if="item.comment.length>0">
+                  <div ><?php echo $v['username']; ?>：<?php echo $v['content']; ?></div>
+                </div>
+                <?php endforeach; endif; ?>
+                <div class="time clearfix">
+                  <span class="fl"></span>
+                  <span class="fr replyBtn">回复</span>
+                </div>
+              </div>
+            </div>
+            <?php endforeach; endif; ?>
           </div>
         </div>
-          <div data-v-2e73e232="" data-v-645de51c="" class="industryList fr industryList">
-              <div data-v-2e73e232="" class="title clearfix"><span data-v-2e73e232="" class="fl">行业资讯</span>
-                  <a data-v-2e73e232="" href="<?php echo url('index/article/index'); ?>" class="fr more"> 更多 <span data-v-2e73e232="" class="el-icon-arrow-right"></span></a>
-              </div>
-              <div data-v-2e73e232="" class="special">
-                  <a data-v-2e73e232="" href="<?php echo url('index/article/detail'); ?>?id=<?php echo $artData['rArticle']['id']; ?>" class="">
-                      <img data-v-2e73e232="" src="<?php echo $artData['rArticle']['img']; ?>" alt="">
-                      <div data-v-2e73e232=""><?php echo $artData['rArticle']['title']; ?></div>
-                  </a>
-              </div>
-              <ul data-v-2e73e232="">
-                  <?php foreach($artData['aticle'] as $key => $value): ?>
-                  <li data-v-2e73e232="">
-                      <a data-v-2e73e232="" href="<?php echo url('index/article/detail'); ?>?id=<?php echo $value['id']; ?>" class=""><?php echo $value['title']; ?></a>
-                  </li>
-                  <?php endforeach; ?>
-              </ul>
-          </div>
       </div>
     </div>
-  </div>
 <script type="text/javascript">
-    var mySwiper = new Swiper ('.swiper-container', {
-        direction: 'horizontal', // 水平切换选项
-        loop: true, // 循环模式选项
-
-        // 如果需要分页器
-        pagination: {
-            el: '.swiper-pagination',
-        },
-
-        // 如果需要前进后退按钮
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-
-        // 如果需要滚动条
-        scrollbar: {
-            el: '.swiper-scrollbar',
-        },
-    })
 </script>
-  
+
   
   <div data-v-4dfbcb4e="" class="common-footer">
     <div data-v-4dfbcb4e="" class="links ">

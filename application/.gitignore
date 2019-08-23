@@ -1,7 +1,0 @@
-.idea
-composer.lock
-database.php
-config.php
-common.php
-*.log
-thinkphp

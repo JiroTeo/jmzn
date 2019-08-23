@@ -120,6 +120,7 @@ class notice extends Model{
         foreach ($data as $key => $value) {
             $datalist[$key]['username'] = $user['username'];
             $datalist[$key]['content'] = $commentDb -> where(['id'=>$value['tid']]) -> value('content');
+            $datalist[$key]['aid'] = $commentDb -> where(['id'=>$value['tid']]) -> value('topic_id');
             //获取用户发起通知的用户信息
             $datalist[$key]['userOper'] = $userModel -> getUserData(['uid'=>$value['form_uid']]);
             $datalist[$key]['userOper']['content'] = empty($value['content']) ? '' : $value['content'];

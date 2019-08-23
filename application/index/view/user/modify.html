@@ -1,7 +1,7 @@
 <!--继承模板-->
 {extend name="defa/defa" /}
 <!--title-->
-{block name="title"}投资者管理{/block}
+{block name="title"}{$title}{/block}
 <!--keywords-->
 {block name="keywords"}{/block}
 <!--description-->
@@ -277,17 +277,18 @@
                 <img v-if="imageUrl" class="avatar" src="{$data.avatar}" />
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 <input class="uploadBtn" type="file" name="image" accept="image/*" @change='chooseImg'>
+                <input type="hidden" id="avatar" value="">
               </div>
               <p class="clear"></p>
               <p class="beizhu">*仅支持JPG、GIF、PNG、JPEG、BMP格式 , 文件小于2M</p>
             </div>
             <div class="row clearfix">
               <label class="title">昵称</label>
-              <input class="textInp" v-model="username" type="text" placeholder="请输入您的昵称" value="{$data.username}">
+              <input class="textInp" v-model="username" id="username" type="text" placeholder="请输入您的昵称" value="{$data.username}">
             </div>
             <div class="row clearfix">
               <label class="title">真实姓名</label>
-              <input class="textInp" v-model="name" type="text" placeholder="请输入您的姓名" value="{$data.name}">
+              <input class="textInp" v-model="name" id="name" type="text" placeholder="请输入您的姓名" value="{$data.name}">
             </div>
             <div class="row clearfix">
               <label class="title">性别</label>
@@ -295,7 +296,6 @@
                 <div>
                   <label >
                     <input type="radio" name="sex" <?php if($data['sex']==1){echo 'checked';}?> value="1">男
-
                   </label>
                   <label >
                     <input type="radio" name="sex" <?php if($data['sex']==0){echo 'checked';}?> value="0">女
@@ -311,7 +311,7 @@
               <label class="title">注册时间</label>
               <p class="desc">{$data.addtime}</p>
             </div>
-            <div class="keepBtn" @click="getKeep">保存</div>
+            <div class="keepBtn" onclick="submitForm()">保存</div>
           </div>
         </div>
       </div>
@@ -351,6 +351,7 @@
       contentType: false,
       success: function(data){
           layer.msg('上传成功',{icon:1});
+          $("#avatar").val(data);
       }
     })
     console.log("objUrl",objUrl);
@@ -369,5 +370,32 @@
     }
     return url ;
   }
+  
+  function submitForm() {
+    var avatar = $("#avatar").val();
+    var name = $("#name").val();
+    var username = $("#username").val();
+    var sex = $("input[name='sex']:checked").val();
+    $.ajax({
+      type: "POST",
+      url: "{:url('/index/user/modify')}",
+      data:{
+        'avatar':avatar,
+        'name':name,
+        'username':username,
+        'sex':sex,
+      },
+      success: function(data){
+        if(data.code == 200){
+          console.log('success',data);
+          layer.msg(data.msg,{icon:1});
+        }else{
+          console.log('error',data);
+          layer.msg(data,msg,{icon:1});
+        }
+      }
+    })
+  }
+  
 </script>
 {/block}

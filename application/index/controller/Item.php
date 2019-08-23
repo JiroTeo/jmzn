@@ -4,6 +4,7 @@ use think\Cache;
 use app\index\model\Item as itemModel;
 use app\index\model\Category as cateModel;
 use app\index\model\Article as artModel;
+use app\index\model\Consult as consultModel;
 class item extends Base{
 
     private $itemModel;
@@ -98,6 +99,8 @@ class item extends Base{
     public function detail(){
         $itemModel = new itemModel();
         $artModel = new artModel();
+        $consultModel = new consultModel();
+        $page = '';
         $id = $this -> request -> param('id');
         //足迹
         $uid = empty($_SESSION['jmzn_web']['uid']) ? 0 : $_SESSION['jmzn_web']['uid'];
@@ -119,12 +122,17 @@ class item extends Base{
         $artwhere['status'] = 1;
         $artwhere['id'] = ['neq',$artData['rArticle']['id']];
         $artData['list'] = $artModel -> getArticleData($artwhere,'addtime desc',7,2);
+        
+        //留言
+        $consult = $consultModel -> getConsultListByPage(['item_id'=>$id,'status'=>1],'id desc',5,1,$page);
 
         //分配变量
         $this -> assign('data',$data['item']);//项目信息
         $this -> assign('user',$data['user']);//用户信息
         $this -> assign('ranking',$ranking);//加盟项目排行榜
         $this -> assign('artData',$artData);//行业资讯
+        $this -> assign('consult',$consult);//留言数据
+        $this -> assign('page',$page);//分页
         return view();
     }
 

@@ -474,11 +474,10 @@
               </div>
             </div>
             <div class="btns">
-              <button type="primary" class="el-button el-button--primary consult" >立即咨询</button>
-              <button id="cancelCollect" data-type="2" data-id="{$value.id}" class="el-button el-button--default">取消收藏</button>
+              <button type="primary" data-id="{$value.id}" class="el-button el-button--primary consult" >立即咨询</button>
+              <button id="cancelCollect" data-type="2" data-id="{$value.id}" class="el-button el-button--default cancelCollect">取消收藏</button>
             </div>
           </a>
-
           {/foreach}
         </div>
         <div class="layui-card-body ">
@@ -502,6 +501,7 @@
 
     <div class="row clearfix">
       <label class="fl name"><i>*</i> 姓名</label>
+      <input type="hidden" id="item_id" value="">
       <input class="fl commonInp" type="text" name="name" id="name" placeholder="请输入您的姓名">
     </div>
     <div class="row clearfix">
@@ -535,9 +535,7 @@
       <textarea class="textArea" name="content" id="content" placeholder="请输入您要咨询的内容"></textarea>
     </div>
     <div class="commitBtn" onclick="submitForm()">
-      <!--          <button class="commitBtn" onclick="submitForm()" type="button">-->
       提交
-      <!--          </button>-->
     </div>
   </div>
   <!--  </form>-->
@@ -684,17 +682,38 @@
       }
     })
   }
-  /**
-   * 取消收藏
-   */
-  $('#cancelCollect').click(e => {
 
-    console.log("id",e.currentTarget.dataset.id);
-    layer.msg("取消收藏成功",{icon:1});
-    /* todo 调用接口 */
+  $('.cancelCollect').click(function() {
+    var id = $(this)[0].dataset.id;
+    console.log("this", id );
+    $.ajax({
+      type: "POST",
+      url: "{:url('index/follow/remove_follow')}",
+      data:{
+        'id':id,
+        'type':2,
+      },
+      success: function(data){
+        console.log('data',data);
+        if(data.code != 200){
+          layer.msg(data.msg);
+          console.log('msg',data.msg);
+        }else{
+          layer.msg(data.msg);
+          console.log('msg',data.msg);
+          window.location.href = "/index/user/collect";
+        }
+      }
+    });
+    // /* todo 调用接口 */
     return false
   })
+
+
+
   $('.consult').click(function(){
+    var id = $(this)[0].dataset.id;
+    $("#item_id").val(id);
     showConsultModal();
     return false
   })
@@ -709,7 +728,7 @@
     var mobile = $("#mobile ").val();
     var code = $("#code ").val();
     var content = $("#content ").val();
-    var item_id = $("#tid").val();
+    var item_id = $("#item_id").val();
 
     // if(name && mobile && code && content ){
     //   $("#addconsult").submit();

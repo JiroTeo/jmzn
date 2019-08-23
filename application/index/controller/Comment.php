@@ -46,32 +46,33 @@ class comment extends Base{
     /*发表评论*/
     public function add_comment(){
         //验证登录
-        if(empty($this -> user)){
+        if(empty($_SESSION['jmzn_web']['uid'])){
             $rinfo = $this -> returnCode['ERROR'][5];
-            wapReturn($rinfo);
+            return $rinfo;
         }
+
         //接收&&格式化参数
         $data['topic_id'] = $_REQUEST['topic_id'];
-        $data['form_uid'] = $this -> user['uid'];
+        $data['form_uid'] = $_SESSION['jmzn_web']['uid'];
         $data['to_uid'] = $_REQUEST['to_uid'];
         $data['content'] = $_REQUEST['content'];
-        $data['pid'] = $_REQUEST['pid'];
+        $data['pid'] = empty($_REQUEST['pid']) ? 0 : $_REQUEST['pid'];
         $data['addtime'] = time();
         $result = $this -> ComModel -> addComment($data);
         if($result){
             //添加通知消息
             $addNotice['tid'] = $_REQUEST['topic_id'];
             $addNotice['uid'] = $_REQUEST['to_uid'];
-            $addNotice['form_uid'] = $this -> user['uid'];
+            $addNotice['form_uid'] = $_SESSION['jmzn_web']['uid'];
             $addNotice['content'] = $_REQUEST['content'];
             $addNotice['type'] = 1;
             $addNotice['status'] = 1;
             $addNotice['addtime'] = time();
             db('notice') -> insertGetId($addNotice);
             //添加通知 end
-            wapReturn($this -> returnCode['SUCCESS'][0]);
+            return $this -> returnCode['SUCCESS'][0];
         }else{
-            wapReturn($this -> returnCode['ERROR'][2]);
+            return $this -> returnCode['ERROR'][2];
         }
     }
 

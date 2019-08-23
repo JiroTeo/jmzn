@@ -17,6 +17,14 @@ class assess extends Base {
 
     }
 
+    /*
+     *  评估
+     * ***/
+    public function index(){
+        return view();
+    }
+
+
     /*发布并进行评估
      *  @param  name        姓名
      *  @param  city_id     城市id
