@@ -170,109 +170,126 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
     showRadar();
     function showPie(){
         let myChart = echarts.init(document.getElementById('canvasRing'));
-        var all_cate_count = [10,10,10,100];
-        var  option = {
-            legend: {
-                // show: false,
-                // orient: 'vertical',
-                x: 'center',
-                top: 'bottom',
-                // data: this.cateName
-                textStyle:{
-                    color: "#BAFFFC"
-                }
-            },
-            label:{
-                show:false,
+        $.ajax({
+            type: "POST",
+            url: "{:url('index/assess/piechart')}",
+            data:{},
+            success: function(data){
+             let   all_cate_count= data;  console.log('data',data);
+                var  option = {
+                    legend: {
+                        // show: false,
+                        // orient: 'vertical',
+                        x: 'center',
+                        top: 'bottom',
+                        // data: this.cateName
+                        textStyle:{
+                            color: "#BAFFFC"
+                        }
+                    },
+                    label:{
+                        show:false,
 
-            },
-            series: [
-                {
-                    type:'pie',
-                    radius: ['55%', '65%'],
-                    center:['50%','40%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        show: false,
-                        position: 'center',
-                        emphasis: {
-                            show: true,
-                            textStyle: {
-                                fontSize: '30',
-                                fontWeight: 'bold'
+                    },
+                    series: [
+                        {
+                            type:'pie',
+                            radius: ['55%', '65%'],
+                            center:['50%','40%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                show: false,
+                                position: 'center',
+                                emphasis: {
+                                    show: true,
+                                    textStyle: {
+                                        fontSize: '30',
+                                        fontWeight: 'bold'
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data: all_cate_count,
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                },
+                                normal:{
+                                    color:function(params) {
+                                        //自定义颜色
+                                        var colorList = ['#ffef01','#fdc800','#f29700','#eb6001',
+                                            '#e50112', '#e80137','#e80151','#e6006a',
+                                            '#e6007f', '#bf0081','#950684','#611786',
+                                            '#1d2087', '#01499e','#0168b5','#0186d3',
+                                            '#00a1e9', '#019fc2','#029f98','#009c6d',
+                                            '#009946', '#23ac3a','#90c320','#d0dc00'];
+                                        return colorList[params.dataIndex]
+                                    }
+                                }
                             }
                         }
-                    },
-                    labelLine: {
-                        normal: {
-                            show: false
-                        }
-                    },
-                    data: all_cate_count,
-                    itemStyle: {
-                        emphasis: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        },
-                        normal:{
-                            color:function(params) {
-                                //自定义颜色
-                                var colorList = ['#ffef01','#fdc800','#f29700','#eb6001',
-                                    '#e50112', '#e80137','#e80151','#e6006a',
-                                    '#e6007f', '#bf0081','#950684','#611786',
-                                    '#1d2087', '#01499e','#0168b5','#0186d3',
-                                    '#00a1e9', '#019fc2','#029f98','#009c6d',
-                                    '#009946', '#23ac3a','#90c320','#d0dc00'];
-                                return colorList[params.dataIndex]
-                            }
-                        }
-                    }
-                }
-            ]
-        };
-        myChart.setOption(option);
+                    ]
+                };
+                myChart.setOption(option);
+            }
+        })
+
+
     }
     function showRadar(){
         let myChart = echarts.init(document.getElementById('canvasRadar'));
-        var dcs = [100,100,100,100];
-        if(dcs[4]>200){
-            dcs[4] = 200;
-        }
-        var option = {
-            legend: {},
+        $.ajax({
+            type: "POST",
+            url: "{:url('index/assess/piechart')}",
+            data:{},
+            success: function(data){
+                let dcs = data;
+                if(dcs[4]>200){
+                    dcs[4] = 200;
+                }
+                let option = {
+                    legend: {},
 
-            // polar:{radius:'80%'},
-            radar: {
-                radius: '70%',
-                center:['50%','50%'],
+                    // polar:{radius:'80%'},
+                    radar: {
+                        radius: '70%',
+                        center:['50%','50%'],
 
-                splitNumber: 3,
-                // shape: 'circle',
-                indicator: [
-                    { name: '平均', max: 200},
-                    { name: '最低', max: 200},
-                    { name: '平均最高', max: 200},
-                    { name: '平均最低', max: 200},
-                    { name: '最高', max: 200}
-                ]
-            },
-            series: [{
-                type: 'radar',
-                areaStyle: {normal: {
-                        color: 'RGBA(34, 155, 178, 0.5)',
-                    }},
-                lineStyle: {
-                    color: '#2594B9'
-                },
-                data : [
-                    {
-                        value : dcs
-                    }
-                ]
-            }]
-        };
-        myChart.setOption(option);
+                        splitNumber: 3,
+                        // shape: 'circle',
+                        indicator: [
+                            { name: '平均', max: 200},
+                            { name: '最低', max: 200},
+                            { name: '平均最高', max: 200},
+                            { name: '平均最低', max: 200},
+                            { name: '最高', max: 200}
+                        ]
+                    },
+                    series: [{
+                        type: 'radar',
+                        areaStyle: {normal: {
+                                color: 'RGBA(34, 155, 178, 0.5)',
+                            }},
+                        lineStyle: {
+                            color: '#2594B9'
+                        },
+                        data : [
+                            {
+                                value : dcs
+                            }
+                        ]
+                    }]
+                };
+                myChart.setOption(option);
+            }
+        })
+
     }
 </script>
 {/block}
