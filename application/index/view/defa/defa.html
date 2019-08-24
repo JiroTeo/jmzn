@@ -180,7 +180,7 @@
 
 <div class="quickBg" id="quick" style="display: none;">
   <div class="quickLogin">
-    <img class="closeBtn" src="__STATIC__/index/image/close.jpg">
+    <img class="closeBtn" onclick="quickHide()" src="__STATIC__/index/image/close.jpg">
     <h3>快捷登录</h3>
     <div class="quickRow">
       <img class="icon" src="__STATIC__/index/image/login_icon01.png">
@@ -200,6 +200,12 @@
   </div>
 </div>
 <script type="text/javascript">
+    function quickShow(){
+      $('#quick').show()
+    }
+    function quickHide(){
+        $('#quick').hide()
+    }
     /**
      * 登陆
      */
