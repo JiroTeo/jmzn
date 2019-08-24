@@ -178,27 +178,6 @@
 </div>
 </div>
 
-<div class="quickBg" id="quick" style="display: none;">
-  <div class="quickLogin">
-    <img class="closeBtn" onclick="quickHide()" src="__STATIC__/index/image/close.jpg">
-    <h3>快捷登录</h3>
-    <div class="quickRow">
-      <img class="icon" src="__STATIC__/index/image/login_icon01.png">
-      <input class="publicInp" name="phone" id="phone" type="text" placeholder="手机号码">
-    </div>
-    <div class="quickRow">
-      <img class="icon" src="__STATIC__/index/image/login_icon02.png">
-      <input class="publicInp" id="icode" name="icode" type="text" placeholder="请输入图片验证码">
-      <img class="picBtn" src="{:captcha_src()}" onclick="this.src='{:captcha_src()}'">
-    </div>
-    <div class="quickRow">
-      <img class="icon" src="__STATIC__/index/image/login_icon03.png">
-      <input class="publicInp" name="pcode" id="pcode" type="text" placeholder="请输入短信验证码">
-      <span data-v-f46e99e4="" id="time" onclick="getCode()" class="messageBtn">获取验证码</span>
-    </div>
-    <div class="quickBtn" onclick="login()">登录</div>
-  </div>
-</div>
 <script type="text/javascript">
     function quickShow(){
       $('#quick').show()
@@ -237,7 +216,7 @@
                 if(data.code != 200){
                     console.log('msg',data.msg);
                 }else{
-                    window.location.href = "/";
+                  window.location.reload();
                 }
             }
         })
@@ -334,5 +313,26 @@
     }
 </script>
 {/block}
+<div class="quickBg" id="quick" style="display: none;">
+  <div class="quickLogin">
+    <img class="closeBtn" onclick="quickHide()" src="__STATIC__/index/image/close.jpg">
+    <h3>快捷登录</h3>
+    <div class="quickRow">
+      <img class="icon" src="__STATIC__/index/image/login_icon01.png">
+      <input class="publicInp" name="phone" id="phone" type="text" placeholder="手机号码">
+    </div>
+    <div class="quickRow">
+      <img class="icon" src="__STATIC__/index/image/login_icon02.png">
+      <input class="publicInp" id="icode" name="icode" type="text" placeholder="请输入图片验证码">
+      <img class="picBtn" src="{:captcha_src()}" onclick="this.src='{:captcha_src()}'">
+    </div>
+    <div class="quickRow">
+      <img class="icon" src="__STATIC__/index/image/login_icon03.png">
+      <input class="publicInp" name="pcode" id="pcode" type="text" placeholder="请输入短信验证码">
+      <span data-v-f46e99e4="" id="time" onclick="getCode()" class="messageBtn">获取验证码</span>
+    </div>
+    <div class="quickBtn" onclick="login()">登录</div>
+  </div>
+</div>
 </body>
 </html>
