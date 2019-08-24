@@ -177,6 +177,156 @@
   </div>
 </div>
 </div>
+
+<div class="quickBg" id="quick" style="display: none;">
+  <div class="quickLogin">
+    <img class="closeBtn" src="__STATIC__/index/image/close.jpg">
+    <h3>快捷登录</h3>
+    <div class="quickRow">
+      <img class="icon" src="__STATIC__/index/image/login_icon01.png">
+      <input class="publicInp" name="phone" id="phone" type="text" placeholder="手机号码">
+    </div>
+    <div class="quickRow">
+      <img class="icon" src="__STATIC__/index/image/login_icon02.png">
+      <input class="publicInp" id="icode" name="icode" type="text" placeholder="请输入图片验证码">
+      <img class="picBtn" src="{:captcha_src()}" onclick="this.src='{:captcha_src()}'">
+    </div>
+    <div class="quickRow">
+      <img class="icon" src="__STATIC__/index/image/login_icon03.png">
+      <input class="publicInp" name="pcode" id="pcode" type="text" placeholder="请输入短信验证码">
+      <span data-v-f46e99e4="" id="time" onclick="getCode()" class="messageBtn">获取验证码</span>
+    </div>
+    <div class="quickBtn" onclick="login()">登录</div>
+  </div>
+</div>
+<script type="text/javascript">
+    /**
+     * 登陆
+     */
+    function login(){
+        var phone = $('#phone').val();
+        //验证input不能为null
+        if(!validatePhone()){
+            return false;
+        }
+        //验证短信验证码是否有填写
+        var pcode = $("#pcode").val();
+        if(!pcode){
+            console.log('phoneCode','请输入短信验证码');
+            layer.msg('请输入短信验证码');
+            return false;
+        }
+        //提交表单
+        // $("#postform").submit();
+        //ajax 提交表单
+        $.ajax({
+            type: "POST",
+            url: "{:url('index/login/login')}",
+            data:{
+                phone:phone,
+                code:pcode,
+            },
+            success: function(data){
+                console.log('data',data);
+                if(data.code != 200){
+                    console.log('msg',data.msg);
+                }else{
+                    window.location.href = "/";
+                }
+            }
+        })
+
+    }
+    /**
+     * 验证手机格式
+     * @param {Object} phone
+     */
+    function validatePhone () {
+        const phone = $('#phone').val();
+        console.log('phone',phone);
+        if (!phone) {
+            layer.msg('请输入手机号码',{icon:2});
+            return false;
+        }
+        if (phone.length != 11) {
+            layer.msg('手机号码格式不正确',{icon:2});
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *  验证图片验证码
+     *  @param {object} icode
+     * **/
+    function validateImgCode () {
+        const icode = $('#icode').val();
+        console.log('imgCode',icode);
+        if (!icode) {
+            layer.msg('请输入图片验证码',{icon:2});
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 获取验证码
+     */
+    let intervalID = '';
+    function getCode (){
+        //验证手机号
+        if(!validatePhone()){
+            return
+        }
+        //验证图片验证码
+        if(!validateImgCode()){
+            return
+        }
+        //手机号&&图片验证码
+        var phone = $("#phone").val();
+        var icode = $('#icode').val();
+        let outTime = 60;
+        if(intervalID){
+
+            return;
+        }
+        //ajax获取短信验证码
+        $.ajax({
+            type: "POST",
+            url: "{:url('index/login/get_code')}",
+            data:{
+                phone:phone,
+                icode:icode,
+            },
+            success: function(data){
+                console.log('data',data);
+                if(data.code != 200){
+                    console.log('msg',data.msg);
+                    layer.msg(data.msg,{icon:1});
+                    return ;
+
+                }
+                if(data.code == 200){
+                    console.log('msg','验证码发送成功');
+                    layer.msg('验证码发送成功',{icon:1});
+
+                    //定时器
+                    intervalID = setInterval(function(){
+                        if(outTime == 0){
+                            outTime = 60;
+                            clearInterval(intervalID)
+                            $(e).html('获取验证码');
+                            return
+                        }
+                        outTime--;
+                        $("#time").html(outTime+'S后可重新获取');
+                    },1000)
+                }
+            }
+        })
+
+    }
+</script>
 {/block}
 </body>
 </html>
