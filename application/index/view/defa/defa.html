@@ -19,6 +19,20 @@
   <script type="text/javascript" src="__STATIC__/admin/js/jquery.min.js"></script>
   <script type="text/javascript" src="__STATIC__/layer-v3.1.1/layer/layer.js" merge="true"> </script>
   <link rel="stylesheet" href="__STATIC__/layer-v3.1.1/layer/theme/default/layer.css"/>
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
   {block name="index"}
   <link href="__STATIC__/index/css/app.6e8fecf9baa6cf278e54a8181d44c5e4.css" rel="stylesheet">
