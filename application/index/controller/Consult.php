@@ -6,11 +6,13 @@ use app\common\model\User as userModel;
 class consult extends Base{
 
     private $consultModel;
+    private $uid;
 
     public function _initialize(){
         parent::_initialize();
         // 实例化y用户模型
         $this->consultModel = model('consult');
+        $this -> uid = empty($_SESSION['jmzn_web']['uid']) ? 0 : $_SESSION['jmzn_web']['uid'];
     }
 
     /*  todo    获取留言列表           get_consult_list
@@ -290,7 +292,7 @@ class consult extends Base{
         //验证 end    数据存库
         $conData['addtime'] = time();                                              //添加咨询时间
         $conData['read'] = 0;                                                    //状态谁之为未读/待跟进
-        $conData['uid'] = empty($this->user['uid']) ?  0 : $this->user['uid'];     //用户id
+        $conData['uid'] = empty($this->uid) ?  0 : $this->uid;     //用户id
         $conData['phone'] = $mobile ;                                              //手机号
         $conData['name'] = $name;                                                  //姓名
         $conData['sex'] = empty($_REQUEST['sex']) ? 0 : $_REQUEST['sex'] ;         //性别

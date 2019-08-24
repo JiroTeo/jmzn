@@ -179,6 +179,8 @@ class consult extends Model{
     /*  我的留言    分页获取    */
     public function getMyConsultByPage($where = false ,$order = false , $num = false , &$page ){
         $consult = $this -> consultModel -> where($where) -> order($order) -> paginate($num);
+//        echo $this -> consultModel -> getLastSql();
+//        dump($consult);
         $page = $consult ->render();
         $data = iterator_to_array($consult);
         if(empty($data)){   return [];   }

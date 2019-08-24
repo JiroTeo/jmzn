@@ -23,7 +23,7 @@ class user extends Base{
          $this->userModel = model('user');
 
         $userModel = new uModel();
-        $this -> uid = empty($_SESSION['jmzn_web']['uid']) ? false : $_SESSION['jmzn_web']['uid'];
+        $this -> uid = empty($_SESSION['jmzn_web']['uid']) ? 0 : $_SESSION['jmzn_web']['uid'];
         if(empty($this -> uid)){
             echo "请先登录";
             $this -> redirect('index/login/login');
@@ -140,7 +140,8 @@ class user extends Base{
         //接收 && 定义变量
         $consultModel = new consultModel();
         $page = '';
-        $data = $consultModel -> getMyConsultByPage(['to_uid'=>$this->uid,'type'=>1,'status'=>1,'item_id'=>['neq',0]],'id desc',1,$page);
+        $data = $consultModel -> getMyConsultByPage(['uid'=>$this->uid,'type'=>1,'status'=>1,'item_id'=>['neq',0]],'id desc',10,$page);
+
         //分配变量
         $this -> assign('data',$data);
         $this -> assign('page',$page);
@@ -188,6 +189,7 @@ class user extends Base{
             if(!empty($info['bname'])){
                 $data['bname'] = $info['bname'];
             }
+            $data['last_log'] = time();
             $result = db('user') -> where(['uid'=>$this -> uid]) -> update($data);
             if(empty($result)){
                 return ['code'=>400,'msg'=>'修改失败'];

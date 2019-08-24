@@ -152,7 +152,7 @@ class Index extends Base{
         $key = key($_FILES);    //获取数组下标
         $file = request()->file( $key ); //获取文件内容
         // 移动到框架应用根目录/public/uploads/ 目录下
-        $path = '../public/uploads/';
+        $path = '../../public/uploads/';
         if( !is_dir( $path ) ){
             @mkdir( $path, 0777, true ); //如果目录不存在，则生成
         }

@@ -197,16 +197,19 @@
           </div>
         </div>
       </div>
-    <div class="personalHeader">
-      <div class="wrapper clearfix content">
-        <a href="/">
-          <img class="logo" src="../../static/image/logo.png" alt="">
-        </a>
-        <div class="tabs">
-          <a href="/">首页</a>
-          <a href="{:url('index/item/index')}">找项目</a>
-          <a href="{:url('index/index/rankinglist')}">排行榜</a>
-          <a href="{:url('index/article/index')}">行业资讯</a>
+      <div>
+        <div class="personalHeader">
+          <div class="wrapper content">
+            <a href="/">
+              <img class="logo" src="../../static/image/logo.png" alt="">
+            </a>
+            <div class="tabs">
+              <a href="/">首页</a>
+              <a href="{:url('index/item/index')}">找项目</a>
+              <a href="{:url('index/index/rankinglist')}">排行榜</a>
+              <a href="{:url('index/article/index')}">行业资讯</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -289,9 +292,7 @@
 </div>
 <script type="text/javascript">
   function submitForm(){
-    console.log('sdfsdfdsfds');
-    console.log($("#formData").serializeArray()); //输出数组
-  //  todo  提交接口
+
   }
 </script>
 {/block}

@@ -197,18 +197,19 @@ function  getAdChildConf($where = false ){
 }
 
 function getMid($mobile){
+    $mobile = substr_replace($mobile, '******', 3, 6);
     // 数字0-9按从小到大顺序变成RIZBHGECFO，替换完成后在第5个字符后面加JMZN
-    $mobile = str_replace("0", "H", $mobile);
-    $mobile = str_replace("1", "E", $mobile);
-    $mobile = str_replace("2", "B", $mobile);
-    $mobile = str_replace("3", "D", $mobile);
-    $mobile = str_replace("4", "A", $mobile);
-    $mobile = str_replace("5", "G", $mobile);
-    $mobile = str_replace("6", "J", $mobile);
-    $mobile = str_replace("7", "M", $mobile);
-    $mobile = str_replace("8", "Z", $mobile);
-    $mobile = str_replace("9", "N", $mobile);
-    $mobile = substr_replace($mobile,'JMZN',5,0);
+//    $mobile = str_replace("0", "H", $mobile);
+//    $mobile = str_replace("1", "E", $mobile);
+//    $mobile = str_replace("2", "B", $mobile);
+//    $mobile = str_replace("3", "D", $mobile);
+//    $mobile = str_replace("4", "A", $mobile);
+//    $mobile = str_replace("5", "G", $mobile);
+//    $mobile = str_replace("6", "J", $mobile);
+//    $mobile = str_replace("7", "M", $mobile);
+//    $mobile = str_replace("8", "Z", $mobile);
+//    $mobile = str_replace("9", "N", $mobile);
+//    $mobile = substr_replace($mobile,'JMZN',5,0);
     return $mobile;
 }
 
