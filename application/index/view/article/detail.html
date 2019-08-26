@@ -379,6 +379,9 @@
       </div>
     </div>
 <script type="text/javascript">
+  function quickHide(){
+    $('#quick').hide()
+  }
   function addComment() {
     var content = $("#content").val();
     if(!content){
@@ -401,6 +404,9 @@
         if(data.code == 200){
           layer.msg('发表成功',{icon:1});
           window.location.reload();
+        }else if(data.code == 301){
+          layer.msg('请先登录',{icon:2});
+          $('#quick').show()
         }else{
           layer.msg(data.msg,{icon:2});
         }

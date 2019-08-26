@@ -20,60 +20,73 @@ class Index extends Base{
      *  【加盟行业、加盟项目排行、品牌精选模块（字、图）、项目推荐、行业资讯、品牌聚焦】
      * **/
     public function index(){
-        //实例化模型
-        $cateModel = new cateModel();
-        $itemModel = new itemModel();
-        $groupModel = new groupModel();
-        $articleModel = new articleModel();
-        $imageModel = new imageModel();
-        //首页-行业分类
-        $cateWhere['status'] = 1;
-        $cateWhere['pid'] = 0;
-        $cateList = $cateModel -> getCateDataList(['status'=>1,'pid'=>0],'reco desc','16',1);
-        //首页加盟项目排行
-        $hotItem = $itemModel -> getItemDataList(['status'=>1],'read_num desc','13',1);
-        //首页-品牌精选【品牌推荐-图片推荐】-start
-        $bwhere['gid'] = config('CHOICE');
-        $imgIdStr = $groupModel -> getItemIdStr(['status'=>1,'reco_img'=>1],'addtime desc',5);//封面图
-        $bwhere['reco_brand'] = 1;
-        $brandIdStr = $groupModel -> getItemIdStr(['status'=>1,'reco_brand'=>1],'addtime desc',7);//品牌
-        //查询出内容
-        $itemWhere['id'] = array('in',$brandIdStr);
-        $itemWhere['status'] = 1;
-        $groupData['brand'] = $itemModel -> getItemDataList($itemWhere,'id desc','',1);
-        $itemWhere['id'] = array('in',$imgIdStr);
-        $groupData['image'] = $itemModel -> getItemDataList($itemWhere,'id desc','',2);
-        //首页-品牌精选-end
-        //推荐项目
-        $recoItem = $itemModel -> getItemDataList(['status'=>1,'reco'=>1],'addtime desc',10,3);
-        //首页行业资讯-start
-        $imgData = $articleModel -> getArticleData(['status'=>1,'reco'=>1],'addtime desc',2,1);
-        if($imgData) {
-            foreach ($imgData as $key => $value) {
-                $recoArticle[$key]['rArticle'] = $imgData[$key];
-                //获取最新的文章 定义读取条数
-                $num = $key * 7;
-                $limit = $num . ',7';
-                $recoArticle[$key]['article'] = $articleModel->getArticleData(['status'=>1,'reco'=>0], 'addtime desc', $limit, 2);
-            }
-        }else{
-            $recoArticle = [];
-        }
-        //首页-行业资讯-end
-        //品牌精选
-        $brandList = $this -> getBrandList();
-        //广告
-        $imageData = $imageModel -> getImageDatList(['status'=>1,'web_page'=>1,'client'=>1]);
 
-        //分配变量渲染到页面
-        $this -> assign('cateList',$cateList);//行业分类
-        $this -> assign('hotItem',$hotItem);//加盟项目排行
-        $this -> assign('groupData',$groupData);//品牌加盟精选
-        $this -> assign('recoItem',$recoItem);//推荐项目
-        $this -> assign('recoArticle',$recoArticle);//行业资讯
-        $this -> assign('brandList',$brandList);//品牌聚焦
-        $this -> assign('imageData',$imageData);//广告数据
-        return view();
+        $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+        //验证是否为手机端访问
+        if (strpos($agent, 'ipod') || strpos($agent, 'ipad') || strpos($agent, 'iphone') || strpos($agent, 'android')) {//ipod
+            $index = 'https://wap.jiamengzhinan.com';
+            //验证是否为通过微信公众账号访问
+            if(strpos($agent,'MicroMessenger')){//微信访问
+                $index = 'http://wap.jiamengzhinan.com/wx/getOpenId';
+            }
+            $this->redirect($index);
+        }else {
+
+            //实例化模型
+            $cateModel = new cateModel();
+            $itemModel = new itemModel();
+            $groupModel = new groupModel();
+            $articleModel = new articleModel();
+            $imageModel = new imageModel();
+            //首页-行业分类
+            $cateWhere['status'] = 1;
+            $cateWhere['pid'] = 0;
+            $cateList = $cateModel->getCateDataList(['status' => 1, 'pid' => 0], 'reco desc', '16', 1);
+            //首页加盟项目排行
+            $hotItem = $itemModel->getItemDataList(['status' => 1], 'read_num desc', '13', 1);
+            //首页-品牌精选【品牌推荐-图片推荐】-start
+            $bwhere['gid'] = config('CHOICE');
+            $imgIdStr = $groupModel->getItemIdStr(['status' => 1, 'reco_img' => 1], 'addtime desc', 5);//封面图
+            $bwhere['reco_brand'] = 1;
+            $brandIdStr = $groupModel->getItemIdStr(['status' => 1, 'reco_brand' => 1], 'addtime desc', 7);//品牌
+            //查询出内容
+            $itemWhere['id'] = array('in', $brandIdStr);
+            $itemWhere['status'] = 1;
+            $groupData['brand'] = $itemModel->getItemDataList($itemWhere, 'id desc', '', 1);
+            $itemWhere['id'] = array('in', $imgIdStr);
+            $groupData['image'] = $itemModel->getItemDataList($itemWhere, 'id desc', '', 2);
+            //首页-品牌精选-end
+            //推荐项目
+            $recoItem = $itemModel->getItemDataList(['status' => 1, 'reco' => 1], 'addtime desc', 10, 3);
+            //首页行业资讯-start
+            $imgData = $articleModel->getArticleData(['status' => 1, 'reco' => 1], 'addtime desc', 2, 1);
+            if ($imgData) {
+                foreach ($imgData as $key => $value) {
+                    $recoArticle[$key]['rArticle'] = $imgData[$key];
+                    //获取最新的文章 定义读取条数
+                    $num = $key * 7;
+                    $limit = $num . ',7';
+                    $recoArticle[$key]['article'] = $articleModel->getArticleData(['status' => 1, 'reco' => 0], 'addtime desc', $limit, 2);
+                }
+            } else {
+                $recoArticle = [];
+            }
+            //首页-行业资讯-end
+            //品牌精选
+            $brandList = $this->getBrandList();
+            //广告
+            $imageData = $imageModel->getImageDatList(['status' => 1, 'web_page' => 1, 'client' => 1]);
+
+            //分配变量渲染到页面
+            $this->assign('cateList', $cateList);//行业分类
+            $this->assign('hotItem', $hotItem);//加盟项目排行
+            $this->assign('groupData', $groupData);//品牌加盟精选
+            $this->assign('recoItem', $recoItem);//推荐项目
+            $this->assign('recoArticle', $recoArticle);//行业资讯
+            $this->assign('brandList', $brandList);//品牌聚焦
+            $this->assign('imageData', $imageData);//广告数据
+            return view();
+        }
     }
 
     /*  首页  品牌聚焦    */

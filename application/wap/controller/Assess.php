@@ -81,10 +81,16 @@ class assess extends Base{
         $id = empty($_REQUEST['id']) ? wapReturn($this -> returnCode['ERROR'][1]) : $_REQUEST['id'];
         $where['id'] = $id;
         $assdata = $this -> assModel -> getAssEssData($where);
+        if(empty($assdata)){//评估报告不存在  返回错误
+            $rinfo = $returnCode['ERROR'][0];
+            wapReturn($rinfo);
+        }
         $idStr = $assdata['cate_id'].','.$assdata['like_cate_id'];
+        $idStr = trim($idStr,',');
         $cateIdArr = array_unique(explode(',',$idStr));//分割成数组 并且排重
         //遍历获取所关联行业的最大平均值和最小平均值
         $money = $assdata['money'];//预算值
+
         foreach ($cateIdArr as $key => $value) {
             $cateData = $this -> cateModel -> getCateData(['id'=>$value]);
             $fit[$key]['name'] = $cateData['name'];
@@ -108,9 +114,6 @@ class assess extends Base{
                     $fit[$key]['data'] = number_format(50 + $per,2);
                 }
             }
-//            echo '平均'.$avg."<br/>";
-//            echo '预算'.$assdata['money']."<br/>";
-//            echo '差'.$D_value."<br/>";
         }
 
         //排序
@@ -218,6 +221,5 @@ class assess extends Base{
         }
         wapReturn($dataList);
     }
-
 
 }
