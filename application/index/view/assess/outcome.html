@@ -15,6 +15,12 @@
 <body>
 <script type="text/javascript" src="__STATIC__/index/js/vendor.ca774af52bc39667be8d.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/app.e7671a9f70033ac0eaad.js"></script>
+<style type="text/css">
+    .el-dropdown-menu{
+        top: 20px;
+        left: -20px;
+    }
+</style>
 {/block}
 {block name="header"}{/block}
 {block name="content"}
@@ -106,25 +112,31 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
                                 <div data-v-949c1ac6="" class="qiun-select">
                                     <div data-v-949c1ac6="" class="el-dropdown">
                                         <span data-v-949c1ac6="" class="el-dropdown-link el-dropdown-selfdefine" aria-haspopup="list" aria-controls="dropdown-menu-2549" role="button" tabindex="0">
-                                        {$like_cate_count.0.name}
+                                            <span>{$like_cate_count.0.name}</span><i data-v-949c1ac6="" class="el-icon-arrow-down el-icon--right"></i>
                                         </span>
+                                        <ul data-v-949c1ac6="" class="el-dropdown-menu el-popper"
+                                            id="dropdown-menu-2549" style="display: none;">
+                                            <li  data-v-data-v-949c1ac6="" data-type="第一个" class="el-select-dropdown__item ">第一个</li>
+                                            <li  data-v-data-v-949c1ac6="" data-type="第二个" class="el-select-dropdown__item ">第二个</li>
+                                            <li  data-v-data-v-949c1ac6="" data-type="第三个" class="el-select-dropdown__item ">第三个</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
                             <div data-v-949c1ac6="" class="columns">
-                                <div data-v-949c1ac6="" class="col">
+                                <div data-v-949c1ac6="" class="col" id="min">
                                     <div data-v-949c1ac6="" class="money">{$column.min}万</div>
                                     <img data-v-949c1ac6="" src="__STATIC__/index/img/icon_col.c9fa1b5.png" height="{$column.min}%" class="icon_col">
                                     <div data-v-949c1ac6="" class="name">平均最低投资额</div>
                                 </div>
-                                <div data-v-949c1ac6="" class="col">
+                                <div data-v-949c1ac6="" class="col" id="max">>
                                     <div data-v-949c1ac6="" class="money">{$column.max}万</div>
                                     <div data-v-949c1ac6="" class="icon_col">
                                         <img data-v-949c1ac6="" height="{$column.max}%" src="__STATIC__/index/img/icon_col.c9fa1b5.png">
                                     </div>
                                     <div data-v-949c1ac6="" class="name">平均最高投资额</div>
                                 </div>
-                                <div data-v-949c1ac6="" class="col">
+                                <div data-v-949c1ac6="" class="col" id="avg">
                                     <div data-v-949c1ac6="" class="money">{$column.avg}万</div>
                                     <img data-v-949c1ac6="" src="__STATIC__/index/img/icon_col.c9fa1b5.png" height="{$column.avg}%" class="icon_col">
                                     <div data-v-949c1ac6="" class="name">平均投资额</div>
@@ -163,6 +175,30 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
 <script type="text/javascript">
     showPie();
     showRadar();
+    $('.el-dropdown-selfdefine').click(function(){
+        var display = $('#dropdown-menu-2549').css('display');
+        if(display == 'none'){
+            $('#dropdown-menu-2549').css({display: 'block'});
+        }else{
+            $('#dropdown-menu-2549').css({display: 'none'});
+        }
+    })
+    $("#dropdown-menu-2549 li").click(function(){
+
+        console.log("this",$(this));
+        $('.el-dropdown-selfdefine span').html($(this)[0].dataset.type);
+
+    //   todo 调用接口
+        //接口回调 开始
+        $('#max .money').html('20万')
+        $('#max .icon_col').css({height: '70%'})
+        $('#min .money').html('30万')
+        $('#min .icon_col').css({height: '80%'})
+        $('#avg .money').html('40万')
+        $('#avg .icon_col').css({height: '90%'})
+        $('#dropdown-menu-2549').css({display: 'none'});
+        //接口回调 结束
+    })
     function showPie(){
         let myChart = echarts.init(document.getElementById('canvasRing'));
         $.ajax({
