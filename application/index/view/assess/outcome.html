@@ -193,8 +193,8 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
         $('.el-dropdown-selfdefine span').html($(this).html());
         var id = 108; // todo 报告ID 你修改吧
         var cate_id = $(this)[0].dataset.cate_id;
+        $('#dropdown-menu-2549').css({display: 'none'});
 
-    //   todo 调用接口
         $.ajax({
             type: "POST",
             url: "{:url('index/assess/get_cate_avg_count')}",
@@ -209,7 +209,6 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
                 $('#min .icon_col').css({height: data.min/data.full*100 + '%'});
                 $('#avg .money').html(data.avg + '万')
                 $('#avg .icon_col').css({height: data.avg/data.full*100 + '%'});
-                $('#dropdown-menu-2549').css({display: 'none'});
             }
         })
 
