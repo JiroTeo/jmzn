@@ -116,9 +116,9 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
                                         </span>
                                         <ul data-v-949c1ac6="" class="el-dropdown-menu el-popper"
                                             id="dropdown-menu-2549" style="display: none;">
-                                            <li  data-v-data-v-949c1ac6="" data-type="第一个" class="el-select-dropdown__item ">第一个</li>
-                                            <li  data-v-data-v-949c1ac6="" data-type="第二个" class="el-select-dropdown__item ">第二个</li>
-                                            <li  data-v-data-v-949c1ac6="" data-type="第三个" class="el-select-dropdown__item ">第三个</li>
+                                            {foreach $like_cate_count as $key => $value}
+                                            <li  data-v-data-v-949c1ac6="" data-cate_id="{$value.id}" class="el-select-dropdown__item ">{$value.name}</li>
+                                            {/foreach}
                                         </ul>
                                     </div>
                                 </div>
@@ -175,6 +175,10 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
 <script type="text/javascript">
     showPie();
     showRadar();
+
+    /**
+     * 投资额类型修改事件
+     */
     $('.el-dropdown-selfdefine').click(function(){
         var display = $('#dropdown-menu-2549').css('display');
         if(display == 'none'){
@@ -186,18 +190,29 @@ src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAALCAYAAAAQlDMrAAAA5ElE
     $("#dropdown-menu-2549 li").click(function(){
 
         console.log("this",$(this));
-        $('.el-dropdown-selfdefine span').html($(this)[0].dataset.type);
+        $('.el-dropdown-selfdefine span').html($(this).html());
+        var id = 108; // todo 报告ID 你修改吧
+        var cate_id = $(this)[0].dataset.cate_id;
 
     //   todo 调用接口
-        //接口回调 开始
-        $('#max .money').html('20万')
-        $('#max .icon_col').css({height: '70%'})
-        $('#min .money').html('30万')
-        $('#min .icon_col').css({height: '80%'})
-        $('#avg .money').html('40万')
-        $('#avg .icon_col').css({height: '90%'})
-        $('#dropdown-menu-2549').css({display: 'none'});
-        //接口回调 结束
+        $.ajax({
+            type: "POST",
+            url: "{:url('index/assess/get_cate_avg_count')}",
+            data:{id,cate_id},
+            success: function(data){
+                var data = JSON.parse(data).data;
+                console.log('data',data);
+
+                $('#max .money').html(data.max +'万');
+                $('#max .icon_col').css({height: data.max/data.full*100+'%'});
+                $('#min .money').html(data.min + '万')
+                $('#min .icon_col').css({height: data.min/data.full*100 + '%'});
+                $('#avg .money').html(data.avg + '万')
+                $('#avg .icon_col').css({height: data.avg/data.full*100 + '%'});
+                $('#dropdown-menu-2549').css({display: 'none'});
+            }
+        })
+
     })
     function showPie(){
         let myChart = echarts.init(document.getElementById('canvasRing'));
